@@ -1,0 +1,32 @@
+{% extends "layouts/marketing.html" %}
+{% load i18n legal %}
+{% block title %}{{ post.title }}{% endblock %}
+{% block meta_description %}{{ post.excerpt }}{% endblock %}
+{% block og_title %}{{ post.title }}{% endblock %}
+{% block og_description %}{{ post.excerpt }}{% endblock %}
+{% block og_type %}article{% endblock %}
+{% block og_image %}{% if post.cover %}<meta property="og:image" content="{{ SITE_URL }}{{ post.cover.url }}">{% endif %}{% endblock %}
+{% block hreflang %}<link rel="alternate" hreflang="{{ post.language }}" href="{{ SITE_URL }}{{ request.path }}">{% endblock %}
+{% block extra_head %}<script type="application/ld+json">{{ ld_json }}</script>{% endblock %}
+{% block content %}
+<article class="mx-auto max-w-3xl px-4 py-14 sm:px-6">
+  <a href="{% url 'blog' %}" class="text-sm no-underline">← {% translate "All posts" %}</a>
+  <h1 class="mt-6 text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">{{ post.title }}</h1>
+  <p class="mt-3 text-sm text-muted">{{ post.author_name }} · <time datetime="{{ post.published_at|date:'c' }}">{{ post.published_at|date:"j E Y" }}</time> · {% blocktranslate count m=post.reading_minutes %}{{ m }} min read{% plural %}{{ m }} min read{% endblocktranslate %}</p>
+  {% if post.cover %}<img src="{{ post.cover.url }}" alt="{{ post.cover_alt }}" class="mt-8 w-full rounded-2xl border border-line">{% endif %}
+  <div class="mt-10 text-[17px] leading-relaxed text-ink [&_a]:underline [&_figure]:my-8 [&_h2]:mb-3 [&_h2]:mt-10 [&_h2]:text-2xl [&_h2]:font-semibold [&_h3]:mb-2 [&_h3]:mt-8 [&_h3]:text-lg [&_h3]:font-semibold [&_img]:rounded-xl [&_img]:border [&_img]:border-line [&_li]:mb-1.5 [&_p]:mb-5 [&_strong]:font-semibold [&_ul]:mb-5 [&_ul]:list-disc [&_ul]:pl-6">{{ post.body|content_markup }}</div>
+  <div class="mt-14 rounded-2xl bg-navy-900 p-8 text-white">
+    <p class="text-xl font-semibold">{% translate "Try Qrumy for free" %}</p>
+    <p class="mt-2 text-white/75">{% translate "Dynamic QR codes, feedback surveys and asset tracking — free while Qrumy is in beta." %}</p>
+    <a href="{% url 'account_signup' %}" class="btn btn-sm mt-5 bg-white text-navy-900 no-underline">{% translate "Get Started Free" %}</a>
+  </div>
+</article>
+{% if more %}
+<section class="border-t border-line bg-canvas py-14">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6">
+    <h2 class="text-xl font-semibold">{% translate "More from the blog" %}</h2>
+    <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">{% for post in more %}{% include "marketing/_post_card.html" %}{% endfor %}</div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

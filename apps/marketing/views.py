@@ -1,5 +1,8 @@
+import json
+
 from django.conf import settings
 from django.shortcuts import render
+from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
 from apps.subscriptions.features import FEATURES
@@ -99,3 +102,48 @@ def legal(request, kind):
     if doc is None:
         raise Http404
     return render(request, "marketing/legal.html", {"doc": doc})
+
+
+def blog_index(request):
+    from django.core.paginator import Paginator
+    from django.utils import translation
+
+    from .models import Post
+
+    posts = Post.objects.published().filter(language=translation.get_language())
+    page = Paginator(posts, 9).get_page(request.GET.get("page"))
+    return render(request, "marketing/blog_index.html", {"page": page})
+
+
+def blog_post(request, slug):
+    from django.http import Http404
+    from django.shortcuts import redirect
+    from django.utils import translation
+
+    from .models import Post
+
+    post = Post.objects.published().filter(slug=slug,
+                                           language=translation.get_language()).first()
+    if post is None:
+        # Switching language on a post leads to the same slug in the other language;
+        # posts are written separately per language, so show that language's blog.
+        if Post.objects.published().filter(slug=slug).exists():
+            return redirect("blog")
+        raise Http404
+    more = (Post.objects.published().filter(language=post.language)
+            .exclude(pk=post.pk)[:3])
+    site = settings.SITE_URL
+    ld = {"@context": "https://schema.org", "@type": "BlogPosting", "headline": post.title,
+          "description": post.excerpt, "inLanguage": post.language,
+          "datePublished": post.published_at.isoformat(),
+          "dateModified": post.updated_at.isoformat(),
+          "author": {"@type": "Organization", "name": post.author_name},
+          "publisher": {"@type": "Organization", "name": "Qrumy"},
+          "mainEntityOfPage": site + request.path}
+    if post.cover:
+        ld["image"] = site + post.cover.url
+    # Same escaping as json_script: the JSON can never close the <script> element.
+    ld_json = mark_safe(json.dumps(ld).translate(  # noqa: S308
+        {ord(">"): "\\u003E", ord("<"): "\\u003C", ord("&"): "\\u0026"}))
+    return render(request, "marketing/blog_post.html",
+                  {"post": post, "more": more, "ld_json": ld_json})

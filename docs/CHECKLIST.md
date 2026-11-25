@@ -130,6 +130,10 @@ Legend: `[ ]` not started · `[~]` in progress · `[x]` done and tested
 - [x] Terms of Service and Privacy Policy texts (en/az, v2026-11-25) seeded by a data migration
       (never overwrites admin edits); simple safe formatting (`## ` headings, `- ` lists)
 - [x] Email via Resend (anymail); console backend when no key is set
+- [x] Super-admin dashboard (admin home): users, organizations, QR codes, scans, surveys,
+      assets, paid subscriptions / expected MRR, sign-up and scan charts, latest sign-ups
+- [x] Blog (en/az): posts written in the admin (drafts, scheduling, cover and inline images,
+      safe formatting), list + post pages, JSON-LD, sitemap, navigation; 2 starter posts
 - [x] Account deletion (audit e-mail anonymised); ownership transfer; organization deletion
 - [x] Tests: 243 passing; Azerbaijani translations: 1,212 strings
 - [ ] Deployment to the VPS and go-live items — see docs/LAUNCH.md

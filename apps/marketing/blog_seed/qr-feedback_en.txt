@@ -1,0 +1,24 @@
+Most unhappy customers never complain — they simply do not come back. A QR code on the table, receipt or counter gives them a ten-second way to tell you what went wrong while they are still there, and gives happy customers a way to say so too.
+
+## Where to place a feedback QR code
+- On tables, menus and receipts in cafés and restaurants.
+- At the reception desk and in rooms in hotels.
+- On packaging and delivery bags for online orders.
+- At checkout counters, fitting rooms and service desks.
+
+## Keep the survey short
+Ask one main question and at most two or three follow-ups. A good start is the Net Promoter Score question: "How likely are you to recommend us to a friend or colleague?" on a 0–10 scale, followed by "What could we do better?". Short surveys get many more answers.
+
+## Know where every answer comes from
+Give each location its own QR code — one per branch, floor or table group. Then you can compare places and see exactly where a problem started.
+
+## Act on the answers
+- Read new responses every day and assign negative ones to a colleague.
+- Add internal notes and mark a response as resolved when it is handled.
+- Watch the trend of your scores week by week, not single answers.
+
+## Respect privacy
+Ask for contact details only when you really plan to reply, and only with the customer's consent. Qrumy never stores respondents' IP addresses and saves contact details only after consent.
+
+## Get started
+Create a survey in Qrumy, choose a ready NPS or satisfaction question, print its QR code and start collecting feedback today — free during the beta.

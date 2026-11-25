@@ -1,0 +1,24 @@
+Narazı müştərilərin çoxu heç vaxt şikayət etmir — sadəcə bir daha gəlmir. Masada, çekdə və ya piştaxtada olan QR kod onlara hələ yerindəykən nəyin səhv getdiyini on saniyəyə bildirmək imkanı verir; razı qalan müştərilər də bunu deyə bilir.
+
+## Rəy QR kodunu harada yerləşdirməli
+- Kafe və restoranlarda masalarda, menyularda və çeklərdə.
+- Otellərdə qəbul masasında və otaqlarda.
+- Onlayn sifarişlər üçün qablaşdırma və çatdırılma paketlərində.
+- Kassalarda, geyinmə otaqlarında və xidmət masalarında.
+
+## Sorğunu qısa saxlayın
+Bir əsas sual və ən çox iki-üç əlavə sual verin. Yaxşı başlanğıc Net Promoter Score sualıdır: 0–10 şkalası ilə "Bizi dostunuza və ya həmkarınıza tövsiyə etmə ehtimalınız nə qədərdir?", ardınca isə "Nəyi daha yaxşı edə bilərdik?". Qısa sorğular daha çox cavab toplayır.
+
+## Hər cavabın haradan gəldiyini bilin
+Hər məkana ayrıca QR kod verin — hər filial, mərtəbə və ya masa qrupu üçün bir kod. Belə olduqda yerləri müqayisə edə və problemin harada başladığını dəqiq görə bilərsiniz.
+
+## Cavablara əsasən hərəkət edin
+- Yeni cavabları hər gün oxuyun və mənfi olanları həmkarınıza təyin edin.
+- Daxili qeydlər əlavə edin və məsələ həll olunduqda cavabı "həll edildi" kimi qeyd edin.
+- Tək-tək cavablara deyil, ballarınızın həftəlik dinamikasına baxın.
+
+## Məxfiliyə hörmət edin
+Əlaqə məlumatlarını yalnız həqiqətən cavab verməyi planlaşdırdıqda və yalnız müştərinin razılığı ilə soruşun. Qrumy respondentlərin IP ünvanlarını heç vaxt saxlamır və əlaqə məlumatlarını yalnız razılıqdan sonra qeyd edir.
+
+## Başlayın
+Qrumy-də sorğu yaradın, hazır NPS və ya məmnuniyyət sualını seçin, onun QR kodunu çap edin və bu gündən rəy toplamağa başlayın — beta dövründə pulsuz.

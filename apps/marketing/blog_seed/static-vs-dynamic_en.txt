@@ -1,0 +1,27 @@
+A QR code looks the same whether it is static or dynamic, but the two behave very differently once they are printed. Choosing the right one saves you from reprinting menus, packaging and posters.
+
+## What is a static QR code?
+A static QR code stores its content directly in the pattern: a web address, Wi-Fi details, a phone number or plain text. A phone reads it without contacting any server.
+- It works forever and does not depend on any service.
+- Its content can never be changed. A typo or a new website address means a new code.
+- Scans cannot be counted.
+
+## What is a dynamic QR code?
+A dynamic QR code contains a short link (for example qrumy.com/q/AbC123). When someone scans it, the link sends them to the destination you choose, which you can change at any time.
+- **Edit after printing**: change the destination without reprinting.
+- **Scan statistics**: see how many people scanned it, when, on which devices and from which countries.
+- **Control**: pause a code, set an expiry date or move it to a new campaign.
+- The pattern stays simple and small because the link is short, so it scans quickly even when printed small.
+
+## Which one should you choose?
+Use a **static** code for things that will never change, such as a Wi-Fi network or a contact card printed for yourself.
+Use a **dynamic** code for anything a customer sees: menus, packaging, flyers, posters, business cards, product labels and feedback forms. Prices, links and promotions change; your printed codes should not have to.
+
+## Tips for codes that scan every time
+- Keep strong contrast: a dark pattern on a light background.
+- Leave a quiet margin around the code.
+- Do not print it smaller than about 2 × 2 cm for close reading; go larger for posters read from a distance.
+- Test the printed code with two or three different phones before a large print run.
+
+## Get started
+In Qrumy you can create dynamic QR codes, brand them with your colours and logo, and follow every scan — free while Qrumy is in beta.

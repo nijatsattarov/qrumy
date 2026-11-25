@@ -1,4 +1,5 @@
 import io
+from unittest import mock
 
 import pytest
 from django.core.exceptions import ValidationError
@@ -251,7 +252,9 @@ def test_rate_limited_scans_still_redirect_but_are_not_counted(settings, client,
     settings.CACHES = {"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache",
                                    "LOCATION": "ratelimit-test"}}
     qr = make_qr(make_org())
-    for _ in range(305):
-        resp = _scan(client, qr)
-        assert resp.status_code == 302  # people behind a shared IP are never blocked
+    # Pin the clock: the limiter counts per minute window, and a slow run must not cross one.
+    with mock.patch("django_ratelimit.core.time.time", return_value=1_800_000_010):
+        for _ in range(305):
+            resp = _scan(client, qr)
+            assert resp.status_code == 302  # people behind a shared IP are never blocked
     assert Scan.objects.count() == 300

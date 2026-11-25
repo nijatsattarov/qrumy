@@ -1,0 +1,66 @@
+{% extends "admin/base.html" %}
+{% load i18n unfold %}
+
+{% block title %}{% trans "Dashboard" %} | {{ site_title|default:_("Django site admin") }}{% endblock %}
+
+{% block branding %}{% include "unfold/helpers/site_branding.html" %}{% endblock %}
+
+{% block content %}
+<div class="flex flex-col gap-6">
+  <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+    {% for k in kpis %}
+      {% component "unfold/components/card.html" with href=k.href size="md" %}
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            {% component "unfold/components/text.html" %}{{ k.title }}{% endcomponent %}
+            <div class="mt-1 text-3xl font-semibold text-important">{{ k.value }}</div>
+            <p class="mt-1 text-sm text-subtle">{{ k.note }}</p>
+          </div>
+          <span class="material-symbols-outlined text-primary-600 text-3xl!">{{ k.icon }}</span>
+        </div>
+      {% endcomponent %}
+    {% endfor %}
+  </div>
+
+  {% component "unfold/components/card.html" with title=_("Revenue and plans") title_icon="payments" %}
+    <div class="grid gap-6 md:grid-cols-3">
+      <div>
+        {% component "unfold/components/text.html" %}{% trans "Paid subscriptions" %}{% endcomponent %}
+        <div class="mt-1 text-3xl font-semibold text-important">{{ revenue.paid }}</div>
+      </div>
+      <div>
+        {% component "unfold/components/text.html" %}{% trans "Expected monthly revenue (USD)" %}{% endcomponent %}
+        <div class="mt-1 text-3xl font-semibold text-important">${{ revenue.mrr }}</div>
+      </div>
+      <div>
+        {% component "unfold/components/text.html" %}{% trans "Organizations by plan" %}{% endcomponent %}
+        <ul class="mt-2 text-sm">
+          {% for p in revenue.plans %}<li class="flex justify-between py-0.5"><span>{{ p.plan__name }}</span><span class="font-semibold text-important">{{ p.n }}</span></li>
+          {% empty %}<li class="text-subtle">—</li>{% endfor %}
+        </ul>
+      </div>
+    </div>
+    <p class="mt-6 text-sm text-subtle">{{ revenue.payments }}</p>
+  {% endcomponent %}
+
+  <div class="grid gap-6 lg:grid-cols-2">
+    {% component "unfold/components/card.html" with title=_("Sign-ups, last 30 days") %}
+      {% component "unfold/components/chart/bar.html" with data=signup_chart height=260 %}{% endcomponent %}
+    {% endcomponent %}
+    {% component "unfold/components/card.html" with title=_("QR scans, last 30 days") %}
+      {% component "unfold/components/chart/bar.html" with data=scan_chart height=260 %}{% endcomponent %}
+    {% endcomponent %}
+  </div>
+
+  <div class="grid gap-6 lg:grid-cols-2">
+    {% component "unfold/components/card.html" with title=_("Latest sign-ups") %}
+      {% component "unfold/components/table.html" with table=recent_users card_included=1 striped=1 %}{% endcomponent %}
+    {% endcomponent %}
+    {% component "unfold/components/card.html" with title=_("Organizations with the most QR codes") %}
+      {% component "unfold/components/table.html" with table=top_orgs card_included=1 striped=1 %}{% endcomponent %}
+    {% endcomponent %}
+  </div>
+
+  {% include "unfold/helpers/app_list_default.html" with show_changelinks=True %}
+</div>
+{% endblock %}

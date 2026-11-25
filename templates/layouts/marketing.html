@@ -4,9 +4,12 @@
   {% get_current_language as LANGUAGE_CODE %}
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="{{ SITE_URL }}{{ request.path }}">
+  {% block hreflang %}
   {% for code, name in LANGUAGES %}{% language code %}<link rel="alternate" hreflang="{{ code }}" href="{{ SITE_URL }}{% url request.resolver_match.view_name %}">{% endlanguage %}{% endfor %}
   {% language "en" %}<link rel="alternate" hreflang="x-default" href="{{ SITE_URL }}{% url request.resolver_match.view_name %}">{% endlanguage %}
-  <meta property="og:type" content="website">
+  {% endblock %}
+  <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+  {% block og_image %}{% endblock %}
   <meta property="og:site_name" content="Qrumy">
   <meta property="og:title" content="{% block og_title %}Qrumy{% endblock %}">
   <meta property="og:description" content="{% block og_description %}{% translate 'Manage QR codes, collect customer feedback, track assets and turn event interactions into business opportunities — all in one platform.' %}{% endblock %}">
@@ -23,6 +26,7 @@
       <a href="{% url 'home' %}#products" class="text-muted no-underline hover:text-ink">{% translate "Products" %}</a>
       <a href="{% url 'home' %}#how-it-works" class="text-muted no-underline hover:text-ink">{% translate "How it works" %}</a>
       <a href="{% url 'pricing' %}" class="text-muted no-underline hover:text-ink">{% translate "Pricing" %}</a>
+      <a href="{% url 'blog' %}" class="text-muted no-underline hover:text-ink">{% translate "Blog" %}</a>
       <a href="{% url 'home' %}#faq" class="text-muted no-underline hover:text-ink">{% translate "FAQ" %}</a>
     </nav>
     <div class="ml-auto hidden items-center gap-2 md:flex">
@@ -41,6 +45,7 @@
       <a href="{% url 'home' %}#products" class="py-2 text-ink no-underline">{% translate "Products" %}</a>
       <a href="{% url 'home' %}#how-it-works" class="py-2 text-ink no-underline">{% translate "How it works" %}</a>
       <a href="{% url 'pricing' %}" class="py-2 text-ink no-underline">{% translate "Pricing" %}</a>
+      <a href="{% url 'blog' %}" class="py-2 text-ink no-underline">{% translate "Blog" %}</a>
       <a href="{% url 'home' %}#faq" class="py-2 text-ink no-underline">{% translate "FAQ" %}</a>
     </nav>
     {% include "components/language_switcher.html" with id="mob" css="py-2 text-muted" %}
@@ -65,6 +70,7 @@
       <ul class="mt-3 space-y-2 text-sm">
         <li><a href="{% url 'home' %}#products" class="text-muted no-underline hover:text-ink">{% translate "Products" %}</a></li>
         <li><a href="{% url 'pricing' %}" class="text-muted no-underline hover:text-ink">{% translate "Pricing" %}</a></li>
+        <li><a href="{% url 'blog' %}" class="text-muted no-underline hover:text-ink">{% translate "Blog" %}</a></li>
         <li><a href="{% url 'home' %}#faq" class="text-muted no-underline hover:text-ink">{% translate "FAQ" %}</a></li>
       </ul>
     </div>

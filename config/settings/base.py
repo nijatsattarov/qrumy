@@ -314,6 +314,7 @@ UNFOLD = {
     "SITE_HEADER": "Qrumy",
     "SITE_SYMBOL": "qr_code_2",
     "SHOW_HISTORY": True,
+    "DASHBOARD_CALLBACK": "apps.core.admin_dashboard.dashboard_callback",
     "COLORS": {
         "primary": {
             "50": "238 242 255", "100": "224 231 255", "200": "199 210 254",

@@ -1,0 +1,30 @@
+{% extends "layouts/marketing.html" %}
+{% load i18n %}
+{% block title %}{% translate "Blog" %}{% endblock %}
+{% block meta_description %}{% translate "Guides and news about QR codes, customer feedback and asset management from the Qrumy team." %}{% endblock %}
+{% block og_title %}{% translate "Qrumy blog" %}{% endblock %}
+{% block content %}
+<section class="py-16 sm:py-20">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6">
+    <div class="max-w-2xl">
+      <p class="eyebrow">{% translate "Blog" %}</p>
+      <h1 class="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">{% translate "Guides and news" %}</h1>
+      <p class="mt-4 text-lg text-muted">{% translate "Practical ideas for using QR codes, customer feedback and asset tracking in your business." %}</p>
+    </div>
+    {% if page.object_list %}
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {% for post in page.object_list %}{% include "marketing/_post_card.html" %}{% endfor %}
+      </div>
+      {% if page.has_other_pages %}
+      <nav class="mt-10 flex items-center justify-between text-sm" aria-label="{% translate 'Pages' %}">
+        {% if page.has_previous %}<a href="?page={{ page.previous_page_number }}" class="btn btn-secondary btn-sm">← {% translate "Newer posts" %}</a>{% else %}<span></span>{% endif %}
+        <span class="text-muted">{% blocktranslate with n=page.number t=page.paginator.num_pages %}Page {{ n }} of {{ t }}{% endblocktranslate %}</span>
+        {% if page.has_next %}<a href="?page={{ page.next_page_number }}" class="btn btn-secondary btn-sm">{% translate "Older posts" %} →</a>{% else %}<span></span>{% endif %}
+      </nav>
+      {% endif %}
+    {% else %}
+      <p class="mt-12 text-muted">{% translate "No posts yet. Check back soon." %}</p>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,27 @@
+Statik və dinamik QR kod görünüşcə eynidir, lakin çap olunduqdan sonra tamamilə fərqli işləyirlər. Düzgün seçim sizi menyuları, qablaşdırmaları və posterləri yenidən çap etməkdən xilas edir.
+
+## Statik QR kod nədir?
+Statik QR kod məzmunu birbaşa öz naxışında saxlayır: veb ünvan, Wi-Fi məlumatları, telefon nömrəsi və ya sadə mətn. Telefon onu heç bir serverə qoşulmadan oxuyur.
+- Həmişə işləyir və heç bir xidmətdən asılı deyil.
+- Məzmunu heç vaxt dəyişdirilə bilməz. Yazı səhvi və ya yeni sayt ünvanı yeni kod deməkdir.
+- Skanları saymaq mümkün deyil.
+
+## Dinamik QR kod nədir?
+Dinamik QR kodun içində qısa link olur (məsələn, qrumy.com/q/AbC123). Kimsə onu skan etdikdə link onu sizin seçdiyiniz və istənilən vaxt dəyişə biləcəyiniz ünvana yönləndirir.
+- **Çapdan sonra dəyişmək**: ünvanı yenidən çap etmədən dəyişin.
+- **Skan statistikası**: neçə nəfərin, nə vaxt, hansı cihazlardan və hansı ölkələrdən skan etdiyini görün.
+- **Nəzarət**: kodu dayandırın, bitmə tarixi təyin edin və ya yeni kampaniyaya keçirin.
+- Link qısa olduğu üçün naxış sadə və kiçik qalır, ona görə də kiçik çap olunduqda belə tez oxunur.
+
+## Hansını seçməli?
+Heç vaxt dəyişməyəcək şeylər üçün **statik** koddan istifadə edin, məsələn, Wi-Fi şəbəkəsi və ya özünüz üçün çap etdiyiniz vizit kartı.
+Müştərinin gördüyü hər şey üçün **dinamik** kod seçin: menyular, qablaşdırma, bukletlər, posterlər, vizit kartları, məhsul etiketləri və rəy formaları. Qiymətlər, linklər və kampaniyalar dəyişir; çap olunmuş kodlarınız isə dəyişməli olmamalıdır.
+
+## Hər dəfə oxunan kodlar üçün məsləhətlər
+- Güclü kontrast saxlayın: açıq fonda tünd naxış.
+- Kodun ətrafında boş kənar saxlayın.
+- Yaxından oxunması üçün təxminən 2 × 2 sm-dən kiçik çap etməyin; uzaqdan oxunan posterlər üçün daha böyük edin.
+- Böyük tirajlı çapdan əvvəl çap olunmuş kodu iki-üç fərqli telefonla yoxlayın.
+
+## Başlayın
+Qrumy-də dinamik QR kodlar yarada, onları öz rəngləriniz və loqonuzla bəzəyə və hər skanı izləyə bilərsiniz — Qrumy beta mərhələsində olduğu müddətdə pulsuz.

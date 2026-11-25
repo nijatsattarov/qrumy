@@ -8,7 +8,7 @@ from django.urls import include, path
 from apps.accounts.views import set_language
 from apps.assets import urls as asset_urls
 from apps.core import views as core_views
-from apps.marketing.sitemaps import StaticViewSitemap
+from apps.marketing.sitemaps import BlogSitemap, StaticViewSitemap
 from apps.qr_management import urls as qr_urls
 from apps.surveys import urls as survey_urls
 
@@ -30,7 +30,7 @@ urlpatterns = [
     path("invitations/", include("apps.organizations.invitation_urls")),
     path("notifications/", include("apps.notifications.urls")),
     path("robots.txt", core_views.robots_txt, name="robots_txt"),
-    path("sitemap.xml", sitemap, {"sitemaps": {"static": StaticViewSitemap}},
+    path("sitemap.xml", sitemap, {"sitemaps": {"static": StaticViewSitemap, "blog": BlogSitemap}},
          name="django.contrib.sitemaps.views.sitemap"),
 ]
 

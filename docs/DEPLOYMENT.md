@@ -113,6 +113,12 @@ To change them, open the admin → **Accounts → Legal documents**:
 - Formatting: a line starting with `## ` is a heading, `- ` a list item, a blank line starts a
   new paragraph. HTML is not interpreted.
 
+## 9. Blog
+Write posts in the admin → **Marketing → Blog posts**. Each post is written in one language
+(English or Azerbaijani) and appears at `/blog/<slug>/` or `/az/blog/<slug>/`. Leave
+"published at" empty for a draft, set a future time to schedule. To put an image inside the
+text, upload it under "Images for the text", save, and paste the line shown into the text.
+
 ## GeoIP (optional)
 Create a free MaxMind account, download **GeoLite2-City.mmdb** and mount it into the
 `web` container (e.g. `./var:/app/var:ro` and `QRUMY_GEOIP_CITY_DB=/app/var/GeoLite2-City.mmdb`).
