@@ -2,6 +2,11 @@
 
 Target: Ubuntu 24.04 LTS, 2–4 vCPU, 4–8 GB RAM, Docker Engine + Compose plugin.
 
+**Hostinger VPS:** choose the *Ubuntu 24.04 with Docker* template (or plain Ubuntu 24.04 and
+install Docker with `curl -fsSL https://get.docker.com | sh`). Point the domain's `A`
+records to the VPS IP in hPanel → DNS. Hostinger's panel firewall can stay off when `ufw`
+is used as below (otherwise allow ports 22, 80 and 443 there too).
+
 ## 1. First-time setup
 ```bash
 git clone <repo> /srv/qrumy && cd /srv/qrumy
@@ -16,9 +21,8 @@ Edit `.env`:
 | `ALLOWED_HOSTS` | `qrumy.com,www.qrumy.com` |
 | `SITE_URL` | `https://qrumy.com` |
 | `QRUMY_ADMIN_PATH` | a non-obvious path, e.g. `ops-7f3k/` |
-| `EMAIL_BACKEND` | e.g. `anymail.backends.postmark.EmailBackend` (any Anymail provider) |
-| `ANYMAIL` | provider settings, e.g. `POSTMARK_SERVER_TOKEN=...` |
-| `DEFAULT_FROM_EMAIL` | `Qrumy <no-reply@qrumy.com>` |
+| `RESEND_API_KEY` | API key from resend.com (**Sending access** is enough) — switches email delivery to Resend |
+| `DEFAULT_FROM_EMAIL` | `Qrumy <no-reply@qrumy.com>` — the domain must be verified in Resend |
 | `CERTS_DIR` | `/etc/letsencrypt/live/qrumy.com` |
 | `SENTRY_DSN` | optional, enables error monitoring (Sentry) |
 | `SECRET_KEY_FALLBACKS` | previous secret keys while rotating `SECRET_KEY` (comma-separated) |
@@ -28,8 +32,18 @@ Edit `.env`:
 | `QRUMY_COUNTRY_HEADER` | `HTTP_CF_IPCOUNTRY` if Qrumy runs behind Cloudflare (country only) |
 | `QRUMY_SAFE_BROWSING_KEY` | optional Google Safe Browsing key (blocks known-malicious destinations) |
 
-> Without an email provider, `EMAIL_BACKEND` defaults to the console backend and **no
-> emails are delivered** (sign-up verification will not reach users).
+> Without `RESEND_API_KEY`, emails are only printed to the container log and **no emails are
+> delivered** (sign-up verification will not reach users).
+
+### Email with Resend
+1. In Resend → **Domains** → add `qrumy.com` (or a subdomain such as `mail.qrumy.com`).
+2. Add the DNS records Resend shows (SPF `TXT`, DKIM `TXT`/`CNAME`, optional `MX` for the
+   bounce subdomain) at your DNS provider and wait until Resend marks the domain *Verified*.
+3. Add a DMARC record, e.g. `_dmarc.qrumy.com TXT "v=DMARC1; p=none; rua=mailto:dmarc@qrumy.com"`
+   (move to `p=quarantine` once reports look clean).
+4. Create an API key with **Sending access**, put it in `.env` as `RESEND_API_KEY`, set
+   `DEFAULT_FROM_EMAIL`, and restart: `docker compose -f docker-compose.prod.yml up -d`.
+5. Test: `docker compose -f docker-compose.prod.yml exec web python manage.py sendtestemail you@example.com`
 
 ## 2. TLS certificate (Let's Encrypt)
 DNS: `A` records for `qrumy.com` and `www.qrumy.com` → VPS IP. Then:
@@ -87,9 +101,17 @@ request bodies, SQL parameters and local variables. Point an uptime monitor at
 `https://qrumy.com/healthz` (returns 200 when the app and database are up).
 
 ## 8. Legal pages
-Publish the Terms of Service and Privacy Policy in the admin (**Accounts → Legal documents**,
-English and Azerbaijani, with a version and a publication time). Once Terms are published,
-sign-up requires accepting them and the accepted versions are stored per user.
+The Terms of Service and Privacy Policy (English and Azerbaijani, version `2026-11-25`) are
+published automatically by `migrate` (texts in `apps/accounts/legal_texts/`). They appear at
+`/terms/`, `/privacy/`, `/az/terms/`, `/az/privacy/`, in the footer and as a required checkbox at
+sign-up; each user's accepted versions are stored.
+
+To change them, open the admin → **Accounts → Legal documents**:
+- small fixes (typos): edit the document and save — the page updates immediately;
+- material changes: use "Save as new" with a new **version** (e.g. `2027-03-01`) and a
+  publication time. The newest published version is shown; older ones stay for the record.
+- Formatting: a line starting with `## ` is a heading, `- ` a list item, a blank line starts a
+  new paragraph. HTML is not interpreted.
 
 ## GeoIP (optional)
 Create a free MaxMind account, download **GeoLite2-City.mmdb** and mount it into the

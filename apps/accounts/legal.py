@@ -17,8 +17,9 @@ class LegalDocument(models.Model):
                                help_text=_("e.g. 2026-12-01. Increase it for every change "
                                            "users must accept again."))
     title = models.CharField(_("title"), max_length=150)
-    body = models.TextField(_("text"), help_text=_("Plain text. Blank lines start new "
-                                                   "paragraphs."))
+    body = models.TextField(_("text"), help_text=_("Plain text. A line starting with “## ” is a "
+                                                   "heading, “- ” a list item; blank lines "
+                                                   "separate paragraphs."))
     published_at = models.DateTimeField(_("published at"), null=True, blank=True,
                                         help_text=_("Empty = draft (not shown to anyone)."))
     created_at = models.DateTimeField(auto_now_add=True)

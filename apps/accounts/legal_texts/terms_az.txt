@@ -1,0 +1,74 @@
+Bu İstifadə Şərtləri ("Şərtlər") Qrumy-yə, qrumy.com saytına və onun vasitəsilə təqdim olunan proqram təminatına, məhsul və xidmətlərə (birlikdə "Xidmət") çıxışınızı və onlardan istifadənizi tənzimləyir. Xidməti Qrumy ("Qrumy", "biz") idarə edir. Hesab yaratmaqla və ya Xidmətdən istifadə etməklə bu Şərtləri qəbul edirsiniz. Xidmətdən şirkət və ya digər təşkilat adından istifadə edirsinizsə, onun adından bu Şərtləri qəbul etməyə səlahiyyətiniz olduğunu təsdiq edirsiniz və "siz" ifadəsinə həmin təşkilat da daxildir.
+
+## 1. Xidmət
+Qrumy bizneslər üçün platformadır: QR kodların idarə edilməsi və analitikası, sorğular və rəylərin toplanması, aktivlərin idarə edilməsi və əlaqəli məhsullar. Məhsullar mərhələli şəkildə istifadəyə verilir. Sizə əlçatan funksiyalar planınızdan və hansı məhsulların istifadəyə verildiyindən asılıdır.
+
+## 2. Beta
+Xidmət hazırda pulsuz açıq beta kimi təqdim olunur. Beta dövründə:
+- funksiyalar dəyişə, məhdudlaşdırıla və ya çıxarıla bilər, Xidmətdə fasilələr ola bilər;
+- Xidmət "olduğu kimi" və "mövcud olduğu qədər" təqdim olunur (12-ci bölməyə baxın);
+- ödənişli planlar barədə əvvəlcədən məlumat veriləcək. Açıq razılığınız olmadan heç bir ödəniş tutulmur və Xidmətdən istənilən vaxt istifadəni dayandıra bilərsiniz.
+
+## 3. Hesablar
+- Hesab yaratmaq üçün ən azı 16 yaşınız (və ya ölkənizdə rəqəmsal razılıq yaşı daha yüksəkdirsə, həmin yaş) olmalıdır.
+- Dəqiq məlumat verməli və onu aktual saxlamalısınız.
+- Şifrənizin və iki addımlı doğrulama vasitələrinizin təhlükəsizliyinə və hesabınızdakı bütün fəaliyyətə siz cavabdehsiniz. İcazəsiz istifadədən şübhələnsəniz, dərhal support@qrumy.com ünvanına yazın.
+- Şəxsi hesabı başqaları ilə bölüşmək olmaz. Bunun əvəzinə komanda üzvlərini təşkilatınıza dəvət edin.
+
+## 4. Təşkilatlar və komanda üzvləri
+Qrumy-dəki məzmun təşkilata (iş sahəsinə) məxsusdur. Təşkilatın sahibi onu idarə edir, üzvləri dəvət edə, rollar təyin edə və üzvləri çıxara, sahibliyi ötürə və ya təşkilatı silə bilər. Təşkilat (sahibi vasitəsilə) dəvət etdiyi üzvlərə və onların iş sahəsindəki fəaliyyətinə görə cavabdehdir.
+
+## 5. Sizin məzmununuz
+"Sizin məzmununuz" sizin və ya üzvlərinizin Xidmətə yüklədiyi və ya orada yaratdığı hər şeydir: QR kodlar və onların ünvanları, sorğular və cavablar, aktivlər, sənədlər, fotolar, loqolar və digər məlumatlar, həmçinin Xidmət vasitəsilə müştərilərinizdən, respondentlərinizdən və işçilərinizdən toplanan məlumatlar.
+- Məzmununuza dair bütün hüquqlar sizdə qalır. Biz ona sahiblik iddia etmirik.
+- Siz bizə məzmununuzu yalnız Xidməti sizin üçün işlətmək, qorumaq və təkmilləşdirmək üçün lazım olduğu qədər və Məxfilik Siyasətində təsvir edildiyi kimi saxlamaq, surətini çıxarmaq, emal etmək, ötürmək və göstərmək üçün məhdud, ümumdünya, qeyri-eksklüziv lisenziya verirsiniz.
+- Məzmununuza siz cavabdehsiniz və ondan istifadə üçün lazım olan hüquq və icazələrə, o cümlədən müştərilərinizdən və respondentlərinizdən məlumat toplamaq üçün qanunla tələb olunan bildiriş və razılıqlara malik olduğunuzu təsdiq edirsiniz.
+
+## 6. Başqalarından topladığınız məlumatlar
+Qrumy-dən başqa insanlardan (məsələn, sorğu respondentlərindən, QR kodlarınızı skan edənlərdən və ya nasazlıq bildirən işçilərdən) məlumat toplamaq üçün istifadə etdikdə nəyin və nə üçün toplandığına siz qərar verirsiniz. Bu məlumatlar üzrə məlumatların qorunması qanunvericiliyinə əsasən siz "nəzarətçi", Qrumy isə sizin "emalçınız" kimi çıxış edir. Hüquqi əsasın olmasına, həmin insanlara tələb olunan məxfilik məlumatının verilməsinə və onların müraciətlərinin cavablandırılmasına siz cavabdehsiniz. Biz bu məlumatları yalnız sizin göstərişlərinizlə, Məxfilik Siyasətində təsvir edildiyi kimi emal edirik.
+
+## 7. Qəbuledilən istifadə
+Xidmətdən aşağıdakılar üçün istifadə etməməli və başqalarına istifadə etməyə imkan verməməlisiniz:
+- fişinq, fırıldaqçılıq, aldatma, zərərli proqram üçün və ya qanunsuz məzmuna yönləndirən QR kodlar, linklər və səhifələr yaratmaq;
+- spam və ya arzuolunmaz mesajlar göndərmək, hüquqi əsas və ya tələb olunan razılıq olmadan şəxsi məlumat toplamaq;
+- hər hansı şəxsi və ya təşkilatı təqlid etmək, QR kodun və ya sorğunun mənşəyi barədə insanları çaşdırmaq;
+- başqalarının, o cümlədən əqli mülkiyyət və məxfilik hüquqlarını pozmaq;
+- qanunsuz, nifrət dolu, zorakı, azyaşlılarla bağlı seksual xarakterli və ya başqalarını təqib edən məzmun yükləmək;
+- Xidmətin zəifliklərini yoxlamaq, skan etmək, onun təhlükəsizliyini, limitlərini və ya plan məhdudiyyətlərini keçmək, digər təşkilatların məlumatlarına çıxış əldə etmək;
+- avtomatlaşdırılmış skanlar, məlumat çəkmə (scraping) və ya süni trafik daxil olmaqla Xidməti həddindən artıq yükləmək;
+- yazılı razılığımız olmadan Xidməti öz məhsulunuz kimi üçüncü şəxslərə yenidən satmaq və ya təqdim etmək.
+QR ünvanlarını bloklama siyahıları ilə yoxlaya və əsaslı şəkildə zərərli hesab etdiyimiz ünvanları bloklaya bilərik.
+
+## 8. Dayandırma və xitam
+Bu Şərtlərin və ya qanunun pozulduğuna, insanlar və ya Xidmət üçün risk olduğuna əsaslı şəkildə inandıqda və ya qanun tələb etdikdə hesabı, təşkilatı, QR kodu və ya sorğunu xəbərdarlıqla və ya xəbərdarlıqsız dayandıra və ya məhdudlaşdıra bilərik. Mümkün olduqda səbəbi bildirəcək və cavab vermək imkanı yaradacağıq.
+Xidmətdən istifadəni istənilən vaxt dayandıra bilərsiniz. Təşkilatı onun ayarlarından, hesabınızı isə hesab səhifənizdən silə bilərsiniz. Təşkilat silindikdə onun məzmunu silinir və QR kodları işləməyi dayandırır. Ehtiyat nüsxələrdəki surətlər həmin nüsxələrin müddəti bitdikdə silinir (Məxfilik Siyasətinə baxın).
+
+## 9. Planlar, limitlər və ödənişlər
+Hər planın limitləri var (məsələn, QR kodların, sorğuların, aktivlərin, cavabların və ya komanda üzvlərinin sayına görə). Limitə çatdıqda planı yüksəldənə və ya istifadəni azaldana qədər bəzi əməliyyatlar bloklana bilər. Ödənişli planlar əlçatan olduqda qiymətlər, ödəniş dövrləri, vergilər və ləğv qaydaları alışdan əvvəl göstəriləcək və bu Şərtlərin bir hissəsi olacaq. Açıq razılığınız olmadan sizi ödənişli plana keçirməyəcəyik.
+
+## 10. Bizim əqli mülkiyyətimiz
+Xidmət, o cümlədən onun proqram təminatı, dizaynı, loqoları və "Qrumy" adı Qrumy-yə məxsusdur və qanunla qorunur. Bu Şərtlər sizə əmtəə nişanlarımıza heç bir hüquq vermir. Bizə rəy və ya təklif göndərsəniz, onlardan sizə qarşı heç bir öhdəlik olmadan istifadə edə bilərik.
+
+## 11. Üçüncü tərəf xidmətləri
+Xidmət üçüncü tərəf provayderlərinə (məsələn, hostinq və e-poçt çatdırılması) əsaslanır və QR kodların ünvanları kimi üçüncü tərəf saytlarına keçidlər ola bilər. Üçüncü tərəf saytlarına və ya sizin və digər istifadəçilərin keçid verdiyi məzmuna görə məsuliyyət daşımırıq.
+
+## 12. Zəmanətdən imtina
+Qanunla icazə verilən maksimum həddə Xidmət "olduğu kimi" və "mövcud olduğu qədər", açıq və ya nəzərdə tutulan heç bir zəmanət olmadan, o cümlədən satışa yararlılıq, müəyyən məqsəd üçün uyğunluq, hüquq pozuntusunun olmaması və fasiləsiz və ya xətasız işləmə zəmanətləri olmadan təqdim olunur. Çap edilmiş QR kodların yönləndirməsi Xidmətdən asılıdır: hesabınızı aktiv saxlayın və böyük tirajlı çapdan əvvəl çap olunmuş kodları yoxlayın. Bu Şərtlərdəki heç nə məcburi qanunvericiliyə əsasən istehlakçı kimi malik olduğunuz hüquqları istisna etmir.
+
+## 13. Məsuliyyətin məhdudlaşdırılması
+Qanunla icazə verilən maksimum həddə Qrumy Xidmətdən irəli gələn və ya onunla bağlı dolayı, təsadüfi, xüsusi, nəticə etibarilə yaranan və ya cərimə xarakterli zərərlərə, yaxud mənfəət, gəlir, məlumat, nüfuz və ya çap materialları itkisinə görə məsuliyyət daşımır. Xidmətlə bağlı bütün iddialar üzrə ümumi məsuliyyətimiz iddiadan əvvəlki 12 ayda Xidmət üçün bizə ödədiyiniz məbləğ və 100 ABŞ dolları arasından daha böyük olanı ilə məhdudlaşır. Bu məhdudiyyətlər qanunla məhdudlaşdırıla bilməyən məsuliyyətə, məsələn, qəsd və ya kobud ehtiyatsızlığa görə məsuliyyətə şamil edilmir.
+
+## 14. Zərərin ödənilməsi
+Məzmununuzdan, Xidmətdən bu Şərtləri pozmaqla istifadənizdən və ya qanunu, yaxud başqalarının hüquqlarını pozmağınızdan irəli gələn üçüncü şəxslərin əsaslı iddialarını, zərərlərini və xərclərini (əsaslı hüquqi xərclər daxil olmaqla) Qrumy-yə ödəməyə razılaşırsınız.
+
+## 15. Şərtlərdə dəyişikliklər
+Bu Şərtləri vaxtaşırı yeniləyə bilərik. Yeni versiyanı yeni versiya nömrəsi və tarixi ilə bu səhifədə dərc edəcəyik. Əhəmiyyətli dəyişikliklər barədə sizə e-poçtla və ya Xidmətdə əvvəlcədən məlumat verəcəyik. Dəyişikliklər qüvvəyə mindikdən sonra Xidmətdən istifadəni davam etdirsəniz, yeni Şərtləri qəbul etmiş olursunuz. Razı deyilsinizsə, Xidmətdən istifadəni dayandırın və hesabınızı silin.
+
+## 16. Tətbiq olunan hüquq və mübahisələr
+Bu Şərtlər, kollizion normalar nəzərə alınmadan, Azərbaycan Respublikasının qanunvericiliyi ilə tənzimlənir. Məcburi istehlakçı qanunvericiliyi sizə öz ölkənizin məhkəmələrinə müraciət etmək hüququ vermirsə, mübahisələr Bakı şəhərinin səlahiyyətli məhkəmələri tərəfindən həll edilir. Məhkəməyə müraciət etməzdən əvvəl, məsələni qeyri-rəsmi yolla həll etməyə çalışmaq üçün bizimlə əlaqə saxlayın.
+
+## 17. Ümumi müddəalar
+Bu Şərtlərin hər hansı hissəsi icra edilə bilməz hesab edilərsə, qalan hissələr qüvvədə qalır. Hər hansı müddəanı tətbiq etməməyimiz ondan imtina demək deyil. Razılığımız olmadan bu Şərtlər üzrə hüquqlarınızı başqasına ötürə bilməzsiniz; biz isə onları birləşmə, satın alınma və ya aktivlərin satışı ilə əlaqədar ötürə bilərik. Bu Şərtlər bir neçə dildə mövcud olduqda və ziddiyyət yarandıqda, qanunla icazə verilən həddə ingilis dilindəki versiya üstünlük təşkil edir.
+
+## 18. Əlaqə
+Bu Şərtlərlə bağlı suallar: support@qrumy.com.

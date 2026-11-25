@@ -207,10 +207,22 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024
 # ---------------------------------------------------------------------------
 # Email
 # ---------------------------------------------------------------------------
-EMAIL_BACKEND = env("EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend")
+RESEND_API_KEY = env("RESEND_API_KEY", default="")
+EMAIL_BACKEND = env(
+    "EMAIL_BACKEND",
+    default=(
+        "anymail.backends.resend.EmailBackend"
+        if RESEND_API_KEY
+        else "django.core.mail.backends.console.EmailBackend"
+    ),
+)
 DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default="Qrumy <no-reply@qrumy.com>")
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
-ANYMAIL = env.dict("ANYMAIL", default={})
+ANYMAIL = {
+    **env.dict("ANYMAIL", default={}),
+    **({"RESEND_API_KEY": RESEND_API_KEY} if RESEND_API_KEY else {}),
+}
+EMAIL_TIMEOUT = 15
 
 # ---------------------------------------------------------------------------
 # Celery

@@ -68,6 +68,7 @@ class LegalDocumentAdmin(ModelAdmin):
     list_display = ("kind", "language", "version", "title", "published_at")
     list_filter = ("kind", "language")
     search_fields = ("title", "body")
+    save_as = True  # "Save as new" = new version; the newest published one is shown
 
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)

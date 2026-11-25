@@ -1,0 +1,62 @@
+Bu Məxfilik Siyasəti qrumy.com saytından və Qrumy məhsullarından ("Xidmət") istifadə etdiyiniz zaman Qrumy-nin ("Qrumy", "biz") hansı şəxsi məlumatları topladığını, nə üçün topladığını, nə qədər saxladığını və hansı hüquqlarınızın olduğunu izah edir. Yalnız lazım olan qədər məlumat toplayırıq və şəxsi məlumatları satmırıq.
+
+## 1. Kim məsuliyyət daşıyır
+- İstifadəçilərimiz (qeydiyyatdan keçən və Qrumy-də işləyən şəxslər) haqqında məlumatlar üzrə nəzarətçi Qrumy-dir.
+- Müştərilərimizin Qrumy vasitəsilə öz müştərilərindən, respondentlərindən, ziyarətçilərindən və işçilərindən topladığı məlumatlar (məsələn, sorğu cavabları, QR skanları və ya nasazlıq bildirişləri) üzrə nəzarətçi müştəri təşkilatdır, Qrumy isə onun göstərişləri ilə hərəkət edən emalçıdır. Hər hansı biznesin sorğusunu cavablandırmısınızsa və ya QR kodunu skan etmisinizsə, məlumatlarınızla bağlı həmin biznesə müraciət edin. Biz onlara müraciətinizi cavablandırmaqda kömək edəcəyik.
+
+## 2. İstifadəçilər haqqında topladığımız məlumatlar
+- Hesab məlumatları: ad, e-poçt ünvanı, şifrə (yalnız təhlükəsiz heş şəklində saxlanılır), dil, iki addımlı doğrulama ayarları və Şərtlərimizi qəbul etdiyiniz tarix.
+- Təşkilat məlumatları: təşkilatın adı, loqosu, komanda üzvləri və onların rolları, dəvətlər, plan və istifadə göstəriciləri.
+- Yaratdığınız məzmun: QR kodlar, sorğular, aktivlər, sənədlər, fotolar və əlavə etdiyiniz digər məlumatlar.
+- Təhlükəsizlik və fəaliyyət məlumatları: təşkilatınızdakı mühüm əməliyyatların jurnalı (kim, nə vaxt, nə etdi), giriş hadisələri və hesabların qorunması üçün lazım olan texniki məlumatlar.
+- Google ilə giriş (könüllü): istifadə etsəniz, Google-dan adınızı, e-poçt ünvanınızı və Google hesab identifikatorunuzu alırıq.
+- Yazışmalar: dəstək xidmətinə göndərdiyiniz mesajlar.
+
+## 3. Müştərilərimizin QR kodları, sorğuları və formaları vasitəsilə toplanan məlumatlar
+- QR skanları: skanın vaxtı, cihaz növü, əməliyyat sistemi, brauzer, təxmini məkan (IP ünvanından müəyyən edilən ölkə və şəhər) və skanın avtomatlaşdırılmış görünüb-görünməməsi. IP ünvanı saxlanılmır: onu yalnız unikal skanları saymaq üçün istifadə olunan, birtərəfli və hər gün dəyişən heş dəyərinə çeviririk.
+- Sorğu cavabları: verilən cavablar. Əlaqə məlumatları (ad, e-poçt və ya telefon kimi) yalnız sorğu bunları soruşduqda və şəxs razılıq verdikdə saxlanılır. Respondentlərin IP ünvanlarını saxlamırıq.
+- Aktivlər üzrə nasazlıq bildirişləri: təsvir, prioritet, könüllü foto və bildirən şəxsin könüllü verdiyi əlaqə məlumatları.
+
+## 4. Məlumatlardan nə üçün istifadə edirik (və hüquqi əsaslarımız)
+- İstədiyiniz Xidməti, o cümlədən hesabınızı, təşkilatınızı və məzmununuzu təmin etmək üçün (müqavilənin icrası).
+- Xidməti təhlükəsiz saxlamaq, fişinq QR kodları və spam kimi sui-istifadənin qarşısını almaq və Şərtlərimizi tətbiq etmək üçün (qanuni maraqlar).
+- Xidmət e-məktubları göndərmək üçün: hesabın təsdiqi, şifrənin bərpası, dəvətlər, aktiv etdiyiniz bildirişlər və mühüm dəyişikliklər (müqavilənin icrası və qanuni maraqlar).
+- Xidmətdən ümumi şəkildə necə istifadə olunduğunu anlamaq və onu təkmilləşdirmək üçün (qanuni maraqlar).
+- Qanuni öhdəliklərə əməl etmək üçün.
+Məzmununuzdan və ya respondentlərinizin məlumatlarından süni intellekt modellərini öyrətmək və ya reklam üçün istifadə etmirik, şəxsi məlumatları satmır və icarəyə vermirik.
+
+## 5. Kukilər
+Yalnız Xidmət üçün zəruri olan kukilərdən istifadə edirik: sistemə daxil olmuş vəziyyətdə qalmağınız üçün sessiya kukisi, təhlükəsizlik (CSRF) kukisi, dilinizi yadda saxlayan kuki və sorğu ziyarətinin iki dəfə sayılmasının qarşısını alan qısamüddətli kuki. Reklam və ya üçüncü tərəf izləmə kukilərindən istifadə etmirik, ona görə də kuki banneri tələb olunmur. Gələcəkdə könüllü kukilər əlavə etsək, əvvəlcə razılığınızı alacağıq.
+
+## 6. Xidmət provayderləri
+Şəxsi məlumatları yalnız Xidməti işlətməkdə bizə kömək edən və onları qorumağı tələb edən müqavilələrlə bağlı olduğumuz provayderlərlə bölüşürük:
+- Hostinger: serverlərin hostinqi (verilənlər bazamız və fayllarımız icarəyə götürdüyümüz serverlərdə saxlanılır).
+- Resend: tranzaksiya e-məktublarının çatdırılması.
+- Sentry (aktiv edildikdə): xətaların monitorinqi. Onu istifadəçi məlumatlarını, sorğu gövdələrini və forma məzmununu göndərməyəcək şəkildə tənzimləyirik.
+- Google: yalnız Google ilə daxil olmağı seçdikdə.
+Məlumatları həmçinin qanun tələb etdikdə, insanların və ya Xidmətin hüquq və təhlükəsizliyini qorumaq üçün, yaxud birləşmə və ya satın alınma çərçivəsində aça bilərik; bu halda bu siyasət tətbiq olunmağa davam edəcək.
+
+## 7. Beynəlxalq ötürmələr
+Provayderlərimiz məlumatları sizin ölkənizdən fərqli ölkələrdə, o cümlədən Avropa İttifaqında və ABŞ-da emal edə bilər. Tələb olunduqda ötürmələr Avropa Komissiyasının Standart Müqavilə Bəndləri kimi müvafiq təminatlarla qorunur.
+
+## 8. Məlumatları nə qədər saxlayırıq
+- Hesab və təşkilat məlumatları: hesab və ya təşkilat mövcud olduğu müddətdə. Onları sildikdə məlumatlar işlək sistemlərimizdən silinir.
+- Ətraflı QR skan qeydləri: 180 gün. Bundan sonra yalnız ümumiləşdirilmiş gündəlik göstəricilər saxlanılır.
+- Sorğu cavabları, aktivlər və digər məzmun: müştəri onları silənə və ya təşkilat silinənə qədər.
+- Fəaliyyət jurnalı: təşkilat mövcud olduğu müddətdə. İstifadəçi hesabını sildikdə jurnaldakı e-poçtu anonim etiketlə əvəz olunur.
+- Ehtiyat nüsxələr: ehtiyat nüsxələr çıxışı məhdudlaşdırılmış yaddaşda 14 günədək saxlanılır və sonra avtomatik silinir.
+
+## 9. Təhlükəsizlik
+Məlumatları ötürülmə zamanı şifrələmə (HTTPS), heşlənmiş şifrələr, könüllü iki addımlı doğrulama, təşkilatlar arasında ciddi ayrılıq, rollara əsaslanan çıxış, məxfi fayl saxlanması, fəaliyyət jurnalları və müntəzəm ehtiyat nüsxələrlə qoruyuruq. Heç bir sistem tam təhlükəsiz deyil, lakin məlumatlarınızı qorumağa çalışırıq və qanun tələb etdikdə şəxsi məlumatların sızması barədə sizə və səlahiyyətli orqanlara məlumat verəcəyik.
+
+## 10. Hüquqlarınız
+Yaşadığınız yerdən asılı olaraq şəxsi məlumatlarınıza çıxış əldə etmək, onları düzəltmək, silmək və ya ixrac etmək, müəyyən emala etiraz etmək və ya onu məhdudlaşdırmaq, razılığınızı istənilən vaxt geri götürmək hüququnuz ola bilər. Profilinizi yeniləyə və hesabınızı hesab ayarlarında özünüz silə bilərsiniz. Digər müraciətlər üçün privacy@qrumy.com ünvanına yazın. Qanunla müəyyən edilmiş müddətdə (adətən bir ay ərzində) cavab verəcəyik. Yerli məlumatların qorunması orqanına şikayət etmək hüququnuz da var.
+
+## 11. Uşaqlar
+Xidmət 16 yaşından kiçik uşaqlar üçün nəzərdə tutulmayıb və istifadəçi qeydiyyatlarında onların şəxsi məlumatlarını bilərəkdən toplamırıq. Müştərilər Qrumy sorğularından qanunla tələb olunan razılıq olmadan uşaqların məlumatlarını toplamaq üçün istifadə etməməlidirlər.
+
+## 12. Bu siyasətdə dəyişikliklər
+Bu siyasəti yeniləyə bilərik. Versiya nömrəsi və tarixi ilə birlikdə cari versiya həmişə bu səhifədədir. Əhəmiyyətli dəyişikliklər barədə sizə e-poçtla və ya Xidmətdə əvvəlcədən məlumat verəcəyik.
+
+## 13. Əlaqə
+Məxfiliklə bağlı suallar və müraciətlər: privacy@qrumy.com. Ümumi dəstək: support@qrumy.com.

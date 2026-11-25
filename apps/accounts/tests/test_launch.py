@@ -11,6 +11,12 @@ from apps.organizations.models import Membership, Organization
 pytestmark = pytest.mark.django_db
 
 
+@pytest.fixture(autouse=True)
+def _no_seeded_legal_documents():
+    """These tests start from "nothing published" (migration 0003 seeds the real texts)."""
+    LegalDocument.objects.all().delete()
+
+
 def _publish(kind="terms", language="en", version="1"):
     return LegalDocument.objects.create(kind=kind, language=language, version=version,
                                         title=f"{kind} {language}", body="Para one.\n\nTwo.",

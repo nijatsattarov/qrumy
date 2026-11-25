@@ -37,8 +37,8 @@ Legend: `[ ]` not started · `[~]` in progress · `[x]` done and tested
 
 ### Known gaps / follow-ups (not blocking Phase 2)
 - [ ] CI workflow not yet run on GitHub (push blocked: GitHub App access for nijatsattarov/qrumy)
-- [ ] Transactional email provider + DNS (SPF/DKIM/DMARC) — needed before public launch
-- [ ] Terms of Service / Privacy Policy pages (legal text must come from the business)
+- [x] Transactional email provider: Resend (DNS records are set at deployment)
+- [x] Terms of Service / Privacy Policy pages (texts drafted and published, editable in the admin)
 - [ ] Branded HTML versions of allauth emails (currently allauth's plain-text, translated)
 - [ ] Off-site backups + restore drill (Phase 7)
 - [ ] Optional Postgres Row-Level Security (Phase 7)
@@ -127,6 +127,9 @@ Legend: `[ ]` not started · `[~]` in progress · `[x]` done and tested
 - [x] Sentry with privacy-preserving settings
 - [x] Branded HTML emails for sign-up, confirmation and password reset (en/az)
 - [x] Terms / Privacy pages managed in the admin (versioned, en/az); sign-up consent recorded
+- [x] Terms of Service and Privacy Policy texts (en/az, v2026-11-25) seeded by a data migration
+      (never overwrites admin edits); simple safe formatting (`## ` headings, `- ` lists)
+- [x] Email via Resend (anymail); console backend when no key is set
 - [x] Account deletion (audit e-mail anonymised); ownership transfer; organization deletion
 - [x] Tests: 243 passing; Azerbaijani translations: 1,212 strings
 - [ ] Deployment to the VPS and go-live items — see docs/LAUNCH.md

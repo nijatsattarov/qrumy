@@ -1,0 +1,74 @@
+These Terms of Service ("Terms") govern your access to and use of Qrumy, the website at qrumy.com and the software, products and services offered through it (together, the "Service"). The Service is operated by Qrumy ("Qrumy", "we", "us"). By creating an account or using the Service you agree to these Terms. If you use the Service on behalf of a company or other organization, you confirm that you are authorized to accept these Terms on its behalf, and "you" includes that organization.
+
+## 1. The Service
+Qrumy is a platform for businesses that includes QR code management and analytics, surveys and feedback collection, asset management and related products. Products are released step by step. The features available to you depend on your plan and on which products have been released.
+
+## 2. Beta
+The Service is currently offered as a free public beta. During the beta:
+- features may change, be limited or be removed, and the Service may be interrupted;
+- the Service is provided "as is" and "as available" (see section 12);
+- we will announce paid plans in advance. Nothing is charged without your explicit consent, and you can stop using the Service at any time.
+
+## 3. Accounts
+- You must be at least 16 years old (or the age of digital consent in your country, if higher) to create an account.
+- You must give accurate information and keep it up to date.
+- You are responsible for keeping your password and two-factor authentication methods secure and for all activity under your account. Tell us immediately at support@qrumy.com if you suspect unauthorized use.
+- One person may not share a personal account with others. Invite team members to your organization instead.
+
+## 4. Organizations and team members
+Content in Qrumy belongs to an organization (workspace). The owner of an organization controls it, can invite members, assign roles and remove members, and can transfer ownership or delete the organization. The organization (through its owner) is responsible for the members it invites and for what they do in the workspace.
+
+## 5. Your content
+"Your content" means everything you or your members upload or create in the Service: QR codes and their destinations, surveys and responses, assets, documents, photos, logos and other data, as well as data collected from your customers, respondents and staff through the Service.
+- You keep all rights to your content. We claim no ownership of it.
+- You give us a limited, worldwide, non-exclusive licence to host, copy, process, transmit and display your content only as needed to operate, secure and improve the Service for you, and as described in our Privacy Policy.
+- You are responsible for your content and confirm that you have the rights and permissions needed to use it, including any notices and consents required by law to collect data from your customers or respondents.
+
+## 6. Data you collect from others
+When you use Qrumy to collect information from other people (for example survey respondents, people who scan your QR codes or staff who report faults), you decide what is collected and why. For that data you act as the "controller" and Qrumy acts as your "processor" under data-protection law. You are responsible for having a legal basis, giving the required privacy information to those people and answering their requests. We process that data only on your instructions as described in the Privacy Policy.
+
+## 7. Acceptable use
+You must not use the Service, and must not allow others to use it, to:
+- create QR codes, links or pages for phishing, fraud, scams, malware, or that point to unlawful content;
+- send spam or unsolicited messages, or collect personal data without a legal basis or required consent;
+- impersonate any person or organization, or mislead people about the origin of a QR code or survey;
+- violate the rights of others, including intellectual-property and privacy rights;
+- upload content that is illegal, hateful, violent, sexually explicit involving minors, or that harasses others;
+- probe, scan or test the vulnerability of the Service, bypass its security, limits or plan restrictions, or access other organizations' data;
+- overload the Service, including through automated scanning, scraping or artificial traffic;
+- resell or offer the Service to third parties as your own product without our written agreement.
+We may check QR destinations against block lists and may block destinations that we reasonably believe are harmful.
+
+## 8. Suspension and termination
+We may suspend or restrict an account, organization, QR code or survey, with or without notice, if we reasonably believe that these Terms or the law have been broken, that there is a risk to people or to the Service, or if required by law. Where reasonable we will tell you why and give you an opportunity to respond.
+You can stop using the Service at any time. You can delete an organization from its settings and delete your account from your account page. When an organization is deleted, its content is deleted and its QR codes stop working. Copies in backups are deleted when those backups expire (see the Privacy Policy).
+
+## 9. Plans, limits and fees
+Each plan has limits (for example on the number of QR codes, surveys, assets, responses or team members). If you reach a limit, some actions may be blocked until you upgrade or reduce usage. When paid plans become available, prices, billing periods, taxes and cancellation rules will be shown before you buy and will form part of these Terms. We will not move you to a paid plan without your explicit consent.
+
+## 10. Our intellectual property
+The Service, including its software, design, logos and the "Qrumy" name, is owned by Qrumy and protected by law. These Terms do not give you any right to our trademarks. If you send us feedback or suggestions, we may use them without any obligation to you.
+
+## 11. Third-party services
+The Service relies on third-party providers (for example hosting and email delivery) and may link to third-party websites, such as the destinations of QR codes. We are not responsible for third-party websites or for content that you or other users link to.
+
+## 12. Disclaimer
+To the maximum extent permitted by law, the Service is provided "as is" and "as available", without warranties of any kind, whether express or implied, including warranties of merchantability, fitness for a particular purpose, non-infringement and uninterrupted or error-free operation. Printed QR codes depend on the Service to redirect: keep your account active and test printed codes before large print runs. Nothing in these Terms excludes rights that you have as a consumer under mandatory law.
+
+## 13. Limitation of liability
+To the maximum extent permitted by law, Qrumy will not be liable for any indirect, incidental, special, consequential or punitive damages, or for loss of profits, revenue, data, goodwill or printed materials, arising out of or related to the Service. Our total liability for all claims related to the Service is limited to the greater of the amount you paid us for the Service in the 12 months before the claim and 100 US dollars. These limits do not apply to liability that cannot be limited by law, such as liability for intent or gross negligence.
+
+## 14. Indemnity
+You agree to compensate Qrumy for reasonable claims, losses and costs (including reasonable legal fees) brought by third parties that result from your content, your use of the Service in breach of these Terms, or your violation of law or of the rights of others.
+
+## 15. Changes to these Terms
+We may update these Terms from time to time. We will publish the new version on this page with a new version number and date. For material changes we will notify you in advance by email or in the Service. If you continue to use the Service after the changes take effect, you accept the new Terms. If you do not agree, stop using the Service and delete your account.
+
+## 16. Governing law and disputes
+These Terms are governed by the laws of the Republic of Azerbaijan, without regard to its conflict-of-law rules. Disputes will be resolved by the competent courts of Baku, Azerbaijan, unless mandatory consumer law gives you the right to bring a claim in the courts of your country. Before going to court, please contact us so we can try to resolve the issue informally.
+
+## 17. General
+If any part of these Terms is found unenforceable, the rest remains in force. Our failure to enforce a provision is not a waiver. You may not transfer your rights under these Terms without our consent; we may transfer them in connection with a merger, acquisition or sale of assets. If these Terms exist in several languages and there is a conflict, the English version prevails, to the extent permitted by law.
+
+## 18. Contact
+Questions about these Terms: support@qrumy.com.

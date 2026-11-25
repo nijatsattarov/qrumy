@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Qrumy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-25 14:04+0000\n"
+"POT-Creation-Date: 2026-11-25 14:20+0000\n"
 "PO-Revision-Date: 2026-11-25 00:00+0000\n"
 "Last-Translator: Qrumy team\n"
 "Language-Team: Azerbaijani\n"
@@ -18,33 +18,33 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: apps/accounts/admin.py:39 apps/accounts/templates/accounts/profile.html:3
+#: apps/accounts/admin.py:46 apps/accounts/templates/accounts/profile.html:3
 #: apps/accounts/templates/accounts/profile.html:5
 #: templates/components/user_menu.html:12 templates/layouts/account.html:16
 msgid "Profile"
 msgstr "Profil"
 
-#: apps/accounts/admin.py:40
+#: apps/accounts/admin.py:48
 msgid "Access"
 msgstr "Giriş hüquqları"
 
-#: apps/accounts/admin.py:42
+#: apps/accounts/admin.py:51
 msgid "Dates"
 msgstr "Tarixlər"
 
-#: apps/accounts/admin.py:48
+#: apps/accounts/admin.py:56
 msgid "Suspend selected users"
 msgstr "Seçilmiş istifadəçiləri dayandır"
 
-#: apps/accounts/admin.py:55
+#: apps/accounts/admin.py:63
 msgid "Selected users were suspended."
 msgstr "Seçilmiş istifadəçilər dayandırıldı."
 
-#: apps/accounts/admin.py:57
+#: apps/accounts/admin.py:65
 msgid "Activate selected users"
 msgstr "Seçilmiş istifadəçiləri aktivləşdir"
 
-#: apps/accounts/admin.py:63
+#: apps/accounts/admin.py:71
 msgid "Selected users were activated."
 msgstr "Seçilmiş istifadəçilər aktivləşdirildi."
 
@@ -52,11 +52,11 @@ msgstr "Seçilmiş istifadəçilər aktivləşdirildi."
 msgid "Accounts"
 msgstr "Hesablar"
 
-#: apps/accounts/forms.py:11 apps/accounts/forms.py:50
+#: apps/accounts/forms.py:12 apps/accounts/forms.py:59
 msgid "Full name"
 msgstr "Ad və soyad"
 
-#: apps/accounts/forms.py:27
+#: apps/accounts/forms.py:29
 msgid ""
 "I agree to the <a href=\"{}\" target=\"_blank\">Terms of Service</a> and <a "
 "href=\"{}\" target=\"_blank\">Privacy Policy</a>"
@@ -64,7 +64,7 @@ msgstr ""
 "<a href=\"{}\" target=\"_blank\">İstifadə Şərtləri</a> və <a href=\"{}\" "
 "target=\"_blank\">Məxfilik Siyasəti</a> ilə razıyam"
 
-#: apps/accounts/forms.py:50
+#: apps/accounts/forms.py:59
 msgid "Interface language"
 msgstr "İnterfeys dili"
 
@@ -84,41 +84,45 @@ msgstr "sənəd"
 msgid "language"
 msgstr "dil"
 
-#: apps/accounts/legal.py:16
+#: apps/accounts/legal.py:17
 msgid "version"
 msgstr "versiya"
 
-#: apps/accounts/legal.py:17
+#: apps/accounts/legal.py:19
 msgid "e.g. 2026-12-01. Increase it for every change users must accept again."
 msgstr ""
 "məs. 2026-12-01. İstifadəçilərin yenidən qəbul etməli olduğu hər "
 "dəyişiklikdə artırın."
 
-#: apps/accounts/legal.py:19 apps/surveys/models.py:30
+#: apps/accounts/legal.py:21 apps/surveys/models.py:30
 msgid "title"
 msgstr "ad"
 
-#: apps/accounts/legal.py:20
+#: apps/accounts/legal.py:23
 msgid "text"
 msgstr "mətn"
 
-#: apps/accounts/legal.py:20
-msgid "Plain text. Blank lines start new paragraphs."
-msgstr "Sadə mətn. Boş sətir yeni abzas başladır."
+#: apps/accounts/legal.py:25
+msgid ""
+"Plain text. A line starting with “## ” is a heading, “- ” a list item; blank"
+" lines separate paragraphs."
+msgstr ""
+"Sadə mətn. “## ” ilə başlayan sətir başlıq, “- ” ilə başlayan sətir siyahı "
+"bəndidir; boş sətirlər abzasları ayırır."
 
-#: apps/accounts/legal.py:22
+#: apps/accounts/legal.py:31
 msgid "published at"
 msgstr "dərc vaxtı"
 
-#: apps/accounts/legal.py:23
+#: apps/accounts/legal.py:34
 msgid "Empty = draft (not shown to anyone)."
 msgstr "Boş = qaralama (heç kimə göstərilmir)."
 
-#: apps/accounts/legal.py:29
+#: apps/accounts/legal.py:41
 msgid "legal document"
 msgstr "hüquqi sənəd"
 
-#: apps/accounts/legal.py:30
+#: apps/accounts/legal.py:42
 msgid "legal documents"
 msgstr "hüquqi sənədlər"
 
@@ -186,7 +190,6 @@ msgid "Delete my account"
 msgstr "Hesabımı sil"
 
 #: apps/accounts/templates/accounts/profile.html:10
-#: apps/assets/templates/assets/form.html:40
 #: apps/organizations/templates/organizations/settings.html:16
 #: apps/qr_management/templates/qr_management/form.html:77
 #: apps/surveys/templates/surveys/settings.html:33
@@ -205,1245 +208,33 @@ msgstr "Davam et"
 msgid "Your profile has been updated."
 msgstr "Profiliniz yeniləndi."
 
-#: apps/accounts/views.py:44
+#: apps/accounts/views.py:43
 msgid "The password is not correct."
 msgstr "Şifrə düzgün deyil."
 
-#: apps/accounts/views.py:46
+#: apps/accounts/views.py:45
 msgid "Please confirm that you understand this cannot be undone."
 msgstr "Bunun geri qaytarıla bilməyəcəyini başa düşdüyünüzü təsdiq edin."
 
-#: apps/accounts/views.py:56
+#: apps/accounts/views.py:55
 msgid "Your account was deleted."
 msgstr "Hesabınız silindi."
 
-#: apps/analytics/apps.py:8 apps/qr_management/navigation.py:11
+#: apps/analytics/apps.py:8 apps/qr_management/navigation.py:22
 #: apps/qr_management/templates/qr_management/analytics.html:3
 #: apps/qr_management/templates/qr_management/analytics.html:4
 #: apps/qr_management/templates/qr_management/analytics.html:9
 msgid "Analytics"
 msgstr "Analitika"
 
-#: apps/analytics/models.py:31
+#: apps/analytics/models.py:33
 msgid "scan"
 msgstr "skan"
 
-#: apps/analytics/models.py:32 apps/qr_management/models.py:94
+#: apps/analytics/models.py:34 apps/qr_management/models.py:104
 #: apps/qr_management/templates/qr_management/list.html:123
 msgid "scans"
 msgstr "skan"
-
-#: apps/assets/apps.py:8 apps/marketing/views.py:24
-#: apps/subscriptions/features.py:24
-msgid "Asset Management"
-msgstr "Aktivlərin İdarə Edilməsi"
-
-#: apps/assets/forms.py:24
-msgid "Asset ID"
-msgstr "Aktiv ID"
-
-#: apps/assets/forms.py:25
-msgid "Leave empty to generate one (AST-00001)."
-msgstr "Avtomatik yaratmaq üçün boş saxlayın (AST-00001)."
-
-#: apps/assets/forms.py:26 apps/assets/templates/assets/email/fault.txt:5
-#: apps/assets/templates/assets/list.html:33
-#: apps/assets/templates/assets/public/profile.html:13
-#: apps/qr_management/types.py:274
-msgid "Location"
-msgstr "Məkan"
-
-#: apps/assets/forms.py:29
-msgid "Custom fields"
-msgstr "Əlavə sahələr"
-
-#: apps/assets/forms.py:30
-msgid "One per line, e.g. “Voltage: 220 V”."
-msgstr "Hər sətirdə bir, məs. “Gərginlik: 220 V”."
-
-#: apps/assets/forms.py:49
-msgid "No category"
-msgstr "Kateqoriyasız"
-
-#: apps/assets/forms.py:51 apps/assets/templates/assets/fault_detail.html:25
-#: apps/surveys/templates/surveys/response_detail.html:60
-msgid "Nobody"
-msgstr "Heç kim"
-
-#: apps/assets/forms.py:54
-msgid "No location"
-msgstr "Məkansız"
-
-#: apps/assets/forms.py:70 apps/assets/services.py:59
-msgid "Another asset already uses this ID."
-msgstr "Bu ID artıq başqa aktivdə istifadə olunur."
-
-#: apps/assets/forms.py:91 apps/assets/templates/assets/setup.html:23
-#: apps/qr_management/forms.py:14 apps/qr_management/forms.py:121
-msgid "Name"
-msgstr "Ad"
-
-#: apps/assets/forms.py:92 apps/assets/templates/assets/setup.html:24
-#: apps/qr_management/templates/qr_management/list.html:67
-msgid "Type"
-msgstr "Növ"
-
-#: apps/assets/forms.py:93 apps/assets/templates/assets/setup.html:25
-msgid "Inside"
-msgstr "Daxilində"
-
-#: apps/assets/forms.py:99
-msgid "Top level"
-msgstr "Ən üst səviyyə"
-
-#: apps/assets/forms.py:108 apps/assets/templates/assets/setup.html:48
-msgid "Category name"
-msgstr "Kateqoriyanın adı"
-
-#: apps/assets/forms.py:114
-msgid "What is the problem?"
-msgstr "Problem nədir?"
-
-#: apps/assets/forms.py:116
-msgid "Describe the problem"
-msgstr "Problemi təsvir edin"
-
-#: apps/assets/forms.py:118
-msgid "How urgent is it?"
-msgstr "Nə qədər təcilidir?"
-
-#: apps/assets/forms.py:121 apps/assets/models.py:136
-msgid "Photo"
-msgstr "Foto"
-
-#: apps/assets/forms.py:123 apps/surveys/forms.py:87
-msgid "Your name"
-msgstr "Adınız"
-
-#: apps/assets/forms.py:124
-msgid "Phone or email"
-msgstr "Telefon və ya e-poçt"
-
-#: apps/assets/forms.py:135 apps/assets/templates/assets/email/fault.txt:3
-msgid "Problem"
-msgstr "Problem"
-
-#: apps/assets/forms.py:136 apps/assets/templates/assets/email/fault.txt:4
-#: apps/assets/templates/assets/faults.html:14
-msgid "Priority"
-msgstr "Prioritet"
-
-#: apps/assets/forms.py:138 apps/assets/templates/assets/detail.html:38
-#: apps/qr_management/types.py:122 apps/qr_management/types.py:173
-msgid "Description"
-msgstr "Təsvir"
-
-#: apps/assets/forms.py:152
-msgid "Nobody from the team"
-msgstr "Komandadan heç kim"
-
-#: apps/assets/forms.py:156
-msgid "Photo or PDF"
-msgstr "Foto və ya PDF"
-
-#: apps/assets/models.py:27 apps/assets/models.py:52 apps/assets/models.py:79
-#: apps/qr_management/models.py:35 apps/qr_management/models.py:49
-#: apps/qr_management/models.py:75 apps/subscriptions/models.py:10
-#: apps/surveys/models.py:116 apps/surveys/models.py:144
-msgid "name"
-msgstr "ad"
-
-#: apps/assets/models.py:31
-msgid "asset category"
-msgstr "aktiv kateqoriyası"
-
-#: apps/assets/models.py:32
-msgid "asset categories"
-msgstr "aktiv kateqoriyaları"
-
-#: apps/assets/models.py:42
-msgid "Branch"
-msgstr "Filial"
-
-#: apps/assets/models.py:43
-msgid "Building"
-msgstr "Bina"
-
-#: apps/assets/models.py:44
-msgid "Floor"
-msgstr "Mərtəbə"
-
-#: apps/assets/models.py:45
-msgid "Room"
-msgstr "Otaq"
-
-#: apps/assets/models.py:46 apps/assets/templates/assets/detail.html:32
-msgid "Department"
-msgstr "Şöbə"
-
-#: apps/assets/models.py:47
-msgid "Area"
-msgstr "Sahə"
-
-#: apps/assets/models.py:50
-msgid "inside"
-msgstr "daxilində"
-
-#: apps/assets/models.py:51 apps/assets/models.py:221
-#: apps/organizations/models.py:63 apps/qr_management/models.py:76
-#: apps/surveys/models.py:87
-msgid "type"
-msgstr "növ"
-
-#: apps/assets/models.py:56 apps/assets/models.py:96
-msgid "location"
-msgstr "məkan"
-
-#: apps/assets/models.py:57
-msgid "locations"
-msgstr "məkanlar"
-
-#: apps/assets/models.py:65 apps/assets/templates/assets/detail.html:35
-#: apps/organizations/models.py:43 apps/qr_management/forms.py:119
-#: apps/qr_management/models.py:71
-#: apps/qr_management/templates/qr_management/_status_badge.html:1
-#: apps/subscriptions/models.py:58
-msgid "Active"
-msgstr "Aktiv"
-
-#: apps/assets/models.py:66
-msgid "In use"
-msgstr "İstifadədə"
-
-#: apps/assets/models.py:67 apps/marketing/templates/marketing/home.html:70
-msgid "Available"
-msgstr "Mövcuddur"
-
-#: apps/assets/models.py:68
-msgid "Under maintenance"
-msgstr "Texniki xidmətdə"
-
-#: apps/assets/models.py:69
-msgid "Broken"
-msgstr "Xarab"
-
-#: apps/assets/models.py:70
-msgid "Lost"
-msgstr "İtib"
-
-#: apps/assets/models.py:71
-msgid "Retired"
-msgstr "İstismardan çıxarılıb"
-
-#: apps/assets/models.py:74
-msgid "Name and fault reporting only"
-msgstr "Yalnız ad və nasazlıq bildirişi"
-
-#: apps/assets/models.py:75
-msgid "Plus status, location and model"
-msgstr "Üstəlik status, məkan və model"
-
-#: apps/assets/models.py:76
-msgid "Plus warranty and last maintenance"
-msgstr "Üstəlik zəmanət və son texniki xidmət"
-
-#: apps/assets/models.py:78
-msgid "asset ID"
-msgstr "aktiv ID"
-
-#: apps/assets/models.py:81
-msgid "category"
-msgstr "kateqoriya"
-
-#: apps/assets/models.py:82
-msgid "brand"
-msgstr "marka"
-
-#: apps/assets/models.py:83
-msgid "model"
-msgstr "model"
-
-#: apps/assets/models.py:84
-msgid "serial number"
-msgstr "seriya nömrəsi"
-
-#: apps/assets/models.py:85 apps/assets/models.py:183
-#: apps/subscriptions/models.py:11 apps/surveys/models.py:31
-msgid "description"
-msgstr "təsvir"
-
-#: apps/assets/models.py:86
-msgid "instructions for staff"
-msgstr "işçilər üçün təlimat"
-
-#: apps/assets/models.py:87
-msgid "Shown on the QR profile, e.g. how to use or who to call."
-msgstr ""
-"QR profildə göstərilir, məs. necə istifadə etmək və ya kimə zəng etmək."
-
-#: apps/assets/models.py:89
-msgid "purchase date"
-msgstr "alış tarixi"
-
-#: apps/assets/models.py:90
-msgid "warranty until"
-msgstr "zəmanət bitmə tarixi"
-
-#: apps/assets/models.py:91
-msgid "purchase price"
-msgstr "alış qiyməti"
-
-#: apps/assets/models.py:93 apps/subscriptions/models.py:14
-msgid "currency"
-msgstr "valyuta"
-
-#: apps/assets/models.py:94
-msgid "supplier"
-msgstr "təchizatçı"
-
-#: apps/assets/models.py:97
-msgid "department"
-msgstr "şöbə"
-
-#: apps/assets/models.py:100
-msgid "responsible person"
-msgstr "məsul şəxs"
-
-#: apps/assets/models.py:101 apps/assets/models.py:186
-#: apps/organizations/models.py:65 apps/qr_management/models.py:85
-#: apps/subscriptions/models.py:70 apps/surveys/models.py:34
-#: apps/surveys/models.py:148
-msgid "status"
-msgstr "status"
-
-#: apps/assets/models.py:103
-msgid "custom fields"
-msgstr "əlavə sahələr"
-
-#: apps/assets/models.py:106
-msgid "QR profile shows"
-msgstr "QR profil göstərir"
-
-#: apps/assets/models.py:115
-msgid "asset"
-msgstr "aktiv"
-
-#: apps/assets/models.py:116
-msgid "assets"
-msgstr "aktivlər"
-
-#: apps/assets/models.py:137
-msgid "Document"
-msgstr "Sənəd"
-
-#: apps/assets/models.py:157
-msgid "Not working"
-msgstr "İşləmir"
-
-#: apps/assets/models.py:158
-msgid "Damaged"
-msgstr "Zədələnib"
-
-#: apps/assets/models.py:159
-msgid "Noise or leak"
-msgstr "Səs-küy və ya sızma"
-
-#: apps/assets/models.py:160
-msgid "Safety issue"
-msgstr "Təhlükəsizlik problemi"
-
-#: apps/assets/models.py:161
-msgid "Missing parts"
-msgstr "Hissələr çatışmır"
-
-#: apps/assets/models.py:162
-msgid "Needs cleaning"
-msgstr "Təmizlik lazımdır"
-
-#: apps/assets/models.py:163 apps/organizations/models.py:34
-#: apps/qr_management/templates/qr_management/_breakdown.html:8
-msgid "Other"
-msgstr "Digər"
-
-#: apps/assets/models.py:166
-msgid "Low"
-msgstr "Aşağı"
-
-#: apps/assets/models.py:167
-msgid "Normal"
-msgstr "Normal"
-
-#: apps/assets/models.py:168
-msgid "High"
-msgstr "Yüksək"
-
-#: apps/assets/models.py:169
-msgid "Urgent"
-msgstr "Təcili"
-
-#: apps/assets/models.py:172 apps/assets/templates/assets/form.html:4
-#: apps/qr_management/templates/qr_management/choose_type.html:4
-#: apps/surveys/templates/surveys/create.html:4
-msgid "New"
-msgstr "Yeni"
-
-#: apps/assets/models.py:173 apps/assets/templates/assets/faults.html:15
-#: apps/surveys/templates/surveys/responses.html:15
-msgid "Assigned"
-msgstr "Təyinat"
-
-#: apps/assets/models.py:174
-msgid "In progress"
-msgstr "İcradadır"
-
-#: apps/assets/models.py:175
-msgid "Waiting"
-msgstr "Gözləmədə"
-
-#: apps/assets/models.py:176
-msgid "Completed"
-msgstr "Tamamlanıb"
-
-#: apps/assets/models.py:177
-msgid "Cancelled"
-msgstr "Ləğv edilib"
-
-#: apps/assets/models.py:182
-msgid "problem"
-msgstr "problem"
-
-#: apps/assets/models.py:184
-msgid "priority"
-msgstr "prioritet"
-
-#: apps/assets/models.py:189
-msgid "reported by"
-msgstr "bildirən"
-
-#: apps/assets/models.py:190
-msgid "contact"
-msgstr "əlaqə"
-
-#: apps/assets/models.py:197 apps/surveys/models.py:152
-msgid "assigned to"
-msgstr "təyin edilib"
-
-#: apps/assets/models.py:199
-msgid "resolution"
-msgstr "həll"
-
-#: apps/assets/models.py:203
-msgid "fault report"
-msgstr "nasazlıq bildirişi"
-
-#: apps/assets/models.py:204
-msgid "fault reports"
-msgstr "nasazlıq bildirişləri"
-
-#: apps/assets/models.py:216
-msgid "Preventive"
-msgstr "Profilaktik"
-
-#: apps/assets/models.py:217
-msgid "Corrective (repair)"
-msgstr "Düzəldici (təmir)"
-
-#: apps/assets/models.py:218
-msgid "Inspection"
-msgstr "Baxış"
-
-#: apps/assets/models.py:223
-msgid "date"
-msgstr "tarix"
-
-#: apps/assets/models.py:226
-msgid "technician"
-msgstr "texnik"
-
-#: apps/assets/models.py:227
-msgid "external technician"
-msgstr "kənar texnik"
-
-#: apps/assets/models.py:228
-msgid "cost"
-msgstr "xərc"
-
-#: apps/assets/models.py:229
-msgid "notes"
-msgstr "qeydlər"
-
-#: apps/assets/models.py:231
-msgid "related fault"
-msgstr "əlaqəli nasazlıq"
-
-#: apps/assets/models.py:237
-msgid "maintenance record"
-msgstr "texniki xidmət qeydi"
-
-#: apps/assets/models.py:238
-msgid "maintenance records"
-msgstr "texniki xidmət qeydləri"
-
-#: apps/assets/navigation.py:9 apps/assets/templates/assets/_tabs.html:2
-#: apps/assets/templates/assets/detail.html:4
-#: apps/assets/templates/assets/faults.html:4
-#: apps/assets/templates/assets/faults.html:6
-#: apps/assets/templates/assets/form.html:4
-#: apps/assets/templates/assets/list.html:3
-#: apps/assets/templates/assets/list.html:4
-#: apps/assets/templates/assets/list.html:8
-#: apps/assets/templates/assets/list.html:19
-#: apps/assets/templates/assets/setup.html:4
-#: apps/assets/templates/assets/setup.html:6
-#: apps/assets/templates/assets/widgets/overview.html:4
-#: apps/assets/templates/assets/widgets/overview.html:8
-#: apps/subscriptions/features.py:33
-msgid "Assets"
-msgstr "Aktivlər"
-
-#: apps/assets/qr_type.py:22
-msgid "Asset profile"
-msgstr "Aktiv profili"
-
-#: apps/assets/qr_type.py:22
-msgid "Open an asset's QR profile"
-msgstr "Aktivin QR profilini açın"
-
-#: apps/assets/services.py:54
-#, python-format
-msgid "Your plan allows up to %(limit)s assets."
-msgstr "Planınız ən çox %(limit)s aktivə icazə verir."
-
-#: apps/assets/services.py:124
-msgid "A location cannot be placed inside itself."
-msgstr "Məkan öz daxilində yerləşdirilə bilməz."
-
-#: apps/assets/services.py:131 apps/qr_management/files.py:30
-#, python-format
-msgid "The file must be %(mb)s MB or smaller."
-msgstr "Fayl %(mb)s MB-dan böyük olmamalıdır."
-
-#: apps/assets/services.py:142
-msgid "Upload a photo (PNG, JPEG, WebP)"
-msgstr "Foto yükləyin (PNG, JPEG, WebP)"
-
-#: apps/assets/services.py:143 apps/assets/services.py:147
-msgid "Upload a PDF or a photo (PNG, JPEG, WebP)."
-msgstr "PDF və ya foto yükləyin (PNG, JPEG, WebP)."
-
-#: apps/assets/services.py:191
-#, python-format
-msgid "New fault report: %(asset)s"
-msgstr "Yeni nasazlıq bildirişi: %(asset)s"
-
-#: apps/assets/services.py:219
-msgid "A fault report was assigned to you"
-msgstr "Sizə nasazlıq bildirişi təyin edildi"
-
-#: apps/assets/services.py:224 apps/qr_management/services.py:118
-#: apps/surveys/services.py:219
-msgid "Invalid status."
-msgstr "Yanlış status."
-
-#: apps/assets/templates/assets/_activity.html:1
-msgid "added the asset"
-msgstr "aktivi əlavə etdi"
-
-#: apps/assets/templates/assets/_activity.html:1
-msgid "updated details"
-msgstr "məlumatları yenilədi"
-
-#: apps/assets/templates/assets/_activity.html:1
-msgid "changed the status"
-msgstr "statusu dəyişdi"
-
-#: apps/assets/templates/assets/_activity.html:1
-msgid "created the QR label"
-msgstr "QR etiketi yaratdı"
-
-#: apps/assets/templates/assets/_activity.html:1
-msgid "uploaded"
-msgstr "yüklədi:"
-
-#: apps/assets/templates/assets/_activity.html:1
-msgid "deleted"
-msgstr "sildi:"
-
-#: apps/assets/templates/assets/_activity.html:1
-msgid "reported a fault"
-msgstr "nasazlıq bildirdi"
-
-#: apps/assets/templates/assets/_activity.html:1
-msgid "updated a fault report"
-msgstr "nasazlıq bildirişini yenilədi"
-
-#: apps/assets/templates/assets/_activity.html:1
-msgid "logged maintenance"
-msgstr "texniki xidməti qeyd etdi"
-
-#: apps/assets/templates/assets/_tabs.html:3
-msgid "All assets"
-msgstr "Bütün aktivlər"
-
-#: apps/assets/templates/assets/_tabs.html:4
-#: apps/assets/templates/assets/detail.html:44
-#: apps/assets/templates/assets/fault_detail.html:4
-#: apps/assets/templates/assets/faults.html:3
-#: apps/assets/templates/assets/faults.html:4
-msgid "Fault reports"
-msgstr "Nasazlıq bildirişləri"
-
-#: apps/assets/templates/assets/_tabs.html:5
-#: apps/assets/templates/assets/setup.html:3
-#: apps/assets/templates/assets/setup.html:4
-msgid "Locations & categories"
-msgstr "Məkanlar və kateqoriyalar"
-
-#: apps/assets/templates/assets/detail.html:15
-#: apps/assets/templates/assets/fault_detail.html:26
-#: apps/assets/templates/assets/faults.html:9
-#: apps/assets/templates/assets/list.html:31
-#: apps/qr_management/templates/qr_management/list.html:71
-#: apps/surveys/templates/surveys/response_detail.html:47
-#: apps/surveys/templates/surveys/responses.html:13
-msgid "Status"
-msgstr "Status"
-
-#: apps/assets/templates/assets/detail.html:17
-#: apps/assets/templates/assets/detail.html:76
-#: apps/assets/templates/assets/fault_detail.html:36
-#: apps/assets/templates/assets/setup.html:26
-#: apps/assets/templates/assets/setup.html:48
-#: apps/organizations/templates/organizations/team.html:37
-#: apps/qr_management/templates/qr_management/list.html:45
-#: apps/surveys/templates/surveys/builder.html:37
-#: apps/surveys/templates/surveys/response_detail.html:63
-msgid "Save"
-msgstr "Saxla"
-
-#: apps/assets/templates/assets/detail.html:19
-#: apps/assets/templates/assets/setup.html:18
-#: apps/qr_management/templates/qr_management/detail.html:14
-msgid "Edit"
-msgstr "Redaktə et"
-
-#: apps/assets/templates/assets/detail.html:27
-msgid "Details"
-msgstr "Təfərrüatlar"
-
-#: apps/assets/templates/assets/detail.html:29
-#: apps/assets/templates/assets/public/profile.html:15
-msgid "Brand & model"
-msgstr "Marka və model"
-
-#: apps/assets/templates/assets/detail.html:30
-msgid "Serial number"
-msgstr "Seriya nömrəsi"
-
-#: apps/assets/templates/assets/detail.html:31
-msgid "Responsible person"
-msgstr "Məsul şəxs"
-
-#: apps/assets/templates/assets/detail.html:33
-msgid "Purchase date"
-msgstr "Alış tarixi"
-
-#: apps/assets/templates/assets/detail.html:34
-msgid "Purchase price"
-msgstr "Alış qiyməti"
-
-#: apps/assets/templates/assets/detail.html:35
-#: apps/assets/templates/assets/public/profile.html:17
-msgid "Warranty until"
-msgstr "Zəmanət bitir"
-
-#: apps/assets/templates/assets/detail.html:35 apps/qr_management/forms.py:120
-#: apps/qr_management/templates/qr_management/_status_badge.html:1
-#: apps/subscriptions/models.py:61
-msgid "Expired"
-msgstr "Müddəti bitib"
-
-#: apps/assets/templates/assets/detail.html:36
-msgid "Supplier"
-msgstr "Təchizatçı"
-
-#: apps/assets/templates/assets/detail.html:39
-msgid "Instructions for staff"
-msgstr "İşçilər üçün təlimat"
-
-#: apps/assets/templates/assets/detail.html:52
-msgid "No fault reports."
-msgstr "Nasazlıq bildirişi yoxdur."
-
-#: apps/assets/templates/assets/detail.html:55
-msgid "Report a fault"
-msgstr "Nasazlıq bildir"
-
-#: apps/assets/templates/assets/detail.html:58
-msgid "Report fault"
-msgstr "Nasazlığı bildir"
-
-#: apps/assets/templates/assets/detail.html:65
-msgid "Maintenance history"
-msgstr "Texniki xidmət tarixçəsi"
-
-#: apps/assets/templates/assets/detail.html:65
-msgid "Total cost"
-msgstr "Ümumi xərc"
-
-#: apps/assets/templates/assets/detail.html:70
-msgid "No maintenance logged yet."
-msgstr "Hələ texniki xidmət qeyd olunmayıb."
-
-#: apps/assets/templates/assets/detail.html:73
-msgid "Log maintenance"
-msgstr "Texniki xidməti qeyd et"
-
-#: apps/assets/templates/assets/detail.html:83
-msgid "History"
-msgstr "Tarixçə"
-
-#: apps/assets/templates/assets/detail.html:85
-msgid "Someone (via QR)"
-msgstr "Kimsə (QR ilə)"
-
-#: apps/assets/templates/assets/detail.html:93
-msgid "QR label"
-msgstr "QR etiket"
-
-#: apps/assets/templates/assets/detail.html:100
-msgid "Open QR profile"
-msgstr "QR profili aç"
-
-#: apps/assets/templates/assets/detail.html:102
-msgid ""
-"Create a QR label so staff can open this asset and report faults with their "
-"phone."
-msgstr ""
-"İşçilərin bu aktivi telefonla açıb nasazlıq bildirə bilməsi üçün QR etiket "
-"yaradın."
-
-#: apps/assets/templates/assets/detail.html:103
-msgid "Create QR label"
-msgstr "QR etiket yarat"
-
-#: apps/assets/templates/assets/detail.html:105
-msgid "Public profile shows:"
-msgstr "İctimai profil göstərir:"
-
-#: apps/assets/templates/assets/detail.html:109
-msgid "Photos & documents"
-msgstr "Fotolar və sənədlər"
-
-#: apps/assets/templates/assets/detail.html:116
-msgid "Delete this file?"
-msgstr "Bu fayl silinsin?"
-
-#: apps/assets/templates/assets/detail.html:116
-#: apps/assets/templates/assets/setup.html:28
-#: apps/assets/templates/assets/setup.html:51
-#: apps/qr_management/templates/qr_management/detail.html:24
-#: apps/qr_management/templates/qr_management/list.html:99
-msgid "Delete"
-msgstr "Sil"
-
-#: apps/assets/templates/assets/detail.html:123
-msgid "Upload"
-msgstr "Yüklə"
-
-#: apps/assets/templates/assets/detail.html:124
-msgid ""
-"Manuals, invoices or photos. PDF, PNG, JPEG or WebP, up to 10 MB. Files are "
-"private to your team."
-msgstr ""
-"Təlimatlar, qaimələr və ya fotolar. PDF, PNG, JPEG və ya WebP, 10 MB-dək. "
-"Fayllar yalnız komandanız üçün əlçatandır."
-
-#: apps/assets/templates/assets/email/fault.html:11
-msgid "Open the report"
-msgstr "Bildirişi aç"
-
-#: apps/assets/templates/assets/email/fault.txt:1
-#, python-format
-msgid "A fault was reported for %(name)s (%(code)s)."
-msgstr "%(name)s (%(code)s) üçün nasazlıq bildirildi."
-
-#: apps/assets/templates/assets/email/fault.txt:9
-msgid "Open the report:"
-msgstr "Bildirişi açın:"
-
-#: apps/assets/templates/assets/email/fault_subject.txt:1
-#, python-format
-msgid "[%(p)s] Fault reported: %(name)s"
-msgstr "[%(p)s] Nasazlıq bildirildi: %(name)s"
-
-#: apps/assets/templates/assets/fault_detail.html:3
-msgid "Fault report"
-msgstr "Nasazlıq bildirişi"
-
-#: apps/assets/templates/assets/fault_detail.html:16
-msgid "Photo of the problem"
-msgstr "Problemin fotosu"
-
-#: apps/assets/templates/assets/fault_detail.html:17
-#, python-format
-msgid "Reported %(d)s"
-msgstr "Bildirilib: %(d)s"
-
-#: apps/assets/templates/assets/fault_detail.html:17
-msgid "via QR code"
-msgstr "QR kod ilə"
-
-#: apps/assets/templates/assets/fault_detail.html:19
-msgid "Resolution"
-msgstr "Həll"
-
-#: apps/assets/templates/assets/fault_detail.html:20
-msgid "Maintenance"
-msgstr "Texniki xidmət"
-
-#: apps/assets/templates/assets/fault_detail.html:25
-#: apps/assets/templates/assets/fault_detail.html:39
-#: apps/surveys/templates/surveys/response_detail.html:58
-msgid "Assigned to"
-msgstr "Təyin edilib"
-
-#: apps/assets/templates/assets/fault_detail.html:27
-msgid "Resolution / notes"
-msgstr "Həll / qeydlər"
-
-#: apps/assets/templates/assets/fault_detail.html:30
-msgid "When saving"
-msgstr "Yadda saxlayanda"
-
-#: apps/assets/templates/assets/fault_detail.html:31
-msgid "If “In progress”: set asset to Under maintenance"
-msgstr "“İcradadır” olarsa: aktivi “Texniki xidmətdə” et"
-
-#: apps/assets/templates/assets/fault_detail.html:32
-msgid "If “Completed”: set asset back to Active"
-msgstr "“Tamamlanıb” olarsa: aktivi yenidən “Aktiv” et"
-
-#: apps/assets/templates/assets/fault_detail.html:33
-msgid "If “Completed”: log a repair in the maintenance history"
-msgstr "“Tamamlanıb” olarsa: təmiri texniki xidmət tarixçəsinə yaz"
-
-#: apps/assets/templates/assets/fault_detail.html:34
-msgid "Repair cost"
-msgstr "Təmir xərci"
-
-#: apps/assets/templates/assets/faults.html:10 apps/surveys/models.py:129
-msgid "Open"
-msgstr "Açıq"
-
-#: apps/assets/templates/assets/faults.html:11
-#: apps/surveys/templates/surveys/list.html:14
-msgid "All"
-msgstr "Hamısı"
-
-#: apps/assets/templates/assets/faults.html:14
-msgid "Any priority"
-msgstr "İstənilən prioritet"
-
-#: apps/assets/templates/assets/faults.html:15
-#: apps/surveys/templates/surveys/responses.html:16
-msgid "Anyone"
-msgstr "Hər kəs"
-
-#: apps/assets/templates/assets/faults.html:15
-#: apps/surveys/templates/surveys/responses.html:17
-msgid "Assigned to me"
-msgstr "Mənə təyin edilənlər"
-
-#: apps/assets/templates/assets/faults.html:15
-#: apps/surveys/templates/surveys/responses.html:18
-msgid "Unassigned"
-msgstr "Təyin edilməyənlər"
-
-#: apps/assets/templates/assets/faults.html:16
-#: apps/qr_management/templates/qr_management/list.html:82
-msgid "Filter"
-msgstr "Filtr"
-
-#: apps/assets/templates/assets/faults.html:33
-msgid "No open fault reports. Everything is working."
-msgstr "Açıq nasazlıq bildirişi yoxdur. Hər şey işləyir."
-
-#: apps/assets/templates/assets/faults.html:33
-msgid "No fault reports match these filters."
-msgstr "Bu filtrlərə uyğun nasazlıq bildirişi yoxdur."
-
-#: apps/assets/templates/assets/form.html:3
-#: apps/assets/templates/assets/form.html:6
-msgid "Edit asset"
-msgstr "Aktivi redaktə et"
-
-#: apps/assets/templates/assets/form.html:3
-#: apps/assets/templates/assets/form.html:6
-#: apps/assets/templates/assets/form.html:40
-#: apps/assets/templates/assets/list.html:13
-#: apps/assets/templates/assets/list.html:72
-msgid "Add asset"
-msgstr "Aktiv əlavə et"
-
-#: apps/assets/templates/assets/form.html:10
-msgid "Basics"
-msgstr "Əsas məlumatlar"
-
-#: apps/assets/templates/assets/form.html:20
-msgid "Location & responsibility"
-msgstr "Məkan və məsuliyyət"
-
-#: apps/assets/templates/assets/form.html:20
-msgid "Manage locations"
-msgstr "Məkanları idarə et"
-
-#: apps/assets/templates/assets/form.html:24
-msgid "Purchase & warranty"
-msgstr "Alış və zəmanət"
-
-#: apps/assets/templates/assets/form.html:32
-msgid "QR profile"
-msgstr "QR profil"
-
-#: apps/assets/templates/assets/form.html:35
-msgid "Create a QR label for this asset"
-msgstr "Bu aktiv üçün QR etiket yarat"
-
-#: apps/assets/templates/assets/form.html:39
-#: apps/organizations/templates/organizations/create.html:12
-#: apps/qr_management/templates/qr_management/form.html:78
-msgid "Cancel"
-msgstr "Ləğv et"
-
-#: apps/assets/templates/assets/form.html:46
-#: apps/assets/templates/assets/form.html:50
-msgid "Delete asset"
-msgstr "Aktivi sil"
-
-#: apps/assets/templates/assets/form.html:48
-msgid ""
-"This permanently deletes the asset with its files, fault reports and "
-"maintenance history. Its QR label is paused. To keep the history, set the "
-"status to “Retired” instead."
-msgstr ""
-"Bu, aktivi faylları, nasazlıq bildirişləri və texniki xidmət tarixçəsi ilə "
-"birlikdə birdəfəlik silir. QR etiketi dayandırılır. Tarixçəni saxlamaq üçün "
-"bunun əvəzinə statusu “İstismardan çıxarılıb” edin."
-
-#: apps/assets/templates/assets/form.html:49
-#, python-format
-msgid "Type “%(c)s” to confirm"
-msgstr "Təsdiq üçün “%(c)s” yazın"
-
-#: apps/assets/templates/assets/list.html:9
-msgid "Equipment, tools and facilities with a QR profile each."
-msgstr "Hər birinin QR profili olan avadanlıq, alətlər və obyektlər."
-
-#: apps/assets/templates/assets/list.html:20
-#: apps/assets/templates/assets/widgets/overview.html:9
-msgid "Need attention"
-msgstr "Diqqət tələb edir"
-
-#: apps/assets/templates/assets/list.html:20
-msgid "broken or under maintenance"
-msgstr "xarab və ya texniki xidmətdə"
-
-#: apps/assets/templates/assets/list.html:21
-#: apps/assets/templates/assets/widgets/overview.html:10
-msgid "Open fault reports"
-msgstr "Açıq nasazlıq bildirişləri"
-
-#: apps/assets/templates/assets/list.html:21
-#, python-format
-msgid "%(n)s high priority"
-msgstr "%(n)s yüksək prioritetli"
-
-#: apps/assets/templates/assets/list.html:22
-msgid "Maintenance cost, 12 months"
-msgstr "Texniki xidmət xərci, 12 ay"
-
-#: apps/assets/templates/assets/list.html:22
-#, python-format
-msgid "%(n)s warranties end within 60 days"
-msgstr "%(n)s zəmanət 60 gün ərzində bitir"
-
-#: apps/assets/templates/assets/list.html:28
-#: apps/qr_management/templates/qr_management/list.html:64
-#: apps/surveys/templates/surveys/responses.html:10
-msgid "Search"
-msgstr "Axtar"
-
-#: apps/assets/templates/assets/list.html:29
-msgid "Name, ID, serial number or model"
-msgstr "Ad, ID, seriya nömrəsi və ya model"
-
-#: apps/assets/templates/assets/list.html:31 apps/qr_management/forms.py:119
-#: apps/surveys/forms.py:111
-msgid "All statuses"
-msgstr "Bütün statuslar"
-
-#: apps/assets/templates/assets/list.html:32
-#: apps/assets/templates/assets/public/profile.html:14
-msgid "Category"
-msgstr "Kateqoriya"
-
-#: apps/assets/templates/assets/list.html:32
-msgid "All categories"
-msgstr "Bütün kateqoriyalar"
-
-#: apps/assets/templates/assets/list.html:33
-msgid "All locations"
-msgstr "Bütün məkanlar"
-
-#: apps/assets/templates/assets/list.html:34
-msgid "Faults"
-msgstr "Nasazlıqlar"
-
-#: apps/assets/templates/assets/list.html:34
-msgid "With or without faults"
-msgstr "Nasazlıqlı və ya nasazlıqsız"
-
-#: apps/assets/templates/assets/list.html:34
-msgid "With open faults"
-msgstr "Açıq nasazlığı olanlar"
-
-#: apps/assets/templates/assets/list.html:47
-#, python-format
-msgid "%(n)s open fault"
-msgid_plural "%(n)s open faults"
-msgstr[0] "%(n)s açıq nasazlıq"
-msgstr[1] "%(n)s açıq nasazlıq"
-
-#: apps/assets/templates/assets/list.html:57
-#: apps/qr_management/templates/qr_management/list.html:131
-#: apps/surveys/templates/surveys/responses.html:45
-msgid "Pagination"
-msgstr "Səhifələmə"
-
-#: apps/assets/templates/assets/list.html:58
-#: apps/qr_management/templates/qr_management/list.html:132
-#: apps/surveys/templates/surveys/responses.html:46
-#, python-format
-msgid "Page %(n)s of %(total)s"
-msgstr "Səhifə %(n)s / %(total)s"
-
-#: apps/assets/templates/assets/list.html:60
-#: apps/qr_management/templates/qr_management/list.html:134
-#: apps/surveys/templates/surveys/responses.html:48
-msgid "Previous"
-msgstr "Əvvəlki"
-
-#: apps/assets/templates/assets/list.html:61
-#: apps/qr_management/templates/qr_management/list.html:135
-#: apps/surveys/templates/surveys/responses.html:49
-msgid "Next"
-msgstr "Növbəti"
-
-#: apps/assets/templates/assets/list.html:66
-msgid "No assets match these filters."
-msgstr "Bu filtrlərə uyğun aktiv yoxdur."
-
-#: apps/assets/templates/assets/list.html:66
-#: apps/qr_management/templates/qr_management/list.html:142
-msgid "Clear filters"
-msgstr "Filtrləri təmizlə"
-
-#: apps/assets/templates/assets/list.html:70
-#: apps/assets/templates/assets/widgets/overview.html:15
-msgid "Add your first asset"
-msgstr "İlk aktivinizi əlavə edin"
-
-#: apps/assets/templates/assets/list.html:71
-msgid ""
-"Give every machine, device or tool a QR label. Staff scan it to see "
-"instructions and report problems in seconds."
-msgstr ""
-"Hər maşına, cihaza və ya alətə QR etiket verin. İşçilər onu skan edərək "
-"saniyələr ərzində təlimata baxır və problemləri bildirir."
-
-#: apps/assets/templates/assets/public/base.html:13
-#: apps/qr_management/templates/qr_management/public/base.html:17
-#: apps/surveys/templates/surveys/public/base.html:17
-msgid "Powered by"
-msgstr "Təqdim edir:"
-
-#: apps/assets/templates/assets/public/profile.html:18
-msgid "Last maintenance"
-msgstr "Son texniki xidmət"
-
-#: apps/assets/templates/assets/public/profile.html:22
-msgid "Instructions"
-msgstr "Təlimat"
-
-#: apps/assets/templates/assets/public/profile.html:24
-#: apps/assets/templates/assets/public/report.html:3
-#: apps/assets/templates/assets/public/report.html:7
-msgid "Report a problem"
-msgstr "Problem bildir"
-
-#: apps/assets/templates/assets/public/profile.html:25
-msgid "Open in Qrumy"
-msgstr "Qrumy-də aç"
-
-#: apps/assets/templates/assets/public/report.html:10
-msgid "This form expired. Please try again."
-msgstr "Formun müddəti bitib. Yenidən cəhd edin."
-
-#: apps/assets/templates/assets/public/report.html:20
-msgid "Send report"
-msgstr "Bildirişi göndər"
-
-#: apps/assets/templates/assets/public/thanks.html:3
-#: apps/surveys/templates/surveys/public/thanks.html:3
-msgid "Thank you"
-msgstr "Təşəkkürlər"
-
-#: apps/assets/templates/assets/public/thanks.html:7
-msgid "Report sent"
-msgstr "Bildiriş göndərildi"
-
-#: apps/assets/templates/assets/public/thanks.html:8
-#, python-format
-msgid "Thank you. The team responsible for %(name)s has been notified."
-msgstr "Təşəkkürlər. %(name)s üçün məsul komandaya xəbər verildi."
-
-#: apps/assets/templates/assets/public/thanks.html:9
-msgid "Back to the asset"
-msgstr "Aktivə qayıt"
-
-#: apps/assets/templates/assets/setup.html:10
-msgid "Locations"
-msgstr "Məkanlar"
-
-#: apps/assets/templates/assets/setup.html:10
-msgid "Branch › Building › Floor › Room"
-msgstr "Filial › Bina › Mərtəbə › Otaq"
-
-#: apps/assets/templates/assets/setup.html:17
-#, python-format
-msgid "%(c)s asset"
-msgid_plural "%(c)s assets"
-msgstr[0] "%(c)s aktiv"
-msgstr[1] "%(c)s aktiv"
-
-#: apps/assets/templates/assets/setup.html:28
-msgid "Delete this location? Its assets will have no location."
-msgstr "Bu məkan silinsin? Onun aktivlərinin məkanı olmayacaq."
-
-#: apps/assets/templates/assets/setup.html:33
-msgid ""
-"No locations yet. Start with a branch or building, then add rooms inside it."
-msgstr ""
-"Hələ məkan yoxdur. Filial və ya binadan başlayın, sonra içinə otaqlar əlavə "
-"edin."
-
-#: apps/assets/templates/assets/setup.html:37
-msgid "Add"
-msgstr "Əlavə et"
-
-#: apps/assets/templates/assets/setup.html:43
-msgid "Categories"
-msgstr "Kateqoriyalar"
-
-#: apps/assets/templates/assets/setup.html:51
-msgid "Delete this category?"
-msgstr "Bu kateqoriya silinsin?"
-
-#: apps/assets/templates/assets/widgets/overview.html:5
-#: apps/qr_management/templates/qr_management/widgets/overview.html:5
-#: apps/surveys/templates/surveys/widgets/overview.html:5
-msgid "View all"
-msgstr "Hamısına bax"
-
-#: apps/assets/views/assets.py:91
-msgid "Asset added."
-msgstr "Aktiv əlavə edildi."
-
-#: apps/assets/views/assets.py:103 apps/qr_management/views/codes.py:168
-msgid "Changes saved."
-msgstr "Dəyişikliklər saxlanıldı."
-
-#: apps/assets/views/assets.py:146
-msgid "Status updated."
-msgstr "Status yeniləndi."
-
-#: apps/assets/views/assets.py:149
-msgid "QR code created. Print it and stick it on the asset."
-msgstr "QR kod yaradıldı. Onu çap edib aktivin üzərinə yapışdırın."
-
-#: apps/assets/views/assets.py:155
-msgid "Maintenance logged."
-msgstr "Texniki xidmət qeyd olundu."
-
-#: apps/assets/views/assets.py:157
-msgid "Check the maintenance form."
-msgstr "Texniki xidmət formunu yoxlayın."
-
-#: apps/assets/views/assets.py:164
-msgid "Fault reported."
-msgstr "Nasazlıq bildirildi."
-
-#: apps/assets/views/assets.py:166
-msgid "Describe the problem."
-msgstr "Problemi təsvir edin."
-
-#: apps/assets/views/assets.py:172
-msgid "File uploaded."
-msgstr "Fayl yükləndi."
-
-#: apps/assets/views/assets.py:174
-msgid "Choose a file to upload."
-msgstr "Yükləmək üçün fayl seçin."
-
-#: apps/assets/views/assets.py:179
-msgid "File deleted."
-msgstr "Fayl silindi."
-
-#: apps/assets/views/assets.py:191
-msgid "Type the asset ID exactly to confirm deletion."
-msgstr "Silməni təsdiqləmək üçün aktiv ID-ni dəqiq yazın."
-
-#: apps/assets/views/assets.py:194
-msgid "Asset deleted."
-msgstr "Aktiv silindi."
-
-#: apps/assets/views/faults.py:93
-msgid "Fault report updated."
-msgstr "Nasazlıq bildirişi yeniləndi."
-
-#: apps/assets/views/setup.py:48
-msgid "Location added."
-msgstr "Məkan əlavə edildi."
-
-#: apps/assets/views/setup.py:53
-msgid "Location saved."
-msgstr "Məkan saxlanıldı."
-
-#: apps/assets/views/setup.py:55
-msgid "Enter a location name."
-msgstr "Məkanın adını daxil edin."
-
-#: apps/assets/views/setup.py:65
-#, python-format
-msgid "Move or delete the locations inside “%(name)s” first."
-msgstr "Əvvəlcə “%(name)s” daxilindəki məkanları köçürün və ya silin."
-
-#: apps/assets/views/setup.py:69
-msgid "Location deleted. Its assets now have no location."
-msgstr "Məkan silindi. Onun aktivlərinin artıq məkanı yoxdur."
-
-#: apps/assets/views/setup.py:91
-msgid "A category with this name already exists."
-msgstr "Bu adda kateqoriya artıq mövcuddur."
-
-#: apps/assets/views/setup.py:93
-msgid "Category saved."
-msgstr "Kateqoriya saxlanıldı."
-
-#: apps/assets/views/setup.py:103
-msgid "Category deleted. Its assets now have no category."
-msgstr "Kateqoriya silindi. Onun aktivlərinin artıq kateqoriyası yoxdur."
 
 #: apps/audit_logs/apps.py:8
 msgid "Audit logs"
@@ -1453,56 +244,56 @@ msgstr "Audit jurnalı"
 msgid "time"
 msgstr "vaxt"
 
-#: apps/audit_logs/models.py:12
+#: apps/audit_logs/models.py:16
 msgid "actor"
 msgstr "icraçı"
 
-#: apps/audit_logs/models.py:13
+#: apps/audit_logs/models.py:18
 msgid "actor email"
 msgstr "icraçının e-poçtu"
 
-#: apps/audit_logs/models.py:14
+#: apps/audit_logs/models.py:19
 msgid "staff action"
 msgstr "işçi əməliyyatı"
 
-#: apps/audit_logs/models.py:17 apps/core/models.py:32
-#: apps/organizations/models.py:70
+#: apps/audit_logs/models.py:26 apps/core/models.py:32
+#: apps/organizations/models.py:83
 msgid "organization"
 msgstr "təşkilat"
 
-#: apps/audit_logs/models.py:18
+#: apps/audit_logs/models.py:28
 msgid "action"
 msgstr "əməliyyat"
 
-#: apps/audit_logs/models.py:19
+#: apps/audit_logs/models.py:29
 msgid "target type"
 msgstr "obyekt növü"
 
-#: apps/audit_logs/models.py:20
+#: apps/audit_logs/models.py:30
 msgid "target id"
 msgstr "obyekt ID"
 
-#: apps/audit_logs/models.py:21
+#: apps/audit_logs/models.py:31
 msgid "target"
 msgstr "obyekt"
 
-#: apps/audit_logs/models.py:22
+#: apps/audit_logs/models.py:32
 msgid "details"
 msgstr "təfərrüatlar"
 
-#: apps/audit_logs/models.py:23
+#: apps/audit_logs/models.py:33
 msgid "IP hash"
 msgstr "IP heşi"
 
-#: apps/audit_logs/models.py:24
+#: apps/audit_logs/models.py:34
 msgid "user agent"
 msgstr "brauzer məlumatı"
 
-#: apps/audit_logs/models.py:28
+#: apps/audit_logs/models.py:38
 msgid "audit log entry"
 msgstr "audit qeydi"
 
-#: apps/audit_logs/models.py:29
+#: apps/audit_logs/models.py:39
 msgid "audit log"
 msgstr "audit jurnalı"
 
@@ -1522,7 +313,7 @@ msgstr "plan təyinatı"
 msgid "plan assignments"
 msgstr "plan təyinatları"
 
-#: apps/billing/navigation.py:9 apps/billing/templates/billing/billing.html:3
+#: apps/billing/navigation.py:12 apps/billing/templates/billing/billing.html:3
 #: apps/billing/templates/billing/billing.html:4
 #: apps/billing/templates/billing/billing.html:6
 msgid "Plan & billing"
@@ -1548,7 +339,7 @@ msgstr ""
 msgid "Usage"
 msgstr "İstifadə"
 
-#: apps/billing/templates/billing/billing.html:30 apps/marketing/views.py:50
+#: apps/billing/templates/billing/billing.html:30 apps/marketing/views.py:96
 msgid "Unlimited"
 msgstr "Limitsiz"
 
@@ -1702,6 +493,10 @@ msgid ""
 msgstr ""
 "Bir hesab, bir komanda və vahid QR infrastrukturu — ehtiyac duyduqca "
 "aktivləşdirdiyiniz məhsullarla."
+
+#: apps/marketing/templates/marketing/home.html:70
+msgid "Available"
+msgstr "Mövcuddur"
 
 #: apps/marketing/templates/marketing/home.html:70
 msgid "Coming soon"
@@ -1884,12 +679,12 @@ msgstr ""
 "İllik ödənişdə iki ay pulsuz olacaq. Bütün qiymətlər ABŞ dolları ilə, "
 "vergilər daxil edilmədən göstərilib."
 
-#: apps/marketing/views.py:9 apps/qr_management/apps.py:8
-#: apps/subscriptions/features.py:21
+#: apps/marketing/views.py:12 apps/qr_management/apps.py:8
+#: apps/subscriptions/features.py:23
 msgid "QR Management"
 msgstr "QR İdarəetmə"
 
-#: apps/marketing/views.py:10
+#: apps/marketing/views.py:14
 msgid ""
 "Create static and dynamic QR codes, brand them, change destinations after "
 "printing and see where every scan comes from."
@@ -1897,24 +692,24 @@ msgstr ""
 "Statik və dinamik QR kodlar yaradın, onları brendləşdirin, çapdan sonra "
 "ünvanı dəyişin və hər skanın haradan gəldiyini görün."
 
-#: apps/marketing/views.py:12
+#: apps/marketing/views.py:18
 msgid "Dynamic codes you can edit anytime"
 msgstr "İstənilən vaxt redaktə edilə bilən dinamik kodlar"
 
-#: apps/marketing/views.py:12
+#: apps/marketing/views.py:19
 msgid "Custom colors, logo and frames"
 msgstr "Fərdi rənglər, loqo və çərçivələr"
 
-#: apps/marketing/views.py:13
+#: apps/marketing/views.py:20
 msgid "Scan analytics by date, device and country"
 msgstr "Tarix, cihaz və ölkəyə görə skan analitikası"
 
-#: apps/marketing/views.py:14 apps/subscriptions/features.py:22
+#: apps/marketing/views.py:26 apps/subscriptions/features.py:24
 #: apps/surveys/apps.py:8
 msgid "Surveys & Feedback"
 msgstr "Sorğular və Rəylər"
 
-#: apps/marketing/views.py:15
+#: apps/marketing/views.py:28
 msgid ""
 "Collect customer feedback with QR-powered surveys and track NPS, CSAT and "
 "CES over time."
@@ -1922,23 +717,23 @@ msgstr ""
 "QR əsaslı sorğularla müştəri rəylərini toplayın və NPS, CSAT, CES "
 "göstəricilərini zamanla izləyin."
 
-#: apps/marketing/views.py:17
+#: apps/marketing/views.py:32
 msgid "Builder with 14 question types"
 msgstr "14 sual növü olan qurucu"
 
-#: apps/marketing/views.py:17
+#: apps/marketing/views.py:33
 msgid "NPS, CSAT and CES scoring"
 msgstr "NPS, CSAT və CES hesablanması"
 
-#: apps/marketing/views.py:18
+#: apps/marketing/views.py:34
 msgid "Assign, tag and resolve responses"
 msgstr "Cavabları təyin edin, etiketləyin və həll edin"
 
-#: apps/marketing/views.py:19 apps/subscriptions/features.py:23
+#: apps/marketing/views.py:40 apps/subscriptions/features.py:25
 msgid "Event Lead Capture"
 msgstr "Tədbirlərdə Müştəri Toplama"
 
-#: apps/marketing/views.py:20
+#: apps/marketing/views.py:42
 msgid ""
 "Turn trade-show and event conversations into qualified leads, then follow up"
 " before they go cold."
@@ -1946,19 +741,23 @@ msgstr ""
 "Sərgi və tədbirlərdəki söhbətləri qiymətləndirilmiş potensial müştərilərə "
 "çevirin və maraq soyumadan əlaqə saxlayın."
 
-#: apps/marketing/views.py:22
+#: apps/marketing/views.py:46
 msgid "Exhibitor lead capture by QR"
 msgstr "QR ilə iştirakçı stendində müştəri toplama"
 
-#: apps/marketing/views.py:22
+#: apps/marketing/views.py:47
 msgid "Hot / warm / cold qualification"
 msgstr "İsti / ilıq / soyuq qiymətləndirmə"
 
-#: apps/marketing/views.py:23
+#: apps/marketing/views.py:48
 msgid "Pipeline, tasks and follow-up templates"
 msgstr "Satış mərhələləri, tapşırıqlar və izləmə şablonları"
 
-#: apps/marketing/views.py:25
+#: apps/marketing/views.py:54 apps/subscriptions/features.py:26
+msgid "Asset Management"
+msgstr "Aktivlərin İdarə Edilməsi"
+
+#: apps/marketing/views.py:56
 msgid ""
 "Give every machine and tool a QR profile. Staff scan to see its history or "
 "report a fault in seconds."
@@ -1966,68 +765,68 @@ msgstr ""
 "Hər maşın və alətə QR profil verin. İşçilər skan edərək saniyələr ərzində "
 "tarixçəyə baxır və ya nasazlığı bildirir."
 
-#: apps/marketing/views.py:27
+#: apps/marketing/views.py:60
 msgid "QR profile for every asset"
 msgstr "Hər aktiv üçün QR profil"
 
-#: apps/marketing/views.py:27
+#: apps/marketing/views.py:61
 msgid "Fault reporting from a scan"
 msgstr "Skanla nasazlıq bildirişi"
 
-#: apps/marketing/views.py:28
+#: apps/marketing/views.py:62
 msgid "Maintenance history and locations"
 msgstr "Texniki xidmət tarixçəsi və yerləşmə"
 
-#: apps/marketing/views.py:29 apps/subscriptions/features.py:25
+#: apps/marketing/views.py:68 apps/subscriptions/features.py:27
 msgid "Qrumy Intelligence"
 msgstr "Qrumy Intelligence"
 
-#: apps/marketing/views.py:30
+#: apps/marketing/views.py:69
 msgid "AI summaries and recommendations across feedback, leads and assets."
 msgstr ""
 "Rəylər, potensial müştərilər və aktivlər üzrə süni intellekt xülasələri və "
 "tövsiyələri."
 
-#: apps/marketing/views.py:31
+#: apps/marketing/views.py:71
 msgid "Feedback themes and sentiment"
 msgstr "Rəy mövzuları və əhval-ruhiyyə"
 
-#: apps/marketing/views.py:31
+#: apps/marketing/views.py:72
 msgid "Lead summaries"
 msgstr "Potensial müştəri xülasələri"
 
-#: apps/marketing/views.py:32
+#: apps/marketing/views.py:73
 msgid "Natural-language reports"
 msgstr "Təbii dildə hesabatlar"
 
-#: apps/marketing/views.py:33
+#: apps/marketing/views.py:79
 msgid "Qrumy Agency"
 msgstr "Qrumy Agency"
 
-#: apps/marketing/views.py:34
+#: apps/marketing/views.py:80
 msgid ""
 "Manage many client organizations from one workspace with client reports."
 msgstr ""
 "Çoxsaylı müştəri təşkilatlarını bir iş sahəsindən idarə edin və müştəri "
 "hesabatları hazırlayın."
 
-#: apps/marketing/views.py:35
+#: apps/marketing/views.py:81
 msgid "Client workspaces"
 msgstr "Müştəri iş sahələri"
 
-#: apps/marketing/views.py:35
+#: apps/marketing/views.py:81
 msgid "Client reporting"
 msgstr "Müştəri hesabatları"
 
-#: apps/marketing/views.py:35
+#: apps/marketing/views.py:81
 msgid "White-label options"
 msgstr "Öz brendinizlə istifadə imkanı"
 
-#: apps/marketing/views.py:58
+#: apps/marketing/views.py:105
 msgid "What is Qrumy?"
 msgstr "Qrumy nədir?"
 
-#: apps/marketing/views.py:59
+#: apps/marketing/views.py:107
 msgid ""
 "Qrumy is one platform for QR-powered business tools: QR code management, "
 "customer surveys, asset and equipment tracking, and event lead capture, with"
@@ -2037,11 +836,11 @@ msgstr ""
 "edilməsi, müştəri sorğuları, aktiv və avadanlıqların izlənməsi, tədbirlərdə "
 "potensial müştəri toplanması — ortaq komanda, icazələr və analitika ilə."
 
-#: apps/marketing/views.py:62
+#: apps/marketing/views.py:113
 msgid "Is Qrumy really free?"
 msgstr "Qrumy həqiqətən pulsuzdur?"
 
-#: apps/marketing/views.py:63
+#: apps/marketing/views.py:115
 msgid ""
 "Yes. During the beta every released feature is free, with fair-use limits. "
 "Paid plans will come later and existing users will be informed well in "
@@ -2051,11 +850,11 @@ msgstr ""
 "ilə pulsuzdur. Ödənişli planlar sonra gələcək və mövcud istifadəçilərə xeyli"
 " əvvəlcədən məlumat veriləcək."
 
-#: apps/marketing/views.py:65
+#: apps/marketing/views.py:120
 msgid "Which products are available today?"
 msgstr "Hazırda hansı məhsullar mövcuddur?"
 
-#: apps/marketing/views.py:66
+#: apps/marketing/views.py:122
 msgid ""
 "Qrumy is released step by step. QR Management, Surveys & Feedback and Asset "
 "Management are available now; Event Lead Capture comes next. Each product is"
@@ -2066,11 +865,11 @@ msgstr ""
 "Toplama gələcək. Hər məhsul buraxılan kimi bu səhifədə mövcud kimi qeyd "
 "olunur."
 
-#: apps/marketing/views.py:69
+#: apps/marketing/views.py:128
 msgid "What is a dynamic QR code?"
 msgstr "Dinamik QR kod nədir?"
 
-#: apps/marketing/views.py:70
+#: apps/marketing/views.py:130
 msgid ""
 "A dynamic QR code points to a short Qrumy link, so you can change where it "
 "leads after printing and see scan statistics. A static QR code stores the "
@@ -2080,11 +879,11 @@ msgstr ""
 " hara apardığını dəyişə və skan statistikasını görə bilərsiniz. Statik QR "
 "kod məzmunu birbaşa özündə saxlayır, dəyişdirilə və izlənilə bilməz."
 
-#: apps/marketing/views.py:73
+#: apps/marketing/views.py:136
 msgid "Can I use Qrumy with my team?"
 msgstr "Qrumy-dən komandamla istifadə edə bilərəmmi?"
 
-#: apps/marketing/views.py:74
+#: apps/marketing/views.py:138
 msgid ""
 "Yes. Invite colleagues to your organization and give each person a role — "
 "Owner, Admin, Manager, Member or Viewer. Each organization's data is private"
@@ -2094,11 +893,11 @@ msgstr ""
 "Sahib, Admin, Menecer, Üzv və ya İzləyici. Hər təşkilatın məlumatları yalnız"
 " həmin təşkilata məxsusdur."
 
-#: apps/marketing/views.py:76
+#: apps/marketing/views.py:143
 msgid "Is Qrumy available in Azerbaijani?"
 msgstr "Qrumy azərbaycan dilində mövcuddurmu?"
 
-#: apps/marketing/views.py:77
+#: apps/marketing/views.py:145
 msgid ""
 "Yes. Qrumy is available in English and Azerbaijani. You can switch the "
 "language at any time."
@@ -2113,11 +912,11 @@ msgstr ""
 msgid "Notifications"
 msgstr "Bildirişlər"
 
-#: apps/notifications/models.py:22
+#: apps/notifications/models.py:28
 msgid "notification"
 msgstr "bildiriş"
 
-#: apps/notifications/models.py:23
+#: apps/notifications/models.py:29
 msgid "notifications"
 msgstr "bildirişlər"
 
@@ -2143,15 +942,15 @@ msgstr "Yeni bildiriş yoxdur."
 msgid "Suspend selected organizations"
 msgstr "Seçilmiş təşkilatları dayandır"
 
-#: apps/organizations/admin.py:35
+#: apps/organizations/admin.py:40
 msgid "Selected organizations were suspended."
 msgstr "Seçilmiş təşkilatlar dayandırıldı."
 
-#: apps/organizations/admin.py:37
+#: apps/organizations/admin.py:42
 msgid "Activate selected organizations"
 msgstr "Seçilmiş təşkilatları aktivləşdir"
 
-#: apps/organizations/admin.py:44
+#: apps/organizations/admin.py:54
 msgid "Selected organizations were activated."
 msgstr "Seçilmiş təşkilatlar aktivləşdirildi."
 
@@ -2171,13 +970,13 @@ msgstr "Düzgün PNG, JPEG və ya WebP şəkli yükləyin."
 msgid "website"
 msgstr "veb sayt"
 
-#: apps/organizations/forms.py:53 apps/qr_management/types.py:82
-#: apps/qr_management/types.py:288 apps/surveys/models.py:136
-#: apps/surveys/qtypes.py:128 apps/surveys/templates/surveys/share.html:41
+#: apps/organizations/forms.py:63 apps/qr_management/types.py:85
+#: apps/qr_management/types.py:440 apps/surveys/models.py:152
+#: apps/surveys/qtypes.py:176 apps/surveys/templates/surveys/share.html:41
 msgid "Email"
 msgstr "E-poçt"
 
-#: apps/organizations/forms.py:54 apps/organizations/forms.py:65
+#: apps/organizations/forms.py:64 apps/organizations/forms.py:75
 #: apps/organizations/templates/organizations/team.html:33
 msgid "Role"
 msgstr "Rol"
@@ -2226,6 +1025,11 @@ msgstr "Texnologiya"
 msgid "Public sector & non-profit"
 msgstr "Dövlət sektoru və qeyri-kommersiya"
 
+#: apps/organizations/models.py:34
+#: apps/qr_management/templates/qr_management/_breakdown.html:8
+msgid "Other"
+msgstr "Digər"
+
 #: apps/organizations/models.py:39
 msgid "Standard"
 msgstr "Standart"
@@ -2234,8 +1038,15 @@ msgstr "Standart"
 msgid "Agency"
 msgstr "Agentlik"
 
-#: apps/organizations/models.py:44 apps/qr_management/forms.py:120
+#: apps/organizations/models.py:43 apps/qr_management/forms.py:162
 #: apps/qr_management/models.py:73
+#: apps/qr_management/templates/qr_management/_status_badge.html:1
+#: apps/subscriptions/models.py:62
+msgid "Active"
+msgstr "Aktiv"
+
+#: apps/organizations/models.py:44 apps/qr_management/forms.py:165
+#: apps/qr_management/models.py:75
 #: apps/qr_management/templates/qr_management/_status_badge.html:1
 msgid "Suspended"
 msgstr "Dayandırılıb"
@@ -2248,8 +1059,8 @@ msgstr "təşkilatın adı"
 msgid "URL name"
 msgstr "URL adı"
 
-#: apps/organizations/models.py:48 apps/qr_management/models.py:83
-#: apps/surveys/models.py:40
+#: apps/organizations/models.py:48 apps/qr_management/models.py:85
+#: apps/surveys/models.py:47
 msgid "logo"
 msgstr "loqo"
 
@@ -2257,11 +1068,11 @@ msgstr "loqo"
 msgid "industry"
 msgstr "sahə"
 
-#: apps/organizations/models.py:52
+#: apps/organizations/models.py:51
 msgid "country"
 msgstr "ölkə"
 
-#: apps/organizations/models.py:53
+#: apps/organizations/models.py:52
 msgid "time zone"
 msgstr "saat qurşağı"
 
@@ -2269,47 +1080,58 @@ msgstr "saat qurşağı"
 msgid "default language"
 msgstr "əsas dil"
 
-#: apps/organizations/models.py:56
+#: apps/organizations/models.py:59
 msgid "contact email"
 msgstr "əlaqə e-poçtu"
 
-#: apps/organizations/models.py:57
+#: apps/organizations/models.py:60
 msgid "contact phone"
 msgstr "əlaqə telefonu"
 
-#: apps/organizations/models.py:59
+#: apps/organizations/models.py:65
 msgid "owner"
 msgstr "sahib"
 
-#: apps/organizations/models.py:62
+#: apps/organizations/models.py:74
 msgid "managed by"
 msgstr "idarə edən"
 
-#: apps/organizations/models.py:71
+#: apps/organizations/models.py:76 apps/qr_management/models.py:78
+#: apps/surveys/models.py:102
+msgid "type"
+msgstr "növ"
+
+#: apps/organizations/models.py:78 apps/qr_management/models.py:88
+#: apps/subscriptions/models.py:75 apps/surveys/models.py:36
+#: apps/surveys/models.py:166
+msgid "status"
+msgstr "status"
+
+#: apps/organizations/models.py:84
 msgid "organizations"
 msgstr "təşkilatlar"
 
-#: apps/organizations/models.py:86 apps/organizations/models.py:106
+#: apps/organizations/models.py:101 apps/organizations/models.py:122
 msgid "role"
 msgstr "rol"
 
-#: apps/organizations/models.py:91
+#: apps/organizations/models.py:105
 msgid "membership"
 msgstr "üzvlük"
 
-#: apps/organizations/models.py:92
+#: apps/organizations/models.py:106
 msgid "memberships"
 msgstr "üzvlüklər"
 
-#: apps/organizations/models.py:105 apps/surveys/models.py:145
+#: apps/organizations/models.py:121 apps/surveys/models.py:162
 msgid "email"
 msgstr "e-poçt"
 
-#: apps/organizations/models.py:119
+#: apps/organizations/models.py:136
 msgid "invitation"
 msgstr "dəvət"
 
-#: apps/organizations/models.py:120
+#: apps/organizations/models.py:137
 msgid "invitations"
 msgstr "dəvətlər"
 
@@ -2319,14 +1141,14 @@ msgstr "dəvətlər"
 msgid "Overview"
 msgstr "Ümumi baxış"
 
-#: apps/organizations/navigation.py:11
+#: apps/organizations/navigation.py:14
 #: apps/organizations/templates/organizations/team.html:3
 #: apps/organizations/templates/organizations/team.html:4
 #: apps/organizations/templates/organizations/team.html:8
 msgid "Team"
 msgstr "Komanda"
 
-#: apps/organizations/navigation.py:13
+#: apps/organizations/navigation.py:25
 #: apps/organizations/templates/organizations/settings.html:3
 #: apps/organizations/templates/organizations/settings.html:4
 #: apps/qr_management/templates/qr_management/form.html:42
@@ -2375,15 +1197,15 @@ msgstr "Məzmun yaradır və redaktə edir."
 msgid "Read-only access."
 msgstr "Yalnız baxış hüququ."
 
-#: apps/organizations/services.py:67
+#: apps/organizations/services.py:78
 msgid "You cannot invite someone with this role."
 msgstr "Bu rolla kimisə dəvət edə bilməzsiniz."
 
-#: apps/organizations/services.py:69
+#: apps/organizations/services.py:80
 msgid "This person is already a member of the organization."
 msgstr "Bu şəxs artıq təşkilatın üzvüdür."
 
-#: apps/organizations/services.py:74
+#: apps/organizations/services.py:85
 #, python-format
 msgid ""
 "Your plan allows up to %(limit)s team members (including pending "
@@ -2392,15 +1214,15 @@ msgstr ""
 "Planınız gözləyən dəvətlər daxil olmaqla ən çox %(limit)s komanda üzvünə "
 "icazə verir."
 
-#: apps/organizations/services.py:91
+#: apps/organizations/services.py:109
 msgid "An invitation is already pending for this email."
 msgstr "Bu e-poçt üçün artıq gözləyən dəvət var."
 
-#: apps/organizations/services.py:124
+#: apps/organizations/services.py:161
 msgid "This invitation is no longer valid."
 msgstr "Bu dəvət artıq etibarlı deyil."
 
-#: apps/organizations/services.py:127
+#: apps/organizations/services.py:164
 #, python-format
 msgid ""
 "This invitation was sent to %(email)s. Sign in with that email to accept it."
@@ -2408,44 +1230,45 @@ msgstr ""
 "Bu dəvət %(email)s ünvanına göndərilib. Qəbul etmək üçün həmin e-poçtla "
 "daxil olun."
 
-#: apps/organizations/services.py:131
+#: apps/organizations/services.py:168
 msgid "This organization is not available."
 msgstr "Bu təşkilat əlçatan deyil."
 
-#: apps/organizations/services.py:143
+#: apps/organizations/services.py:189
 #, python-format
 msgid "%(name)s joined %(org)s"
 msgstr "%(name)s %(org)s təşkilatına qoşuldu"
 
-#: apps/organizations/services.py:151
+#: apps/organizations/services.py:198
 msgid "Member not found."
 msgstr "Üzv tapılmadı."
 
-#: apps/organizations/services.py:153
+#: apps/organizations/services.py:200
 msgid "The organization owner cannot be changed or removed."
 msgstr "Təşkilatın sahibi dəyişdirilə və ya çıxarıla bilməz."
 
-#: apps/organizations/services.py:155
+#: apps/organizations/services.py:202
 msgid "You can only manage members with a lower role than yours."
 msgstr "Yalnız rolu sizinkindən aşağı olan üzvləri idarə edə bilərsiniz."
 
-#: apps/organizations/services.py:162 apps/organizations/views/team.py:76
+#: apps/organizations/services.py:208 apps/organizations/views/team.py:87
 msgid "You cannot assign this role."
 msgstr "Bu rolu təyin edə bilməzsiniz."
 
-#: apps/organizations/services.py:182
+#: apps/organizations/services.py:238
 msgid "The owner cannot leave the organization."
 msgstr "Sahib təşkilatı tərk edə bilməz."
 
-#: apps/organizations/services.py:192
+#: apps/organizations/services.py:252
 msgid "Only the owner can transfer ownership."
 msgstr "Sahibliyi yalnız sahib ötürə bilər."
 
-#: apps/organizations/services.py:195 apps/organizations/views/workspace.py:89
+#: apps/organizations/services.py:257
+#: apps/organizations/views/workspace.py:113
 msgid "Choose another member of this organization."
 msgstr "Bu təşkilatın başqa üzvünü seçin."
 
-#: apps/organizations/services.py:206
+#: apps/organizations/services.py:276
 #, python-format
 msgid "You are now the owner of %(org)s"
 msgstr "Artıq %(org)s təşkilatının sahibisiniz"
@@ -2520,7 +1343,7 @@ msgstr "planı dəyişdi"
 
 #: apps/organizations/templates/organizations/create.html:3
 #: apps/organizations/templates/organizations/create.html:6
-#: apps/organizations/views/workspace.py:49
+#: apps/organizations/views/workspace.py:54
 msgid "Create your organization"
 msgstr "Təşkilatınızı yaradın"
 
@@ -2545,13 +1368,18 @@ msgstr ""
 msgid "Create organization"
 msgstr "Təşkilat yarat"
 
+#: apps/organizations/templates/organizations/create.html:12
+#: apps/qr_management/templates/qr_management/form.html:78
+msgid "Cancel"
+msgstr "Ləğv et"
+
 #: apps/organizations/templates/organizations/dashboard.html:8
 #, python-format
 msgid "Welcome, %(name)s"
 msgstr "Xoş gəldiniz, %(name)s"
 
 #: apps/organizations/templates/organizations/dashboard.html:15
-#: apps/subscriptions/features.py:20
+#: apps/subscriptions/features.py:22
 msgid "Team members"
 msgstr "Komanda üzvləri"
 
@@ -2790,6 +1618,13 @@ msgstr "Üzvlər"
 msgid "you"
 msgstr "siz"
 
+#: apps/organizations/templates/organizations/team.html:37
+#: apps/qr_management/templates/qr_management/list.html:45
+#: apps/surveys/templates/surveys/builder.html:37
+#: apps/surveys/templates/surveys/response_detail.html:63
+msgid "Save"
+msgstr "Saxla"
+
 #: apps/organizations/templates/organizations/team.html:41
 #, python-format
 msgid "Remove %(name)s from the organization?"
@@ -2821,7 +1656,7 @@ msgid "Revoke"
 msgstr "Ləğv et"
 
 #: apps/organizations/templates/organizations/team.html:85
-#: apps/organizations/views/workspace.py:53
+#: apps/organizations/views/workspace.py:61
 msgid "Invite a teammate"
 msgstr "Komanda üzvü dəvət edin"
 
@@ -2840,105 +1675,105 @@ msgstr[1] "Gözləyən dəvətlər daxil olmaqla %(n)s yer istifadə olunub."
 msgid "Roles"
 msgstr "Rollar"
 
-#: apps/organizations/views/invitations.py:21
+#: apps/organizations/views/invitations.py:22
 #, python-format
 msgid "You joined %(org)s."
 msgstr "Siz %(org)s təşkilatına qoşuldunuz."
 
-#: apps/organizations/views/team.py:61
+#: apps/organizations/views/team.py:72
 #, python-format
 msgid "Invitation sent to %(email)s."
 msgstr "Dəvət %(email)s ünvanına göndərildi."
 
-#: apps/organizations/views/team.py:79
+#: apps/organizations/views/team.py:94
 msgid "Role updated."
 msgstr "Rol yeniləndi."
 
-#: apps/organizations/views/team.py:92
+#: apps/organizations/views/team.py:108
 msgid "Member removed."
 msgstr "Üzv çıxarıldı."
 
-#: apps/organizations/views/team.py:105
+#: apps/organizations/views/team.py:121
 msgid "Invitation revoked."
 msgstr "Dəvət ləğv edildi."
 
-#: apps/organizations/views/team.py:116
+#: apps/organizations/views/team.py:132
 #, python-format
 msgid "You left %(org)s."
 msgstr "Siz %(org)s təşkilatını tərk etdiniz."
 
-#: apps/organizations/views/workspace.py:34
+#: apps/organizations/views/workspace.py:33
 msgid "Welcome to Qrumy! Your organization is ready."
 msgstr "Qrumy-yə xoş gəldiniz! Təşkilatınız hazırdır."
 
-#: apps/organizations/views/workspace.py:50
+#: apps/organizations/views/workspace.py:56
 msgid "Complete your organization profile"
 msgstr "Təşkilat profilinizi tamamlayın"
 
-#: apps/organizations/views/workspace.py:71
+#: apps/organizations/views/workspace.py:89
 msgid "Organization settings saved."
 msgstr "Təşkilat ayarları saxlanıldı."
 
-#: apps/organizations/views/workspace.py:95
+#: apps/organizations/views/workspace.py:123
 msgid "Ownership transferred. You are now an admin."
 msgstr "Sahiblik ötürüldü. Artıq adminsiniz."
 
-#: apps/organizations/views/workspace.py:99
+#: apps/organizations/views/workspace.py:127
 msgid "Type the organization name exactly to confirm."
 msgstr "Təsdiq üçün təşkilatın adını dəqiq yazın."
 
-#: apps/organizations/views/workspace.py:104
+#: apps/organizations/views/workspace.py:132
 #, python-format
 msgid "%(org)s and all its data were deleted."
 msgstr "%(org)s və onun bütün məlumatları silindi."
 
-#: apps/qr_management/admin.py:31
+#: apps/qr_management/admin.py:40
 msgid "Suspend selected QR codes (abuse)"
 msgstr "Seçilmiş QR kodları blokla (sui-istifadə)"
 
-#: apps/qr_management/admin.py:39
+#: apps/qr_management/admin.py:52
 msgid "Selected QR codes were suspended."
 msgstr "Seçilmiş QR kodlar bloklandı."
 
-#: apps/qr_management/admin.py:45
+#: apps/qr_management/admin.py:64
 msgid "Suspend QR codes"
 msgstr "QR kodları blokla"
 
-#: apps/qr_management/admin.py:47
+#: apps/qr_management/admin.py:68
 msgid "Lift suspension (set active)"
 msgstr "Bloku götür (aktiv et)"
 
-#: apps/qr_management/admin.py:59
+#: apps/qr_management/admin.py:85
 msgid "Suspension lifted."
 msgstr "Blok götürüldü."
 
-#: apps/qr_management/bulk.py:29
+#: apps/qr_management/bulk.py:31
 msgid "The file must be 1 MB or smaller."
 msgstr "Fayl 1 MB-dan böyük olmamalıdır."
 
-#: apps/qr_management/bulk.py:34
+#: apps/qr_management/bulk.py:36
 msgid "Save the file as UTF-8 CSV."
 msgstr "Faylı UTF-8 CSV kimi saxlayın."
 
-#: apps/qr_management/bulk.py:43
+#: apps/qr_management/bulk.py:45
 msgid "The first row must contain the column names, including 'url'."
 msgstr "Birinci sətirdə sütun adları olmalıdır, o cümlədən 'url'."
 
-#: apps/qr_management/bulk.py:51
+#: apps/qr_management/bulk.py:53
 #, python-format
 msgid "Only %(n)s rows can be imported at once."
 msgstr "Bir dəfəyə ən çox %(n)s sətir idxal etmək olar."
 
-#: apps/qr_management/bulk.py:57
+#: apps/qr_management/bulk.py:59
 #, python-format
 msgid "Row %(line)s: %(error)s"
 msgstr "Sətir %(line)s: %(error)s"
 
-#: apps/qr_management/bulk.py:63
+#: apps/qr_management/bulk.py:65
 msgid "The file has no rows to import."
 msgstr "Faylda idxal ediləcək sətir yoxdur."
 
-#: apps/qr_management/engine/verify.py:33
+#: apps/qr_management/engine/verify.py:35
 msgid ""
 "Use a dark code color on a light background — many scanners cannot read "
 "inverted codes."
@@ -2946,23 +1781,32 @@ msgstr ""
 "Açıq fonda tünd kod rəngi istifadə edin — bir çox skaner tərs rəngli kodları"
 " oxuya bilmir."
 
-#: apps/qr_management/engine/verify.py:37
+#: apps/qr_management/engine/verify.py:41
 msgid "Increase the contrast between the code colors and the background."
 msgstr "Kodun rəngləri ilə fon arasındakı kontrastı artırın."
 
-#: apps/qr_management/engine/verify.py:42
+#: apps/qr_management/engine/verify.py:48
 msgid "The frame color is too close to the background color."
 msgstr "Çərçivənin rəngi fonun rənginə çox yaxındır."
+
+#: apps/qr_management/files.py:30
+#, python-format
+msgid "The file must be %(mb)s MB or smaller."
+msgstr "Fayl %(mb)s MB-dan böyük olmamalıdır."
 
 #: apps/qr_management/files.py:33
 msgid "This file type is not supported here."
 msgstr "Bu fayl növü burada dəstəklənmir."
 
-#: apps/qr_management/forms.py:15
+#: apps/qr_management/forms.py:14 apps/qr_management/forms.py:169
+msgid "Name"
+msgstr "Ad"
+
+#: apps/qr_management/forms.py:14
 msgid "Only you see this name."
 msgstr "Bu adı yalnız siz görürsünüz."
 
-#: apps/qr_management/forms.py:16
+#: apps/qr_management/forms.py:15
 msgid "Type of code"
 msgstr "Kodun növü"
 
@@ -2971,163 +1815,179 @@ msgstr "Kodun növü"
 msgid "Folder"
 msgstr "Qovluq"
 
-#: apps/qr_management/forms.py:18 apps/qr_management/forms.py:108
+#: apps/qr_management/forms.py:20 apps/qr_management/forms.py:148
 #: apps/qr_management/templates/qr_management/list.html:25
 #: apps/qr_management/templates/qr_management/list.html:102
 msgid "No folder"
 msgstr "Qovluqsuz"
 
-#: apps/qr_management/forms.py:19
+#: apps/qr_management/forms.py:23
 #: apps/surveys/templates/surveys/response_detail.html:67
 msgid "Tags"
 msgstr "Etiketlər"
 
-#: apps/qr_management/forms.py:20
+#: apps/qr_management/forms.py:23
 msgid "Separate with commas."
 msgstr "Vergüllə ayırın."
 
-#: apps/qr_management/forms.py:21
+#: apps/qr_management/forms.py:26
 msgid "Expires at"
 msgstr "Bitmə vaxtı"
 
-#: apps/qr_management/forms.py:23
+#: apps/qr_management/forms.py:29
 msgid "Dynamic codes stop working after this time."
 msgstr "Dinamik kodlar bu vaxtdan sonra işləmir."
 
-#: apps/qr_management/forms.py:28
+#: apps/qr_management/forms.py:36
 msgid "Dynamic — editable later, with scan analytics"
 msgstr "Dinamik — sonradan dəyişdirilə bilər, skan analitikası ilə"
 
-#: apps/qr_management/forms.py:29
+#: apps/qr_management/forms.py:37
 msgid "Static — content stored in the code, no analytics"
 msgstr "Statik — məzmun kodun içindədir, analitika yoxdur"
 
-#: apps/qr_management/forms.py:42
+#: apps/qr_management/forms.py:51
 msgid "Static codes cannot expire."
 msgstr "Statik kodların bitmə vaxtı ola bilməz."
 
-#: apps/qr_management/forms.py:47
+#: apps/qr_management/forms.py:57
 msgid "Code color"
 msgstr "Kodun rəngi"
 
-#: apps/qr_management/forms.py:49
+#: apps/qr_management/forms.py:60
 msgid "Background"
 msgstr "Fon"
 
-#: apps/qr_management/forms.py:51
+#: apps/qr_management/forms.py:63
 msgid "Corner color"
 msgstr "Künclərin rəngi"
 
-#: apps/qr_management/forms.py:53
+#: apps/qr_management/forms.py:66
 msgid "Pattern"
 msgstr "Naxış"
 
-#: apps/qr_management/forms.py:54 apps/qr_management/forms.py:56
-#: apps/qr_management/forms.py:58
+#: apps/qr_management/forms.py:67 apps/qr_management/forms.py:71
+#: apps/qr_management/forms.py:75
 msgid "Square"
 msgstr "Kvadrat"
 
-#: apps/qr_management/forms.py:54 apps/qr_management/forms.py:56
-#: apps/qr_management/forms.py:58
+#: apps/qr_management/forms.py:67 apps/qr_management/forms.py:71
+#: apps/qr_management/forms.py:75
 msgid "Rounded"
 msgstr "Yumru künclü"
 
-#: apps/qr_management/forms.py:54
+#: apps/qr_management/forms.py:67
 msgid "Dots"
 msgstr "Nöqtələr"
 
-#: apps/qr_management/forms.py:55
+#: apps/qr_management/forms.py:70
 msgid "Corner frame"
 msgstr "Künc çərçivəsi"
 
-#: apps/qr_management/forms.py:56 apps/qr_management/forms.py:58
+#: apps/qr_management/forms.py:71 apps/qr_management/forms.py:75
 msgid "Circle"
 msgstr "Dairə"
 
-#: apps/qr_management/forms.py:57
+#: apps/qr_management/forms.py:74
 msgid "Corner dot"
 msgstr "Künc nöqtəsi"
 
-#: apps/qr_management/forms.py:59
+#: apps/qr_management/forms.py:78
 msgid "Frame"
 msgstr "Çərçivə"
 
-#: apps/qr_management/forms.py:60
+#: apps/qr_management/forms.py:80
 msgid "None"
 msgstr "Yoxdur"
 
-#: apps/qr_management/forms.py:60
+#: apps/qr_management/forms.py:81
 msgid "Label below"
 msgstr "Yazı aşağıda"
 
-#: apps/qr_management/forms.py:60
+#: apps/qr_management/forms.py:82
 msgid "Label above"
 msgstr "Yazı yuxarıda"
 
-#: apps/qr_management/forms.py:61
+#: apps/qr_management/forms.py:83
 msgid "Button below"
 msgstr "Düymə aşağıda"
 
-#: apps/qr_management/forms.py:62
+#: apps/qr_management/forms.py:87
 msgid "Frame color"
 msgstr "Çərçivənin rəngi"
 
-#: apps/qr_management/forms.py:64
+#: apps/qr_management/forms.py:90
 msgid "Call to action"
 msgstr "Çağırış mətni"
 
-#: apps/qr_management/forms.py:66
+#: apps/qr_management/forms.py:94
 msgid "Scan me"
 msgstr "Skan edin"
 
-#: apps/qr_management/forms.py:67
+#: apps/qr_management/forms.py:97
 msgid "Logo"
 msgstr "Loqo"
 
-#: apps/qr_management/forms.py:70
+#: apps/qr_management/forms.py:101
 msgid "Remove logo"
 msgstr "Loqonu sil"
 
-#: apps/qr_management/forms.py:82
+#: apps/qr_management/forms.py:112
 msgid "The logo must be 1 MB or smaller."
 msgstr "Loqo 1 MB-dan böyük olmamalıdır."
 
-#: apps/qr_management/forms.py:86
+#: apps/qr_management/forms.py:116
 msgid "Upload a PNG, JPEG or WebP image."
 msgstr "PNG, JPEG və ya WebP şəkli yükləyin."
 
-#: apps/qr_management/forms.py:104
+#: apps/qr_management/forms.py:142
 msgid "CSV file"
 msgstr "CSV faylı"
 
-#: apps/qr_management/forms.py:106
+#: apps/qr_management/forms.py:145
 msgid "Put codes in folder"
 msgstr "Kodları qovluğa yerləşdir"
 
-#: apps/qr_management/forms.py:116
+#: apps/qr_management/forms.py:157
 #: apps/qr_management/templates/qr_management/list.html:32
 #: apps/qr_management/templates/qr_management/list.html:44
 msgid "Folder name"
 msgstr "Qovluğun adı"
 
-#: apps/qr_management/forms.py:119 apps/qr_management/models.py:72
+#: apps/qr_management/forms.py:161 apps/surveys/forms.py:141
+msgid "All statuses"
+msgstr "Bütün statuslar"
+
+#: apps/qr_management/forms.py:163 apps/qr_management/models.py:74
 #: apps/qr_management/templates/qr_management/_status_badge.html:1
 msgid "Paused"
 msgstr "Dayandırılıb"
 
-#: apps/qr_management/forms.py:121
+#: apps/qr_management/forms.py:164
+#: apps/qr_management/templates/qr_management/_status_badge.html:1
+#: apps/subscriptions/models.py:65
+msgid "Expired"
+msgstr "Müddəti bitib"
+
+#: apps/qr_management/forms.py:168
 msgid "Newest"
 msgstr "Ən yenilər"
 
-#: apps/qr_management/forms.py:121
+#: apps/qr_management/forms.py:170
 msgid "Most scans"
 msgstr "Ən çox skan"
 
-#: apps/qr_management/forms.py:122
+#: apps/qr_management/forms.py:171
 msgid "Recently scanned"
 msgstr "Son skan edilənlər"
 
-#: apps/qr_management/models.py:39 apps/qr_management/models.py:90
+#: apps/qr_management/models.py:35 apps/qr_management/models.py:50
+#: apps/qr_management/models.py:77 apps/subscriptions/models.py:10
+#: apps/surveys/models.py:131 apps/surveys/models.py:161
+msgid "name"
+msgstr "ad"
+
+#: apps/qr_management/models.py:39 apps/qr_management/models.py:98
 msgid "folder"
 msgstr "qovluq"
 
@@ -3135,74 +1995,74 @@ msgstr "qovluq"
 msgid "folders"
 msgstr "qovluqlar"
 
-#: apps/qr_management/models.py:67
+#: apps/qr_management/models.py:69
 #: apps/qr_management/templates/qr_management/choose_type.html:15
 #: apps/qr_management/templates/qr_management/list.html:77
 msgid "Static"
 msgstr "Statik"
 
-#: apps/qr_management/models.py:68
+#: apps/qr_management/models.py:70
 #: apps/qr_management/templates/qr_management/choose_type.html:15
 #: apps/qr_management/templates/qr_management/list.html:76
 #: apps/qr_management/templates/qr_management/widgets/overview.html:9
 msgid "Dynamic"
 msgstr "Dinamik"
 
-#: apps/qr_management/models.py:77
+#: apps/qr_management/models.py:79
 msgid "mode"
 msgstr "rejim"
 
-#: apps/qr_management/models.py:81
+#: apps/qr_management/models.py:82
 msgid "content"
 msgstr "məzmun"
 
-#: apps/qr_management/models.py:82
+#: apps/qr_management/models.py:83
 msgid "design"
 msgstr "dizayn"
 
-#: apps/qr_management/models.py:87
+#: apps/qr_management/models.py:90
 msgid "suspension reason"
 msgstr "bloklama səbəbi"
 
-#: apps/qr_management/models.py:88 apps/subscriptions/models.py:107
+#: apps/qr_management/models.py:91 apps/subscriptions/models.py:118
 msgid "expires at"
 msgstr "bitmə vaxtı"
 
-#: apps/qr_management/models.py:91
+#: apps/qr_management/models.py:100
 msgid "tags"
 msgstr "etiketlər"
 
-#: apps/qr_management/models.py:95
+#: apps/qr_management/models.py:105
 msgid "last scan"
 msgstr "son skan"
 
-#: apps/qr_management/models.py:102 apps/surveys/models.py:134
+#: apps/qr_management/models.py:112 apps/surveys/models.py:150
 #: apps/surveys/templates/surveys/share.html:12
 msgid "QR code"
 msgstr "QR kod"
 
-#: apps/qr_management/models.py:103
+#: apps/qr_management/models.py:113
 #: apps/qr_management/templates/qr_management/widgets/overview.html:8
 msgid "QR codes"
 msgstr "QR kodlar"
 
-#: apps/qr_management/models.py:174
+#: apps/qr_management/models.py:184
 msgid "domain"
 msgstr "domen"
 
-#: apps/qr_management/models.py:175 apps/subscriptions/models.py:106
+#: apps/qr_management/models.py:185 apps/subscriptions/models.py:117
 msgid "reason"
 msgstr "səbəb"
 
-#: apps/qr_management/models.py:180
+#: apps/qr_management/models.py:190
 msgid "blocked domain"
 msgstr "bloklanmış domen"
 
-#: apps/qr_management/models.py:181
+#: apps/qr_management/models.py:191
 msgid "blocked domains"
 msgstr "bloklanmış domenlər"
 
-#: apps/qr_management/navigation.py:9
+#: apps/qr_management/navigation.py:12
 #: apps/qr_management/templates/qr_management/bulk.html:4
 #: apps/qr_management/templates/qr_management/choose_type.html:4
 #: apps/qr_management/templates/qr_management/detail.html:5
@@ -3214,7 +2074,7 @@ msgstr "bloklanmış domenlər"
 msgid "QR Codes"
 msgstr "QR kodlar"
 
-#: apps/qr_management/services.py:31
+#: apps/qr_management/services.py:33
 #, python-format
 msgid ""
 "Your plan allows %(limit)s dynamic QR codes. Pause is not enough — delete "
@@ -3223,7 +2083,7 @@ msgstr ""
 "Planınız %(limit)s dinamik QR koda icazə verir. Dayandırmaq kifayət deyil — "
 "istifadə olunmayan kodları silin və ya planınızı yüksəldin."
 
-#: apps/qr_management/services.py:49
+#: apps/qr_management/services.py:55
 msgid ""
 "This design cannot be scanned reliably. Increase the contrast, make the logo"
 " smaller or choose simpler shapes."
@@ -3231,18 +2091,22 @@ msgstr ""
 "Bu dizayn etibarlı şəkildə skan olunmur. Kontrastı artırın, loqonu kiçildin "
 "və ya daha sadə formalar seçin."
 
-#: apps/qr_management/services.py:69
+#: apps/qr_management/services.py:96
 #, python-format
 msgid "This QR type cannot be %(mode)s."
 msgstr "Bu QR növü %(mode)s ola bilməz."
 
-#: apps/qr_management/services.py:73
+#: apps/qr_management/services.py:100
 msgid "Upload a file."
 msgstr "Fayl yükləyin."
 
-#: apps/qr_management/services.py:116
+#: apps/qr_management/services.py:175
 msgid "This QR code was suspended by Qrumy and cannot be changed."
 msgstr "Bu QR kod Qrumy tərəfindən bloklanıb və dəyişdirilə bilməz."
+
+#: apps/qr_management/services.py:177 apps/surveys/services.py:289
+msgid "Invalid status."
+msgstr "Yanlış status."
 
 #: apps/qr_management/templates/admin/qr_management/suspend.html:6
 msgid "The following QR codes will stop working and show a 'disabled' page:"
@@ -3282,7 +2146,7 @@ msgid "Show as table"
 msgstr "Cədvəl kimi göstər"
 
 #: apps/qr_management/templates/qr_management/_chart.html:6
-#: apps/surveys/qtypes.py:130
+#: apps/surveys/qtypes.py:178
 msgid "Date"
 msgstr "Tarix"
 
@@ -3424,6 +2288,11 @@ msgstr "Şablonu yüklə"
 msgid "Create QR code"
 msgstr "QR kod yarat"
 
+#: apps/qr_management/templates/qr_management/choose_type.html:4
+#: apps/surveys/templates/surveys/create.html:4
+msgid "New"
+msgstr "Yeni"
+
 #: apps/qr_management/templates/qr_management/choose_type.html:6
 msgid "What should the QR code do?"
 msgstr "QR kod nə etməlidir?"
@@ -3436,6 +2305,10 @@ msgstr "Növü seçin. Kodun dizaynını növbəti addımda edəcəksiniz."
 #, python-format
 msgid "created %(date)s"
 msgstr "yaradılıb: %(date)s"
+
+#: apps/qr_management/templates/qr_management/detail.html:14
+msgid "Edit"
+msgstr "Redaktə et"
 
 #: apps/qr_management/templates/qr_management/detail.html:17
 #: apps/qr_management/templates/qr_management/list.html:98
@@ -3458,6 +2331,11 @@ msgstr ""
 #: apps/qr_management/templates/qr_management/detail.html:23
 msgid "Delete this QR code?"
 msgstr "Bu QR kod silinsin?"
+
+#: apps/qr_management/templates/qr_management/detail.html:24
+#: apps/qr_management/templates/qr_management/list.html:99
+msgid "Delete"
+msgstr "Sil"
 
 #: apps/qr_management/templates/qr_management/detail.html:31
 msgid ""
@@ -3503,7 +2381,7 @@ msgid "Export CSV"
 msgstr "CSV ixrac et"
 
 #: apps/qr_management/templates/qr_management/detail.html:83
-#: apps/surveys/forms.py:120 apps/surveys/templates/surveys/results.html:13
+#: apps/surveys/forms.py:159 apps/surveys/templates/surveys/results.html:13
 msgid "All time"
 msgstr "Bütün dövr"
 
@@ -3548,7 +2426,7 @@ msgstr ""
 "köhnə məzmunu saxlayacaq."
 
 #: apps/qr_management/templates/qr_management/form.html:30
-#: apps/qr_management/types.py:186
+#: apps/qr_management/types.py:214
 msgid "File"
 msgstr "Fayl"
 
@@ -3621,13 +2499,28 @@ msgstr "Bu qovluq silinsin? İçindəki QR kodlar saxlanılacaq."
 msgid "Delete folder"
 msgstr "Qovluğu sil"
 
+#: apps/qr_management/templates/qr_management/list.html:64
+#: apps/surveys/templates/surveys/responses.html:10
+msgid "Search"
+msgstr "Axtar"
+
 #: apps/qr_management/templates/qr_management/list.html:65
 msgid "Search by name, tag or short code"
 msgstr "Ad, etiket və ya qısa koda görə axtarın"
 
+#: apps/qr_management/templates/qr_management/list.html:67
+msgid "Type"
+msgstr "Növ"
+
 #: apps/qr_management/templates/qr_management/list.html:68
 msgid "All types"
 msgstr "Bütün növlər"
+
+#: apps/qr_management/templates/qr_management/list.html:71
+#: apps/surveys/templates/surveys/response_detail.html:47
+#: apps/surveys/templates/surveys/responses.html:13
+msgid "Status"
+msgstr "Status"
 
 #: apps/qr_management/templates/qr_management/list.html:74
 msgid "Mode"
@@ -3640,6 +2533,10 @@ msgstr "Statik və dinamik"
 #: apps/qr_management/templates/qr_management/list.html:79
 msgid "Sort"
 msgstr "Sıralama"
+
+#: apps/qr_management/templates/qr_management/list.html:82
+msgid "Filter"
+msgstr "Filtr"
 
 #: apps/qr_management/templates/qr_management/list.html:93
 msgid "Select all"
@@ -3686,9 +2583,34 @@ msgstr "%(name)s seç"
 msgid "not tracked"
 msgstr "izlənmir"
 
+#: apps/qr_management/templates/qr_management/list.html:131
+#: apps/surveys/templates/surveys/responses.html:45
+msgid "Pagination"
+msgstr "Səhifələmə"
+
+#: apps/qr_management/templates/qr_management/list.html:132
+#: apps/surveys/templates/surveys/responses.html:46
+#, python-format
+msgid "Page %(n)s of %(total)s"
+msgstr "Səhifə %(n)s / %(total)s"
+
+#: apps/qr_management/templates/qr_management/list.html:134
+#: apps/surveys/templates/surveys/responses.html:48
+msgid "Previous"
+msgstr "Əvvəlki"
+
+#: apps/qr_management/templates/qr_management/list.html:135
+#: apps/surveys/templates/surveys/responses.html:49
+msgid "Next"
+msgstr "Növbəti"
+
 #: apps/qr_management/templates/qr_management/list.html:141
 msgid "No QR codes match these filters."
 msgstr "Bu filtrlərə uyğun QR kod yoxdur."
+
+#: apps/qr_management/templates/qr_management/list.html:142
+msgid "Clear filters"
+msgstr "Filtrləri təmizlə"
 
 #: apps/qr_management/templates/qr_management/list.html:147
 #: apps/qr_management/templates/qr_management/widgets/overview.html:15
@@ -3706,6 +2628,11 @@ msgstr ""
 #: apps/qr_management/templates/qr_management/public/base.html:14
 msgid "Preview — this visit is not counted as a scan."
 msgstr "Önizləmə — bu baxış skan kimi sayılmır."
+
+#: apps/qr_management/templates/qr_management/public/base.html:17
+#: apps/surveys/templates/surveys/public/base.html:17
+msgid "Powered by"
+msgstr "Təqdim edir:"
 
 #: apps/qr_management/templates/qr_management/public/coupon.html:13
 msgid "Your code"
@@ -3772,6 +2699,11 @@ msgstr "Bu QR kod mövcud deyil və ya artıq istifadə olunmur."
 msgid "Save contact"
 msgstr "Kontaktı yadda saxla"
 
+#: apps/qr_management/templates/qr_management/widgets/overview.html:5
+#: apps/surveys/templates/surveys/widgets/overview.html:5
+msgid "View all"
+msgstr "Hamısına bax"
+
 #: apps/qr_management/templates/qr_management/widgets/overview.html:10
 msgid "Scans, 30 days"
 msgstr "Skanlar, 30 gün"
@@ -3784,277 +2716,285 @@ msgstr "Düzgün telefon nömrəsi daxil edin."
 msgid "Website URL"
 msgstr "Veb saytın ünvanı"
 
-#: apps/qr_management/types.py:58 apps/qr_management/types.py:280
+#: apps/qr_management/types.py:59 apps/qr_management/types.py:415
 msgid "Text"
 msgstr "Mətn"
 
-#: apps/qr_management/types.py:63
+#: apps/qr_management/types.py:64
 msgid "Network name (SSID)"
 msgstr "Şəbəkənin adı (SSID)"
 
-#: apps/qr_management/types.py:64
+#: apps/qr_management/types.py:66
 msgid "Security"
 msgstr "Təhlükəsizlik"
 
-#: apps/qr_management/types.py:65
+#: apps/qr_management/types.py:67
 msgid "No password"
 msgstr "Şifrəsiz"
 
-#: apps/qr_management/types.py:66 templates/components/user_menu.html:13
+#: apps/qr_management/types.py:69 templates/components/user_menu.html:13
 #: templates/layouts/account.html:18
 msgid "Password"
 msgstr "Şifrə"
 
-#: apps/qr_management/types.py:67
+#: apps/qr_management/types.py:70
 msgid "Hidden network"
 msgstr "Gizli şəbəkə"
 
-#: apps/qr_management/types.py:72
+#: apps/qr_management/types.py:75
 msgid "Enter the network password."
 msgstr "Şəbəkənin şifrəsini daxil edin."
 
-#: apps/qr_management/types.py:77
+#: apps/qr_management/types.py:80
 msgid "First name"
 msgstr "Ad"
 
-#: apps/qr_management/types.py:78
+#: apps/qr_management/types.py:81
 msgid "Last name"
 msgstr "Soyad"
 
-#: apps/qr_management/types.py:79
+#: apps/qr_management/types.py:82
 msgid "Company"
 msgstr "Şirkət"
 
-#: apps/qr_management/types.py:80
+#: apps/qr_management/types.py:83
 msgid "Job title"
 msgstr "Vəzifə"
 
-#: apps/qr_management/types.py:81 apps/surveys/qtypes.py:129
+#: apps/qr_management/types.py:84 apps/surveys/qtypes.py:177
 msgid "Phone"
 msgstr "Telefon"
 
-#: apps/qr_management/types.py:83 apps/qr_management/types.py:259
+#: apps/qr_management/types.py:86 apps/qr_management/types.py:302
 msgid "Website"
 msgstr "Veb sayt"
 
-#: apps/qr_management/types.py:84
+#: apps/qr_management/types.py:87
 msgid "Address"
 msgstr "Ünvan"
 
-#: apps/qr_management/types.py:85
+#: apps/qr_management/types.py:89
 msgid "Note"
 msgstr "Qeyd"
 
-#: apps/qr_management/types.py:90 apps/qr_management/types.py:94
+#: apps/qr_management/types.py:94 apps/qr_management/types.py:98
 msgid "Phone number"
 msgstr "Telefon nömrəsi"
 
-#: apps/qr_management/types.py:95 apps/qr_management/types.py:102
+#: apps/qr_management/types.py:100 apps/qr_management/types.py:108
 msgid "Message"
 msgstr "Mesaj"
 
-#: apps/qr_management/types.py:100
+#: apps/qr_management/types.py:105
 msgid "Email address"
 msgstr "E-poçt ünvanı"
 
-#: apps/qr_management/types.py:101
+#: apps/qr_management/types.py:106
 msgid "Subject"
 msgstr "Mövzu"
 
-#: apps/qr_management/types.py:107
+#: apps/qr_management/types.py:116
 msgid "WhatsApp number (with country code)"
 msgstr "WhatsApp nömrəsi (ölkə kodu ilə)"
 
-#: apps/qr_management/types.py:108
+#: apps/qr_management/types.py:118
 msgid "Pre-filled message"
 msgstr "Hazır mesaj"
 
-#: apps/qr_management/types.py:113
+#: apps/qr_management/types.py:127
 msgid "Latitude"
 msgstr "En dairəsi"
 
-#: apps/qr_management/types.py:115
+#: apps/qr_management/types.py:130
 msgid "Longitude"
 msgstr "Uzunluq dairəsi"
 
-#: apps/qr_management/types.py:117
+#: apps/qr_management/types.py:132
 msgid "Place name"
 msgstr "Məkanın adı"
 
-#: apps/qr_management/types.py:121
+#: apps/qr_management/types.py:136
 msgid "Page title"
 msgstr "Səhifənin başlığı"
 
-#: apps/qr_management/types.py:125
+#: apps/qr_management/types.py:138 apps/qr_management/types.py:196
+msgid "Description"
+msgstr "Təsvir"
+
+#: apps/qr_management/types.py:144
 msgid "Links"
 msgstr "Linklər"
 
-#: apps/qr_management/types.py:126
+#: apps/qr_management/types.py:146
 msgid "One per line: Label | https://example.com (up to 12 links)."
 msgstr "Hər sətirdə bir: Ad | https://example.com (ən çox 12 link)."
 
-#: apps/qr_management/types.py:142
+#: apps/qr_management/types.py:163
 #, python-format
 msgid "Line %(n)s: %(error)s"
 msgstr "Sətir %(n)s: %(error)s"
 
-#: apps/qr_management/types.py:145
+#: apps/qr_management/types.py:167
 msgid "Add at least one link."
 msgstr "Ən azı bir link əlavə edin."
 
-#: apps/qr_management/types.py:147
+#: apps/qr_management/types.py:169
 msgid "You can add up to 12 links."
 msgstr "Ən çox 12 link əlavə edə bilərsiniz."
 
-#: apps/qr_management/types.py:159
+#: apps/qr_management/types.py:181
 msgid "App name"
 msgstr "Tətbiqin adı"
 
-#: apps/qr_management/types.py:160
+#: apps/qr_management/types.py:182
 msgid "App Store link"
 msgstr "App Store linki"
 
-#: apps/qr_management/types.py:161
+#: apps/qr_management/types.py:183
 msgid "Google Play link"
 msgstr "Google Play linki"
 
-#: apps/qr_management/types.py:162
+#: apps/qr_management/types.py:184
 msgid "Link for other devices"
 msgstr "Digər cihazlar üçün link"
 
-#: apps/qr_management/types.py:167
+#: apps/qr_management/types.py:189
 msgid "Add at least one store link."
 msgstr "Ən azı bir mağaza linki əlavə edin."
 
-#: apps/qr_management/types.py:172
+#: apps/qr_management/types.py:194
 msgid "Offer title"
 msgstr "Təklifin başlığı"
 
-#: apps/qr_management/types.py:175
+#: apps/qr_management/types.py:201
 msgid "Coupon code"
 msgstr "Kupon kodu"
 
-#: apps/qr_management/types.py:176
+#: apps/qr_management/types.py:203
 msgid "Valid until"
 msgstr "Etibarlılıq tarixi"
 
-#: apps/qr_management/types.py:178
+#: apps/qr_management/types.py:206
 msgid "Terms"
 msgstr "Şərtlər"
 
-#: apps/qr_management/types.py:180
+#: apps/qr_management/types.py:208
 msgid "Button label"
 msgstr "Düymənin mətni"
 
-#: apps/qr_management/types.py:181
+#: apps/qr_management/types.py:209
 msgid "Button link"
 msgstr "Düymənin linki"
 
-#: apps/qr_management/types.py:185
+#: apps/qr_management/types.py:213
 msgid "Title"
 msgstr "Başlıq"
 
-#: apps/qr_management/types.py:259
+#: apps/qr_management/types.py:304
 msgid "Open any web page"
 msgstr "İstənilən veb səhifəni açın"
 
-#: apps/qr_management/types.py:261
+#: apps/qr_management/types.py:314
 msgid "Multi-link & social"
 msgstr "Çoxlu link və sosial şəbəkələr"
 
-#: apps/qr_management/types.py:262
+#: apps/qr_management/types.py:316
 msgid "A mobile page with several links"
 msgstr "Bir neçə linkdən ibarət mobil səhifə"
 
-#: apps/qr_management/types.py:263
+#: apps/qr_management/types.py:325
 msgid "PDF"
 msgstr "PDF"
 
-#: apps/qr_management/types.py:263
+#: apps/qr_management/types.py:327
 msgid "Share a PDF document"
 msgstr "PDF sənəd paylaşın"
 
-#: apps/qr_management/types.py:265 templates/layouts/marketing.html:37
+#: apps/qr_management/types.py:336 templates/layouts/marketing.html:37
 msgid "Menu"
 msgstr "Menyu"
 
-#: apps/qr_management/types.py:265
+#: apps/qr_management/types.py:338
 msgid "Restaurant menu as PDF or image"
 msgstr "PDF və ya şəkil şəklində restoran menyusu"
 
-#: apps/qr_management/types.py:268
+#: apps/qr_management/types.py:347
 msgid "Image"
 msgstr "Şəkil"
 
-#: apps/qr_management/types.py:268
+#: apps/qr_management/types.py:349
 msgid "Show an image"
 msgstr "Şəkil göstərin"
 
-#: apps/qr_management/types.py:270
+#: apps/qr_management/types.py:358
 msgid "Contact card"
 msgstr "Vizit kartı"
 
-#: apps/qr_management/types.py:270
+#: apps/qr_management/types.py:360
 msgid "Save contact details (vCard)"
 msgstr "Əlaqə məlumatlarını saxlayın (vCard)"
 
-#: apps/qr_management/types.py:272
+#: apps/qr_management/types.py:370
 msgid "WhatsApp"
 msgstr "WhatsApp"
 
-#: apps/qr_management/types.py:272
+#: apps/qr_management/types.py:372
 msgid "Start a WhatsApp chat"
 msgstr "WhatsApp söhbəti başladın"
 
-#: apps/qr_management/types.py:274
+#: apps/qr_management/types.py:382
+msgid "Location"
+msgstr "Məkan"
+
+#: apps/qr_management/types.py:384
 msgid "Open a place on the map"
 msgstr "Xəritədə məkanı açın"
 
-#: apps/qr_management/types.py:276
+#: apps/qr_management/types.py:394
 msgid "App download"
 msgstr "Tətbiq yükləmə"
 
-#: apps/qr_management/types.py:276
+#: apps/qr_management/types.py:396
 msgid "Send people to the right app store"
 msgstr "İnsanları düzgün tətbiq mağazasına yönləndirin"
 
-#: apps/qr_management/types.py:278
+#: apps/qr_management/types.py:404
 msgid "Coupon"
 msgstr "Kupon"
 
-#: apps/qr_management/types.py:278
+#: apps/qr_management/types.py:406
 msgid "Show a discount or offer"
 msgstr "Endirim və ya təklif göstərin"
 
-#: apps/qr_management/types.py:280
+#: apps/qr_management/types.py:417
 msgid "Show a short text"
 msgstr "Qısa mətn göstərin"
 
-#: apps/qr_management/types.py:282
+#: apps/qr_management/types.py:425
 msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
-#: apps/qr_management/types.py:282
+#: apps/qr_management/types.py:425
 msgid "Join a Wi-Fi network"
 msgstr "Wi-Fi şəbəkəsinə qoşulun"
 
-#: apps/qr_management/types.py:284
+#: apps/qr_management/types.py:430
 msgid "Phone call"
 msgstr "Zəng"
 
-#: apps/qr_management/types.py:284
+#: apps/qr_management/types.py:432
 msgid "Call a number"
 msgstr "Nömrəyə zəng edin"
 
-#: apps/qr_management/types.py:286
+#: apps/qr_management/types.py:438
 msgid "SMS"
 msgstr "SMS"
 
-#: apps/qr_management/types.py:286
+#: apps/qr_management/types.py:438
 msgid "Send a text message"
 msgstr "SMS göndərin"
 
-#: apps/qr_management/types.py:288
+#: apps/qr_management/types.py:440
 msgid "Write an email"
 msgstr "E-poçt yazın"
 
@@ -4086,113 +3026,117 @@ msgstr "Bu ünvana Qrumy-də icazə verilmir."
 msgid "This link was flagged as unsafe and cannot be used."
 msgstr "Bu link təhlükəli kimi işarələnib və istifadə edilə bilməz."
 
-#: apps/qr_management/views/bulk.py:31
+#: apps/qr_management/views/bulk.py:36
 #, python-format
 msgid "%(n)s QR codes created."
 msgstr "%(n)s QR kod yaradıldı."
 
-#: apps/qr_management/views/codes.py:139
+#: apps/qr_management/views/codes.py:165
 msgid "QR code created."
 msgstr "QR kod yaradıldı."
 
-#: apps/qr_management/views/codes.py:151
+#: apps/qr_management/views/codes.py:186
 msgid "This QR code was suspended by Qrumy and cannot be edited."
 msgstr "Bu QR kod Qrumy tərəfindən bloklanıb və redaktə edilə bilməz."
 
-#: apps/qr_management/views/codes.py:242 apps/surveys/forms.py:120
+#: apps/qr_management/views/codes.py:210
+msgid "Changes saved."
+msgstr "Dəyişikliklər saxlanıldı."
+
+#: apps/qr_management/views/codes.py:298 apps/surveys/forms.py:159
 #: apps/surveys/templates/surveys/results.html:10
 msgid "7 days"
 msgstr "7 gün"
 
-#: apps/qr_management/views/codes.py:242 apps/surveys/forms.py:120
+#: apps/qr_management/views/codes.py:299 apps/surveys/forms.py:159
 #: apps/surveys/templates/surveys/results.html:11
 msgid "30 days"
 msgstr "30 gün"
 
-#: apps/qr_management/views/codes.py:243 apps/surveys/forms.py:120
+#: apps/qr_management/views/codes.py:300 apps/surveys/forms.py:159
 #: apps/surveys/templates/surveys/results.html:12
 msgid "90 days"
 msgstr "90 gün"
 
-#: apps/qr_management/views/codes.py:243
+#: apps/qr_management/views/codes.py:301
 msgid "12 months"
 msgstr "12 ay"
 
-#: apps/qr_management/views/codes.py:245
+#: apps/qr_management/views/codes.py:305
 msgid "Devices"
 msgstr "Cihazlar"
 
-#: apps/qr_management/views/codes.py:245
+#: apps/qr_management/views/codes.py:306
 msgid "Operating systems"
 msgstr "Əməliyyat sistemləri"
 
-#: apps/qr_management/views/codes.py:246
+#: apps/qr_management/views/codes.py:307
 msgid "Browsers"
 msgstr "Brauzerlər"
 
-#: apps/qr_management/views/codes.py:246
+#: apps/qr_management/views/codes.py:308
 msgid "Countries"
 msgstr "Ölkələr"
 
-#: apps/qr_management/views/codes.py:247
+#: apps/qr_management/views/codes.py:309
 msgid "Cities"
 msgstr "Şəhərlər"
 
-#: apps/qr_management/views/codes.py:247
+#: apps/qr_management/views/codes.py:310
 msgid "Referrers"
 msgstr "Mənbə saytlar"
 
-#: apps/qr_management/views/codes.py:248
+#: apps/qr_management/views/codes.py:311
 msgid "UTM sources"
 msgstr "UTM mənbələri"
 
-#: apps/qr_management/views/codes.py:248
+#: apps/qr_management/views/codes.py:312
 msgid "Campaigns"
 msgstr "Kampaniyalar"
 
-#: apps/qr_management/views/codes.py:283
+#: apps/qr_management/views/codes.py:353
 msgid "QR code activated."
 msgstr "QR kod aktivləşdirildi."
 
-#: apps/qr_management/views/codes.py:284
+#: apps/qr_management/views/codes.py:355
 msgid "QR code paused. Scans now show an 'inactive' page."
 msgstr ""
 "QR kod dayandırıldı. Skan edənlər indi 'aktiv deyil' səhifəsini görəcək."
 
-#: apps/qr_management/views/codes.py:296
+#: apps/qr_management/views/codes.py:368
 msgid "QR code deleted."
 msgstr "QR kod silindi."
 
-#: apps/qr_management/views/codes.py:311
+#: apps/qr_management/views/codes.py:383
 msgid "Select at least one QR code."
 msgstr "Ən azı bir QR kod seçin."
 
-#: apps/qr_management/views/codes.py:315
+#: apps/qr_management/views/codes.py:387
 #, python-format
 msgid "Export up to %(n)s codes at a time."
 msgstr "Bir dəfəyə ən çox %(n)s kod ixrac edin."
 
-#: apps/qr_management/views/codes.py:326
+#: apps/qr_management/views/codes.py:401
 #, python-format
 msgid "%(n)s QR codes updated."
 msgstr "%(n)s QR kod yeniləndi."
 
-#: apps/qr_management/views/codes.py:334
+#: apps/qr_management/views/codes.py:412
 #, python-format
 msgid "%(n)s QR codes moved."
 msgstr "%(n)s QR kod köçürüldü."
 
-#: apps/qr_management/views/codes.py:340
+#: apps/qr_management/views/codes.py:418
 #, python-format
 msgid "%(n)s QR codes deleted."
 msgstr "%(n)s QR kod silindi."
 
-#: apps/qr_management/views/folders.py:25
-#: apps/qr_management/views/folders.py:45
+#: apps/qr_management/views/folders.py:26
+#: apps/qr_management/views/folders.py:51
 msgid "A folder with this name already exists."
 msgstr "Bu adda qovluq artıq mövcuddur."
 
-#: apps/qr_management/views/folders.py:57
+#: apps/qr_management/views/folders.py:68
 msgid "Folder deleted. Its QR codes were kept."
 msgstr "Qovluq silindi. İçindəki QR kodlar saxlanıldı."
 
@@ -4200,27 +3144,27 @@ msgstr "Qovluq silindi. İçindəki QR kodlar saxlanıldı."
 msgid "Subscriptions"
 msgstr "Abunəliklər"
 
-#: apps/subscriptions/features.py:26
+#: apps/subscriptions/features.py:28
 msgid "Agency workspace"
 msgstr "Agentlik iş sahəsi"
 
-#: apps/subscriptions/features.py:27
+#: apps/subscriptions/features.py:29
 msgid "Remove Qrumy branding"
 msgstr "Qrumy brendini gizlətmək"
 
-#: apps/subscriptions/features.py:28
+#: apps/subscriptions/features.py:30
 msgid "Dynamic QR codes"
 msgstr "Dinamik QR kodlar"
 
-#: apps/subscriptions/features.py:29
+#: apps/subscriptions/features.py:31
 msgid "Bulk QR creation"
 msgstr "Toplu QR yaratma"
 
-#: apps/subscriptions/features.py:30
+#: apps/subscriptions/features.py:32
 msgid "File size per QR (MB)"
 msgstr "QR başına fayl ölçüsü (MB)"
 
-#: apps/subscriptions/features.py:31 apps/surveys/navigation.py:9
+#: apps/subscriptions/features.py:33 apps/surveys/navigation.py:12
 #: apps/surveys/templates/surveys/builder.html:4
 #: apps/surveys/templates/surveys/create.html:4
 #: apps/surveys/templates/surveys/list.html:3
@@ -4234,13 +3178,21 @@ msgstr "QR başına fayl ölçüsü (MB)"
 msgid "Surveys"
 msgstr "Sorğular"
 
-#: apps/subscriptions/features.py:32
+#: apps/subscriptions/features.py:34
 msgid "Survey responses per month"
 msgstr "Ayda sorğu cavabları"
+
+#: apps/subscriptions/features.py:35
+msgid "Assets"
+msgstr "Aktivlər"
 
 #: apps/subscriptions/models.py:9
 msgid "key"
 msgstr "açar"
+
+#: apps/subscriptions/models.py:11 apps/surveys/models.py:31
+msgid "description"
+msgstr "təsvir"
 
 #: apps/subscriptions/models.py:12
 msgid "monthly price (cents)"
@@ -4249,6 +3201,10 @@ msgstr "aylıq qiymət (sent)"
 #: apps/subscriptions/models.py:13
 msgid "yearly price (cents)"
 msgstr "illik qiymət (sent)"
+
+#: apps/subscriptions/models.py:14
+msgid "currency"
+msgstr "valyuta"
 
 #: apps/subscriptions/models.py:15
 msgid "trial days"
@@ -4274,99 +3230,99 @@ msgstr "plan"
 msgid "plans"
 msgstr "planlar"
 
-#: apps/subscriptions/models.py:40 apps/subscriptions/models.py:102
+#: apps/subscriptions/models.py:40 apps/subscriptions/models.py:112
 msgid "feature"
 msgstr "funksiya"
 
-#: apps/subscriptions/models.py:41 apps/subscriptions/models.py:103
+#: apps/subscriptions/models.py:41 apps/subscriptions/models.py:113
 msgid "enabled"
 msgstr "aktiv"
 
-#: apps/subscriptions/models.py:42 apps/subscriptions/models.py:104
+#: apps/subscriptions/models.py:43 apps/subscriptions/models.py:115
 msgid "limit"
 msgstr "limit"
 
-#: apps/subscriptions/models.py:43 apps/subscriptions/models.py:105
+#: apps/subscriptions/models.py:43 apps/subscriptions/models.py:115
 msgid "Empty = unlimited"
 msgstr "Boş = limitsiz"
 
-#: apps/subscriptions/models.py:46
+#: apps/subscriptions/models.py:47
 msgid "plan feature"
 msgstr "plan funksiyası"
 
-#: apps/subscriptions/models.py:47
+#: apps/subscriptions/models.py:48
 msgid "plan features"
 msgstr "plan funksiyaları"
 
-#: apps/subscriptions/models.py:57
+#: apps/subscriptions/models.py:61
 msgid "Trialing"
 msgstr "Sınaq dövründə"
 
-#: apps/subscriptions/models.py:59
+#: apps/subscriptions/models.py:63
 msgid "Past due"
 msgstr "Gecikmiş ödəniş"
 
-#: apps/subscriptions/models.py:60
+#: apps/subscriptions/models.py:64
 msgid "Canceled"
 msgstr "Ləğv edilib"
 
-#: apps/subscriptions/models.py:64
+#: apps/subscriptions/models.py:68
 msgid "Monthly"
 msgstr "Aylıq"
 
-#: apps/subscriptions/models.py:65
+#: apps/subscriptions/models.py:69
 msgid "Yearly"
 msgstr "İllik"
 
-#: apps/subscriptions/models.py:72
+#: apps/subscriptions/models.py:78
 msgid "billing interval"
 msgstr "ödəniş dövrü"
 
-#: apps/subscriptions/models.py:74
+#: apps/subscriptions/models.py:81
 msgid "gateway"
 msgstr "ödəniş sistemi"
 
-#: apps/subscriptions/models.py:75
+#: apps/subscriptions/models.py:84
 msgid "system = assigned automatically, manual = by staff"
 msgstr "system = avtomatik təyin edilib, manual = işçi tərəfindən"
 
-#: apps/subscriptions/models.py:76
+#: apps/subscriptions/models.py:86
 msgid "gateway reference"
 msgstr "ödəniş sistemi istinadı"
 
-#: apps/subscriptions/models.py:77
+#: apps/subscriptions/models.py:87
 msgid "started at"
 msgstr "başlama vaxtı"
 
-#: apps/subscriptions/models.py:78
+#: apps/subscriptions/models.py:88
 msgid "trial ends"
 msgstr "sınağın bitməsi"
 
-#: apps/subscriptions/models.py:79
+#: apps/subscriptions/models.py:89
 msgid "current period ends"
 msgstr "cari dövrün bitməsi"
 
-#: apps/subscriptions/models.py:80
+#: apps/subscriptions/models.py:90
 msgid "canceled at"
 msgstr "ləğv vaxtı"
 
-#: apps/subscriptions/models.py:81
+#: apps/subscriptions/models.py:91
 msgid "ended at"
 msgstr "bitmə vaxtı"
 
-#: apps/subscriptions/models.py:85
+#: apps/subscriptions/models.py:95
 msgid "subscription"
 msgstr "abunəlik"
 
-#: apps/subscriptions/models.py:86
+#: apps/subscriptions/models.py:96
 msgid "subscriptions"
 msgstr "abunəliklər"
 
-#: apps/subscriptions/models.py:110
+#: apps/subscriptions/models.py:121
 msgid "feature override"
 msgstr "funksiya istisnası"
 
-#: apps/subscriptions/models.py:111
+#: apps/subscriptions/models.py:122
 msgid "feature overrides"
 msgstr "funksiya istisnaları"
 
@@ -4394,94 +3350,98 @@ msgstr "Daha yüksək limitlər, süni intellekt təhlili və geniş icazələr.
 msgid "Manage multiple clients from one workspace."
 msgstr "Çoxsaylı müştəriləri bir iş sahəsindən idarə edin."
 
-#: apps/surveys/forms.py:14
+#: apps/surveys/forms.py:15
 msgid "Survey title"
 msgstr "Sorğunun adı"
 
-#: apps/surveys/forms.py:15
+#: apps/surveys/forms.py:17
 msgid "Guest feedback"
 msgstr "Qonaq rəyi"
 
-#: apps/surveys/forms.py:16
+#: apps/surveys/forms.py:20
 msgid "Survey language"
 msgstr "Sorğunun dili"
 
-#: apps/surveys/forms.py:21
+#: apps/surveys/forms.py:26
 msgid "Redirect after submit"
 msgstr "Göndərişdən sonra yönləndirmə"
 
-#: apps/surveys/forms.py:22
+#: apps/surveys/forms.py:29
 msgid ""
 "Optional. Send people to your website after they answer instead of showing "
 "the thank-you message."
 msgstr ""
 "İstəyə bağlı. Təşəkkür mesajı əvəzinə cavab verənləri saytınıza yönləndirin."
 
-#: apps/surveys/forms.py:42
+#: apps/surveys/forms.py:63
 msgid "Choose a valid color."
 msgstr "Düzgün rəng seçin."
 
-#: apps/surveys/forms.py:56
+#: apps/surveys/forms.py:77
 msgid "Explain how you will use the contact details."
 msgstr "Əlaqə məlumatlarından necə istifadə edəcəyinizi izah edin."
 
-#: apps/surveys/forms.py:61
+#: apps/surveys/forms.py:82
 msgid "Question"
 msgstr "Sual"
 
-#: apps/surveys/forms.py:62
+#: apps/surveys/forms.py:83
 msgid "Help text"
 msgstr "Kömək mətni"
 
-#: apps/surveys/forms.py:63 apps/surveys/models.py:28
+#: apps/surveys/forms.py:84 apps/surveys/models.py:28
 msgid "Required"
 msgstr "Məcburi"
 
-#: apps/surveys/forms.py:64
+#: apps/surveys/forms.py:86
 msgid "Options"
 msgstr "Variantlar"
 
-#: apps/surveys/forms.py:66
+#: apps/surveys/forms.py:89
 msgid "One option per line."
 msgstr "Hər sətirdə bir variant."
 
-#: apps/surveys/forms.py:67
+#: apps/surveys/forms.py:92
 msgid "Label for the lowest value"
 msgstr "Ən aşağı dəyərin adı"
 
-#: apps/surveys/forms.py:69
+#: apps/surveys/forms.py:95
 msgid "Label for the highest value"
 msgstr "Ən yüksək dəyərin adı"
 
-#: apps/surveys/forms.py:77
+#: apps/surveys/forms.py:103
 msgid "Leave this field empty"
 msgstr "Bu sahəni boş saxlayın"
 
-#: apps/surveys/forms.py:89 apps/surveys/qtypes.py:145
+#: apps/surveys/forms.py:114
+msgid "Your name"
+msgstr "Adınız"
+
+#: apps/surveys/forms.py:117 apps/surveys/qtypes.py:194
 msgid "Your email"
 msgstr "E-poçtunuz"
 
-#: apps/surveys/forms.py:102
+#: apps/surveys/forms.py:131
 msgid "Please confirm before we store your contact details."
 msgstr "Əlaqə məlumatlarınızı saxlamağımız üçün təsdiq edin."
 
-#: apps/surveys/forms.py:114
+#: apps/surveys/forms.py:146
 msgid "All scores"
 msgstr "Bütün qiymətlər"
 
-#: apps/surveys/forms.py:114
+#: apps/surveys/forms.py:147
 msgid "NPS promoters (9–10)"
 msgstr "NPS tərəfdarları (9–10)"
 
-#: apps/surveys/forms.py:115
+#: apps/surveys/forms.py:148
 msgid "NPS passives (7–8)"
 msgstr "NPS neytralları (7–8)"
 
-#: apps/surveys/forms.py:115
+#: apps/surveys/forms.py:149
 msgid "NPS detractors (0–6)"
 msgstr "NPS tənqidçiləri (0–6)"
 
-#: apps/surveys/forms.py:116
+#: apps/surveys/forms.py:150
 msgid "CSAT unsatisfied (1–2)"
 msgstr "CSAT narazı (1–2)"
 
@@ -4507,263 +3467,271 @@ msgstr "Soruşma (anonim)"
 msgid "Optional"
 msgstr "İstəyə bağlı"
 
-#: apps/surveys/models.py:36
+#: apps/surveys/models.py:39
 msgid "survey language"
 msgstr "sorğunun dili"
 
-#: apps/surveys/models.py:38
+#: apps/surveys/models.py:43
 msgid "Language of buttons and messages on the public page."
 msgstr "İctimai səhifədəki düymələrin və mesajların dili."
 
-#: apps/surveys/models.py:39
+#: apps/surveys/models.py:45
 msgid "accent color"
 msgstr "əsas rəng"
 
-#: apps/surveys/models.py:41
+#: apps/surveys/models.py:50
 msgid "Shown on the survey page. Defaults to your organization logo."
 msgstr ""
 "Sorğu səhifəsində göstərilir. Standart olaraq təşkilatınızın loqosu istifadə"
 " olunur."
 
-#: apps/surveys/models.py:43
+#: apps/surveys/models.py:52
 msgid "thank-you title"
 msgstr "təşəkkür başlığı"
 
-#: apps/surveys/models.py:44
+#: apps/surveys/models.py:53
 msgid "thank-you message"
 msgstr "təşəkkür mesajı"
 
-#: apps/surveys/models.py:45
+#: apps/surveys/models.py:54
 msgid "redirect after submit"
 msgstr "göndərişdən sonra yönləndirmə"
 
-#: apps/surveys/models.py:46
+#: apps/surveys/models.py:56
 msgid "ask for contact details"
 msgstr "əlaqə məlumatlarını soruş"
 
-#: apps/surveys/models.py:48
+#: apps/surveys/models.py:59
 msgid "consent text"
 msgstr "razılıq mətni"
 
-#: apps/surveys/models.py:49
+#: apps/surveys/models.py:62
 msgid "Shown next to the consent checkbox when contact details are collected."
 msgstr "Əlaqə məlumatları toplananda razılıq qutusunun yanında göstərilir."
 
-#: apps/surveys/models.py:51
+#: apps/surveys/models.py:64
 msgid "closes at"
 msgstr "bağlanma vaxtı"
 
-#: apps/surveys/models.py:52
+#: apps/surveys/models.py:65
 msgid "maximum responses"
 msgstr "maksimum cavab sayı"
 
-#: apps/surveys/models.py:62
+#: apps/surveys/models.py:77
 msgid "survey"
 msgstr "sorğu"
 
-#: apps/surveys/models.py:63
+#: apps/surveys/models.py:78
 msgid "surveys"
 msgstr "sorğular"
 
-#: apps/surveys/models.py:88 apps/surveys/models.py:98
+#: apps/surveys/models.py:103 apps/surveys/models.py:113
 msgid "question"
 msgstr "sual"
 
-#: apps/surveys/models.py:89
+#: apps/surveys/models.py:104
 msgid "help text"
 msgstr "kömək mətni"
 
-#: apps/surveys/models.py:90
+#: apps/surveys/models.py:105
 #: apps/surveys/templates/surveys/public/_question.html:3
 msgid "required"
 msgstr "məcburi"
 
-#: apps/surveys/models.py:99
+#: apps/surveys/models.py:114
 msgid "questions"
 msgstr "suallar"
 
-#: apps/surveys/models.py:130
+#: apps/surveys/models.py:145
+msgid "Open"
+msgstr "Açıq"
+
+#: apps/surveys/models.py:146
 msgid "Resolved"
 msgstr "Həll edilib"
 
-#: apps/surveys/models.py:133 apps/surveys/templates/surveys/share.html:34
+#: apps/surveys/models.py:149 apps/surveys/templates/surveys/share.html:34
 msgid "Direct link"
 msgstr "Birbaşa link"
 
-#: apps/surveys/models.py:135
+#: apps/surveys/models.py:151
 msgid "Website embed"
 msgstr "Sayta yerləşdirmə"
 
-#: apps/surveys/models.py:140
+#: apps/surveys/models.py:157
 msgid "source"
 msgstr "mənbə"
 
-#: apps/surveys/models.py:146
+#: apps/surveys/models.py:163
 msgid "consent given"
 msgstr "razılıq verilib"
 
-#: apps/surveys/models.py:161
+#: apps/surveys/models.py:174
+msgid "assigned to"
+msgstr "təyin edilib"
+
+#: apps/surveys/models.py:184
 msgid "response"
 msgstr "cavab"
 
-#: apps/surveys/models.py:162 apps/surveys/templates/surveys/list.html:28
+#: apps/surveys/models.py:185 apps/surveys/templates/surveys/list.html:28
 msgid "responses"
 msgstr "cavablar"
 
-#: apps/surveys/models.py:200
+#: apps/surveys/models.py:225
 msgid "note"
 msgstr "qeyd"
 
-#: apps/surveys/public.py:77
+#: apps/surveys/public.py:86
 msgid "This form expired. Please reload the page and try again."
 msgstr "Bu formun müddəti bitib. Səhifəni yeniləyib yenidən cəhd edin."
 
-#: apps/surveys/qr_type.py:22 apps/surveys/templates/surveys/_header.html:26
+#: apps/surveys/qr_type.py:25 apps/surveys/templates/surveys/_header.html:26
 msgid "Survey"
 msgstr "Sorğu"
 
-#: apps/surveys/qr_type.py:22
+#: apps/surveys/qr_type.py:27
 msgid "Open a feedback survey"
 msgstr "Rəy sorğusunu açın"
 
-#: apps/surveys/qtypes.py:84
+#: apps/surveys/qtypes.py:86
 #: apps/surveys/templates/surveys/response_detail.html:23
 #: apps/surveys/templates/surveys/results.html:58
 msgid "Yes"
 msgstr "Bəli"
 
-#: apps/surveys/qtypes.py:84
+#: apps/surveys/qtypes.py:86
 #: apps/surveys/templates/surveys/response_detail.html:23
 #: apps/surveys/templates/surveys/results.html:58
 msgid "No"
 msgstr "Xeyr"
 
-#: apps/surveys/qtypes.py:113
+#: apps/surveys/qtypes.py:125
 msgid "Single choice"
 msgstr "Tək seçim"
 
-#: apps/surveys/qtypes.py:114
+#: apps/surveys/qtypes.py:127
 msgid "Multiple choice"
 msgstr "Çoxlu seçim"
 
-#: apps/surveys/qtypes.py:115
+#: apps/surveys/qtypes.py:130
 msgid "Dropdown"
 msgstr "Açılan siyahı"
 
-#: apps/surveys/qtypes.py:116
+#: apps/surveys/qtypes.py:134
 msgid "Rating (1–10)"
 msgstr "Qiymətləndirmə (1–10)"
 
-#: apps/surveys/qtypes.py:117
+#: apps/surveys/qtypes.py:138
 msgid "Poor"
 msgstr "Zəif"
 
-#: apps/surveys/qtypes.py:117
+#: apps/surveys/qtypes.py:139
 msgid "Excellent"
 msgstr "Əla"
 
-#: apps/surveys/qtypes.py:118
+#: apps/surveys/qtypes.py:142
 msgid "Star rating"
 msgstr "Ulduzla qiymətləndirmə"
 
-#: apps/surveys/qtypes.py:119
+#: apps/surveys/qtypes.py:145
 msgid "Net Promoter Score (NPS)"
 msgstr "Tövsiyə indeksi (NPS)"
 
-#: apps/surveys/qtypes.py:120
+#: apps/surveys/qtypes.py:149
 msgid "Not at all likely"
 msgstr "Heç ehtimal yoxdur"
 
-#: apps/surveys/qtypes.py:120
+#: apps/surveys/qtypes.py:150
 msgid "Extremely likely"
 msgstr "Çox güman ki"
 
-#: apps/surveys/qtypes.py:121
+#: apps/surveys/qtypes.py:155
 msgid "Customer satisfaction (CSAT)"
 msgstr "Müştəri məmnuniyyəti (CSAT)"
 
-#: apps/surveys/qtypes.py:122
+#: apps/surveys/qtypes.py:159
 msgid "Very unsatisfied"
 msgstr "Heç razı deyiləm"
 
-#: apps/surveys/qtypes.py:122
+#: apps/surveys/qtypes.py:160
 msgid "Very satisfied"
 msgstr "Çox razıyam"
 
-#: apps/surveys/qtypes.py:123
+#: apps/surveys/qtypes.py:165
 msgid "Customer effort (CES)"
 msgstr "Müştəri səyi (CES)"
 
-#: apps/surveys/qtypes.py:124
+#: apps/surveys/qtypes.py:169
 msgid "Very difficult"
 msgstr "Çox çətin"
 
-#: apps/surveys/qtypes.py:124
+#: apps/surveys/qtypes.py:170
 msgid "Very easy"
 msgstr "Çox asan"
 
-#: apps/surveys/qtypes.py:125
+#: apps/surveys/qtypes.py:173
 msgid "Yes / No"
 msgstr "Bəli / Xeyr"
 
-#: apps/surveys/qtypes.py:126
+#: apps/surveys/qtypes.py:174
 msgid "Short text"
 msgstr "Qısa mətn"
 
-#: apps/surveys/qtypes.py:127
+#: apps/surveys/qtypes.py:175
 msgid "Long text"
 msgstr "Uzun mətn"
 
-#: apps/surveys/qtypes.py:134
+#: apps/surveys/qtypes.py:183
 msgid "How likely are you to recommend us to a friend or colleague?"
 msgstr ""
 "Bizi dostunuza və ya həmkarınıza tövsiyə etmə ehtimalınız nə qədərdir?"
 
-#: apps/surveys/qtypes.py:135
+#: apps/surveys/qtypes.py:184
 msgid "How satisfied are you with your experience?"
 msgstr "Təcrübənizdən nə dərəcədə razısınız?"
 
-#: apps/surveys/qtypes.py:136
+#: apps/surveys/qtypes.py:185
 msgid "How easy was it to get what you needed?"
 msgstr "Lazım olanı əldə etmək nə qədər asan idi?"
 
-#: apps/surveys/qtypes.py:137
+#: apps/surveys/qtypes.py:186
 msgid "How would you rate us?"
 msgstr "Bizi necə qiymətləndirərdiniz?"
 
-#: apps/surveys/qtypes.py:138
+#: apps/surveys/qtypes.py:187
 msgid "How would you rate your visit?"
 msgstr "Ziyarətinizi necə qiymətləndirərdiniz?"
 
-#: apps/surveys/qtypes.py:139
+#: apps/surveys/qtypes.py:188
 msgid "Would you visit us again?"
 msgstr "Bizə yenidən gələrdinizmi?"
 
-#: apps/surveys/qtypes.py:140
+#: apps/surveys/qtypes.py:189
 msgid "Which option fits best?"
 msgstr "Hansı variant daha uyğundur?"
 
-#: apps/surveys/qtypes.py:141
+#: apps/surveys/qtypes.py:190
 msgid "Select all that apply"
 msgstr "Uyğun olanların hamısını seçin"
 
-#: apps/surveys/qtypes.py:142
+#: apps/surveys/qtypes.py:191
 msgid "Choose one"
 msgstr "Birini seçin"
 
-#: apps/surveys/qtypes.py:143
+#: apps/surveys/qtypes.py:192
 msgid "Your answer"
 msgstr "Cavabınız"
 
-#: apps/surveys/qtypes.py:144
+#: apps/surveys/qtypes.py:193
 msgid "Is there anything we could do better?"
 msgstr "Nəyi daha yaxşı edə bilərdik?"
 
-#: apps/surveys/qtypes.py:146
+#: apps/surveys/qtypes.py:195
 msgid "Your phone number"
 msgstr "Telefon nömrəniz"
 
-#: apps/surveys/qtypes.py:147
+#: apps/surveys/qtypes.py:196
 msgid "Date of your visit"
 msgstr "Ziyarət tarixiniz"
 
@@ -4772,37 +3740,37 @@ msgstr "Ziyarət tarixiniz"
 msgid "Your plan allows up to %(limit)s surveys."
 msgstr "Planınız ən çox %(limit)s sorğuya icazə verir."
 
-#: apps/surveys/services.py:59
+#: apps/surveys/services.py:65
 msgid "Add at least one question before publishing."
 msgstr "Dərc etməzdən əvvəl ən azı bir sual əlavə edin."
 
-#: apps/surveys/services.py:62
+#: apps/surveys/services.py:68
 #, python-format
 msgid "“%(q)s” needs at least two options."
 msgstr "“%(q)s” sualının ən azı iki variantı olmalıdır."
 
-#: apps/surveys/services.py:100
+#: apps/surveys/services.py:125
 #, python-format
 msgid "Survey: %(title)s"
 msgstr "Sorğu: %(title)s"
 
-#: apps/surveys/services.py:102
+#: apps/surveys/services.py:127
 msgid "Share your feedback"
 msgstr "Rəyinizi bölüşün"
 
-#: apps/surveys/services.py:119
+#: apps/surveys/services.py:145
 msgid "Option 1"
 msgstr "Variant 1"
 
-#: apps/surveys/services.py:119
+#: apps/surveys/services.py:145
 msgid "Option 2"
 msgstr "Variant 2"
 
-#: apps/surveys/services.py:119
+#: apps/surveys/services.py:145
 msgid "Option 3"
 msgstr "Variant 3"
 
-#: apps/surveys/services.py:211
+#: apps/surveys/services.py:274
 msgid "A survey response was assigned to you"
 msgstr "Sizə sorğu cavabı təyin edildi"
 
@@ -4856,7 +3824,7 @@ msgid "Saved"
 msgstr "Saxlanıldı"
 
 #: apps/surveys/templates/surveys/_saved.html:1
-#: apps/surveys/views/surveys.py:110
+#: apps/surveys/views/surveys.py:135
 msgid "The question needs a title."
 msgstr "Sualın mətni olmalıdır."
 
@@ -4931,6 +3899,10 @@ msgstr "Sorğu yarat"
 msgid "Collect feedback by QR code, link or website embed."
 msgstr "QR kod, link və ya sayta yerləşdirmə ilə rəy toplayın."
 
+#: apps/surveys/templates/surveys/list.html:14
+msgid "All"
+msgstr "Hamısı"
+
 #: apps/surveys/templates/surveys/list.html:25
 #, python-format
 msgid "%(n)s question"
@@ -4991,6 +3963,10 @@ msgstr "Əlaqə məlumatlarınız"
 #: apps/surveys/templates/surveys/public/form.html:30
 msgid "Submit"
 msgstr "Göndər"
+
+#: apps/surveys/templates/surveys/public/thanks.html:3
+msgid "Thank you"
+msgstr "Təşəkkürlər"
 
 #: apps/surveys/templates/surveys/public/thanks.html:7
 msgid "Thank you!"
@@ -5054,6 +4030,14 @@ msgstr "Qeyd yoxdur."
 msgid "Mark resolved"
 msgstr "Həll edildi kimi qeyd et"
 
+#: apps/surveys/templates/surveys/response_detail.html:58
+msgid "Assigned to"
+msgstr "Təyin edilib"
+
+#: apps/surveys/templates/surveys/response_detail.html:60
+msgid "Nobody"
+msgstr "Heç kim"
+
 #: apps/surveys/templates/surveys/response_detail.html:68
 msgid "e.g. service, cleanliness"
 msgstr "məs. xidmət, təmizlik"
@@ -5069,6 +4053,22 @@ msgstr "Cavablarda, qeydlərdə və ya kontaktlarda axtarın"
 #: apps/surveys/templates/surveys/responses.html:14
 msgid "Score"
 msgstr "Qiymət"
+
+#: apps/surveys/templates/surveys/responses.html:15
+msgid "Assigned"
+msgstr "Təyinat"
+
+#: apps/surveys/templates/surveys/responses.html:16
+msgid "Anyone"
+msgstr "Hər kəs"
+
+#: apps/surveys/templates/surveys/responses.html:17
+msgid "Assigned to me"
+msgstr "Mənə təyin edilənlər"
+
+#: apps/surveys/templates/surveys/responses.html:18
+msgid "Unassigned"
+msgstr "Təyin edilməyənlər"
 
 #: apps/surveys/templates/surveys/responses.html:21
 msgid "Tag"
@@ -5288,59 +4288,59 @@ msgstr "NPS, 30 gün"
 msgid "Open responses"
 msgstr "Açıq cavablar"
 
-#: apps/surveys/views/responses.py:117
+#: apps/surveys/views/responses.py:142
 msgid "Assignment updated."
 msgstr "Təyinat yeniləndi."
 
-#: apps/surveys/views/responses.py:122
+#: apps/surveys/views/responses.py:152
 msgid "Response marked as resolved."
 msgstr "Cavab həll edildi kimi qeyd olundu."
 
-#: apps/surveys/views/responses.py:123
+#: apps/surveys/views/responses.py:152
 msgid "Response reopened."
 msgstr "Cavab yenidən açıldı."
 
-#: apps/surveys/views/responses.py:128
+#: apps/surveys/views/responses.py:158
 msgid "Note added."
 msgstr "Qeyd əlavə edildi."
 
-#: apps/surveys/views/responses.py:131
+#: apps/surveys/views/responses.py:161
 msgid "Tags saved."
 msgstr "Etiketlər saxlanıldı."
 
-#: apps/surveys/views/surveys.py:108
+#: apps/surveys/views/surveys.py:133
 msgid "Question saved."
 msgstr "Sual saxlanıldı."
 
-#: apps/surveys/views/surveys.py:142
+#: apps/surveys/views/surveys.py:168
 msgid "Survey settings saved."
 msgstr "Sorğu ayarları saxlanıldı."
 
-#: apps/surveys/views/surveys.py:156
+#: apps/surveys/views/surveys.py:182
 msgid "Survey published. Share it from the Share tab."
 msgstr "Sorğu dərc edildi. Onu “Paylaş” bölməsindən paylaşın."
 
-#: apps/surveys/views/surveys.py:159
+#: apps/surveys/views/surveys.py:185
 msgid "Survey closed. It no longer accepts responses."
 msgstr "Sorğu bağlandı. Artıq cavab qəbul etmir."
 
-#: apps/surveys/views/surveys.py:174
+#: apps/surveys/views/surveys.py:200
 msgid "Type the survey title exactly to confirm deletion."
 msgstr "Silməni təsdiqləmək üçün sorğunun adını dəqiq yazın."
 
-#: apps/surveys/views/surveys.py:177
+#: apps/surveys/views/surveys.py:203
 msgid "Survey and its responses were deleted."
 msgstr "Sorğu və onun cavabları silindi."
 
-#: apps/surveys/views/surveys.py:210
+#: apps/surveys/views/surveys.py:243
 msgid "QR code created. You can change its design in QR Codes."
 msgstr "QR kod yaradıldı. Dizaynını QR kodlar bölməsində dəyişə bilərsiniz."
 
-#: config/settings/base.py:182
+#: config/settings/base.py:184
 msgid "English"
 msgstr "İngilis dili"
 
-#: config/settings/base.py:182
+#: config/settings/base.py:184
 msgid "Azerbaijani"
 msgstr "Azərbaycan dili"
 

@@ -23,11 +23,14 @@ Legend: ✅ done in code and verified · 🟡 needs a decision or access from th
 - ✅ Health check, deploy script, error monitoring (Sentry, privacy-preserving)
 
 ## Needs the product owner 🟡
-- 🟡 **VPS**: provider, size (2–4 vCPU / 4–8 GB), SSH access for deployment
+- 🟡 **VPS**: Hostinger (chosen); the owner deploys it — see docs/DEPLOYMENT.md
 - 🟡 **DNS**: `qrumy.com` / `www` A records → VPS; SPF / DKIM / DMARC for the email provider
-- 🟡 **Email provider** (Postmark, Amazon SES, Mailgun, Brevo, …) — without it no sign-up
-  verification emails are delivered
-- 🟡 **Terms of Service and Privacy Policy** texts (en + az), reviewed by a lawyer
+- 🟡 **Email**: Resend (chosen, configured in code) — verify `qrumy.com` in Resend, add its DNS
+  records and set `RESEND_API_KEY`; without it no sign-up verification emails are delivered
+- ✅ **Terms of Service and Privacy Policy** (en + az) drafted from common SaaS practice and
+  published (version 2026-11-25). 🟡 Owner to confirm: company legal name, governing law
+  (Azerbaijan, courts of Baku), support@ / privacy@qrumy.com mailboxes; a lawyer review is
+  recommended. Edit in the admin: Accounts → Legal documents → add a new version
 - 🟡 **Off-site backup storage** (S3-compatible: Backblaze B2, Hetzner, AWS S3, …)
 - 🟡 Optional: Sentry project (DSN), MaxMind GeoLite2 licence key, Google Safe Browsing key,
   Google OAuth client

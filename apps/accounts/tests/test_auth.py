@@ -11,6 +11,7 @@ def test_signup_creates_unverified_user_and_sends_verification(client):
     resp = client.post(reverse("account_signup"), {
         "full_name": "Aysel Məmmədova", "email": "Aysel@Example.com",
         "password1": "a-strong-passphrase-1", "password2": "a-strong-passphrase-1",
+        "accept_terms": "on",
     })
     assert resp.status_code == 302
     user = User.objects.get()
