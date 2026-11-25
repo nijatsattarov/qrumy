@@ -10,10 +10,10 @@ Supersedes: v0.1 (Laravel/PHP draft, commit `0e68522`, kept in git history only)
 
 | Item | Finding / decision |
 |---|---|
-| Repository | `nijatsattarov/dergah`. It contains only `docs/ARCHITECTURE.md` and `docs/CHECKLIST.md` (planning documents). No application code, schema or data, so **there is nothing to migrate.** The stack change only replaces this plan. |
+| Repository | **`nijatsattarov/qrumy`** (moved from `nijatsattarov/dergah` on 2026-11-25 with full history). At planning time the repository held only planning documents — no application code, schema or data to migrate. |
 | Dev container | Python 3.13, PostgreSQL 16, Redis 7, Docker, Chromium/Playwright (for end-to-end tests) |
 | Stack | **Python only.** Django + DRF, PostgreSQL, Celery + Redis, Django Templates + Tailwind + HTMX (+ Alpine where needed), Docker Compose, Nginx, Gunicorn. No PHP, no Laravel, no React. |
-| Repo | Build Qrumy in this repository ✔ |
+| Repo | Build Qrumy in `nijatsattarov/qrumy` ✔ |
 | Phase order | Events before Assets ✔ |
 | Redirect domain | **`qrumy.com/q/<code>` for now.** The redirect host stays configurable, so a separate short domain can be added later without reprinting codes made before then (they keep resolving on qrumy.com). |
 | Billing | **Free beta first.** Plans, limits and entitlements are built; no payment provider is integrated yet. |
@@ -195,7 +195,7 @@ visits every app URL with another organization's object IDs and expects 404.
 ## 3. Project structure
 
 ```
-dergah/                          (repository root)
+qrumy/                           (repository root)
 ├─ config/                       Django project: settings/, urls.py, urls_redirect.py,
 │                                celery.py, wsgi.py, asgi.py
 ├─ apps/
