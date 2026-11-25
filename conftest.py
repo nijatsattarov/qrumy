@@ -82,3 +82,25 @@ def make_survey():
         return Survey.objects.get(pk=survey.pk)
 
     return _make
+
+
+@pytest.fixture
+def make_asset():
+    from apps.assets import services
+
+    def _make(org, *, name="Coffee machine", **data):
+        return services.create_asset(organization=org, actor=org.owner,
+                                     data={"name": name, **data})
+
+    return _make
+
+
+@pytest.fixture
+def jpeg_bytes():
+    import io
+
+    from PIL import Image
+
+    buf = io.BytesIO()
+    Image.new("RGB", (40, 30), (200, 50, 50)).save(buf, "JPEG")
+    return buf.getvalue()

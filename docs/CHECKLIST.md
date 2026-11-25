@@ -96,7 +96,26 @@ Legend: `[ ]` not started · `[~]` in progress · `[x]` done and tested
 - [ ] Per-language survey content (one language per survey today)
 - [ ] Email distribution from Qrumy (needs the transactional email provider)
 
-## Phase 4 — Events A (lead capture)
-## Phase 5 — Events B (registration & check-in)
-## Phase 6 — Assets basic
+## Phase 4 — Events A (lead capture) — postponed by the product owner
+## Phase 5 — Events B (registration & check-in) — postponed by the product owner
+## Phase 6 — Asset Management (basic) ✅ (2026-11-25)
+- [x] Assets with generated IDs, categories, brand/model/serial, purchase & warranty,
+      supplier, department, responsible person, 7 statuses, custom fields, staff instructions
+- [x] Location tree (branch › building › floor › room / department / area) with cycle protection;
+      filters include sub-locations
+- [x] QR label per asset (dynamic `asset` QR type) and public profile with 3 visibility levels
+- [x] Public fault reporting by scan: category, description, priority, photo, reporter contact;
+      spam protection; notifications + email for high/urgent
+- [x] Fault workflow (assign, statuses, resolution) with optional repair log and asset status update
+- [x] Maintenance history with costs; private photos/PDFs per asset; per-asset activity history
+- [x] Asset list with search/filters, summary cards, CSV export (formula-safe); dashboard widget
+- [x] Plan feature `assets.max`; module gating; tenant isolation for all asset routes (mutation-tested)
+- [x] Azerbaijani translations (1,159 strings in total)
+- Tests: 231 passing
+
+### Phase 6 follow-ups (Phase 8)
+- [ ] Preventive maintenance schedules, overdue and warranty-expiry notifications
+- [ ] Bulk asset import from CSV
+- [ ] Asset utilisation analytics
+
 ## Phase 7 — Beta launch preparation

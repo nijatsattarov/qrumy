@@ -27,6 +27,10 @@ OBJECT_ROUTES_COVERED = {
     "survey_question_update", "survey_response", "survey_response_action", "survey_responses",
     "survey_responses_export", "survey_results", "survey_settings", "survey_share",
     "survey_status",
+    # Assets
+    "asset_detail", "asset_edit", "asset_action", "asset_delete", "asset_document_file",
+    "asset_fault", "asset_fault_update", "asset_fault_photo", "asset_location_update",
+    "asset_location_delete", "asset_category_update", "asset_category_delete",
 }
 
 
@@ -282,3 +286,74 @@ def test_cannot_read_or_change_foreign_responses(client, two_orgs, victim_survey
     assert response.status == "open"
     dash = client.get(reverse("dashboard", kwargs={"org_slug": attacker_org.slug}))
     assert b"Victim survey" not in dash.content and b"secret complaint" not in dash.content
+
+
+@pytest.fixture
+def victim_asset(two_orgs, make_asset, jpeg_bytes):
+    from django.core.files.uploadedfile import SimpleUploadedFile
+
+    from apps.assets import services
+    from apps.assets.models import AssetCategory, Location
+
+    victim, _, _ = two_orgs
+    loc = Location.objects.create(organization=victim, name="Secret room")
+    cat = AssetCategory.objects.create(organization=victim, name="Secret cat")
+    asset = make_asset(victim, name="Victim asset", location=loc, category=cat)
+    doc = services.add_document(asset=asset, actor=victim.owner,
+                                upload=SimpleUploadedFile("p.jpg", jpeg_bytes))
+    fault = services.report_fault(asset=asset, category="other", description="secret fault",
+                                  priority="low", photo=SimpleUploadedFile("f.jpg", jpeg_bytes))
+    return {"asset": asset, "doc": doc, "fault": fault, "loc": loc, "cat": cat}
+
+
+ASSET_ROUTES = [
+    ("asset_detail", "get", "pk", "asset", {}), ("asset_edit", "get", "pk", "asset", {}),
+    ("asset_action", "post", "pk", "asset", {"action": "status", "status": "lost"}),
+    ("asset_delete", "post", "pk", "asset", {"confirm_code": "AST-00001"}),
+    ("asset_document_file", "get", "doc_id", "doc", {}),
+    ("asset_fault", "get", "pk", "fault", {}),
+    ("asset_fault_update", "post", "pk", "fault", {"status": "cancelled"}),
+    ("asset_fault_photo", "get", "pk", "fault", {}),
+    ("asset_location_update", "post", "loc_id", "loc", {"loc-name": "pwned", "loc-kind": "room"}),
+    ("asset_location_delete", "post", "loc_id", "loc", {}),
+    ("asset_category_update", "post", "cat_id", "cat", {"cat-name": "pwned"}),
+    ("asset_category_delete", "post", "cat_id", "cat", {}),
+]
+
+
+@pytest.mark.parametrize("name,method,kwarg,obj,data", ASSET_ROUTES)
+def test_cannot_touch_foreign_assets(client, two_orgs, victim_asset, name, method, kwarg, obj,
+                                     data):
+    from apps.assets.models import Asset, AssetCategory, FaultReport, Location
+
+    _, attacker_org, attacker = two_orgs
+    client.force_login(attacker)
+    url = reverse(name, kwargs={"org_slug": attacker_org.slug, kwarg: victim_asset[obj].pk})
+    resp = client.post(url, data) if method == "post" else client.get(url)
+    assert resp.status_code == 404
+    asset = Asset.objects.get(pk=victim_asset["asset"].pk)
+    assert asset.status == "active"
+    assert FaultReport.objects.get(pk=victim_asset["fault"].pk).status == "new"
+    assert Location.objects.get(pk=victim_asset["loc"].pk).name == "Secret room"
+    assert AssetCategory.objects.get(pk=victim_asset["cat"].pk).name == "Secret cat"
+
+
+def test_cannot_link_foreign_location_or_document(client, two_orgs, victim_asset, make_asset):
+    from apps.assets.models import Asset, AssetDocument
+
+    _, attacker_org, attacker = two_orgs
+    own = make_asset(attacker_org, name="Mine")
+    client.force_login(attacker)
+    client.post(reverse("asset_create", kwargs={"org_slug": attacker_org.slug}), {
+        "name": "Sneaky", "status": "active", "currency": "AZN", "public_visibility": "minimal",
+        "location": victim_asset["loc"].pk, "category": victim_asset["cat"].pk})
+    sneaky = Asset.objects.filter(name="Sneaky").first()
+    assert sneaky is None or (sneaky.location_id is None and sneaky.category_id is None)
+    client.post(reverse("asset_action", kwargs={"org_slug": attacker_org.slug, "pk": own.pk}),
+                {"action": "delete_document", "document": victim_asset["doc"].pk})
+    assert AssetDocument.objects.filter(pk=victim_asset["doc"].pk).exists()
+    lists = [client.get(reverse(n, kwargs={"org_slug": attacker_org.slug})).content
+             for n in ("asset_list", "asset_faults", "asset_setup", "asset_export", "dashboard")]
+    for body in lists:
+        assert b"Victim asset" not in body and b"secret fault" not in body
+        assert b"Secret room" not in body

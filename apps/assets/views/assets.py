@@ -31,7 +31,8 @@ def _filtered(request):
     org = request.organization
     qs = (_assets(request).select_related("category", "location", "responsible")
           .annotate(open_faults=Count("faults", filter=Q(
-              faults__status__in=FaultReport.OPEN_STATUSES))))
+              faults__status__in=FaultReport.OPEN_STATUSES)))
+          .order_by("name", "pk"))
     g = request.GET
     if q := g.get("q", "").strip():
         qs = qs.filter(Q(name__icontains=q) | Q(asset_code__icontains=q) |

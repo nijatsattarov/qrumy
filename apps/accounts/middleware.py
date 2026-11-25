@@ -1,7 +1,8 @@
 from django.conf import settings
 from django.utils import translation
 
-APP_PATH_PREFIXES = ("/app/", "/accounts/", "/invitations/", "/notifications/")
+APP_PATH_PREFIXES = ("/app/", "/accounts/", "/invitations/", "/notifications/",
+                     "/a/", "/q/")  # public asset & QR pages follow the phone's language
 
 
 class UserLanguageMiddleware:

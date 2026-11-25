@@ -1,6 +1,6 @@
 # Qrumy — Architecture & MVP Plan (v0.2 — Python/Django, for approval)
 
-Status: **APPROVED (2026-11-25).** Phases 1 (Foundation), 2 (QR Management) and 3 (Surveys) implemented — see docs/CHECKLIST.md.
+Status: **APPROVED (2026-11-25).** Phases 1 (Foundation), 2 (QR Management), 3 (Surveys) and 6 (Assets) implemented; Events postponed — see docs/CHECKLIST.md.
 Date: 2026-11-25
 Supersedes: v0.1 (Laravel/PHP draft, commit `0e68522`, kept in git history only).
 
@@ -516,3 +516,10 @@ later), open beta signups, English default language, `django-unfold` admin theme
   a signed start token, a honeypot and rate limits instead.
 - Per-survey colours are served as a tiny stylesheet to keep the strict CSP.
 - Details: `docs/decisions/0006-surveys.md`.
+
+## 15. Changes made during Phase 6 implementation
+
+- Events (Phases 4–5) were postponed by the product owner; Assets were built first.
+- `/a/` and `/q/` public pages follow the visitor's language (cookie / Accept-Language),
+  like product pages; surveys keep their own configured language.
+- Details: `docs/decisions/0007-assets.md`.
