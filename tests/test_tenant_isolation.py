@@ -21,6 +21,12 @@ OBJECT_ROUTES_COVERED = {
     "qr_detail", "qr_edit", "qr_set_status", "qr_delete", "qr_download", "qr_landing_preview",
     "qr_analytics_export", "qr_folder_rename", "qr_folder_delete",
     "qr_create",  # extra kwarg is a type key, not an object id
+    # Surveys
+    "survey_builder", "survey_create_qr", "survey_delete", "survey_preview",
+    "survey_question_add", "survey_question_delete", "survey_question_move",
+    "survey_question_update", "survey_response", "survey_response_action", "survey_responses",
+    "survey_responses_export", "survey_results", "survey_settings", "survey_share",
+    "survey_status",
 }
 
 
@@ -203,3 +209,76 @@ def test_preview_cannot_read_foreign_logo(client, two_orgs, victim_qr):
         "s-eye_color": "#101B3A", "s-module_shape": "square", "s-eye_frame": "square",
         "s-eye_ball": "square", "s-frame": "none", "s-frame_color": "#101B3A"})
     assert victim_qr.short_code.encode() not in resp.content
+
+
+@pytest.fixture
+def victim_survey(two_orgs, make_survey):
+    from apps.surveys import services
+
+    victim, _, _ = two_orgs
+    survey = make_survey(victim, title="Victim survey", qtypes=("longtext",))
+    text = survey.questions.get(qtype="longtext")
+    nps = survey.questions.get(qtype="nps")
+    response = services.submit_response(survey=survey, answers={nps: 3, text: "secret complaint"},
+                                        source="link", language="en", duration=5)
+    return survey, response
+
+
+SURVEY_ROUTES = [
+    ("survey_builder", "get", {}), ("survey_settings", "get", {}), ("survey_share", "get", {}),
+    ("survey_results", "get", {}), ("survey_responses", "get", {}),
+    ("survey_responses_export", "get", {}), ("survey_preview", "get", {}),
+    ("survey_status", "post", {"action": "close"}), ("survey_create_qr", "post", {}),
+    ("survey_delete", "post", {"confirm_title": "Victim survey"}),
+    ("survey_question_add", "post", {"qtype": "text"}),
+]
+
+
+@pytest.mark.parametrize("name,method,data", SURVEY_ROUTES)
+def test_cannot_touch_foreign_surveys(client, two_orgs, victim_survey, name, method, data):
+    from apps.surveys.models import Survey
+
+    _, attacker_org, attacker = two_orgs
+    survey, _ = victim_survey
+    client.force_login(attacker)
+    url = reverse(name, kwargs={"org_slug": attacker_org.slug, "pk": survey.pk})
+    resp = client.post(url, data) if method == "post" else client.get(url)
+    assert resp.status_code == 404
+    survey = Survey.objects.get(pk=survey.pk)
+    assert survey.status == "published" and survey.questions.count() == 2
+    assert survey.qr_code_id is None
+
+
+@pytest.mark.parametrize("name,data", [
+    ("survey_question_update", {"label": "pwned"}), ("survey_question_move", {"direction": "up"}),
+    ("survey_question_delete", {}),
+])
+def test_cannot_touch_foreign_questions(client, two_orgs, victim_survey, make_survey, name, data):
+    _, attacker_org, attacker = two_orgs
+    survey, _ = victim_survey
+    own = make_survey(attacker_org, title="Mine")
+    q = survey.questions.first()
+    client.force_login(attacker)
+    # foreign question under the attacker's OWN survey id
+    url = reverse(name, kwargs={"org_slug": attacker_org.slug, "pk": own.pk, "qid": q.pk})
+    assert client.post(url, data).status_code == 404
+    q.refresh_from_db()
+    assert q.label != "pwned"
+
+
+def test_cannot_read_or_change_foreign_responses(client, two_orgs, victim_survey, make_survey):
+    _, attacker_org, attacker = two_orgs
+    survey, response = victim_survey
+    own = make_survey(attacker_org, title="Mine")
+    client.force_login(attacker)
+    for pk in (own.pk, survey.pk):
+        detail = reverse("survey_response", kwargs={"org_slug": attacker_org.slug, "pk": pk,
+                                                    "rid": response.pk})
+        action = reverse("survey_response_action", kwargs={
+            "org_slug": attacker_org.slug, "pk": pk, "rid": response.pk})
+        assert client.get(detail).status_code == 404
+        assert client.post(action, {"action": "resolve"}).status_code == 404
+    response.refresh_from_db()
+    assert response.status == "open"
+    dash = client.get(reverse("dashboard", kwargs={"org_slug": attacker_org.slug}))
+    assert b"Victim survey" not in dash.content and b"secret complaint" not in dash.content

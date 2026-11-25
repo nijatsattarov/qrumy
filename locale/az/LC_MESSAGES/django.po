@@ -6,12 +6,12 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Qrumy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-25 12:32+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2026-11-25 13:21+0000\n"
+"PO-Revision-Date: 2026-11-25 00:00+0000\n"
+"Last-Translator: Qrumy team\n"
+"Language-Team: Azerbaijani\n"
 "Language: az\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -95,6 +95,7 @@ msgstr "istifadəçilər"
 #: apps/accounts/templates/accounts/profile.html:10
 #: apps/organizations/templates/organizations/settings.html:16
 #: apps/qr_management/templates/qr_management/form.html:77
+#: apps/surveys/templates/surveys/settings.html:33
 msgid "Save changes"
 msgstr "Dəyişiklikləri saxla"
 
@@ -386,11 +387,11 @@ msgstr "Tezliklə"
 
 #: apps/marketing/templates/marketing/home.html:80
 msgid ""
-"Qrumy is in beta. Products are released one by one, starting with QR "
-"Management. Beta members get each new product as soon as it ships."
+"Qrumy is in beta. Products are released one by one. Beta members get each "
+"new product as soon as it ships."
 msgstr ""
-"Qrumy beta mərhələsindədir. Məhsullar QR İdarəetmədən başlayaraq bir-bir "
-"buraxılır. Beta istifadəçiləri hər yeni məhsulu buraxılan kimi əldə edir."
+"Qrumy beta mərhələsindədir. Məhsullar bir-bir buraxılır. Beta istifadəçiləri"
+" hər yeni məhsulu buraxılan kimi əldə edir."
 
 #: apps/marketing/templates/marketing/home.html:88
 msgid "Use cases"
@@ -461,6 +462,8 @@ msgstr ""
 " yaradın."
 
 #: apps/marketing/templates/marketing/home.html:109
+#: apps/surveys/templates/surveys/_header.html:28
+#: apps/surveys/templates/surveys/share.html:3
 msgid "Share"
 msgstr "Paylaşın"
 
@@ -580,6 +583,7 @@ msgid "Scan analytics by date, device and country"
 msgstr "Tarix, cihaz və ölkəyə görə skan analitikası"
 
 #: apps/marketing/views.py:14 apps/subscriptions/features.py:22
+#: apps/surveys/apps.py:8
 msgid "Surveys & Feedback"
 msgstr "Sorğular və Rəylər"
 
@@ -592,8 +596,8 @@ msgstr ""
 "göstəricilərini zamanla izləyin."
 
 #: apps/marketing/views.py:17
-msgid "Builder with 13 question types"
-msgstr "13 sual növü olan qurucu"
+msgid "Builder with 14 question types"
+msgstr "14 sual növü olan qurucu"
 
 #: apps/marketing/views.py:17
 msgid "NPS, CSAT and CES scoring"
@@ -730,15 +734,13 @@ msgstr "Hazırda hansı məhsullar mövcuddur?"
 
 #: apps/marketing/views.py:66
 msgid ""
-"Qrumy is released step by step. Your account, organization and team "
-"management are ready now; QR Management is next, followed by Surveys, Events"
-" and Assets. Each product is marked as available on this page once it is "
-"released."
+"Qrumy is released step by step. QR Management and Surveys & Feedback are "
+"available now; Event Lead Capture and Asset Management come next. Each "
+"product is marked as available on this page once it is released."
 msgstr ""
-"Qrumy mərhələ-mərhələ buraxılır. Hesab, təşkilat və komanda idarəetməsi "
-"artıq hazırdır; növbəti QR İdarəetmədir, ardınca Sorğular, Tədbirlər və "
-"Aktivlər gələcək. Hər məhsul buraxılan kimi bu səhifədə mövcud kimi qeyd "
-"olunur."
+"Qrumy mərhələ-mərhələ buraxılır. QR İdarəetmə və Sorğular və Rəylər artıq "
+"mövcuddur; növbəti Tədbirlərdə Müştəri Toplama və Aktivlərin İdarə Edilməsi "
+"gələcək. Hər məhsul buraxılan kimi bu səhifədə mövcud kimi qeyd olunur."
 
 #: apps/marketing/views.py:69
 msgid "What is a dynamic QR code?"
@@ -800,10 +802,12 @@ msgid "Mark all as read"
 msgstr "Hamısını oxunmuş et"
 
 #: apps/notifications/templates/notifications/list.html:26
+#: apps/surveys/templates/surveys/response_detail.html:12
 msgid "Newer"
 msgstr "Daha yeni"
 
 #: apps/notifications/templates/notifications/list.html:27
+#: apps/surveys/templates/surveys/response_detail.html:13
 msgid "Older"
 msgstr "Daha köhnə"
 
@@ -844,7 +848,8 @@ msgid "website"
 msgstr "veb sayt"
 
 #: apps/organizations/forms.py:53 apps/qr_management/types.py:82
-#: apps/qr_management/types.py:287
+#: apps/qr_management/types.py:288 apps/surveys/models.py:136
+#: apps/surveys/qtypes.py:128 apps/surveys/templates/surveys/share.html:41
 msgid "Email"
 msgstr "E-poçt"
 
@@ -932,6 +937,7 @@ msgid "URL name"
 msgstr "URL adı"
 
 #: apps/organizations/models.py:48 apps/qr_management/models.py:83
+#: apps/surveys/models.py:40
 msgid "logo"
 msgstr "loqo"
 
@@ -968,11 +974,13 @@ msgid "managed by"
 msgstr "idarə edən"
 
 #: apps/organizations/models.py:63 apps/qr_management/models.py:76
+#: apps/surveys/models.py:87
 msgid "type"
 msgstr "növ"
 
 #: apps/organizations/models.py:65 apps/qr_management/models.py:85
-#: apps/subscriptions/models.py:70
+#: apps/subscriptions/models.py:70 apps/surveys/models.py:34
+#: apps/surveys/models.py:148
 msgid "status"
 msgstr "status"
 
@@ -992,7 +1000,7 @@ msgstr "üzvlük"
 msgid "memberships"
 msgstr "üzvlüklər"
 
-#: apps/organizations/models.py:105
+#: apps/organizations/models.py:105 apps/surveys/models.py:145
 msgid "email"
 msgstr "e-poçt"
 
@@ -1021,6 +1029,8 @@ msgstr "Komanda"
 #: apps/organizations/templates/organizations/settings.html:3
 #: apps/organizations/templates/organizations/settings.html:4
 #: apps/qr_management/templates/qr_management/form.html:42
+#: apps/surveys/templates/surveys/_header.html:31
+#: apps/surveys/templates/surveys/settings.html:3
 msgid "Settings"
 msgstr "Ayarlar"
 
@@ -1255,11 +1265,12 @@ msgstr "Məhsullar"
 
 #: apps/organizations/templates/organizations/dashboard.html:26
 msgid ""
-"QR Management is available. Surveys, Events and Assets are coming next and "
-"will appear in your menu when released."
+"QR Management and Surveys are available. Event Lead Capture and Asset "
+"Management are coming next and will appear in your menu when released."
 msgstr ""
-"QR İdarəetmə artıq mövcuddur. Növbəti Sorğular, Tədbirlər və Aktivlər "
-"gələcək və buraxılan kimi menyunuzda görünəcək."
+"QR İdarəetmə və Sorğular artıq mövcuddur. Növbəti Tədbirlərdə Müştəri "
+"Toplama və Aktivlərin İdarə Edilməsi gələcək və buraxılan kimi menyunuzda "
+"görünəcək."
 
 #: apps/organizations/templates/organizations/dashboard.html:35
 msgid "Get started"
@@ -1421,6 +1432,8 @@ msgstr "siz"
 
 #: apps/organizations/templates/organizations/team.html:37
 #: apps/qr_management/templates/qr_management/list.html:45
+#: apps/surveys/templates/surveys/builder.html:37
+#: apps/surveys/templates/surveys/response_detail.html:63
 msgid "Save"
 msgstr "Saxla"
 
@@ -1608,6 +1621,7 @@ msgid "No folder"
 msgstr "Qovluqsuz"
 
 #: apps/qr_management/forms.py:19
+#: apps/surveys/templates/surveys/response_detail.html:67
 msgid "Tags"
 msgstr "Etiketlər"
 
@@ -1739,7 +1753,7 @@ msgstr "Kodları qovluğa yerləşdir"
 msgid "Folder name"
 msgstr "Qovluğun adı"
 
-#: apps/qr_management/forms.py:119
+#: apps/qr_management/forms.py:119 apps/surveys/forms.py:111
 msgid "All statuses"
 msgstr "Bütün statuslar"
 
@@ -1768,6 +1782,7 @@ msgstr "Son skan edilənlər"
 
 #: apps/qr_management/models.py:35 apps/qr_management/models.py:49
 #: apps/qr_management/models.py:75 apps/subscriptions/models.py:10
+#: apps/surveys/models.py:116 apps/surveys/models.py:144
 msgid "name"
 msgstr "ad"
 
@@ -1820,7 +1835,8 @@ msgstr "etiketlər"
 msgid "last scan"
 msgstr "son skan"
 
-#: apps/qr_management/models.py:102
+#: apps/qr_management/models.py:102 apps/surveys/models.py:134
+#: apps/surveys/templates/surveys/share.html:12
 msgid "QR code"
 msgstr "QR kod"
 
@@ -1887,7 +1903,7 @@ msgstr "Fayl yükləyin."
 msgid "This QR code was suspended by Qrumy and cannot be changed."
 msgstr "Bu QR kod Qrumy tərəfindən bloklanıb və dəyişdirilə bilməz."
 
-#: apps/qr_management/services.py:118
+#: apps/qr_management/services.py:118 apps/surveys/services.py:219
 msgid "Invalid status."
 msgstr "Yanlış status."
 
@@ -1929,6 +1945,7 @@ msgid "Show as table"
 msgstr "Cədvəl kimi göstər"
 
 #: apps/qr_management/templates/qr_management/_chart.html:6
+#: apps/surveys/qtypes.py:130
 msgid "Date"
 msgstr "Tarix"
 
@@ -1943,11 +1960,13 @@ msgid_plural "%(n)s links"
 msgstr[0] "%(n)s link"
 msgstr[1] "%(n)s link"
 
-#: apps/qr_management/templates/qr_management/_content_summary.html:14
+#: apps/qr_management/templates/qr_management/_content_summary.html:15
 msgid "Preview page"
 msgstr "Səhifəyə önizləmə"
 
 #: apps/qr_management/templates/qr_management/_period.html:2
+#: apps/surveys/templates/surveys/responses.html:20
+#: apps/surveys/templates/surveys/results.html:9
 msgid "Time range"
 msgstr "Dövr"
 
@@ -2037,6 +2056,7 @@ msgid "required, the destination"
 msgstr "məcburi, yönləndirmə ünvanı"
 
 #: apps/qr_management/templates/qr_management/bulk.html:28
+#: apps/surveys/templates/surveys/public/form.html:25
 #: templates/components/forms/field.html:6
 msgid "optional"
 msgstr "istəyə bağlı"
@@ -2063,10 +2083,12 @@ msgstr "Şablonu yüklə"
 #: apps/qr_management/templates/qr_management/form.html:77
 #: apps/qr_management/templates/qr_management/list.html:14
 #: apps/qr_management/templates/qr_management/list.html:149
+#: apps/surveys/templates/surveys/share.html:28
 msgid "Create QR code"
 msgstr "QR kod yarat"
 
 #: apps/qr_management/templates/qr_management/choose_type.html:4
+#: apps/surveys/templates/surveys/create.html:4
 msgid "New"
 msgstr "Yeni"
 
@@ -2158,6 +2180,7 @@ msgid "Export CSV"
 msgstr "CSV ixrac et"
 
 #: apps/qr_management/templates/qr_management/detail.html:83
+#: apps/surveys/forms.py:120 apps/surveys/templates/surveys/results.html:13
 msgid "All time"
 msgstr "Bütün dövr"
 
@@ -2220,6 +2243,7 @@ msgid "PDF, PNG, JPEG or WebP, depending on the type."
 msgstr "Növdən asılı olaraq PDF, PNG, JPEG və ya WebP."
 
 #: apps/qr_management/templates/qr_management/form.html:53
+#: apps/surveys/templates/surveys/share.html:22
 msgid "Design"
 msgstr "Dizayn"
 
@@ -2232,6 +2256,7 @@ msgstr ""
 "korreksiyası ilə mərkəzdə yerləşdirilir."
 
 #: apps/qr_management/templates/qr_management/form.html:67
+#: apps/surveys/templates/surveys/_header.html:11
 msgid "Preview"
 msgstr "Önizləmə"
 
@@ -2274,6 +2299,7 @@ msgid "Delete folder"
 msgstr "Qovluğu sil"
 
 #: apps/qr_management/templates/qr_management/list.html:64
+#: apps/surveys/templates/surveys/responses.html:10
 msgid "Search"
 msgstr "Axtar"
 
@@ -2290,6 +2316,8 @@ msgid "All types"
 msgstr "Bütün növlər"
 
 #: apps/qr_management/templates/qr_management/list.html:71
+#: apps/surveys/templates/surveys/response_detail.html:47
+#: apps/surveys/templates/surveys/responses.html:13
 msgid "Status"
 msgstr "Status"
 
@@ -2355,19 +2383,23 @@ msgid "not tracked"
 msgstr "izlənmir"
 
 #: apps/qr_management/templates/qr_management/list.html:131
+#: apps/surveys/templates/surveys/responses.html:45
 msgid "Pagination"
 msgstr "Səhifələmə"
 
 #: apps/qr_management/templates/qr_management/list.html:132
+#: apps/surveys/templates/surveys/responses.html:46
 #, python-format
 msgid "Page %(n)s of %(total)s"
 msgstr "Səhifə %(n)s / %(total)s"
 
 #: apps/qr_management/templates/qr_management/list.html:134
+#: apps/surveys/templates/surveys/responses.html:48
 msgid "Previous"
 msgstr "Əvvəlki"
 
 #: apps/qr_management/templates/qr_management/list.html:135
+#: apps/surveys/templates/surveys/responses.html:49
 msgid "Next"
 msgstr "Növbəti"
 
@@ -2397,6 +2429,7 @@ msgid "Preview — this visit is not counted as a scan."
 msgstr "Önizləmə — bu baxış skan kimi sayılmır."
 
 #: apps/qr_management/templates/qr_management/public/base.html:17
+#: apps/surveys/templates/surveys/public/base.html:17
 msgid "Powered by"
 msgstr "Təqdim edir:"
 
@@ -2405,10 +2438,14 @@ msgid "Your code"
 msgstr "Kodunuz"
 
 #: apps/qr_management/templates/qr_management/public/coupon.html:15
+#: apps/surveys/templates/surveys/share.html:57
 msgid "Copy code"
 msgstr "Kodu kopyala"
 
 #: apps/qr_management/templates/qr_management/public/coupon.html:15
+#: apps/surveys/templates/surveys/share.html:38
+#: apps/surveys/templates/surveys/share.html:45
+#: apps/surveys/templates/surveys/share.html:57
 msgid "Copied"
 msgstr "Kopyalandı"
 
@@ -2462,6 +2499,7 @@ msgid "Save contact"
 msgstr "Kontaktı yadda saxla"
 
 #: apps/qr_management/templates/qr_management/widgets/overview.html:5
+#: apps/surveys/templates/surveys/widgets/overview.html:5
 msgid "View all"
 msgstr "Hamısına bax"
 
@@ -2477,7 +2515,7 @@ msgstr "Düzgün telefon nömrəsi daxil edin."
 msgid "Website URL"
 msgstr "Veb saytın ünvanı"
 
-#: apps/qr_management/types.py:58 apps/qr_management/types.py:279
+#: apps/qr_management/types.py:58 apps/qr_management/types.py:280
 msgid "Text"
 msgstr "Mətn"
 
@@ -2522,11 +2560,11 @@ msgstr "Şirkət"
 msgid "Job title"
 msgstr "Vəzifə"
 
-#: apps/qr_management/types.py:81
+#: apps/qr_management/types.py:81 apps/surveys/qtypes.py:129
 msgid "Phone"
 msgstr "Telefon"
 
-#: apps/qr_management/types.py:83 apps/qr_management/types.py:258
+#: apps/qr_management/types.py:83 apps/qr_management/types.py:259
 msgid "Website"
 msgstr "Veb sayt"
 
@@ -2651,111 +2689,111 @@ msgstr "Düymənin linki"
 msgid "Title"
 msgstr "Başlıq"
 
-#: apps/qr_management/types.py:258
+#: apps/qr_management/types.py:259
 msgid "Open any web page"
 msgstr "İstənilən veb səhifəni açın"
 
-#: apps/qr_management/types.py:260
+#: apps/qr_management/types.py:261
 msgid "Multi-link & social"
 msgstr "Çoxlu link və sosial şəbəkələr"
 
-#: apps/qr_management/types.py:261
+#: apps/qr_management/types.py:262
 msgid "A mobile page with several links"
 msgstr "Bir neçə linkdən ibarət mobil səhifə"
 
-#: apps/qr_management/types.py:262
+#: apps/qr_management/types.py:263
 msgid "PDF"
 msgstr "PDF"
 
-#: apps/qr_management/types.py:262
+#: apps/qr_management/types.py:263
 msgid "Share a PDF document"
 msgstr "PDF sənəd paylaşın"
 
-#: apps/qr_management/types.py:264 templates/layouts/marketing.html:37
+#: apps/qr_management/types.py:265 templates/layouts/marketing.html:37
 msgid "Menu"
 msgstr "Menyu"
 
-#: apps/qr_management/types.py:264
+#: apps/qr_management/types.py:265
 msgid "Restaurant menu as PDF or image"
 msgstr "PDF və ya şəkil şəklində restoran menyusu"
 
-#: apps/qr_management/types.py:267
+#: apps/qr_management/types.py:268
 msgid "Image"
 msgstr "Şəkil"
 
-#: apps/qr_management/types.py:267
+#: apps/qr_management/types.py:268
 msgid "Show an image"
 msgstr "Şəkil göstərin"
 
-#: apps/qr_management/types.py:269
+#: apps/qr_management/types.py:270
 msgid "Contact card"
 msgstr "Vizit kartı"
 
-#: apps/qr_management/types.py:269
+#: apps/qr_management/types.py:270
 msgid "Save contact details (vCard)"
 msgstr "Əlaqə məlumatlarını saxlayın (vCard)"
 
-#: apps/qr_management/types.py:271
+#: apps/qr_management/types.py:272
 msgid "WhatsApp"
 msgstr "WhatsApp"
 
-#: apps/qr_management/types.py:271
+#: apps/qr_management/types.py:272
 msgid "Start a WhatsApp chat"
 msgstr "WhatsApp söhbəti başladın"
 
-#: apps/qr_management/types.py:273
+#: apps/qr_management/types.py:274
 msgid "Location"
 msgstr "Məkan"
 
-#: apps/qr_management/types.py:273
+#: apps/qr_management/types.py:274
 msgid "Open a place on the map"
 msgstr "Xəritədə məkanı açın"
 
-#: apps/qr_management/types.py:275
+#: apps/qr_management/types.py:276
 msgid "App download"
 msgstr "Tətbiq yükləmə"
 
-#: apps/qr_management/types.py:275
+#: apps/qr_management/types.py:276
 msgid "Send people to the right app store"
 msgstr "İnsanları düzgün tətbiq mağazasına yönləndirin"
 
-#: apps/qr_management/types.py:277
+#: apps/qr_management/types.py:278
 msgid "Coupon"
 msgstr "Kupon"
 
-#: apps/qr_management/types.py:277
+#: apps/qr_management/types.py:278
 msgid "Show a discount or offer"
 msgstr "Endirim və ya təklif göstərin"
 
-#: apps/qr_management/types.py:279
+#: apps/qr_management/types.py:280
 msgid "Show a short text"
 msgstr "Qısa mətn göstərin"
 
-#: apps/qr_management/types.py:281
+#: apps/qr_management/types.py:282
 msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
-#: apps/qr_management/types.py:281
+#: apps/qr_management/types.py:282
 msgid "Join a Wi-Fi network"
 msgstr "Wi-Fi şəbəkəsinə qoşulun"
 
-#: apps/qr_management/types.py:283
+#: apps/qr_management/types.py:284
 msgid "Phone call"
 msgstr "Zəng"
 
-#: apps/qr_management/types.py:283
+#: apps/qr_management/types.py:284
 msgid "Call a number"
 msgstr "Nömrəyə zəng edin"
 
-#: apps/qr_management/types.py:285
+#: apps/qr_management/types.py:286
 msgid "SMS"
 msgstr "SMS"
 
-#: apps/qr_management/types.py:285
+#: apps/qr_management/types.py:286
 msgid "Send a text message"
 msgstr "SMS göndərin"
 
-#: apps/qr_management/types.py:287
+#: apps/qr_management/types.py:288
 msgid "Write an email"
 msgstr "E-poçt yazın"
 
@@ -2804,15 +2842,18 @@ msgstr "Bu QR kod Qrumy tərəfindən bloklanıb və redaktə edilə bilməz."
 msgid "Changes saved."
 msgstr "Dəyişikliklər saxlanıldı."
 
-#: apps/qr_management/views/codes.py:242
+#: apps/qr_management/views/codes.py:242 apps/surveys/forms.py:120
+#: apps/surveys/templates/surveys/results.html:10
 msgid "7 days"
 msgstr "7 gün"
 
-#: apps/qr_management/views/codes.py:242
+#: apps/qr_management/views/codes.py:242 apps/surveys/forms.py:120
+#: apps/surveys/templates/surveys/results.html:11
 msgid "30 days"
 msgstr "30 gün"
 
-#: apps/qr_management/views/codes.py:243
+#: apps/qr_management/views/codes.py:243 apps/surveys/forms.py:120
+#: apps/surveys/templates/surveys/results.html:12
 msgid "90 days"
 msgstr "90 gün"
 
@@ -2922,11 +2963,29 @@ msgstr "Toplu QR yaratma"
 msgid "File size per QR (MB)"
 msgstr "QR başına fayl ölçüsü (MB)"
 
+#: apps/subscriptions/features.py:31 apps/surveys/navigation.py:9
+#: apps/surveys/templates/surveys/builder.html:4
+#: apps/surveys/templates/surveys/create.html:4
+#: apps/surveys/templates/surveys/list.html:3
+#: apps/surveys/templates/surveys/list.html:4
+#: apps/surveys/templates/surveys/list.html:8
+#: apps/surveys/templates/surveys/response_detail.html:4
+#: apps/surveys/templates/surveys/responses.html:4
+#: apps/surveys/templates/surveys/results.html:5
+#: apps/surveys/templates/surveys/settings.html:4
+#: apps/surveys/templates/surveys/share.html:4
+msgid "Surveys"
+msgstr "Sorğular"
+
+#: apps/subscriptions/features.py:32
+msgid "Survey responses per month"
+msgstr "Ayda sorğu cavabları"
+
 #: apps/subscriptions/models.py:9
 msgid "key"
 msgstr "açar"
 
-#: apps/subscriptions/models.py:11
+#: apps/subscriptions/models.py:11 apps/surveys/models.py:31
 msgid "description"
 msgstr "təsvir"
 
@@ -3086,11 +3145,1001 @@ msgstr "Daha yüksək limitlər, süni intellekt təhlili və geniş icazələr.
 msgid "Manage multiple clients from one workspace."
 msgstr "Çoxsaylı müştəriləri bir iş sahəsindən idarə edin."
 
-#: config/settings/base.py:179
+#: apps/surveys/forms.py:14
+msgid "Survey title"
+msgstr "Sorğunun adı"
+
+#: apps/surveys/forms.py:15
+msgid "Guest feedback"
+msgstr "Qonaq rəyi"
+
+#: apps/surveys/forms.py:16
+msgid "Survey language"
+msgstr "Sorğunun dili"
+
+#: apps/surveys/forms.py:21
+msgid "Redirect after submit"
+msgstr "Göndərişdən sonra yönləndirmə"
+
+#: apps/surveys/forms.py:22
+msgid ""
+"Optional. Send people to your website after they answer instead of showing "
+"the thank-you message."
+msgstr ""
+"İstəyə bağlı. Təşəkkür mesajı əvəzinə cavab verənləri saytınıza yönləndirin."
+
+#: apps/surveys/forms.py:42
+msgid "Choose a valid color."
+msgstr "Düzgün rəng seçin."
+
+#: apps/surveys/forms.py:56
+msgid "Explain how you will use the contact details."
+msgstr "Əlaqə məlumatlarından necə istifadə edəcəyinizi izah edin."
+
+#: apps/surveys/forms.py:61
+msgid "Question"
+msgstr "Sual"
+
+#: apps/surveys/forms.py:62
+msgid "Help text"
+msgstr "Kömək mətni"
+
+#: apps/surveys/forms.py:63 apps/surveys/models.py:28
+msgid "Required"
+msgstr "Məcburi"
+
+#: apps/surveys/forms.py:64
+msgid "Options"
+msgstr "Variantlar"
+
+#: apps/surveys/forms.py:66
+msgid "One option per line."
+msgstr "Hər sətirdə bir variant."
+
+#: apps/surveys/forms.py:67
+msgid "Label for the lowest value"
+msgstr "Ən aşağı dəyərin adı"
+
+#: apps/surveys/forms.py:69
+msgid "Label for the highest value"
+msgstr "Ən yüksək dəyərin adı"
+
+#: apps/surveys/forms.py:77
+msgid "Leave this field empty"
+msgstr "Bu sahəni boş saxlayın"
+
+#: apps/surveys/forms.py:87
+msgid "Your name"
+msgstr "Adınız"
+
+#: apps/surveys/forms.py:89 apps/surveys/qtypes.py:145
+msgid "Your email"
+msgstr "E-poçtunuz"
+
+#: apps/surveys/forms.py:102
+msgid "Please confirm before we store your contact details."
+msgstr "Əlaqə məlumatlarınızı saxlamağımız üçün təsdiq edin."
+
+#: apps/surveys/forms.py:114
+msgid "All scores"
+msgstr "Bütün qiymətlər"
+
+#: apps/surveys/forms.py:114
+msgid "NPS promoters (9–10)"
+msgstr "NPS tərəfdarları (9–10)"
+
+#: apps/surveys/forms.py:115
+msgid "NPS passives (7–8)"
+msgstr "NPS neytralları (7–8)"
+
+#: apps/surveys/forms.py:115
+msgid "NPS detractors (0–6)"
+msgstr "NPS tənqidçiləri (0–6)"
+
+#: apps/surveys/forms.py:116
+msgid "CSAT unsatisfied (1–2)"
+msgstr "CSAT narazı (1–2)"
+
+#: apps/surveys/models.py:21
+#: apps/surveys/templates/surveys/_status_badge.html:1
+msgid "Draft"
+msgstr "Qaralama"
+
+#: apps/surveys/models.py:22
+msgid "Published"
+msgstr "Dərc edilib"
+
+#: apps/surveys/models.py:23
+#: apps/surveys/templates/surveys/_status_badge.html:1
+msgid "Closed"
+msgstr "Bağlanıb"
+
+#: apps/surveys/models.py:26
+msgid "Don't ask (anonymous)"
+msgstr "Soruşma (anonim)"
+
+#: apps/surveys/models.py:27
+msgid "Optional"
+msgstr "İstəyə bağlı"
+
+#: apps/surveys/models.py:30
+msgid "title"
+msgstr "ad"
+
+#: apps/surveys/models.py:36
+msgid "survey language"
+msgstr "sorğunun dili"
+
+#: apps/surveys/models.py:38
+msgid "Language of buttons and messages on the public page."
+msgstr "İctimai səhifədəki düymələrin və mesajların dili."
+
+#: apps/surveys/models.py:39
+msgid "accent color"
+msgstr "əsas rəng"
+
+#: apps/surveys/models.py:41
+msgid "Shown on the survey page. Defaults to your organization logo."
+msgstr ""
+"Sorğu səhifəsində göstərilir. Standart olaraq təşkilatınızın loqosu istifadə"
+" olunur."
+
+#: apps/surveys/models.py:43
+msgid "thank-you title"
+msgstr "təşəkkür başlığı"
+
+#: apps/surveys/models.py:44
+msgid "thank-you message"
+msgstr "təşəkkür mesajı"
+
+#: apps/surveys/models.py:45
+msgid "redirect after submit"
+msgstr "göndərişdən sonra yönləndirmə"
+
+#: apps/surveys/models.py:46
+msgid "ask for contact details"
+msgstr "əlaqə məlumatlarını soruş"
+
+#: apps/surveys/models.py:48
+msgid "consent text"
+msgstr "razılıq mətni"
+
+#: apps/surveys/models.py:49
+msgid "Shown next to the consent checkbox when contact details are collected."
+msgstr "Əlaqə məlumatları toplananda razılıq qutusunun yanında göstərilir."
+
+#: apps/surveys/models.py:51
+msgid "closes at"
+msgstr "bağlanma vaxtı"
+
+#: apps/surveys/models.py:52
+msgid "maximum responses"
+msgstr "maksimum cavab sayı"
+
+#: apps/surveys/models.py:62
+msgid "survey"
+msgstr "sorğu"
+
+#: apps/surveys/models.py:63
+msgid "surveys"
+msgstr "sorğular"
+
+#: apps/surveys/models.py:88 apps/surveys/models.py:98
+msgid "question"
+msgstr "sual"
+
+#: apps/surveys/models.py:89
+msgid "help text"
+msgstr "kömək mətni"
+
+#: apps/surveys/models.py:90
+#: apps/surveys/templates/surveys/public/_question.html:3
+msgid "required"
+msgstr "məcburi"
+
+#: apps/surveys/models.py:99
+msgid "questions"
+msgstr "suallar"
+
+#: apps/surveys/models.py:129
+msgid "Open"
+msgstr "Açıq"
+
+#: apps/surveys/models.py:130
+msgid "Resolved"
+msgstr "Həll edilib"
+
+#: apps/surveys/models.py:133 apps/surveys/templates/surveys/share.html:34
+msgid "Direct link"
+msgstr "Birbaşa link"
+
+#: apps/surveys/models.py:135
+msgid "Website embed"
+msgstr "Sayta yerləşdirmə"
+
+#: apps/surveys/models.py:140
+msgid "source"
+msgstr "mənbə"
+
+#: apps/surveys/models.py:146
+msgid "consent given"
+msgstr "razılıq verilib"
+
+#: apps/surveys/models.py:152
+msgid "assigned to"
+msgstr "təyin edilib"
+
+#: apps/surveys/models.py:161
+msgid "response"
+msgstr "cavab"
+
+#: apps/surveys/models.py:162 apps/surveys/templates/surveys/list.html:28
+msgid "responses"
+msgstr "cavablar"
+
+#: apps/surveys/models.py:200
+msgid "note"
+msgstr "qeyd"
+
+#: apps/surveys/public.py:77
+msgid "This form expired. Please reload the page and try again."
+msgstr "Bu formun müddəti bitib. Səhifəni yeniləyib yenidən cəhd edin."
+
+#: apps/surveys/qr_type.py:22 apps/surveys/templates/surveys/_header.html:26
+msgid "Survey"
+msgstr "Sorğu"
+
+#: apps/surveys/qr_type.py:22
+msgid "Open a feedback survey"
+msgstr "Rəy sorğusunu açın"
+
+#: apps/surveys/qtypes.py:84
+#: apps/surveys/templates/surveys/response_detail.html:23
+#: apps/surveys/templates/surveys/results.html:58
+msgid "Yes"
+msgstr "Bəli"
+
+#: apps/surveys/qtypes.py:84
+#: apps/surveys/templates/surveys/response_detail.html:23
+#: apps/surveys/templates/surveys/results.html:58
+msgid "No"
+msgstr "Xeyr"
+
+#: apps/surveys/qtypes.py:113
+msgid "Single choice"
+msgstr "Tək seçim"
+
+#: apps/surveys/qtypes.py:114
+msgid "Multiple choice"
+msgstr "Çoxlu seçim"
+
+#: apps/surveys/qtypes.py:115
+msgid "Dropdown"
+msgstr "Açılan siyahı"
+
+#: apps/surveys/qtypes.py:116
+msgid "Rating (1–10)"
+msgstr "Qiymətləndirmə (1–10)"
+
+#: apps/surveys/qtypes.py:117
+msgid "Poor"
+msgstr "Zəif"
+
+#: apps/surveys/qtypes.py:117
+msgid "Excellent"
+msgstr "Əla"
+
+#: apps/surveys/qtypes.py:118
+msgid "Star rating"
+msgstr "Ulduzla qiymətləndirmə"
+
+#: apps/surveys/qtypes.py:119
+msgid "Net Promoter Score (NPS)"
+msgstr "Tövsiyə indeksi (NPS)"
+
+#: apps/surveys/qtypes.py:120
+msgid "Not at all likely"
+msgstr "Heç ehtimal yoxdur"
+
+#: apps/surveys/qtypes.py:120
+msgid "Extremely likely"
+msgstr "Çox güman ki"
+
+#: apps/surveys/qtypes.py:121
+msgid "Customer satisfaction (CSAT)"
+msgstr "Müştəri məmnuniyyəti (CSAT)"
+
+#: apps/surveys/qtypes.py:122
+msgid "Very unsatisfied"
+msgstr "Heç razı deyiləm"
+
+#: apps/surveys/qtypes.py:122
+msgid "Very satisfied"
+msgstr "Çox razıyam"
+
+#: apps/surveys/qtypes.py:123
+msgid "Customer effort (CES)"
+msgstr "Müştəri səyi (CES)"
+
+#: apps/surveys/qtypes.py:124
+msgid "Very difficult"
+msgstr "Çox çətin"
+
+#: apps/surveys/qtypes.py:124
+msgid "Very easy"
+msgstr "Çox asan"
+
+#: apps/surveys/qtypes.py:125
+msgid "Yes / No"
+msgstr "Bəli / Xeyr"
+
+#: apps/surveys/qtypes.py:126
+msgid "Short text"
+msgstr "Qısa mətn"
+
+#: apps/surveys/qtypes.py:127
+msgid "Long text"
+msgstr "Uzun mətn"
+
+#: apps/surveys/qtypes.py:134
+msgid "How likely are you to recommend us to a friend or colleague?"
+msgstr ""
+"Bizi dostunuza və ya həmkarınıza tövsiyə etmə ehtimalınız nə qədərdir?"
+
+#: apps/surveys/qtypes.py:135
+msgid "How satisfied are you with your experience?"
+msgstr "Təcrübənizdən nə dərəcədə razısınız?"
+
+#: apps/surveys/qtypes.py:136
+msgid "How easy was it to get what you needed?"
+msgstr "Lazım olanı əldə etmək nə qədər asan idi?"
+
+#: apps/surveys/qtypes.py:137
+msgid "How would you rate us?"
+msgstr "Bizi necə qiymətləndirərdiniz?"
+
+#: apps/surveys/qtypes.py:138
+msgid "How would you rate your visit?"
+msgstr "Ziyarətinizi necə qiymətləndirərdiniz?"
+
+#: apps/surveys/qtypes.py:139
+msgid "Would you visit us again?"
+msgstr "Bizə yenidən gələrdinizmi?"
+
+#: apps/surveys/qtypes.py:140
+msgid "Which option fits best?"
+msgstr "Hansı variant daha uyğundur?"
+
+#: apps/surveys/qtypes.py:141
+msgid "Select all that apply"
+msgstr "Uyğun olanların hamısını seçin"
+
+#: apps/surveys/qtypes.py:142
+msgid "Choose one"
+msgstr "Birini seçin"
+
+#: apps/surveys/qtypes.py:143
+msgid "Your answer"
+msgstr "Cavabınız"
+
+#: apps/surveys/qtypes.py:144
+msgid "Is there anything we could do better?"
+msgstr "Nəyi daha yaxşı edə bilərdik?"
+
+#: apps/surveys/qtypes.py:146
+msgid "Your phone number"
+msgstr "Telefon nömrəniz"
+
+#: apps/surveys/qtypes.py:147
+msgid "Date of your visit"
+msgstr "Ziyarət tarixiniz"
+
+#: apps/surveys/services.py:37
+#, python-format
+msgid "Your plan allows up to %(limit)s surveys."
+msgstr "Planınız ən çox %(limit)s sorğuya icazə verir."
+
+#: apps/surveys/services.py:59
+msgid "Add at least one question before publishing."
+msgstr "Dərc etməzdən əvvəl ən azı bir sual əlavə edin."
+
+#: apps/surveys/services.py:62
+#, python-format
+msgid "“%(q)s” needs at least two options."
+msgstr "“%(q)s” sualının ən azı iki variantı olmalıdır."
+
+#: apps/surveys/services.py:100
+#, python-format
+msgid "Survey: %(title)s"
+msgstr "Sorğu: %(title)s"
+
+#: apps/surveys/services.py:102
+msgid "Share your feedback"
+msgstr "Rəyinizi bölüşün"
+
+#: apps/surveys/services.py:119
+msgid "Option 1"
+msgstr "Variant 1"
+
+#: apps/surveys/services.py:119
+msgid "Option 2"
+msgstr "Variant 2"
+
+#: apps/surveys/services.py:119
+msgid "Option 3"
+msgstr "Variant 3"
+
+#: apps/surveys/services.py:211
+msgid "A survey response was assigned to you"
+msgstr "Sizə sorğu cavabı təyin edildi"
+
+#: apps/surveys/templates/surveys/_header.html:8
+#, python-format
+msgid "%(n)s response"
+msgid_plural "%(n)s responses"
+msgstr[0] "%(n)s cavab"
+msgstr[1] "%(n)s cavab"
+
+#: apps/surveys/templates/surveys/_header.html:8
+#, python-format
+msgid "closes %(d)s"
+msgstr "bağlanır: %(d)s"
+
+#: apps/surveys/templates/surveys/_header.html:16
+msgid "Close this survey? People will no longer be able to answer."
+msgstr "Bu sorğu bağlansın? İnsanlar artıq cavab verə bilməyəcək."
+
+#: apps/surveys/templates/surveys/_header.html:16
+msgid "Close"
+msgstr "Bağla"
+
+#: apps/surveys/templates/surveys/_header.html:18
+#: apps/surveys/templates/surveys/response_detail.html:52
+msgid "Reopen"
+msgstr "Yenidən aç"
+
+#: apps/surveys/templates/surveys/_header.html:18
+msgid "Publish"
+msgstr "Dərc et"
+
+#: apps/surveys/templates/surveys/_header.html:27
+msgid "Questions"
+msgstr "Suallar"
+
+#: apps/surveys/templates/surveys/_header.html:29
+#: apps/surveys/templates/surveys/results.html:3
+msgid "Results"
+msgstr "Nəticələr"
+
+#: apps/surveys/templates/surveys/_header.html:30
+#: apps/surveys/templates/surveys/responses.html:3
+#: apps/surveys/templates/surveys/results.html:19
+#: apps/surveys/templates/surveys/results.html:31
+msgid "Responses"
+msgstr "Cavablar"
+
+#: apps/surveys/templates/surveys/_saved.html:1
+msgid "Saved"
+msgstr "Saxlanıldı"
+
+#: apps/surveys/templates/surveys/_saved.html:1
+#: apps/surveys/views/surveys.py:110
+msgid "The question needs a title."
+msgstr "Sualın mətni olmalıdır."
+
+#: apps/surveys/templates/surveys/_status_badge.html:1
+msgid "Ended"
+msgstr "Bitib"
+
+#: apps/surveys/templates/surveys/_status_badge.html:1
+msgid "Limit reached"
+msgstr "Limitə çatıb"
+
+#: apps/surveys/templates/surveys/_status_badge.html:1
+msgid "Collecting responses"
+msgstr "Cavab toplanır"
+
+#: apps/surveys/templates/surveys/builder.html:10
+msgid ""
+"This survey already has responses. Deleting a question also deletes its "
+"answers."
+msgstr ""
+"Bu sorğunun artıq cavabları var. Sualı silmək onun cavablarını da silir."
+
+#: apps/surveys/templates/surveys/builder.html:20
+msgid "Move up"
+msgstr "Yuxarı"
+
+#: apps/surveys/templates/surveys/builder.html:21
+msgid "Move down"
+msgstr "Aşağı"
+
+#: apps/surveys/templates/surveys/builder.html:22
+msgid "Delete question"
+msgstr "Sualı sil"
+
+#: apps/surveys/templates/surveys/builder.html:22
+msgid "Delete this question?"
+msgstr "Bu sual silinsin?"
+
+#: apps/surveys/templates/surveys/builder.html:34
+#, python-format
+msgid "Scale from %(lo)s to %(hi)s."
+msgstr "Şkala %(lo)s-dən %(hi)s-dək."
+
+#: apps/surveys/templates/surveys/builder.html:34
+msgid "Leave labels empty to use the defaults:"
+msgstr "Standart adlardan istifadə etmək üçün sahələri boş saxlayın:"
+
+#: apps/surveys/templates/surveys/builder.html:42
+msgid "No questions yet. Add one from the list."
+msgstr "Hələ sual yoxdur. Siyahıdan əlavə edin."
+
+#: apps/surveys/templates/surveys/builder.html:50
+msgid "Add a question"
+msgstr "Sual əlavə et"
+
+#: apps/surveys/templates/surveys/create.html:3
+#: apps/surveys/templates/surveys/create.html:7
+#: apps/surveys/templates/surveys/list.html:11
+#: apps/surveys/templates/surveys/list.html:40
+msgid "New survey"
+msgstr "Yeni sorğu"
+
+#: apps/surveys/templates/surveys/create.html:8
+msgid "You can add questions and change everything in the next step."
+msgstr "Növbəti addımda suallar əlavə edib hər şeyi dəyişə bilərsiniz."
+
+#: apps/surveys/templates/surveys/create.html:11
+msgid "Create survey"
+msgstr "Sorğu yarat"
+
+#: apps/surveys/templates/surveys/list.html:9
+msgid "Collect feedback by QR code, link or website embed."
+msgstr "QR kod, link və ya sayta yerləşdirmə ilə rəy toplayın."
+
+#: apps/surveys/templates/surveys/list.html:14
+msgid "All"
+msgstr "Hamısı"
+
+#: apps/surveys/templates/surveys/list.html:25
+#, python-format
+msgid "%(n)s question"
+msgid_plural "%(n)s questions"
+msgstr[0] "%(n)s sual"
+msgstr[1] "%(n)s sual"
+
+#: apps/surveys/templates/surveys/list.html:29
+msgid "open"
+msgstr "açıq"
+
+#: apps/surveys/templates/surveys/list.html:38
+#: apps/surveys/templates/surveys/widgets/overview.html:15
+msgid "Create your first survey"
+msgstr "İlk sorğunuzu yaradın"
+
+#: apps/surveys/templates/surveys/list.html:39
+msgid ""
+"Start with a ready NPS question, add your own, then share it with a QR code "
+"on tables, receipts or packaging."
+msgstr ""
+"Hazır NPS sualı ilə başlayın, öz suallarınızı əlavə edin, sonra masalarda, "
+"çeklərdə və ya qablaşdırmada QR kodla paylaşın."
+
+#: apps/surveys/templates/surveys/public/base.html:9
+msgid "Preview — answers are not saved."
+msgstr "Önizləmə — cavablar saxlanılmır."
+
+#: apps/surveys/templates/surveys/public/closed.html:8
+msgid ""
+"This survey has ended and no longer accepts responses. Thank you for your "
+"interest."
+msgstr ""
+"Bu sorğu başa çatıb və artıq cavab qəbul etmir. Marağınız üçün təşəkkür "
+"edirik."
+
+#: apps/surveys/templates/surveys/public/closed.html:8
+msgid ""
+"This survey has received all the responses it needs. Thank you for your "
+"interest."
+msgstr ""
+"Bu sorğu lazım olan bütün cavabları alıb. Marağınız üçün təşəkkür edirik."
+
+#: apps/surveys/templates/surveys/public/closed.html:8
+msgid ""
+"This survey isn't accepting responses right now. Please try again later."
+msgstr ""
+"Bu sorğu hazırda cavab qəbul etmir. Zəhmət olmasa sonra yenidən cəhd edin."
+
+#: apps/surveys/templates/surveys/public/form.html:17
+msgid "Please check the highlighted questions."
+msgstr "Zəhmət olmasa qeyd olunan sualları yoxlayın."
+
+#: apps/surveys/templates/surveys/public/form.html:25
+msgid "Your contact details"
+msgstr "Əlaqə məlumatlarınız"
+
+#: apps/surveys/templates/surveys/public/form.html:30
+msgid "Submit"
+msgstr "Göndər"
+
+#: apps/surveys/templates/surveys/public/thanks.html:3
+msgid "Thank you"
+msgstr "Təşəkkürlər"
+
+#: apps/surveys/templates/surveys/public/thanks.html:7
+msgid "Thank you!"
+msgstr "Təşəkkür edirik!"
+
+#: apps/surveys/templates/surveys/public/thanks.html:8
+msgid "Your feedback has been received. It helps us get better."
+msgstr "Rəyiniz qəbul edildi. Bu, bizə daha yaxşı olmağa kömək edir."
+
+#: apps/surveys/templates/surveys/response_detail.html:3
+#: apps/surveys/templates/surveys/response_detail.html:4
+msgid "Response"
+msgstr "Cavab"
+
+#: apps/surveys/templates/surveys/response_detail.html:8
+msgid "Anonymous response"
+msgstr "Anonim cavab"
+
+#: apps/surveys/templates/surveys/response_detail.html:9
+#, python-format
+msgid "%(s)s s to complete"
+msgstr "%(s)s saniyəyə tamamlanıb"
+
+#: apps/surveys/templates/surveys/response_detail.html:20
+msgid "Answers"
+msgstr "Cavablar"
+
+#: apps/surveys/templates/surveys/response_detail.html:25
+msgid "Contact"
+msgstr "Əlaqə"
+
+#: apps/surveys/templates/surveys/response_detail.html:25
+msgid "Consent given:"
+msgstr "Verilmiş razılıq:"
+
+#: apps/surveys/templates/surveys/response_detail.html:30
+msgid "Internal notes"
+msgstr "Daxili qeydlər"
+
+#: apps/surveys/templates/surveys/response_detail.html:32
+msgid "Deleted user"
+msgstr "Silinmiş istifadəçi"
+
+#: apps/surveys/templates/surveys/response_detail.html:37
+msgid "Add a note"
+msgstr "Qeyd əlavə et"
+
+#: apps/surveys/templates/surveys/response_detail.html:38
+msgid "Add a note for your team (not visible to the customer)"
+msgstr "Komandanız üçün qeyd əlavə edin (müştəri görmür)"
+
+#: apps/surveys/templates/surveys/response_detail.html:39
+msgid "Add note"
+msgstr "Qeyd əlavə et"
+
+#: apps/surveys/templates/surveys/response_detail.html:41
+msgid "No notes."
+msgstr "Qeyd yoxdur."
+
+#: apps/surveys/templates/surveys/response_detail.html:52
+msgid "Mark resolved"
+msgstr "Həll edildi kimi qeyd et"
+
+#: apps/surveys/templates/surveys/response_detail.html:58
+msgid "Assigned to"
+msgstr "Təyin edilib"
+
+#: apps/surveys/templates/surveys/response_detail.html:60
+msgid "Nobody"
+msgstr "Heç kim"
+
+#: apps/surveys/templates/surveys/response_detail.html:68
+msgid "e.g. service, cleanliness"
+msgstr "məs. xidmət, təmizlik"
+
+#: apps/surveys/templates/surveys/response_detail.html:69
+msgid "Save tags"
+msgstr "Etiketləri saxla"
+
+#: apps/surveys/templates/surveys/responses.html:11
+msgid "Search answers, notes or contacts"
+msgstr "Cavablarda, qeydlərdə və ya kontaktlarda axtarın"
+
+#: apps/surveys/templates/surveys/responses.html:14
+msgid "Score"
+msgstr "Qiymət"
+
+#: apps/surveys/templates/surveys/responses.html:15
+msgid "Assigned"
+msgstr "Təyinat"
+
+#: apps/surveys/templates/surveys/responses.html:16
+msgid "Anyone"
+msgstr "Hər kəs"
+
+#: apps/surveys/templates/surveys/responses.html:17
+msgid "Assigned to me"
+msgstr "Mənə təyin edilənlər"
+
+#: apps/surveys/templates/surveys/responses.html:18
+msgid "Unassigned"
+msgstr "Təyin edilməyənlər"
+
+#: apps/surveys/templates/surveys/responses.html:21
+msgid "Tag"
+msgstr "Etiket"
+
+#: apps/surveys/templates/surveys/responses.html:21
+msgid "All tags"
+msgstr "Bütün etiketlər"
+
+#: apps/surveys/templates/surveys/responses.html:35
+msgid "Anonymous"
+msgstr "Anonim"
+
+#: apps/surveys/templates/surveys/responses.html:54
+msgid "No responses match these filters."
+msgstr "Bu filtrlərə uyğun cavab yoxdur."
+
+#: apps/surveys/templates/surveys/responses.html:54
+msgid "No responses yet. Share the survey to start collecting feedback."
+msgstr "Hələ cavab yoxdur. Rəy toplamağa başlamaq üçün sorğunu paylaşın."
+
+#: apps/surveys/templates/surveys/results.html:19
+#, python-format
+msgid "%(n)s open"
+msgstr "%(n)s açıq"
+
+#: apps/surveys/templates/surveys/results.html:20
+msgid "Completion rate"
+msgstr "Tamamlanma faizi"
+
+#: apps/surveys/templates/surveys/results.html:20
+#, python-format
+msgid "of %(n)s visits"
+msgstr "%(n)s baxışdan"
+
+#: apps/surveys/templates/surveys/results.html:22
+#, python-format
+msgid "%(p)s%% promoters · %(d)s%% detractors"
+msgstr "%(p)s%% tərəfdar · %(d)s%% tənqidçi"
+
+#: apps/surveys/templates/surveys/results.html:23
+#, python-format
+msgid "average %(a)s / 5"
+msgstr "orta %(a)s / 5"
+
+#: apps/surveys/templates/surveys/results.html:24
+#, python-format
+msgid "%(e)s%% found it easy (5–7)"
+msgstr "%(e)s%% asan hesab edib (5–7)"
+
+#: apps/surveys/templates/surveys/results.html:25
+msgid "Average rating"
+msgstr "Orta qiymət"
+
+#: apps/surveys/templates/surveys/results.html:30
+msgid "Responses per day"
+msgstr "Gündəlik cavablar"
+
+#: apps/surveys/templates/surveys/results.html:39
+#, python-format
+msgid "%(n)s answer"
+msgid_plural "%(n)s answers"
+msgstr[0] "%(n)s cavab"
+msgstr[1] "%(n)s cavab"
+
+#: apps/surveys/templates/surveys/results.html:43
+msgid "No answers yet."
+msgstr "Hələ cavab yoxdur."
+
+#: apps/surveys/templates/surveys/results.html:45
+msgid "promoters"
+msgstr "tərəfdar"
+
+#: apps/surveys/templates/surveys/results.html:45
+msgid "passives"
+msgstr "neytral"
+
+#: apps/surveys/templates/surveys/results.html:45
+msgid "detractors"
+msgstr "tənqidçi"
+
+#: apps/surveys/templates/surveys/results.html:45
+msgid "satisfied"
+msgstr "razıdır"
+
+#: apps/surveys/templates/surveys/results.html:45
+msgid "average"
+msgstr "orta"
+
+#: apps/surveys/templates/surveys/results.html:46
+msgid "Answer distribution"
+msgstr "Cavabların bölgüsü"
+
+#: apps/surveys/templates/surveys/results.html:61
+#, python-format
+msgid ""
+"People could choose several options, so percentages can add up to more than "
+"100%%."
+msgstr ""
+"Bir neçə variant seçmək mümkün olduğu üçün faizlərin cəmi 100%%-dən çox ola "
+"bilər."
+
+#: apps/surveys/templates/surveys/results.html:66
+msgid "See all responses"
+msgstr "Bütün cavablara bax"
+
+#: apps/surveys/templates/surveys/results.html:68
+#, python-format
+msgid "%(n)s person answered this question."
+msgid_plural "%(n)s people answered this question."
+msgstr[0] "%(n)s nəfər bu suala cavab verib."
+msgstr[1] "%(n)s nəfər bu suala cavab verib."
+
+#: apps/surveys/templates/surveys/settings.html:10
+msgid "Survey page"
+msgstr "Sorğu səhifəsi"
+
+#: apps/surveys/templates/surveys/settings.html:19
+msgid "After submitting"
+msgstr "Göndərişdən sonra"
+
+#: apps/surveys/templates/surveys/settings.html:23
+msgid "Contact details & privacy"
+msgstr "Əlaqə məlumatları və məxfilik"
+
+#: apps/surveys/templates/surveys/settings.html:26
+msgid ""
+"Qrumy never stores respondents' IP addresses. Contact details are only saved"
+" when the person gives consent."
+msgstr ""
+"Qrumy cavab verənlərin IP ünvanlarını heç vaxt saxlamır. Əlaqə məlumatları "
+"yalnız şəxs razılıq verdikdə saxlanılır."
+
+#: apps/surveys/templates/surveys/settings.html:30
+msgid "Limits"
+msgstr "Limitlər"
+
+#: apps/surveys/templates/surveys/settings.html:38
+#: apps/surveys/templates/surveys/settings.html:42
+msgid "Delete survey"
+msgstr "Sorğunu sil"
+
+#: apps/surveys/templates/surveys/settings.html:40
+#, python-format
+msgid ""
+"This permanently deletes the survey and its %(n)s response. Its QR code is "
+"paused."
+msgid_plural ""
+"This permanently deletes the survey and its %(n)s responses. Its QR code is "
+"paused."
+msgstr[0] ""
+"Bu, sorğunu və onun %(n)s cavabını birdəfəlik silir. QR kodu dayandırılır."
+msgstr[1] ""
+"Bu, sorğunu və onun %(n)s cavabını birdəfəlik silir. QR kodu dayandırılır."
+
+#: apps/surveys/templates/surveys/settings.html:40
+msgid "Consider closing it instead."
+msgstr "Bunun əvəzinə sorğunu bağlamağı düşünün."
+
+#: apps/surveys/templates/surveys/settings.html:41
+#, python-format
+msgid "Type “%(t)s” to confirm"
+msgstr "Təsdiq üçün “%(t)s” yazın"
+
+#: apps/surveys/templates/surveys/share.html:8
+msgid "This survey is a draft. Links and QR codes work once you publish it."
+msgstr ""
+"Bu sorğu qaralamadır. Linklər və QR kodlar dərc etdikdən sonra işləyəcək."
+
+#: apps/surveys/templates/surveys/share.html:18
+msgid ""
+"Scans are counted in QR analytics, and responses from this code are marked "
+"with the source “QR code”."
+msgstr ""
+"Skanlar QR analitikasında sayılır, bu koddan gələn cavablar isə “QR kod” "
+"mənbəyi ilə qeyd olunur."
+
+#: apps/surveys/templates/surveys/share.html:27
+msgid "Create a dynamic QR code for tables, receipts, packaging or posters."
+msgstr ""
+"Masalar, çeklər, qablaşdırma və ya plakatlar üçün dinamik QR kod yaradın."
+
+#: apps/surveys/templates/surveys/share.html:38
+#: apps/surveys/templates/surveys/share.html:45
+msgid "Copy"
+msgstr "Kopyala"
+
+#: apps/surveys/templates/surveys/share.html:42
+msgid ""
+"Use this link in your own emails so responses are marked with the source "
+"“Email”."
+msgstr ""
+"Bu linki öz e-poçtlarınızda istifadə edin ki, cavablar “E-poçt” mənbəyi ilə "
+"qeyd olunsun."
+
+#: apps/surveys/templates/surveys/share.html:52
+msgid "Embed on your website"
+msgstr "Saytınıza yerləşdirin"
+
+#: apps/surveys/templates/surveys/share.html:54
+msgid "Paste this code into your website where the survey should appear."
+msgstr "Bu kodu saytınızda sorğunun görünəcəyi yerə yapışdırın."
+
+#: apps/surveys/templates/surveys/widgets/overview.html:4
+msgid "Customer feedback"
+msgstr "Müştəri rəyləri"
+
+#: apps/surveys/templates/surveys/widgets/overview.html:8
+msgid "Responses, 30 days"
+msgstr "Cavablar, 30 gün"
+
+#: apps/surveys/templates/surveys/widgets/overview.html:9
+msgid "NPS, 30 days"
+msgstr "NPS, 30 gün"
+
+#: apps/surveys/templates/surveys/widgets/overview.html:10
+msgid "Open responses"
+msgstr "Açıq cavablar"
+
+#: apps/surveys/views/responses.py:117
+msgid "Assignment updated."
+msgstr "Təyinat yeniləndi."
+
+#: apps/surveys/views/responses.py:122
+msgid "Response marked as resolved."
+msgstr "Cavab həll edildi kimi qeyd olundu."
+
+#: apps/surveys/views/responses.py:123
+msgid "Response reopened."
+msgstr "Cavab yenidən açıldı."
+
+#: apps/surveys/views/responses.py:128
+msgid "Note added."
+msgstr "Qeyd əlavə edildi."
+
+#: apps/surveys/views/responses.py:131
+msgid "Tags saved."
+msgstr "Etiketlər saxlanıldı."
+
+#: apps/surveys/views/surveys.py:108
+msgid "Question saved."
+msgstr "Sual saxlanıldı."
+
+#: apps/surveys/views/surveys.py:142
+msgid "Survey settings saved."
+msgstr "Sorğu ayarları saxlanıldı."
+
+#: apps/surveys/views/surveys.py:156
+msgid "Survey published. Share it from the Share tab."
+msgstr "Sorğu dərc edildi. Onu “Paylaş” bölməsindən paylaşın."
+
+#: apps/surveys/views/surveys.py:159
+msgid "Survey closed. It no longer accepts responses."
+msgstr "Sorğu bağlandı. Artıq cavab qəbul etmir."
+
+#: apps/surveys/views/surveys.py:174
+msgid "Type the survey title exactly to confirm deletion."
+msgstr "Silməni təsdiqləmək üçün sorğunun adını dəqiq yazın."
+
+#: apps/surveys/views/surveys.py:177
+msgid "Survey and its responses were deleted."
+msgstr "Sorğu və onun cavabları silindi."
+
+#: apps/surveys/views/surveys.py:210
+msgid "QR code created. You can change its design in QR Codes."
+msgstr "QR kod yaradıldı. Dizaynını QR kodlar bölməsində dəyişə bilərsiniz."
+
+#: config/settings/base.py:180
 msgid "English"
 msgstr "İngilis dili"
 
-#: config/settings/base.py:179
+#: config/settings/base.py:180
 msgid "Azerbaijani"
 msgstr "Azərbaycan dili"
 

@@ -72,7 +72,30 @@ Legend: `[ ]` not started · `[~]` in progress · `[x]` done and tested
 - [ ] Video type (link to external hosting) and Survey/Event/Product types arrive with their modules
 - [ ] Scan partitioning by month once volume requires it
 
-## Phase 3 — Surveys
+## Phase 3 — Surveys & Feedback ✅ (2026-11-25)
+- [x] Models: surveys, ordered questions, responses, answers, notes, tags, daily views
+- [x] 14 question types: single, multiple, dropdown, rating 1–10, stars, NPS, CSAT, CES,
+      yes/no, short text, long text, email, phone, date (server-side validation)
+- [x] Builder (HTMX): add, edit with auto-save, reorder, delete; starter texts in the survey language
+- [x] Settings: title, description, language, accent colour, logo, thank-you page, redirect,
+      contact details with consent, closing date, response limit; publish / close / reopen; delete
+- [x] Public page (mobile-first, en/az) + website embed + per-survey theme stylesheet;
+      signed start token, honeypot, rate limits, row-locked limits, monthly quota
+- [x] Distribution: direct link, email link, embed code, survey QR code (source tracking)
+- [x] Results: responses, completion rate, NPS/CSAT/CES/average rating, trend chart,
+      per-question distributions and latest text answers, 7/30/90/all-time ranges
+- [x] Feedback management: filters (search, status, score, assignee, tag, period), detail with
+      assign (notifies), internal notes, tags, resolve/reopen, CSV export (formula-safe)
+- [x] Plan features `surveys.max`, `surveys.responses_month`; module gating; dashboard widget
+- [x] Tenant isolation extended to all survey/question/response routes (mutation-tested)
+- [x] Azerbaijani translations (937 strings)
+- Tests: 194 passing
+
+### Phase 3 follow-ups
+- [ ] Conditional logic (show question if …) — data field exists, no UI/evaluation yet
+- [ ] Per-language survey content (one language per survey today)
+- [ ] Email distribution from Qrumy (needs the transactional email provider)
+
 ## Phase 4 — Events A (lead capture)
 ## Phase 5 — Events B (registration & check-in)
 ## Phase 6 — Assets basic

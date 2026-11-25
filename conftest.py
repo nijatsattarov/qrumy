@@ -65,3 +65,20 @@ def make_qr():
                                   verify=kw.pop("verify", False), **kw)
 
     return _make
+
+
+@pytest.fixture
+def make_survey():
+    from apps.surveys import services
+    from apps.surveys.models import Survey
+
+    def _make(org, *, title="Feedback", publish=True, qtypes=("csat", "single", "longtext"),
+              **fields):
+        survey = services.create_survey(organization=org, actor=org.owner, title=title, **fields)
+        for qtype in qtypes:
+            services.add_question(survey=survey, qtype=qtype)
+        if publish:
+            services.publish(survey=survey, actor=org.owner)
+        return Survey.objects.get(pk=survey.pk)
+
+    return _make

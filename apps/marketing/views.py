@@ -14,7 +14,7 @@ PRODUCTS = [
     {"key": "surveys", "icon": "message", "name": _("Surveys & Feedback"),
      "summary": _("Collect customer feedback with QR-powered surveys and track NPS, CSAT and "
                   "CES over time."),
-     "points": [_("Builder with 13 question types"), _("NPS, CSAT and CES scoring"),
+     "points": [_("Builder with 14 question types"), _("NPS, CSAT and CES scoring"),
                 _("Assign, tag and resolve responses")]},
     {"key": "events", "icon": "calendar", "name": _("Event Lead Capture"),
      "summary": _("Turn trade-show and event conversations into qualified leads, then follow "
@@ -63,9 +63,9 @@ FAQ = [
      _("Yes. During the beta every released feature is free, with fair-use limits. Paid plans "
        "will come later and existing users will be informed well in advance.")),
     (_("Which products are available today?"),
-     _("Qrumy is released step by step. Your account, organization and team management are "
-       "ready now; QR Management is next, followed by Surveys, Events and Assets. Each product "
-       "is marked as available on this page once it is released.")),
+     _("Qrumy is released step by step. QR Management and Surveys & Feedback are available "
+       "now; Event Lead Capture and Asset Management come next. Each product is marked as "
+       "available on this page once it is released.")),
     (_("What is a dynamic QR code?"),
      _("A dynamic QR code points to a short Qrumy link, so you can change where it leads after "
        "printing and see scan statistics. A static QR code stores the content directly and "

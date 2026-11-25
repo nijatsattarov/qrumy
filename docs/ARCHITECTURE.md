@@ -1,6 +1,6 @@
 # Qrumy — Architecture & MVP Plan (v0.2 — Python/Django, for approval)
 
-Status: **APPROVED (2026-11-25).** Phases 1 (Foundation) and 2 (QR Management) implemented — see docs/CHECKLIST.md.
+Status: **APPROVED (2026-11-25).** Phases 1 (Foundation), 2 (QR Management) and 3 (Surveys) implemented — see docs/CHECKLIST.md.
 Date: 2026-11-25
 Supersedes: v0.1 (Laravel/PHP draft, commit `0e68522`, kept in git history only).
 
@@ -507,3 +507,12 @@ later), open beta signups, English default language, `django-unfold` admin theme
 - File type detection uses byte signatures/Pillow instead of libmagic (no system package).
 - Redirects use `qrumy.com/q/<code>` (`QRUMY_QR_BASE_URL`), per the product decision.
 - Details: `docs/decisions/0005-qr-engine-and-scans.md`.
+
+## 14. Changes made during Phase 3 implementation
+
+- `surveys` registers its own QR type through the QR type registry (`listed=False`), so
+  QR Management stays unaware of surveys.
+- Public survey submissions are CSRF-exempt (embeds in third-party iframes) and protected by
+  a signed start token, a honeypot and rate limits instead.
+- Per-survey colours are served as a tiny stylesheet to keep the strict CSP.
+- Details: `docs/decisions/0006-surveys.md`.

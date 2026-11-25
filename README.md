@@ -3,7 +3,7 @@
 QR-powered business platform: QR management, surveys & feedback, asset management and
 event lead capture — one account, one team, one QR infrastructure. Domain: **qrumy.com**.
 
-> Status: **Phase 2 (QR Management) complete.** Product modules are built phase by phase —
+> Status: **Phase 3 (Surveys & Feedback) complete.** Product modules are built phase by phase —
 > see [`docs/CHECKLIST.md`](docs/CHECKLIST.md) and [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
 ## Stack
