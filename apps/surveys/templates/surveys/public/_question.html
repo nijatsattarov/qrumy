@@ -1,0 +1,24 @@
+{% load i18n qrumy %}
+<fieldset class="space-y-3 {% if field.errors %}s-has-error{% endif %}" id="q{{ q.pk }}">
+  <legend class="text-[15px] font-semibold leading-snug"><span class="text-muted">{{ n }}.</span> {{ q.label }}{% if q.required %} <span class="text-danger" aria-hidden="true">*</span><span class="sr-only">({% translate "required" %})</span>{% endif %}</legend>
+  {% if q.help_text %}<p class="-mt-1 text-sm text-muted">{{ q.help_text }}</p>{% endif %}
+  {% with t=q.type_def %}
+  {% if t.stats == "scale" and q.qtype == "stars" %}
+    <div class="s-stars" role="radiogroup">
+      {% for opt in field.subwidgets reversed %}<label class="s-star" for="{{ opt.id_for_label }}" title="{{ opt.choice_label }}">{{ opt.tag }}{% icon 'star' 'size-9' %}<span class="sr-only">{{ opt.choice_label }}</span></label>{% endfor %}
+    </div>
+  {% elif t.stats == "scale" %}
+    <div class="s-scale s-scale-{{ q.qtype }}" role="radiogroup">
+      {% for opt in field.subwidgets %}<label class="s-scale-opt" for="{{ opt.id_for_label }}">{{ opt.tag }}<span>{{ opt.choice_label }}</span></label>{% endfor %}
+    </div>
+    <div class="flex justify-between text-xs text-muted"><span>{{ q.config.low_label|default:t.low_label }}</span><span>{{ q.config.high_label|default:t.high_label }}</span></div>
+  {% elif t.stats == "yesno" %}
+    <div class="grid grid-cols-2 gap-2">{% for opt in field.subwidgets %}<label class="s-choice justify-center font-medium" for="{{ opt.id_for_label }}">{{ opt.tag }}<span>{{ opt.choice_label }}</span></label>{% endfor %}</div>
+  {% elif q.qtype == "single" or q.qtype == "multiple" %}
+    <div class="space-y-2">{% for opt in field.subwidgets %}<label class="s-choice" for="{{ opt.id_for_label }}">{{ opt.tag }}<span>{{ opt.choice_label }}</span></label>{% endfor %}</div>
+  {% else %}
+    <div class="form-field">{{ field }}</div>
+  {% endif %}
+  {% endwith %}
+  {% for e in field.errors %}<p class="form-error">{{ e }}</p>{% endfor %}
+</fieldset>

@@ -1,0 +1,46 @@
+{% extends "layouts/app.html" %}
+{% load i18n qrumy %}
+{% block title %}{% translate "Settings" %} — {{ survey.title }}{% endblock %}
+{% block breadcrumb %}<a href="{% url 'survey_list' org_slug=current_organization.slug %}" class="text-muted no-underline hover:text-ink">{% translate "Surveys" %}</a> / {{ survey.title }}{% endblock %}
+{% block content %}
+{% include "surveys/_header.html" %}
+<form method="post" enctype="multipart/form-data" class="mt-6 space-y-6">{% csrf_token %}
+  {% for e in form.non_field_errors %}<p class="form-error">{{ e }}</p>{% endfor %}
+  <section class="card">
+    <div class="card-header"><h2 class="section-title">{% translate "Survey page" %}</h2></div>
+    <div class="card-body grid gap-5 sm:grid-cols-2">
+      <div class="sm:col-span-2">{{ form.title.as_field_group }}</div>
+      <div class="sm:col-span-2">{{ form.description.as_field_group }}</div>
+      {{ form.language.as_field_group }}{{ form.accent_color.as_field_group }}
+      <div class="sm:col-span-2">{{ form.logo.as_field_group }}</div>
+    </div>
+  </section>
+  <section class="card">
+    <div class="card-header"><h2 class="section-title">{% translate "After submitting" %}</h2></div>
+    <div class="card-body grid gap-5">{{ form.thank_you_title.as_field_group }}{{ form.thank_you_message.as_field_group }}{{ form.redirect_url.as_field_group }}</div>
+  </section>
+  <section class="card">
+    <div class="card-header"><h2 class="section-title">{% translate "Contact details & privacy" %}</h2></div>
+    <div class="card-body grid gap-5">
+      {{ form.contact_mode.as_field_group }}{{ form.consent_text.as_field_group }}
+      <p class="text-xs text-muted">{% translate "Qrumy never stores respondents' IP addresses. Contact details are only saved when the person gives consent." %}</p>
+    </div>
+  </section>
+  <section class="card">
+    <div class="card-header"><h2 class="section-title">{% translate "Limits" %}</h2></div>
+    <div class="card-body grid gap-5 sm:grid-cols-2">{{ form.closes_at.as_field_group }}{{ form.response_limit.as_field_group }}</div>
+  </section>
+  <div class="flex justify-end"><button class="btn btn-primary">{% translate "Save changes" %}</button></div>
+</form>
+
+{% if can.content_delete %}
+<section class="card mt-10 border-danger/30">
+  <div class="card-header"><h2 class="section-title text-danger">{% translate "Delete survey" %}</h2></div>
+  <form method="post" action="{% url 'survey_delete' org_slug=current_organization.slug pk=survey.pk %}" class="card-body space-y-4">{% csrf_token %}
+    <p class="text-sm text-muted">{% blocktranslate count n=survey.response_count %}This permanently deletes the survey and its {{ n }} response. Its QR code is paused.{% plural %}This permanently deletes the survey and its {{ n }} responses. Its QR code is paused.{% endblocktranslate %} {% translate "Consider closing it instead." %}</p>
+    <div class="form-field max-w-md"><label class="form-label" for="confirm_title">{% blocktranslate with t=survey.title %}Type “{{ t }}” to confirm{% endblocktranslate %}</label><input id="confirm_title" name="confirm_title" required autocomplete="off"></div>
+    <button class="btn btn-danger">{% icon 'trash' 'size-4' %}{% translate "Delete survey" %}</button>
+  </form>
+</section>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "layouts/app.html" %}
+{% load i18n %}
+{% block title %}{% translate "New survey" %}{% endblock %}
+{% block breadcrumb %}<a href="{% url 'survey_list' org_slug=current_organization.slug %}" class="text-muted no-underline hover:text-ink">{% translate "Surveys" %}</a> / {% translate "New" %}{% endblock %}
+{% block content %}
+<div class="mx-auto max-w-lg">
+  <h1 class="page-title">{% translate "New survey" %}</h1>
+  <p class="page-subtitle">{% translate "You can add questions and change everything in the next step." %}</p>
+  <form method="post" class="card card-body mt-6 space-y-5">{% csrf_token %}
+    {{ form }}
+    <button class="btn btn-primary w-full">{% translate "Create survey" %}</button>
+  </form>
+</div>
+{% endblock %}

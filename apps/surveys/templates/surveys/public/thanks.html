@@ -1,0 +1,10 @@
+{% extends "surveys/public/base.html" %}
+{% load i18n qrumy %}
+{% block title %}{% translate "Thank you" %}{% endblock %}
+{% block page %}
+<div class="card card-body mt-6 py-12 text-center">
+  <span class="s-accent-soft mx-auto inline-flex size-14 items-center justify-center rounded-full">{% icon 'check' 'size-7' %}</span>
+  <h1 class="mt-5 text-2xl font-semibold">{% if survey.thank_you_title %}{{ survey.thank_you_title }}{% else %}{% translate "Thank you!" %}{% endif %}</h1>
+  <p class="mx-auto mt-2 max-w-sm text-[15px] text-muted">{% if survey.thank_you_message %}{{ survey.thank_you_message|linebreaksbr }}{% else %}{% translate "Your feedback has been received. It helps us get better." %}{% endif %}</p>
+</div>
+{% endblock %}

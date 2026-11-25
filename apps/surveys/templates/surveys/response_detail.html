@@ -1,0 +1,73 @@
+{% extends "layouts/app.html" %}
+{% load i18n qrumy %}
+{% block title %}{% translate "Response" %} — {{ survey.title }}{% endblock %}
+{% block breadcrumb %}<a href="{% url 'survey_list' org_slug=current_organization.slug %}" class="text-muted no-underline hover:text-ink">{% translate "Surveys" %}</a> / <a href="{% url 'survey_responses' org_slug=current_organization.slug pk=survey.pk %}" class="text-muted no-underline hover:text-ink">{{ survey.title }}</a> / {% translate "Response" %}{% endblock %}
+{% block content %}
+<div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+  <div>
+    <h1 class="page-title">{% if r.contact_name or r.contact_email %}{{ r.contact_name|default:r.contact_email }}{% else %}{% translate "Anonymous response" %}{% endif %}</h1>
+    <p class="page-subtitle">{{ r.submitted_at|date:"j M Y, H:i" }} · {{ r.get_source_display }}{% if r.duration_seconds %} · {% blocktranslate with s=r.duration_seconds %}{{ s }} s to complete{% endblocktranslate %}{% endif %}</p>
+  </div>
+  <div class="flex gap-2">
+    {% if newer %}<a class="btn btn-sm btn-secondary" href="{% url 'survey_response' org_slug=current_organization.slug pk=survey.pk rid=newer %}">{% translate "Newer" %}</a>{% endif %}
+    {% if older %}<a class="btn btn-sm btn-secondary" href="{% url 'survey_response' org_slug=current_organization.slug pk=survey.pk rid=older %}">{% translate "Older" %}</a>{% endif %}
+  </div>
+</div>
+
+<div class="mt-6 grid items-start gap-6 lg:grid-cols-[1fr_320px]">
+  <div class="space-y-6">
+    <section class="card">
+      <div class="card-header"><h2 class="section-title">{% translate "Answers" %}</h2><span class="flex gap-2">{% include "surveys/_score_badge.html" %}</span></div>
+      <dl class="divide-y divide-line">
+        {% for q, a in rows %}
+        <div class="px-5 py-4"><dt class="text-xs text-muted">{{ q.label }}</dt><dd class="mt-1 text-sm {% if not a %}text-muted{% endif %}">{% if a %}{% if q.qtype == "yesno" %}{% if a.value_number == 1 %}{% translate "Yes" %}{% else %}{% translate "No" %}{% endif %}{% elif q.type_def.scale %}<span class="font-semibold">{{ a.display }}</span> <span class="text-muted">/ {{ q.type_def.scale.1 }}</span>{% else %}{{ a.display|linebreaksbr }}{% endif %}{% else %}—{% endif %}</dd></div>
+        {% endfor %}
+        {% if r.contact_email %}<div class="px-5 py-4"><dt class="text-xs text-muted">{% translate "Contact" %}</dt><dd class="mt-1 text-sm">{{ r.contact_name }} · <a href="mailto:{{ r.contact_email }}">{{ r.contact_email }}</a></dd>{% if r.consent %}<dd class="mt-1 text-xs text-muted">{% translate "Consent given:" %} “{{ r.consent_text }}”</dd>{% endif %}</div>{% endif %}
+      </dl>
+    </section>
+
+    <section class="card">
+      <div class="card-header"><h2 class="section-title">{% translate "Internal notes" %}</h2></div>
+      {% if notes %}
+      <ul class="divide-y divide-line">{% for n in notes %}<li class="px-5 py-3.5"><p class="text-sm">{{ n.body|linebreaksbr }}</p><p class="mt-1 text-xs text-muted">{{ n.author.display_name|default:_("Deleted user") }} · {{ n.created_at|date:"j M Y, H:i" }}</p></li>{% endfor %}</ul>
+      {% endif %}
+      {% if can.content_edit %}
+      <form method="post" action="{% url 'survey_response_action' org_slug=current_organization.slug pk=survey.pk rid=r.pk %}" class="card-body space-y-3 {% if notes %}border-t border-line{% endif %}">{% csrf_token %}
+        <input type="hidden" name="action" value="note">
+        <label for="note" class="sr-only">{% translate "Add a note" %}</label>
+        <textarea id="note" name="body" rows="3" maxlength="2000" required class="input" placeholder="{% translate 'Add a note for your team (not visible to the customer)' %}"></textarea>
+        <button class="btn btn-sm btn-secondary">{% translate "Add note" %}</button>
+      </form>
+      {% elif not notes %}<p class="card-body text-sm text-muted">{% translate "No notes." %}</p>{% endif %}
+    </section>
+  </div>
+
+  <aside class="card divide-y divide-line">
+    <div class="p-5">
+      <p class="text-xs text-muted">{% translate "Status" %}</p>
+      <div class="mt-2 flex items-center justify-between gap-2">
+        <span class="badge {% if r.status == 'open' %}badge-accent{% else %}badge-success{% endif %}">{{ r.get_status_display }}</span>
+        {% if can.content_edit %}
+        <form method="post" action="{% url 'survey_response_action' org_slug=current_organization.slug pk=survey.pk rid=r.pk %}">{% csrf_token %}
+          {% if r.status == "open" %}<button name="action" value="resolve" class="btn btn-sm btn-primary">{% icon 'check' 'size-4' %}{% translate "Mark resolved" %}</button>{% else %}<button name="action" value="reopen" class="btn btn-sm btn-secondary">{% translate "Reopen" %}</button>{% endif %}
+        </form>{% endif %}
+      </div>
+    </div>
+    <form class="p-5" method="post" action="{% url 'survey_response_action' org_slug=current_organization.slug pk=survey.pk rid=r.pk %}">{% csrf_token %}
+      <input type="hidden" name="action" value="assign">
+      <label for="assignee" class="text-xs text-muted">{% translate "Assigned to" %}</label>
+      <select id="assignee" name="user" class="input mt-2" data-autosubmit {% if not can.content_edit %}disabled{% endif %}>
+        <option value="">{% translate "Nobody" %}</option>
+        {% for m in members %}<option value="{{ m.pk }}" {% if r.assigned_to_id == m.pk %}selected{% endif %}>{{ m.display_name }}</option>{% endfor %}
+      </select>
+      <noscript><button class="btn btn-sm btn-secondary mt-2">{% translate "Save" %}</button></noscript>
+    </form>
+    <form class="p-5" method="post" action="{% url 'survey_response_action' org_slug=current_organization.slug pk=survey.pk rid=r.pk %}">{% csrf_token %}
+      <input type="hidden" name="action" value="tags">
+      <label for="tags" class="text-xs text-muted">{% translate "Tags" %}</label>
+      <input id="tags" name="tags" value="{{ tag_names }}" class="input mt-2" placeholder="{% translate 'e.g. service, cleanliness' %}" {% if not can.content_edit %}disabled{% endif %}>
+      {% if can.content_edit %}<button class="btn btn-sm btn-secondary mt-2">{% translate "Save tags" %}</button>{% endif %}
+    </form>
+  </aside>
+</div>
+{% endblock %}

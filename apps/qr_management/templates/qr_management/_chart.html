@@ -1,8 +1,8 @@
 {% load i18n %}
 {{ series|json_script:chart_id }}
-<div class="relative h-56"><canvas data-chart="bars" data-source="{{ chart_id }}" data-label="{% translate 'Scans' %}" role="img" aria-label="{% translate 'Scans per day' %}"></canvas></div>
+<div class="relative h-56"><canvas data-chart="bars" data-source="{{ chart_id }}" data-label="{% if chart_label %}{{ chart_label }}{% else %}{% translate 'Scans' %}{% endif %}" role="img" aria-label="{% if chart_label %}{{ chart_label }}{% else %}{% translate 'Scans per day' %}{% endif %}"></canvas></div>
 <details class="mt-3 text-xs text-muted">
   <summary class="cursor-pointer">{% translate "Show as table" %}</summary>
-  <div class="mt-2 max-h-60 overflow-auto"><table class="table"><thead><tr><th>{% translate "Date" %}</th><th class="text-right">{% translate "Scans" %}</th></tr></thead>
+  <div class="mt-2 max-h-60 overflow-auto"><table class="table"><thead><tr><th>{% translate "Date" %}</th><th class="text-right">{% if chart_label %}{{ chart_label }}{% else %}{% translate "Scans" %}{% endif %}</th></tr></thead>
   <tbody>{% for r in series %}<tr><td>{{ r.day|date:"j M Y" }}</td><td class="text-right tabular-nums">{{ r.scans }}</td></tr>{% endfor %}</tbody></table></div>
 </details>

@@ -1,0 +1,33 @@
+{% load i18n qrumy %}
+<div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+  <div class="min-w-0">
+    <div class="flex flex-wrap items-center gap-2">
+      <h1 class="page-title truncate">{{ survey.title }}</h1>
+      {% include "surveys/_status_badge.html" %}
+    </div>
+    <p class="page-subtitle">{% blocktranslate count n=survey.response_count %}{{ n }} response{% plural %}{{ n }} responses{% endblocktranslate %}{% if survey.closes_at %} · {% blocktranslate with d=survey.closes_at|date:"j M Y" %}closes {{ d }}{% endblocktranslate %}{% endif %}</p>
+  </div>
+  <div class="flex flex-wrap gap-2">
+    <a href="{% url 'survey_preview' org_slug=current_organization.slug pk=survey.pk %}" target="_blank" rel="noopener" class="btn btn-secondary">{% icon 'external' 'size-4' %}{% translate "Preview" %}</a>
+    {% if can.content_edit %}
+    <form method="post" action="{% url 'survey_status' org_slug=current_organization.slug pk=survey.pk %}">{% csrf_token %}
+      <input type="hidden" name="next_view" value="{{ request.resolver_match.url_name }}">
+      {% if survey.status == "published" %}
+        <button name="action" value="close" class="btn btn-secondary" data-confirm="{% translate 'Close this survey? People will no longer be able to answer.' %}">{% icon 'pause' 'size-4' %}{% translate "Close" %}</button>
+      {% else %}
+        <button name="action" value="publish" class="btn btn-primary">{% icon 'play' 'size-4' %}{% if survey.status == "closed" %}{% translate "Reopen" %}{% else %}{% translate "Publish" %}{% endif %}</button>
+      {% endif %}
+    </form>
+    {% endif %}
+  </div>
+</div>
+{% url 'survey_builder' org_slug=current_organization.slug pk=survey.pk as u_build %}{% url 'survey_share' org_slug=current_organization.slug pk=survey.pk as u_share %}{% url 'survey_results' org_slug=current_organization.slug pk=survey.pk as u_results %}{% url 'survey_responses' org_slug=current_organization.slug pk=survey.pk as u_resp %}{% url 'survey_settings' org_slug=current_organization.slug pk=survey.pk as u_set %}
+{% with n=request.resolver_match.url_name %}
+<nav class="mt-5 flex gap-1 overflow-x-auto border-b border-line" aria-label="{% translate 'Survey' %}">
+  <a href="{{ u_build }}" class="-mb-px whitespace-nowrap border-b-2 px-3 py-2.5 text-sm font-medium no-underline {% if n == 'survey_builder' %}border-navy-900 text-ink{% else %}border-transparent text-muted hover:text-ink{% endif %}">{% translate "Questions" %}</a>
+  <a href="{{ u_share }}" class="-mb-px whitespace-nowrap border-b-2 px-3 py-2.5 text-sm font-medium no-underline {% if n == 'survey_share' %}border-navy-900 text-ink{% else %}border-transparent text-muted hover:text-ink{% endif %}">{% translate "Share" %}</a>
+  <a href="{{ u_results }}" class="-mb-px whitespace-nowrap border-b-2 px-3 py-2.5 text-sm font-medium no-underline {% if n == 'survey_results' %}border-navy-900 text-ink{% else %}border-transparent text-muted hover:text-ink{% endif %}">{% translate "Results" %}</a>
+  <a href="{{ u_resp }}" class="-mb-px whitespace-nowrap border-b-2 px-3 py-2.5 text-sm font-medium no-underline {% if n == 'survey_responses' or n == 'survey_response' %}border-navy-900 text-ink{% else %}border-transparent text-muted hover:text-ink{% endif %}">{% translate "Responses" %}</a>
+  {% if can.content_edit %}<a href="{{ u_set }}" class="-mb-px whitespace-nowrap border-b-2 px-3 py-2.5 text-sm font-medium no-underline {% if n == 'survey_settings' %}border-navy-900 text-ink{% else %}border-transparent text-muted hover:text-ink{% endif %}">{% translate "Settings" %}</a>{% endif %}
+</nav>
+{% endwith %}

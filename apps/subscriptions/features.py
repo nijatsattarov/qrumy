@@ -28,4 +28,6 @@ FEATURES = {f.key: f for f in [
     Feature("qr.dynamic", "limit", _("Dynamic QR codes")),
     Feature("qr.bulk", "bool", _("Bulk QR creation")),
     Feature("qr.file_mb", "limit", _("File size per QR (MB)")),
+    Feature("surveys.max", "limit", _("Surveys")),
+    Feature("surveys.responses_month", "limit", _("Survey responses per month")),
 ]}

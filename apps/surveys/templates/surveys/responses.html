@@ -1,0 +1,58 @@
+{% extends "layouts/app.html" %}
+{% load i18n qrumy partials %}
+{% block title %}{% translate "Responses" %} — {{ survey.title }}{% endblock %}
+{% block breadcrumb %}<a href="{% url 'survey_list' org_slug=current_organization.slug %}" class="text-muted no-underline hover:text-ink">{% translate "Surveys" %}</a> / {{ survey.title }}{% endblock %}
+{% block content %}
+{% include "surveys/_header.html" %}
+<form method="get" class="card mt-6 flex flex-wrap items-center gap-2 p-3" hx-get="{% url 'survey_responses' org_slug=current_organization.slug pk=survey.pk %}" hx-target="#response-results" hx-push-url="true" hx-trigger="input changed delay:350ms from:input[name=q], change">
+  <div class="relative min-w-48 flex-1">
+    <span class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted">{% icon 'search' 'size-4' %}</span>
+    <label for="rq" class="sr-only">{% translate "Search" %}</label>
+    <input id="rq" name="q" value="{{ filters.q }}" placeholder="{% translate 'Search answers, notes or contacts' %}" class="input pl-9">
+  </div>
+  <select name="status" class="input w-auto" aria-label="{% translate 'Status' %}">{% for v, l in form.fields.status.choices %}<option value="{{ v }}" {% if filters.status == v %}selected{% endif %}>{{ l }}</option>{% endfor %}</select>
+  <select name="score" class="input w-auto" aria-label="{% translate 'Score' %}">{% for v, l in form.fields.score.choices %}<option value="{{ v }}" {% if filters.score == v %}selected{% endif %}>{{ l }}</option>{% endfor %}</select>
+  <select name="assigned" class="input w-auto" aria-label="{% translate 'Assigned' %}">
+    <option value="">{% translate "Anyone" %}</option>
+    <option value="me" {% if filters.assigned == 'me' %}selected{% endif %}>{% translate "Assigned to me" %}</option>
+    <option value="none" {% if filters.assigned == 'none' %}selected{% endif %}>{% translate "Unassigned" %}</option>
+  </select>
+  <select name="days" class="input w-auto" aria-label="{% translate 'Time range' %}">{% for v, l in form.fields.days.choices %}<option value="{{ v }}" {% if filters.days == v|stringformat:'s' %}selected{% endif %}>{{ l }}</option>{% endfor %}</select>
+  {% if tags %}<select name="tag" class="input w-auto" aria-label="{% translate 'Tag' %}"><option value="">{% translate "All tags" %}</option>{% for t in tags %}<option value="{{ t.name }}" {% if filters.tag == t.name %}selected{% endif %}>#{{ t.name }}</option>{% endfor %}</select>{% endif %}
+  <a href="{% url 'survey_responses_export' org_slug=current_organization.slug pk=survey.pk %}?{{ request.GET.urlencode }}" class="btn btn-secondary">{% icon 'download' 'size-4' %}CSV</a>
+</form>
+
+<div id="response-results" class="mt-4">
+{% partialdef results inline %}
+  {% if page.object_list %}
+  <div class="card overflow-hidden">
+    <ul class="divide-y divide-line">
+      {% for r in page.object_list %}
+      <li>
+        <a href="{% url 'survey_response' org_slug=current_organization.slug pk=survey.pk rid=r.pk %}" class="flex flex-wrap items-center gap-3 px-5 py-3.5 text-ink no-underline hover:bg-canvas/50">
+          <span class="size-2 shrink-0 rounded-full {% if r.status == 'open' %}bg-accent-500{% else %}bg-line-strong{% endif %}" title="{{ r.get_status_display }}"></span>
+          <span class="min-w-0 flex-1">
+            <span class="flex flex-wrap items-center gap-2 text-sm"><span class="font-medium">{% if r.contact_name or r.contact_email %}{{ r.contact_name|default:r.contact_email }}{% else %}{% translate "Anonymous" %}{% endif %}</span>{% include "surveys/_score_badge.html" %}{% for t in r.tags.all %}<span class="rounded bg-canvas px-1.5 text-xs text-muted">#{{ t.name }}</span>{% endfor %}</span>
+            {% if r.preview %}<span class="mt-0.5 block truncate text-sm text-muted">“{{ r.preview }}”</span>{% endif %}
+          </span>
+          <span class="text-right text-xs text-muted">{{ r.submitted_at|date:"j M, H:i" }}<br>{{ r.get_source_display }}{% if r.assigned_to %} · {{ r.assigned_to.get_short_name }}{% endif %}</span>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% if page.has_other_pages %}
+  <nav class="mt-4 flex items-center justify-between text-sm" aria-label="{% translate 'Pagination' %}">
+    <span class="text-muted">{% blocktranslate with n=page.number total=page.paginator.num_pages %}Page {{ n }} of {{ total }}{% endblocktranslate %}</span>
+    <span class="flex gap-2">
+      {% if page.has_previous %}<a class="btn btn-sm btn-secondary" href="?{% for k, v in filters.items %}{% if k != 'page' %}{{ k }}={{ v|urlencode }}&{% endif %}{% endfor %}page={{ page.previous_page_number }}">{% translate "Previous" %}</a>{% endif %}
+      {% if page.has_next %}<a class="btn btn-sm btn-secondary" href="?{% for k, v in filters.items %}{% if k != 'page' %}{{ k }}={{ v|urlencode }}&{% endif %}{% endfor %}page={{ page.next_page_number }}">{% translate "Next" %}</a>{% endif %}
+    </span>
+  </nav>
+  {% endif %}
+  {% else %}
+  <div class="card card-body py-12 text-center text-sm text-muted">{% if filters %}{% translate "No responses match these filters." %}{% else %}{% translate "No responses yet. Share the survey to start collecting feedback." %}{% endif %}</div>
+  {% endif %}
+{% endpartialdef %}
+</div>
+{% endblock %}

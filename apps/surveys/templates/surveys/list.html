@@ -1,0 +1,43 @@
+{% extends "layouts/app.html" %}
+{% load i18n qrumy %}
+{% block title %}{% translate "Surveys" %}{% endblock %}
+{% block breadcrumb %}{% translate "Surveys" %}{% endblock %}
+{% block content %}
+<div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+  <div>
+    <h1 class="page-title">{% translate "Surveys" %}</h1>
+    <p class="page-subtitle">{% translate "Collect feedback by QR code, link or website embed." %}</p>
+  </div>
+  {% if can.content_create %}<a href="{% url 'survey_create' org_slug=current_organization.slug %}" class="btn btn-primary">{% icon 'plus' 'size-4' %}{% translate "New survey" %}</a>{% endif %}
+</div>
+<div class="mt-6 flex flex-wrap gap-2">
+  <a href="?" class="chip {% if not status %}is-active{% endif %}">{% translate "All" %}</a>
+  {% for v, l in statuses %}<a href="?status={{ v }}" class="chip {% if status == v %}is-active{% endif %}">{{ l }}</a>{% endfor %}
+</div>
+{% if surveys %}
+<div class="card mt-4 overflow-hidden">
+  <ul class="divide-y divide-line">
+    {% for survey in surveys %}
+    <li class="flex flex-wrap items-center gap-4 px-5 py-4 hover:bg-canvas/50">
+      <span class="inline-flex size-10 shrink-0 items-center justify-center rounded-lg bg-canvas text-navy-800">{% icon 'message' 'size-5' %}</span>
+      <a href="{% url 'survey_builder' org_slug=current_organization.slug pk=survey.pk %}" class="min-w-0 flex-1 text-ink no-underline">
+        <span class="flex flex-wrap items-center gap-2"><span class="truncate text-sm font-medium">{{ survey.title }}</span>{% include "surveys/_status_badge.html" %}</span>
+        <span class="mt-0.5 block text-xs text-muted">{% blocktranslate count n=survey.n_questions %}{{ n }} question{% plural %}{{ n }} questions{% endblocktranslate %} · {{ survey.get_language_display }} · {{ survey.created_at|date:"j M Y" }}</span>
+      </a>
+      <div class="flex gap-6 text-right">
+        <div><p class="text-sm font-semibold tabular-nums">{{ survey.response_count }}</p><p class="text-xs text-muted">{% translate "responses" %}</p></div>
+        <div><p class="text-sm font-semibold tabular-nums">{{ survey.n_open }}</p><p class="text-xs text-muted">{% translate "open" %}</p></div>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% else %}
+<div class="card card-body mt-4 py-14 text-center">
+  <span class="mx-auto inline-flex size-12 items-center justify-center rounded-xl bg-navy-900 text-white">{% icon 'message' 'size-6' %}</span>
+  <p class="mt-4 text-lg font-semibold">{% translate "Create your first survey" %}</p>
+  <p class="mx-auto mt-1 max-w-sm text-sm text-muted">{% translate "Start with a ready NPS question, add your own, then share it with a QR code on tables, receipts or packaging." %}</p>
+  {% if can.content_create %}<a href="{% url 'survey_create' org_slug=current_organization.slug %}" class="btn btn-primary mt-6">{% icon 'plus' 'size-4' %}{% translate "New survey" %}</a>{% endif %}
+</div>
+{% endif %}
+{% endblock %}

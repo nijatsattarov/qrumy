@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load i18n qrumy %}
+{% block title_suffix %}{% endblock %}
+{% block seo %}<meta name="robots" content="noindex, nofollow">{% endblock %}
+{% block extra_head %}<link rel="stylesheet" href="{% url 'survey_theme' token=survey.public_token %}?v={{ survey.updated_at|date:'U' }}">{% endblock %}
+{% block body_class %}min-h-full {% if embed %}bg-transparent{% else %}bg-canvas{% endif %}{% endblock %}
+{% block body %}
+<main class="mx-auto flex {% if not embed %}min-h-screen{% endif %} max-w-xl flex-col px-4 {% if embed %}py-4{% else %}py-8 sm:py-12{% endif %}">
+  {% if preview %}<p class="mb-4 rounded-lg bg-warning-soft px-3 py-2 text-center text-xs text-[#92400E]">{% translate "Preview — answers are not saved." %}</p>{% endif %}
+  {% if not embed %}
+  <header class="mb-6 flex items-center justify-center gap-3">
+    {% if logo %}<img src="{{ logo }}" alt="{{ org.name }}" class="h-10 max-w-40 rounded-lg object-contain">{% else %}<span class="text-sm font-semibold">{{ org.name }}</span>{% endif %}
+  </header>
+  {% endif %}
+  <div class="flex-1">{% block page %}{% endblock %}</div>
+  {% if branding %}
+  <footer class="mt-10 text-center"><a href="{% url 'home' %}" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-xs text-muted no-underline">{% translate "Powered by" %} {% include "components/logo.html" with size="h-3.5" wordmark=False %}<span class="font-semibold text-navy-900">Qrumy</span></a></footer>
+  {% endif %}
+</main>
+{% endblock %}

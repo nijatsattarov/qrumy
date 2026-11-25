@@ -1,0 +1,74 @@
+{% extends "layouts/app.html" %}
+{% load i18n qrumy static %}
+{% block title %}{% translate "Results" %} — {{ survey.title }}{% endblock %}
+{% block scripts %}<script src="{% static 'vendor/chart.umd.min.js' %}" defer></script><script src="{% static 'js/charts.js' %}" defer></script>{% endblock %}
+{% block breadcrumb %}<a href="{% url 'survey_list' org_slug=current_organization.slug %}" class="text-muted no-underline hover:text-ink">{% translate "Surveys" %}</a> / {{ survey.title }}{% endblock %}
+{% block content %}
+{% include "surveys/_header.html" %}
+<div class="mt-6 flex flex-wrap items-center justify-between gap-3">
+  <nav class="seg" aria-label="{% translate 'Time range' %}">
+    <a href="?days=7" class="{% if days == 7 %}is-active{% endif %}">{% translate "7 days" %}</a>
+    <a href="?days=30" class="{% if days == 30 %}is-active{% endif %}">{% translate "30 days" %}</a>
+    <a href="?days=90" class="{% if days == 90 %}is-active{% endif %}">{% translate "90 days" %}</a>
+    <a href="?days=0" class="{% if days == 0 %}is-active{% endif %}">{% translate "All time" %}</a>
+  </nav>
+  <a href="{% url 'survey_responses_export' org_slug=current_organization.slug pk=survey.pk %}{% if days %}?days={{ days }}{% endif %}" class="btn btn-sm btn-secondary">{% icon 'download' 'size-4' %}CSV</a>
+</div>
+
+<div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+  <div class="card card-body"><p class="text-sm text-muted">{% translate "Responses" %}</p><p class="mt-1 text-3xl font-semibold tabular-nums">{{ summary.responses }}</p><p class="mt-1 text-xs text-muted">{% blocktranslate with n=summary.open %}{{ n }} open{% endblocktranslate %}</p></div>
+  <div class="card card-body"><p class="text-sm text-muted">{% translate "Completion rate" %}</p><p class="mt-1 text-3xl font-semibold tabular-nums">{% if summary.completion is not None %}{{ summary.completion }}%{% else %}—{% endif %}</p><p class="mt-1 text-xs text-muted">{% blocktranslate with n=summary.views %}of {{ n }} visits{% endblocktranslate %}</p></div>
+  {% with s=summary.scores %}
+  {% if s.nps %}<div class="card card-body"><p class="text-sm text-muted">NPS</p><p class="mt-1 text-3xl font-semibold tabular-nums">{{ s.nps.score }}</p><p class="mt-1 text-xs text-muted">{% blocktranslate with p=s.nps.promoters_pct d=s.nps.detractors_pct %}{{ p }}% promoters · {{ d }}% detractors{% endblocktranslate %}</p></div>{% endif %}
+  {% if s.csat %}<div class="card card-body"><p class="text-sm text-muted">CSAT</p><p class="mt-1 text-3xl font-semibold tabular-nums">{{ s.csat.score }}%</p><p class="mt-1 text-xs text-muted">{% blocktranslate with a=s.csat.average %}average {{ a }} / 5{% endblocktranslate %}</p></div>{% endif %}
+  {% if s.ces %}<div class="card card-body"><p class="text-sm text-muted">CES</p><p class="mt-1 text-3xl font-semibold tabular-nums">{{ s.ces.score }}</p><p class="mt-1 text-xs text-muted">{% blocktranslate with e=s.ces.easy_pct %}{{ e }}% found it easy (5–7){% endblocktranslate %}</p></div>{% endif %}
+  {% if s.stars %}<div class="card card-body"><p class="text-sm text-muted">{% translate "Average rating" %}</p><p class="mt-1 text-3xl font-semibold tabular-nums">{{ s.stars.score }} <span class="text-base font-normal text-muted">/ 5</span></p></div>{% elif s.rating %}<div class="card card-body"><p class="text-sm text-muted">{% translate "Average rating" %}</p><p class="mt-1 text-3xl font-semibold tabular-nums">{{ s.rating.score }} <span class="text-base font-normal text-muted">/ 10</span></p></div>{% endif %}
+  {% endwith %}
+</div>
+
+<section class="card mt-6">
+  <div class="card-header"><h2 class="section-title">{% translate "Responses per day" %}</h2></div>
+  <div class="p-5">{% include "qr_management/_chart.html" with series=trend chart_id="survey-trend" chart_label=_("Responses") %}</div>
+</section>
+
+<div class="mt-6 space-y-4">
+  {% for qs in questions %}
+  <section class="card">
+    <div class="card-header items-start">
+      <div class="min-w-0"><p class="text-xs text-muted">{{ forloop.counter }} · {{ qs.type.label }}</p><h3 class="mt-0.5 text-sm font-semibold">{{ qs.question.label }}</h3></div>
+      <p class="shrink-0 text-xs text-muted">{% blocktranslate count n=qs.answered %}{{ n }} answer{% plural %}{{ n }} answers{% endblocktranslate %}</p>
+    </div>
+    <div class="card-body">
+      {% if not qs.answered %}
+        <p class="text-sm text-muted">{% translate "No answers yet." %}</p>
+      {% elif qs.kind == "scale" %}
+        {% if qs.score %}<p class="mb-4 text-sm">{% if qs.question.qtype == "nps" %}<span class="text-2xl font-semibold">{{ qs.score.score }}</span> NPS · {{ qs.score.promoters }} {% translate "promoters" %}, {{ qs.score.passives }} {% translate "passives" %}, {{ qs.score.detractors }} {% translate "detractors" %}{% elif qs.question.qtype == "csat" %}<span class="text-2xl font-semibold">{{ qs.score.score }}%</span> {% translate "satisfied" %} · {% translate "average" %} {{ qs.score.average }}{% else %}<span class="text-2xl font-semibold">{{ qs.score.score }}</span> {% translate "average" %}{% endif %}</p>{% endif %}
+        <div class="flex h-32 items-end gap-1.5" role="img" aria-label="{% translate 'Answer distribution' %}">
+          {% for row in qs.rows %}
+          <div class="flex h-full flex-1 flex-col items-center justify-end gap-1" title="{{ row.label }}: {{ row.count }} ({{ row.pct }}%)">
+            <span class="text-[11px] tabular-nums text-muted">{% if row.count %}{{ row.count }}{% endif %}</span>
+            <progress class="bar-v" value="{{ row.bar }}" max="100">{{ row.pct }}%</progress>
+            <span class="text-xs font-medium">{{ row.label }}</span>
+          </div>
+          {% endfor %}
+        </div>
+      {% elif qs.kind == "choice" or qs.kind == "multi" or qs.kind == "yesno" %}
+        <ul class="space-y-3">
+          {% for row in qs.rows %}
+          <li><div class="flex justify-between gap-3 text-sm"><span>{% if qs.kind == "yesno" %}{% if row.label == "yes" %}{% translate "Yes" %}{% else %}{% translate "No" %}{% endif %}{% else %}{{ row.label }}{% endif %}</span><span class="tabular-nums text-muted">{{ row.count }} · {{ row.pct }}%</span></div><progress class="progress mt-1.5" value="{{ row.pct }}" max="100">{{ row.pct }}%</progress></li>
+          {% endfor %}
+        </ul>
+        {% if qs.kind == "multi" %}<p class="mt-3 text-xs text-muted">{% translate "People could choose several options, so percentages can add up to more than 100%." %}</p>{% endif %}
+      {% elif qs.kind == "text" %}
+        <ul class="divide-y divide-line">
+          {% for a in qs.latest %}<li class="py-2.5 text-sm"><p>{{ a.value_text|truncatechars:300 }}</p><p class="mt-0.5 text-xs text-muted">{{ a.response.submitted_at|date:"j M Y, H:i" }}</p></li>{% endfor %}
+        </ul>
+        <a href="{% url 'survey_responses' org_slug=current_organization.slug pk=survey.pk %}" class="mt-2 inline-block text-sm">{% translate "See all responses" %}</a>
+      {% else %}
+        <p class="text-sm text-muted">{% blocktranslate count n=qs.answered %}{{ n }} person answered this question.{% plural %}{{ n }} people answered this question.{% endblocktranslate %}</p>
+      {% endif %}
+    </div>
+  </section>
+  {% endfor %}
+</div>
+{% endblock %}

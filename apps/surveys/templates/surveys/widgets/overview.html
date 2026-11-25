@@ -1,0 +1,17 @@
+{% load i18n qrumy %}
+<section class="card">
+  <div class="card-header">
+    <h2 class="section-title">{% translate "Customer feedback" %}</h2>
+    <a href="{% url 'survey_list' org_slug=current_organization.slug %}" class="text-sm no-underline">{% translate "View all" %}</a>
+  </div>
+  <div class="grid grid-cols-3 divide-x divide-line border-b border-line">
+    <div class="p-5"><p class="text-xs text-muted">{% translate "Responses, 30 days" %}</p><p class="mt-1 text-2xl font-semibold tabular-nums">{{ w.responses_30d }}</p></div>
+    <div class="p-5"><p class="text-xs text-muted">{% translate "NPS, 30 days" %}</p><p class="mt-1 text-2xl font-semibold tabular-nums">{% if w.nps %}{{ w.nps.score }}{% else %}—{% endif %}</p></div>
+    <div class="p-5"><p class="text-xs text-muted">{% translate "Open responses" %}</p><p class="mt-1 text-2xl font-semibold tabular-nums">{{ w.open_count }}</p></div>
+  </div>
+  {% if w.latest %}
+  <ul class="divide-y divide-line">{% for r in w.latest %}<li><a href="{% url 'survey_response' org_slug=current_organization.slug pk=r.survey_id rid=r.pk %}" class="flex items-center justify-between gap-3 px-5 py-3 text-sm text-ink no-underline hover:bg-canvas/50"><span class="truncate">{{ r.survey.title }}</span><span class="flex shrink-0 items-center gap-2">{% include "surveys/_score_badge.html" %}<span class="text-xs text-muted">{{ r.submitted_at|date:"j M" }}</span></span></a></li>{% endfor %}</ul>
+  {% elif not w.survey_count and can.content_create %}
+  <div class="p-5"><a href="{% url 'survey_create' org_slug=current_organization.slug %}" class="btn btn-primary btn-sm">{% icon 'plus' 'size-4' %}{% translate "Create your first survey" %}</a></div>
+  {% endif %}
+</section>

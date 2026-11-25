@@ -1,0 +1,33 @@
+{% extends "surveys/public/base.html" %}
+{% load i18n qrumy %}
+{% block title %}{{ survey.title }}{% endblock %}
+{% block page %}
+<div class="card overflow-hidden">
+  <div class="s-accent-bar h-1.5"></div>
+  <div class="px-5 pb-2 pt-6 sm:px-8">
+    <h1 class="text-2xl font-semibold leading-tight">{{ survey.title }}</h1>
+    {% if survey.description %}<p class="mt-2 text-[15px] leading-relaxed text-muted">{{ survey.description|linebreaksbr }}</p>{% endif %}
+  </div>
+  <form method="post" class="space-y-7 px-5 pb-8 pt-4 sm:px-8" novalidate>
+    {% csrf_token %}
+    {{ form.started }}
+    <div class="hidden" aria-hidden="true"><label for="id_website">{{ form.website.label }}</label><input type="text" name="website" id="id_website" tabindex="-1" autocomplete="off"></div>
+    {% if form.errors %}
+    <div class="rounded-lg border border-danger/20 bg-danger-soft px-4 py-3 text-sm text-danger" role="alert">
+      {% for e in form.non_field_errors %}<p>{{ e }}</p>{% empty %}<p>{% translate "Please check the highlighted questions." %}</p>{% endfor %}
+    </div>
+    {% endif %}
+    {% for q, field in form.question_fields %}
+      {% include "surveys/public/_question.html" with n=forloop.counter %}
+    {% endfor %}
+    {% if form.contact_email %}
+    <fieldset class="space-y-4 rounded-xl border border-line p-4">
+      <legend class="px-1 text-sm font-semibold">{% translate "Your contact details" %}{% if survey.contact_mode == "optional" %} <span class="font-normal text-muted">({% translate "optional" %})</span>{% endif %}</legend>
+      {{ form.contact_name.as_field_group }}{{ form.contact_email.as_field_group }}
+      <div class="form-field{% if form.consent.errors %} has-error{% endif %}"><label class="s-choice text-sm" for="{{ form.consent.auto_id }}">{{ form.consent }}<span>{{ survey.consent_text }}</span></label>{% for e in form.consent.errors %}<p class="form-error">{{ e }}</p>{% endfor %}</div>
+    </fieldset>
+    {% endif %}
+    <button type="submit" class="s-submit btn btn-lg w-full" {% if preview %}disabled{% endif %}>{% translate "Submit" %}</button>
+  </form>
+</div>
+{% endblock %}

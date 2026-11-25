@@ -234,6 +234,7 @@ class QRType:
     destination: Callable[[dict], str] | None = None
     landing: bool = False
     hosted_file: tuple[str, ...] = ()  # allowed MIME types
+    listed: bool = True  # False: created from another module (e.g. a survey), not the QR picker
 
     @property
     def default_mode(self) -> str:
@@ -286,6 +287,10 @@ register(QRType("sms", _("SMS"), "sms", _("Send a text message"), SMSForm, (STAT
                 encode=_sms))
 register(QRType("email", _("Email"), "mail", _("Write an email"), EmailForm, (STATIC,),
                 encode=_email))
+
+
+def listed_types() -> list[QRType]:
+    return [t for t in TYPES.values() if t.listed]
 
 
 def payload_from_form(form: forms.Form) -> dict:

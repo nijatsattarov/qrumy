@@ -24,5 +24,6 @@ def ratelimited(request, exception=None):
 
 def robots_txt(request):
     lines = ["User-agent: *", "Disallow: /app/", "Disallow: /accounts/",
-             "Disallow: /invitations/", f"Sitemap: {request.build_absolute_uri('/sitemap.xml')}"]
+             "Disallow: /invitations/", "Disallow: /s/", "Disallow: /q/",
+             f"Sitemap: {request.build_absolute_uri('/sitemap.xml')}"]
     return HttpResponse("\n".join(lines) + "\n", content_type="text/plain")

@@ -1,0 +1,10 @@
+{% extends "surveys/public/base.html" %}
+{% load i18n qrumy %}
+{% block title %}{{ survey.title }}{% endblock %}
+{% block page %}
+<div class="card card-body mt-6 py-12 text-center">
+  <span class="mx-auto inline-flex size-12 items-center justify-center rounded-full bg-canvas text-muted">{% icon 'info' %}</span>
+  <h1 class="mt-4 text-xl font-semibold">{{ survey.title }}</h1>
+  <p class="mx-auto mt-2 max-w-sm text-sm text-muted">{% if reason == "expired" or reason == "closed" %}{% translate "This survey has ended and no longer accepts responses. Thank you for your interest." %}{% elif reason == "full" %}{% translate "This survey has received all the responses it needs. Thank you for your interest." %}{% else %}{% translate "This survey isn't accepting responses right now. Please try again later." %}{% endif %}</p>
+</div>
+{% endblock %}

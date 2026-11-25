@@ -1,0 +1,59 @@
+{% extends "layouts/app.html" %}
+{% load i18n qrumy partials %}
+{% block title %}{{ survey.title }}{% endblock %}
+{% block breadcrumb %}<a href="{% url 'survey_list' org_slug=current_organization.slug %}" class="text-muted no-underline hover:text-ink">{% translate "Surveys" %}</a> / {{ survey.title }}{% endblock %}
+{% block content %}
+{% include "surveys/_header.html" %}
+<div class="mt-6 grid items-start gap-6 lg:grid-cols-[1fr_280px]">
+  <div id="questions">
+  {% partialdef questions inline %}
+    {% if survey.response_count and editable %}<p class="mb-4 rounded-lg bg-warning-soft px-4 py-3 text-sm text-[#92400E]">{% translate "This survey already has responses. Deleting a question also deletes its answers." %}</p>{% endif %}
+    <ol class="space-y-4">
+      {% for q, f in question_forms %}
+      <li class="card" id="question-{{ q.pk }}">
+        <div class="flex items-center gap-3 border-b border-line px-5 py-3">
+          <span class="inline-flex size-7 items-center justify-center rounded-md bg-canvas text-xs font-semibold text-muted">{{ forloop.counter }}</span>
+          <span class="inline-flex items-center gap-1.5 text-xs font-medium text-muted">{% icon q.type_def.icon 'size-4' %}{{ q.type_def.label }}</span>
+          <span id="saved-{{ q.pk }}" class="ml-2" aria-live="polite"></span>
+          {% if editable %}
+          <div class="ml-auto flex items-center gap-1">
+            {% if not forloop.first %}<button type="button" class="btn-ghost rounded p-1.5" title="{% translate 'Move up' %}" aria-label="{% translate 'Move up' %}" hx-post="{% url 'survey_question_move' org_slug=current_organization.slug pk=survey.pk qid=q.pk %}" hx-vals='{"direction": "up"}' hx-target="#questions">{% icon 'chevron-down' 'size-4 rotate-180' %}</button>{% endif %}
+            {% if not forloop.last %}<button type="button" class="btn-ghost rounded p-1.5" title="{% translate 'Move down' %}" aria-label="{% translate 'Move down' %}" hx-post="{% url 'survey_question_move' org_slug=current_organization.slug pk=survey.pk qid=q.pk %}" hx-vals='{"direction": "down"}' hx-target="#questions">{% icon 'chevron-down' 'size-4' %}</button>{% endif %}
+            <button type="button" class="btn-ghost rounded p-1.5" title="{% translate 'Delete question' %}" aria-label="{% translate 'Delete question' %}" hx-post="{% url 'survey_question_delete' org_slug=current_organization.slug pk=survey.pk qid=q.pk %}" hx-target="#questions" data-confirm="{% translate 'Delete this question?' %}">{% icon 'trash' 'size-4' %}</button>
+          </div>
+          {% endif %}
+        </div>
+        <form class="card-body grid gap-4" method="post" action="{% url 'survey_question_update' org_slug=current_organization.slug pk=survey.pk qid=q.pk %}"
+              {% if editable %}hx-post="{% url 'survey_question_update' org_slug=current_organization.slug pk=survey.pk qid=q.pk %}" hx-trigger="change, input delay:800ms" hx-target="#saved-{{ q.pk }}"{% endif %}>
+          {% csrf_token %}
+          <fieldset class="grid gap-4" {% if not editable %}disabled{% endif %}>
+            {{ f.label.as_field_group }}
+            {% if q.type_def.has_options %}{{ f.options.as_field_group }}{% endif %}
+            {% if q.type_def.scale %}
+            <div class="grid gap-4 sm:grid-cols-2">{{ f.low_label.as_field_group }}{{ f.high_label.as_field_group }}</div>
+            <p class="text-xs text-muted">{% blocktranslate with lo=q.type_def.scale.0 hi=q.type_def.scale.1 %}Scale from {{ lo }} to {{ hi }}.{% endblocktranslate %} {% if not f.low_label.value and q.type_def.low_label %}{% translate "Leave labels empty to use the defaults:" %} “{{ q.type_def.low_label }}” / “{{ q.type_def.high_label }}”.{% endif %}</p>
+            {% endif %}
+            <div class="grid gap-4 sm:grid-cols-[1fr_auto] sm:items-end">{{ f.help_text.as_field_group }}<div class="pb-2.5">{{ f.required.as_field_group }}</div></div>
+            <noscript><button class="btn btn-sm btn-secondary">{% translate "Save" %}</button></noscript>
+          </fieldset>
+        </form>
+      </li>
+      {% empty %}
+      <li class="card card-body py-10 text-center text-sm text-muted">{% translate "No questions yet. Add one from the list." %}</li>
+      {% endfor %}
+    </ol>
+  {% endpartialdef %}
+  </div>
+
+  {% if editable %}
+  <aside class="card lg:sticky lg:top-24">
+    <div class="card-header"><h2 class="section-title">{% translate "Add a question" %}</h2></div>
+    <div class="grid grid-cols-2 gap-1 p-2 lg:grid-cols-1">
+      {% for t in qtypes %}
+      <button type="button" class="menu-item text-[13px]" hx-post="{% url 'survey_question_add' org_slug=current_organization.slug pk=survey.pk %}" hx-vals='{"qtype": "{{ t.key }}"}' hx-target="#questions">{% icon t.icon 'size-4 text-muted' %}<span class="truncate">{{ t.label }}</span></button>
+      {% endfor %}
+    </div>
+  </aside>
+  {% endif %}
+</div>
+{% endblock %}

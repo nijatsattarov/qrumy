@@ -1,0 +1,62 @@
+{% extends "layouts/app.html" %}
+{% load i18n qrumy %}
+{% block title %}{% translate "Share" %} — {{ survey.title }}{% endblock %}
+{% block breadcrumb %}<a href="{% url 'survey_list' org_slug=current_organization.slug %}" class="text-muted no-underline hover:text-ink">{% translate "Surveys" %}</a> / {{ survey.title }}{% endblock %}
+{% block content %}
+{% include "surveys/_header.html" %}
+{% if survey.status == "draft" %}
+<div class="mt-6 flex gap-3 rounded-lg bg-warning-soft px-4 py-3 text-sm text-[#92400E]">{% icon 'info' 'size-4 mt-0.5 shrink-0' %}<p>{% translate "This survey is a draft. Links and QR codes work once you publish it." %}</p></div>
+{% endif %}
+<div class="mt-6 grid gap-6 lg:grid-cols-2">
+  <section class="card">
+    <div class="card-header"><h2 class="section-title">{% translate "QR code" %}</h2></div>
+    <div class="card-body">
+      {% if qr %}
+      <div class="flex flex-col gap-5 sm:flex-row sm:items-start">
+        <div class="qr-frame w-44 shrink-0 overflow-hidden rounded-lg border border-line">{{ qr_svg|safe }}</div>
+        <div class="space-y-3 text-sm">
+          <p class="text-muted">{% translate "Scans are counted in QR analytics, and responses from this code are marked with the source “QR code”." %}</p>
+          <div class="flex flex-wrap gap-2">
+            <a class="btn btn-primary btn-sm" href="{% url 'qr_download' org_slug=current_organization.slug pk=qr.pk fmt='png' %}?size=2048">{% icon 'download' 'size-4' %}PNG</a>
+            <a class="btn btn-secondary btn-sm" href="{% url 'qr_download' org_slug=current_organization.slug pk=qr.pk fmt='svg' %}">{% icon 'download' 'size-4' %}SVG</a>
+            <a class="btn btn-secondary btn-sm" href="{% url 'qr_edit' org_slug=current_organization.slug pk=qr.pk %}">{% icon 'edit' 'size-4' %}{% translate "Design" %}</a>
+          </div>
+        </div>
+      </div>
+      {% elif can.content_create %}
+      <p class="text-sm text-muted">{% translate "Create a dynamic QR code for tables, receipts, packaging or posters." %}</p>
+      <form method="post" action="{% url 'survey_create_qr' org_slug=current_organization.slug pk=survey.pk %}" class="mt-4">{% csrf_token %}<button class="btn btn-primary">{% icon 'qr' 'size-4' %}{% translate "Create QR code" %}</button></form>
+      {% endif %}
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-header"><h2 class="section-title">{% translate "Direct link" %}</h2></div>
+    <div class="card-body space-y-4">
+      <div class="flex items-center gap-2 rounded-lg border border-line bg-canvas px-3 py-2" x-data="copy" data-copy="{{ survey.public_url }}">
+        <code class="min-w-0 flex-1 truncate text-[13px]">{{ survey.public_url }}</code>
+        <button type="button" @click="copy" class="btn btn-sm btn-secondary"><span x-show="notCopied">{% translate "Copy" %}</span><span x-show="copied" x-cloak>{% translate "Copied" %}</span></button>
+      </div>
+      <div>
+        <p class="text-sm font-medium">{% translate "Email" %}</p>
+        <p class="mt-1 text-sm text-muted">{% translate "Use this link in your own emails so responses are marked with the source “Email”." %}</p>
+        <div class="mt-2 flex items-center gap-2 rounded-lg border border-line bg-canvas px-3 py-2" x-data="copy" data-copy="{{ email_link }}">
+          <code class="min-w-0 flex-1 truncate text-[13px]">{{ email_link }}</code>
+          <button type="button" @click="copy" class="btn btn-sm btn-secondary"><span x-show="notCopied">{% translate "Copy" %}</span><span x-show="copied" x-cloak>{% translate "Copied" %}</span></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card lg:col-span-2">
+    <div class="card-header"><h2 class="section-title">{% translate "Embed on your website" %}</h2></div>
+    <div class="card-body space-y-3">
+      <p class="text-sm text-muted">{% translate "Paste this code into your website where the survey should appear." %}</p>
+      <div x-data="copy" data-copy="{{ embed_code }}">
+        <pre class="overflow-x-auto rounded-lg bg-navy-950 p-4 text-xs leading-relaxed text-white/85"><code>{{ embed_code }}</code></pre>
+        <button type="button" @click="copy" class="btn btn-sm btn-secondary mt-2">{% icon 'copy' 'size-4' %}<span x-show="notCopied">{% translate "Copy code" %}</span><span x-show="copied" x-cloak>{% translate "Copied" %}</span></button>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}

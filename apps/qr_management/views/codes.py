@@ -21,7 +21,7 @@ from .. import services
 from ..engine import QRStyle, contrast_problems, is_scannable, render_png, render_svg
 from ..forms import SORTS, STATUS_FILTERS, QRMetaForm, StyleForm
 from ..models import SHORT_CODE_LENGTH, Folder, HostedFile, QRCode, Tag
-from ..types import DYNAMIC, TYPES, payload_from_form
+from ..types import DYNAMIC, TYPES, listed_types, payload_from_form
 
 PER_PAGE = 24
 
@@ -34,8 +34,8 @@ def _get_code(request, pk):
     return get_object_or_404(_codes(request).select_related("folder"), pk=pk)
 
 
-def _type_or_404(key):
-    if key not in TYPES:
+def _type_or_404(key, *, creatable=False):
+    if key not in TYPES or (creatable and not TYPES[key].listed):
         raise Http404
     return TYPES[key]
 
@@ -89,7 +89,7 @@ def qr_list(request, org_slug):
 @require_module("qr")
 @require_capability("content.create")
 def qr_choose_type(request, org_slug):
-    return render(request, "qr_management/choose_type.html", {"types": TYPES.values()})
+    return render(request, "qr_management/choose_type.html", {"types": listed_types()})
 
 
 def _forms(request, type_def, qr=None):
@@ -118,7 +118,7 @@ def _apply_errors(exc: ValidationError, form):
 @require_capability("content.create")
 @ratelimit(key="user", rate="120/h", method="POST", block=True)
 def qr_create(request, org_slug, type_key):
-    type_def = _type_or_404(type_key)
+    type_def = _type_or_404(type_key, creatable=True)
     meta, payload, style = _forms(request, type_def)
     if request.method == "POST" and meta.is_valid() and payload.is_valid() and style.is_valid():
         upload = payload.cleaned_data.get("file") if type_def.hosted_file else None

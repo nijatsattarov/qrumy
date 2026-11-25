@@ -34,6 +34,7 @@ name = "Qrumy app layers"
 type = "layers"
 layers = [
     "apps.marketing",
+    "apps.surveys",
     "apps.qr_management",
     "apps.analytics",
     "apps.billing",

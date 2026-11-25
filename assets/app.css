@@ -136,9 +136,41 @@
   .seg a.is-active { @apply bg-navy-900 text-white; }
   .meter { @apply relative h-1.5 overflow-hidden rounded-full bg-canvas; }
   .qr-frame svg { @apply h-auto w-full; }
+  /* Vertical distribution bar: a rotated <progress> keeps the page free of inline styles */
+  .bar-v { @apply block w-full min-h-0 flex-1 appearance-none border-0 bg-transparent; writing-mode: vertical-lr; direction: rtl; }
+  .bar-v::-webkit-progress-bar { @apply rounded-t bg-canvas; }
+  .bar-v::-webkit-progress-value { @apply rounded-t bg-accent-500; }
+  .bar-v::-moz-progress-bar { @apply rounded-t bg-accent-500; }
   .avatar { @apply inline-flex shrink-0 items-center justify-center rounded-full bg-accent-100 font-semibold text-navy-800; }
   .divider { @apply border-t border-line; }
   .prose-muted p { @apply text-muted leading-relaxed; }
+}
+
+/* ------------------------------------------------------------------
+   Public survey pages — colors come from /s/<token>/theme.css variables
+------------------------------------------------------------------- */
+@layer components {
+  .s-accent-bar { background: var(--survey-accent, #101B3A); }
+  .s-accent-soft { background: var(--survey-accent-soft, #eef3ff); color: var(--survey-accent, #101B3A); }
+  .s-submit { background: var(--survey-accent, #101B3A); color: var(--survey-on-accent, #fff); }
+  .s-submit:hover { filter: brightness(1.08); }
+  .s-choice { @apply flex cursor-pointer items-center gap-3 rounded-xl border border-line bg-surface px-4 py-3 text-[15px] transition-colors; }
+  .s-choice:not(:has(input:checked)):hover, .s-scale-opt:not(:has(input:checked)):hover { @apply bg-canvas; }
+  .s-choice input { @apply size-[18px] shrink-0; accent-color: var(--survey-accent, #101B3A); }
+  .s-choice:has(input:checked) { border-color: var(--survey-accent, #101B3A); background: var(--survey-accent-soft, #eef3ff); }
+  .s-scale { @apply grid gap-1.5; grid-template-columns: repeat(auto-fit, minmax(2.4rem, 1fr)); }
+  .s-scale-nps { grid-template-columns: repeat(11, minmax(0, 1fr)); @apply gap-1; }
+  .s-scale-opt { @apply relative flex h-12 cursor-pointer select-none items-center justify-center rounded-lg border border-line bg-surface text-[15px] font-medium transition-colors; }
+  .s-scale-nps .s-scale-opt { @apply h-11 text-sm; }
+  .s-scale-opt input, .s-star input { @apply absolute size-px opacity-0; }
+  .s-scale-opt:has(input:checked) { background: var(--survey-accent, #101B3A); color: var(--survey-on-accent, #fff); border-color: var(--survey-accent, #101B3A); }
+  .s-scale-opt:has(input:focus-visible), .s-star:has(input:focus-visible) { @apply outline-2 outline-offset-2 outline-accent-500; }
+  .s-stars { @apply flex flex-row-reverse justify-end gap-1; }
+  .s-star { @apply relative cursor-pointer rounded text-line-strong transition-colors; }
+  .s-star:has(input:checked), .s-star:has(input:checked) ~ .s-star { color: #F59E0B; }
+  .s-stars:hover .s-star { @apply text-line-strong; }
+  .s-stars .s-star:hover, .s-stars .s-star:hover ~ .s-star { color: #FBBF24; }
+  .s-has-error .s-choice, .s-has-error .s-scale-opt { @apply border-danger/50; }
 }
 
 /* HTMX request indicator */
