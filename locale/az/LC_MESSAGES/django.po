@@ -1,0 +1,1806 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-25 11:27+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: az\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: apps/accounts/admin.py:38 apps/accounts/templates/accounts/profile.html:3
+#: apps/accounts/templates/accounts/profile.html:5
+#: templates/components/user_menu.html:12 templates/layouts/account.html:16
+msgid "Profile"
+msgstr "Profil"
+
+#: apps/accounts/admin.py:39
+msgid "Access"
+msgstr "Giriş hüquqları"
+
+#: apps/accounts/admin.py:41
+msgid "Dates"
+msgstr "Tarixlər"
+
+#: apps/accounts/admin.py:47
+msgid "Suspend selected users"
+msgstr "Seçilmiş istifadəçiləri dayandır"
+
+#: apps/accounts/admin.py:54
+msgid "Selected users were suspended."
+msgstr "Seçilmiş istifadəçilər dayandırıldı."
+
+#: apps/accounts/admin.py:56
+msgid "Activate selected users"
+msgstr "Seçilmiş istifadəçiləri aktivləşdir"
+
+#: apps/accounts/admin.py:62
+msgid "Selected users were activated."
+msgstr "Seçilmiş istifadəçilər aktivləşdirildi."
+
+#: apps/accounts/apps.py:8
+msgid "Accounts"
+msgstr "Hesablar"
+
+#: apps/accounts/forms.py:11 apps/accounts/forms.py:28
+msgid "Full name"
+msgstr "Ad və soyad"
+
+#: apps/accounts/forms.py:28
+msgid "Interface language"
+msgstr "İnterfeys dili"
+
+#: apps/accounts/models.py:33
+msgid "email address"
+msgstr "e-poçt ünvanı"
+
+#: apps/accounts/models.py:34
+msgid "full name"
+msgstr "ad və soyad"
+
+#: apps/accounts/models.py:36
+msgid "language"
+msgstr "dil"
+
+#: apps/accounts/models.py:38 apps/subscriptions/models.py:18
+msgid "active"
+msgstr "aktiv"
+
+#: apps/accounts/models.py:39
+msgid "staff status"
+msgstr "işçi statusu"
+
+#: apps/accounts/models.py:40
+msgid "date joined"
+msgstr "qoşulma tarixi"
+
+#: apps/accounts/models.py:49
+msgid "user"
+msgstr "istifadəçi"
+
+#: apps/accounts/models.py:50
+msgid "users"
+msgstr "istifadəçilər"
+
+#: apps/accounts/templates/accounts/profile.html:10
+#: apps/organizations/templates/organizations/settings.html:16
+msgid "Save changes"
+msgstr "Dəyişiklikləri saxla"
+
+#: apps/accounts/views.py:17
+msgid "Your profile has been updated."
+msgstr "Profiliniz yeniləndi."
+
+#: apps/audit_logs/apps.py:8
+msgid "Audit logs"
+msgstr "Audit jurnalı"
+
+#: apps/audit_logs/models.py:9
+msgid "time"
+msgstr "vaxt"
+
+#: apps/audit_logs/models.py:12
+msgid "actor"
+msgstr "icraçı"
+
+#: apps/audit_logs/models.py:13
+msgid "actor email"
+msgstr "icraçının e-poçtu"
+
+#: apps/audit_logs/models.py:14
+msgid "staff action"
+msgstr "işçi əməliyyatı"
+
+#: apps/audit_logs/models.py:17 apps/core/models.py:32
+#: apps/organizations/models.py:70
+msgid "organization"
+msgstr "təşkilat"
+
+#: apps/audit_logs/models.py:18
+msgid "action"
+msgstr "əməliyyat"
+
+#: apps/audit_logs/models.py:19
+msgid "target type"
+msgstr "obyekt növü"
+
+#: apps/audit_logs/models.py:20
+msgid "target id"
+msgstr "obyekt ID"
+
+#: apps/audit_logs/models.py:21
+msgid "target"
+msgstr "obyekt"
+
+#: apps/audit_logs/models.py:22
+msgid "details"
+msgstr "təfərrüatlar"
+
+#: apps/audit_logs/models.py:23
+msgid "IP hash"
+msgstr "IP heşi"
+
+#: apps/audit_logs/models.py:24
+msgid "user agent"
+msgstr "brauzer məlumatı"
+
+#: apps/audit_logs/models.py:28
+msgid "audit log entry"
+msgstr "audit qeydi"
+
+#: apps/audit_logs/models.py:29
+msgid "audit log"
+msgstr "audit jurnalı"
+
+#: apps/billing/admin.py:11
+msgid "Reason"
+msgstr "Səbəb"
+
+#: apps/billing/apps.py:8
+msgid "Billing"
+msgstr "Ödəniş"
+
+#: apps/billing/models.py:11
+msgid "plan assignment"
+msgstr "plan təyinatı"
+
+#: apps/billing/models.py:12
+msgid "plan assignments"
+msgstr "plan təyinatları"
+
+#: apps/billing/navigation.py:9 apps/billing/templates/billing/billing.html:3
+#: apps/billing/templates/billing/billing.html:4
+#: apps/billing/templates/billing/billing.html:6
+msgid "Plan & billing"
+msgstr "Plan və ödəniş"
+
+#: apps/billing/templates/billing/billing.html:7
+msgid "Your current plan, limits and billing history."
+msgstr "Cari planınız, limitləriniz və ödəniş tarixçəniz."
+
+#: apps/billing/templates/billing/billing.html:13
+msgid "Current plan"
+msgstr "Cari plan"
+
+#: apps/billing/templates/billing/billing.html:22
+msgid ""
+"Qrumy is free during the beta. Paid plans will be introduced later, and we "
+"will notify you well in advance. Nothing is charged today."
+msgstr ""
+"Beta dövründə Qrumy pulsuzdur. Ödənişli planlar sonra təqdim olunacaq və "
+"sizə xeyli əvvəlcədən xəbər veriləcək. Hazırda heç bir ödəniş alınmır."
+
+#: apps/billing/templates/billing/billing.html:25
+msgid "Usage"
+msgstr "İstifadə"
+
+#: apps/billing/templates/billing/billing.html:30 apps/marketing/views.py:50
+msgid "Unlimited"
+msgstr "Limitsiz"
+
+#: apps/billing/templates/billing/billing.html:35
+msgid "Included products"
+msgstr "Daxil olan məhsullar"
+
+#: apps/billing/templates/billing/billing.html:43
+msgid "Products appear in your menu once they are released."
+msgstr "Məhsullar buraxılan kimi menyunuzda görünəcək."
+
+#: apps/billing/templates/billing/billing.html:48
+msgid "Billing history"
+msgstr "Ödəniş tarixçəsi"
+
+#: apps/billing/templates/billing/billing.html:51
+msgid "No invoices yet."
+msgstr "Hələ heç bir hesab-faktura yoxdur."
+
+#: apps/core/apps.py:8
+msgid "Core"
+msgstr "Əsas"
+
+#: apps/core/middleware.py:36
+msgid "Two-factor authentication is required for the admin panel."
+msgstr "Admin panel üçün iki mərhələli doğrulama tələb olunur."
+
+#: apps/core/models.py:13
+msgid "created at"
+msgstr "yaradılma vaxtı"
+
+#: apps/core/models.py:14
+msgid "updated at"
+msgstr "yenilənmə vaxtı"
+
+#: apps/marketing/apps.py:8
+msgid "Marketing"
+msgstr "Marketinq"
+
+#: apps/marketing/templates/marketing/_plans.html:7
+msgid "Available now"
+msgstr "İndi mövcuddur"
+
+#: apps/marketing/templates/marketing/_plans.html:7
+msgid "After beta"
+msgstr "Betadan sonra"
+
+#: apps/marketing/templates/marketing/_plans.html:11
+msgid "month"
+msgstr "ay"
+
+#: apps/marketing/templates/marketing/_plans.html:13
+msgid "Planned price — may change before launch"
+msgstr "Planlaşdırılan qiymət — buraxılışdan əvvəl dəyişə bilər"
+
+#: apps/marketing/templates/marketing/_plans.html:20
+msgid "Join the free beta"
+msgstr "Pulsuz betaya qoşulun"
+
+#: apps/marketing/templates/marketing/home.html:3
+msgid "QR technology. Smarter business operations."
+msgstr "QR texnologiyası. Daha ağıllı biznes əməliyyatları."
+
+#: apps/marketing/templates/marketing/home.html:5
+msgid "Qrumy — QR technology. Smarter business operations."
+msgstr "Qrumy — QR texnologiyası. Daha ağıllı biznes əməliyyatları."
+
+#: apps/marketing/templates/marketing/home.html:16
+msgid "Free beta — now open"
+msgstr "Pulsuz beta — artıq açıqdır"
+
+#: apps/marketing/templates/marketing/home.html:17
+msgid "QR technology."
+msgstr "QR texnologiyası."
+
+#: apps/marketing/templates/marketing/home.html:17
+msgid "Smarter business operations."
+msgstr "Daha ağıllı biznes əməliyyatları."
+
+#: apps/marketing/templates/marketing/home.html:18
+msgid ""
+"Manage QR codes, collect customer feedback, track assets, and turn event "
+"interactions into business opportunities — all in one platform."
+msgstr ""
+"QR kodları idarə edin, müştəri rəylərini toplayın, aktivləri izləyin və "
+"tədbirlərdəki əlaqələri biznes imkanlarına çevirin — hamısı bir platformada."
+
+#: apps/marketing/templates/marketing/home.html:20
+#: apps/marketing/templates/marketing/home.html:153
+#: templates/layouts/marketing.html:34 templates/layouts/marketing.html:50
+msgid "Get Started Free"
+msgstr "Pulsuz başlayın"
+
+#: apps/marketing/templates/marketing/home.html:21
+msgid "Explore Products"
+msgstr "Məhsullara baxın"
+
+#: apps/marketing/templates/marketing/home.html:23
+msgid "No credit card. Free while in beta."
+msgstr "Kart tələb olunmur. Beta dövründə pulsuz."
+
+#: apps/marketing/templates/marketing/home.html:35
+msgid "Example QR code linking to qrumy.com"
+msgstr "qrumy.com ünvanına aparan nümunə QR kod"
+
+#: apps/marketing/templates/marketing/home.html:36
+msgid "Spring menu"
+msgstr "Yaz menyusu"
+
+#: apps/marketing/templates/marketing/home.html:37
+msgid "Dynamic · Active"
+msgstr "Dinamik · Aktiv"
+
+#: apps/marketing/templates/marketing/home.html:40
+msgid "Scans, last 14 days"
+msgstr "Skanlar, son 14 gün"
+
+#: apps/marketing/templates/marketing/home.html:45
+msgid "Mobile"
+msgstr "Mobil"
+
+#: apps/marketing/templates/marketing/home.html:46
+msgid "Top country"
+msgstr "Əsas ölkə"
+
+#: apps/marketing/templates/marketing/home.html:47
+msgid "Source"
+msgstr "Mənbə"
+
+#: apps/marketing/templates/marketing/home.html:47
+msgid "Table card"
+msgstr "Masa kartı"
+
+#: apps/marketing/templates/marketing/home.html:52
+msgid "Product preview"
+msgstr "Məhsulun önizləməsi"
+
+#: apps/marketing/templates/marketing/home.html:61
+msgid "One platform"
+msgstr "Vahid platforma"
+
+#: apps/marketing/templates/marketing/home.html:62
+msgid "One QR platform. Multiple business solutions."
+msgstr "Bir QR platforması. Çoxsaylı biznes həlləri."
+
+#: apps/marketing/templates/marketing/home.html:63
+msgid ""
+"One account, one team and one QR infrastructure — with products you switch "
+"on as you need them."
+msgstr ""
+"Bir hesab, bir komanda və vahid QR infrastrukturu — ehtiyac duyduqca "
+"aktivləşdirdiyiniz məhsullarla."
+
+#: apps/marketing/templates/marketing/home.html:70
+msgid "Available"
+msgstr "Mövcuddur"
+
+#: apps/marketing/templates/marketing/home.html:70
+msgid "Coming soon"
+msgstr "Tezliklə"
+
+#: apps/marketing/templates/marketing/home.html:80
+msgid ""
+"Qrumy is in beta. Products are released one by one, starting with QR "
+"Management. Beta members get each new product as soon as it ships."
+msgstr ""
+"Qrumy beta mərhələsindədir. Məhsullar QR İdarəetmədən başlayaraq bir-bir "
+"buraxılır. Beta istifadəçiləri hər yeni məhsulu buraxılan kimi əldə edir."
+
+#: apps/marketing/templates/marketing/home.html:88
+msgid "Use cases"
+msgstr "İstifadə nümunələri"
+
+#: apps/marketing/templates/marketing/home.html:89
+msgid "Built for the way businesses actually use QR"
+msgstr "Bizneslərin QR-dan real istifadəsi üçün qurulub"
+
+#: apps/marketing/templates/marketing/home.html:92
+msgid "Restaurants & hotels"
+msgstr "Restoranlar və otellər"
+
+#: apps/marketing/templates/marketing/home.html:92
+msgid ""
+"Menus you can update without reprinting, and guest feedback from every "
+"table."
+msgstr "Yenidən çap etmədən yenilənən menyular və hər masadan qonaq rəyləri."
+
+#: apps/marketing/templates/marketing/home.html:93
+msgid "Retail"
+msgstr "Pərakəndə satış"
+
+#: apps/marketing/templates/marketing/home.html:93
+msgid "Product information, coupons and satisfaction surveys at the shelf."
+msgstr "Rəfdə məhsul məlumatı, kuponlar və məmnuniyyət sorğuları."
+
+#: apps/marketing/templates/marketing/home.html:94
+msgid "Manufacturing & facilities"
+msgstr "İstehsalat və obyektlər"
+
+#: apps/marketing/templates/marketing/home.html:94
+msgid "Equipment profiles, fault reports and maintenance history from a scan."
+msgstr ""
+"Bir skanla avadanlıq profilləri, nasazlıq bildirişləri və texniki xidmət "
+"tarixçəsi."
+
+#: apps/marketing/templates/marketing/home.html:95
+#: apps/organizations/models.py:29
+msgid "Events & exhibitions"
+msgstr "Tədbirlər və sərgilər"
+
+#: apps/marketing/templates/marketing/home.html:95
+msgid "Capture and qualify leads at the stand, then follow up the same week."
+msgstr ""
+"Stenddə potensial müştəriləri toplayın, qiymətləndirin və elə həmin həftə "
+"əlaqə saxlayın."
+
+#: apps/marketing/templates/marketing/home.html:104
+#: templates/layouts/marketing.html:24 templates/layouts/marketing.html:42
+msgid "How it works"
+msgstr "Necə işləyir"
+
+#: apps/marketing/templates/marketing/home.html:105
+msgid "From scan to insight in three steps"
+msgstr "Skandan nəticəyə üç addımda"
+
+#: apps/marketing/templates/marketing/home.html:108
+msgid "Create"
+msgstr "Yaradın"
+
+#: apps/marketing/templates/marketing/home.html:108
+msgid ""
+"Create a QR code, survey, event or asset profile in minutes, with your "
+"brand."
+msgstr ""
+"QR kod, sorğu, tədbir və ya aktiv profilini öz brendinizlə bir neçə dəqiqəyə"
+" yaradın."
+
+#: apps/marketing/templates/marketing/home.html:109
+msgid "Share"
+msgstr "Paylaşın"
+
+#: apps/marketing/templates/marketing/home.html:109
+msgid ""
+"Print it on menus, packaging, equipment or badges. Change the destination "
+"anytime."
+msgstr ""
+"Menyu, qablaşdırma, avadanlıq və ya bəyc üzərində çap edin. Ünvanı istənilən"
+" vaxt dəyişin."
+
+#: apps/marketing/templates/marketing/home.html:110
+msgid "Act"
+msgstr "Hərəkət edin"
+
+#: apps/marketing/templates/marketing/home.html:110
+msgid ""
+"See scans, feedback and leads in one dashboard, and assign follow-ups to "
+"your team."
+msgstr ""
+"Skanları, rəyləri və potensial müştəriləri bir paneldə görün, növbəti "
+"addımları komandanıza tapşırın."
+
+#: apps/marketing/templates/marketing/home.html:119
+#: apps/marketing/templates/marketing/pricing.html:3
+#: apps/marketing/templates/marketing/pricing.html:10
+#: templates/layouts/marketing.html:25 templates/layouts/marketing.html:43
+#: templates/layouts/marketing.html:67
+msgid "Pricing"
+msgstr "Qiymətlər"
+
+#: apps/marketing/templates/marketing/home.html:120
+#: apps/marketing/templates/marketing/pricing.html:11
+#: apps/organizations/templates/organizations/dashboard.html:22
+msgid "Free during the beta"
+msgstr "Beta dövründə pulsuz"
+
+#: apps/marketing/templates/marketing/home.html:121
+msgid ""
+"Everything that is released is free while Qrumy is in beta. Paid plans come "
+"later, and we will tell you well in advance."
+msgstr ""
+"Qrumy beta mərhələsində olduğu müddətdə buraxılan hər şey pulsuzdur. "
+"Ödənişli planlar sonra gələcək və bunu sizə xeyli əvvəlcədən bildirəcəyik."
+
+#: apps/marketing/templates/marketing/home.html:124
+msgid "See all plans"
+msgstr "Bütün planlara baxın"
+
+#: apps/marketing/templates/marketing/home.html:133
+msgid "Questions, answered"
+msgstr "Suallar və cavablar"
+
+#: apps/marketing/templates/marketing/home.html:151
+msgid "Turn QR interactions into business insights."
+msgstr "QR əlaqələrini biznes nəticələrinə çevirin."
+
+#: apps/marketing/templates/marketing/home.html:152
+msgid ""
+"Join the free beta and get every new Qrumy product as soon as it is "
+"released."
+msgstr ""
+"Pulsuz betaya qoşulun və hər yeni Qrumy məhsulunu buraxılan kimi əldə edin."
+
+#: apps/marketing/templates/marketing/pricing.html:4
+msgid ""
+"Qrumy is free during the beta. See the planned plans for QR management, "
+"surveys, events and asset tracking."
+msgstr ""
+"Beta dövründə Qrumy pulsuzdur. QR idarəetmə, sorğular, tədbirlər və aktiv "
+"izləmə üçün planlaşdırılan planlara baxın."
+
+#: apps/marketing/templates/marketing/pricing.html:5
+msgid "Qrumy pricing"
+msgstr "Qrumy qiymətləri"
+
+#: apps/marketing/templates/marketing/pricing.html:12
+msgid ""
+"Every released feature is free while Qrumy is in beta. The paid plans below "
+"are our current plan for after the beta; prices may change before launch."
+msgstr ""
+"Qrumy beta mərhələsində olduğu müddətdə buraxılan bütün funksiyalar "
+"pulsuzdur. Aşağıdakı ödənişli planlar betadan sonrası üçün hazırkı "
+"planımızdır; qiymətlər buraxılışdan əvvəl dəyişə bilər."
+
+#: apps/marketing/templates/marketing/pricing.html:15
+msgid ""
+"Yearly billing will include two months free. All prices in USD, excluding "
+"taxes."
+msgstr ""
+"İllik ödənişdə iki ay pulsuz olacaq. Bütün qiymətlər ABŞ dolları ilə, "
+"vergilər daxil edilmədən göstərilib."
+
+#: apps/marketing/views.py:9 apps/subscriptions/features.py:21
+msgid "QR Management"
+msgstr "QR İdarəetmə"
+
+#: apps/marketing/views.py:10
+msgid ""
+"Create static and dynamic QR codes, brand them, change destinations after "
+"printing and see where every scan comes from."
+msgstr ""
+"Statik və dinamik QR kodlar yaradın, onları brendləşdirin, çapdan sonra "
+"ünvanı dəyişin və hər skanın haradan gəldiyini görün."
+
+#: apps/marketing/views.py:12
+msgid "Dynamic codes you can edit anytime"
+msgstr "İstənilən vaxt redaktə edilə bilən dinamik kodlar"
+
+#: apps/marketing/views.py:12
+msgid "Custom colors, logo and frames"
+msgstr "Fərdi rənglər, loqo və çərçivələr"
+
+#: apps/marketing/views.py:13
+msgid "Scan analytics by date, device and country"
+msgstr "Tarix, cihaz və ölkəyə görə skan analitikası"
+
+#: apps/marketing/views.py:14 apps/subscriptions/features.py:22
+msgid "Surveys & Feedback"
+msgstr "Sorğular və Rəylər"
+
+#: apps/marketing/views.py:15
+msgid ""
+"Collect customer feedback with QR-powered surveys and track NPS, CSAT and "
+"CES over time."
+msgstr ""
+"QR əsaslı sorğularla müştəri rəylərini toplayın və NPS, CSAT, CES "
+"göstəricilərini zamanla izləyin."
+
+#: apps/marketing/views.py:17
+msgid "Builder with 13 question types"
+msgstr "13 sual növü olan qurucu"
+
+#: apps/marketing/views.py:17
+msgid "NPS, CSAT and CES scoring"
+msgstr "NPS, CSAT və CES hesablanması"
+
+#: apps/marketing/views.py:18
+msgid "Assign, tag and resolve responses"
+msgstr "Cavabları təyin edin, etiketləyin və həll edin"
+
+#: apps/marketing/views.py:19 apps/subscriptions/features.py:23
+msgid "Event Lead Capture"
+msgstr "Tədbirlərdə Müştəri Toplama"
+
+#: apps/marketing/views.py:20
+msgid ""
+"Turn trade-show and event conversations into qualified leads, then follow up"
+" before they go cold."
+msgstr ""
+"Sərgi və tədbirlərdəki söhbətləri qiymətləndirilmiş potensial müştərilərə "
+"çevirin və maraq soyumadan əlaqə saxlayın."
+
+#: apps/marketing/views.py:22
+msgid "Exhibitor lead capture by QR"
+msgstr "QR ilə iştirakçı stendində müştəri toplama"
+
+#: apps/marketing/views.py:22
+msgid "Hot / warm / cold qualification"
+msgstr "İsti / ilıq / soyuq qiymətləndirmə"
+
+#: apps/marketing/views.py:23
+msgid "Pipeline, tasks and follow-up templates"
+msgstr "Satış mərhələləri, tapşırıqlar və izləmə şablonları"
+
+#: apps/marketing/views.py:24 apps/subscriptions/features.py:24
+msgid "Asset Management"
+msgstr "Aktivlərin İdarə Edilməsi"
+
+#: apps/marketing/views.py:25
+msgid ""
+"Give every machine and tool a QR profile. Staff scan to see its history or "
+"report a fault in seconds."
+msgstr ""
+"Hər maşın və alətə QR profil verin. İşçilər skan edərək saniyələr ərzində "
+"tarixçəyə baxır və ya nasazlığı bildirir."
+
+#: apps/marketing/views.py:27
+msgid "QR profile for every asset"
+msgstr "Hər aktiv üçün QR profil"
+
+#: apps/marketing/views.py:27
+msgid "Fault reporting from a scan"
+msgstr "Skanla nasazlıq bildirişi"
+
+#: apps/marketing/views.py:28
+msgid "Maintenance history and locations"
+msgstr "Texniki xidmət tarixçəsi və yerləşmə"
+
+#: apps/marketing/views.py:29 apps/subscriptions/features.py:25
+msgid "Qrumy Intelligence"
+msgstr "Qrumy Intelligence"
+
+#: apps/marketing/views.py:30
+msgid "AI summaries and recommendations across feedback, leads and assets."
+msgstr ""
+"Rəylər, potensial müştərilər və aktivlər üzrə süni intellekt xülasələri və "
+"tövsiyələri."
+
+#: apps/marketing/views.py:31
+msgid "Feedback themes and sentiment"
+msgstr "Rəy mövzuları və əhval-ruhiyyə"
+
+#: apps/marketing/views.py:31
+msgid "Lead summaries"
+msgstr "Potensial müştəri xülasələri"
+
+#: apps/marketing/views.py:32
+msgid "Natural-language reports"
+msgstr "Təbii dildə hesabatlar"
+
+#: apps/marketing/views.py:33
+msgid "Qrumy Agency"
+msgstr "Qrumy Agency"
+
+#: apps/marketing/views.py:34
+msgid ""
+"Manage many client organizations from one workspace with client reports."
+msgstr ""
+"Çoxsaylı müştəri təşkilatlarını bir iş sahəsindən idarə edin və müştəri "
+"hesabatları hazırlayın."
+
+#: apps/marketing/views.py:35
+msgid "Client workspaces"
+msgstr "Müştəri iş sahələri"
+
+#: apps/marketing/views.py:35
+msgid "Client reporting"
+msgstr "Müştəri hesabatları"
+
+#: apps/marketing/views.py:35
+msgid "White-label options"
+msgstr "Öz brendinizlə istifadə imkanı"
+
+#: apps/marketing/views.py:58
+msgid "What is Qrumy?"
+msgstr "Qrumy nədir?"
+
+#: apps/marketing/views.py:59
+msgid ""
+"Qrumy is one platform for QR-powered business tools: QR code management, "
+"customer surveys, asset and equipment tracking, and event lead capture, with"
+" shared teams, permissions and analytics."
+msgstr ""
+"Qrumy QR əsaslı biznes alətləri üçün vahid platformadır: QR kodların idarə "
+"edilməsi, müştəri sorğuları, aktiv və avadanlıqların izlənməsi, tədbirlərdə "
+"potensial müştəri toplanması — ortaq komanda, icazələr və analitika ilə."
+
+#: apps/marketing/views.py:62
+msgid "Is Qrumy really free?"
+msgstr "Qrumy həqiqətən pulsuzdur?"
+
+#: apps/marketing/views.py:63
+msgid ""
+"Yes. During the beta every released feature is free, with fair-use limits. "
+"Paid plans will come later and existing users will be informed well in "
+"advance."
+msgstr ""
+"Bəli. Beta dövründə buraxılan bütün funksiyalar ədalətli istifadə limitləri "
+"ilə pulsuzdur. Ödənişli planlar sonra gələcək və mövcud istifadəçilərə xeyli"
+" əvvəlcədən məlumat veriləcək."
+
+#: apps/marketing/views.py:65
+msgid "Which products are available today?"
+msgstr "Hazırda hansı məhsullar mövcuddur?"
+
+#: apps/marketing/views.py:66
+msgid ""
+"Qrumy is released step by step. Your account, organization and team "
+"management are ready now; QR Management is next, followed by Surveys, Events"
+" and Assets. Each product is marked as available on this page once it is "
+"released."
+msgstr ""
+"Qrumy mərhələ-mərhələ buraxılır. Hesab, təşkilat və komanda idarəetməsi "
+"artıq hazırdır; növbəti QR İdarəetmədir, ardınca Sorğular, Tədbirlər və "
+"Aktivlər gələcək. Hər məhsul buraxılan kimi bu səhifədə mövcud kimi qeyd "
+"olunur."
+
+#: apps/marketing/views.py:69
+msgid "What is a dynamic QR code?"
+msgstr "Dinamik QR kod nədir?"
+
+#: apps/marketing/views.py:70
+msgid ""
+"A dynamic QR code points to a short Qrumy link, so you can change where it "
+"leads after printing and see scan statistics. A static QR code stores the "
+"content directly and cannot be changed or tracked."
+msgstr ""
+"Dinamik QR kod qısa Qrumy linkinə yönləndirir, ona görə çapdan sonra da onun"
+" hara apardığını dəyişə və skan statistikasını görə bilərsiniz. Statik QR "
+"kod məzmunu birbaşa özündə saxlayır, dəyişdirilə və izlənilə bilməz."
+
+#: apps/marketing/views.py:73
+msgid "Can I use Qrumy with my team?"
+msgstr "Qrumy-dən komandamla istifadə edə bilərəmmi?"
+
+#: apps/marketing/views.py:74
+msgid ""
+"Yes. Invite colleagues to your organization and give each person a role — "
+"Owner, Admin, Manager, Member or Viewer. Each organization's data is private"
+" to that organization."
+msgstr ""
+"Bəli. Həmkarlarınızı təşkilatınıza dəvət edin və hər birinə rol verin — "
+"Sahib, Admin, Menecer, Üzv və ya İzləyici. Hər təşkilatın məlumatları yalnız"
+" həmin təşkilata məxsusdur."
+
+#: apps/marketing/views.py:76
+msgid "Is Qrumy available in Azerbaijani?"
+msgstr "Qrumy azərbaycan dilində mövcuddurmu?"
+
+#: apps/marketing/views.py:77
+msgid ""
+"Yes. Qrumy is available in English and Azerbaijani. You can switch the "
+"language at any time."
+msgstr ""
+"Bəli. Qrumy ingilis və azərbaycan dillərində mövcuddur. Dili istənilən vaxt "
+"dəyişə bilərsiniz."
+
+#: apps/notifications/apps.py:8
+#: apps/notifications/templates/notifications/list.html:3
+#: apps/notifications/templates/notifications/list.html:6
+#: templates/layouts/app.html:74
+msgid "Notifications"
+msgstr "Bildirişlər"
+
+#: apps/notifications/models.py:22
+msgid "notification"
+msgstr "bildiriş"
+
+#: apps/notifications/models.py:23
+msgid "notifications"
+msgstr "bildirişlər"
+
+#: apps/notifications/templates/notifications/list.html:8
+msgid "Mark all as read"
+msgstr "Hamısını oxunmuş et"
+
+#: apps/notifications/templates/notifications/list.html:26
+msgid "Newer"
+msgstr "Daha yeni"
+
+#: apps/notifications/templates/notifications/list.html:27
+msgid "Older"
+msgstr "Daha köhnə"
+
+#: apps/notifications/templates/notifications/list.html:31
+msgid "You're all caught up."
+msgstr "Yeni bildiriş yoxdur."
+
+#: apps/organizations/admin.py:28
+msgid "Suspend selected organizations"
+msgstr "Seçilmiş təşkilatları dayandır"
+
+#: apps/organizations/admin.py:35
+msgid "Selected organizations were suspended."
+msgstr "Seçilmiş təşkilatlar dayandırıldı."
+
+#: apps/organizations/admin.py:37
+msgid "Activate selected organizations"
+msgstr "Seçilmiş təşkilatları aktivləşdir"
+
+#: apps/organizations/admin.py:44
+msgid "Selected organizations were activated."
+msgstr "Seçilmiş təşkilatlar aktivləşdirildi."
+
+#: apps/organizations/apps.py:8 templates/layouts/app.html:33
+msgid "Organizations"
+msgstr "Təşkilatlar"
+
+#: apps/organizations/forms.py:15
+msgid "The logo must be 2 MB or smaller."
+msgstr "Loqo 2 MB-dan böyük olmamalıdır."
+
+#: apps/organizations/forms.py:22 apps/organizations/forms.py:26
+msgid "Upload a valid PNG, JPEG or WebP image."
+msgstr "Düzgün PNG, JPEG və ya WebP şəkli yükləyin."
+
+#: apps/organizations/forms.py:50
+msgid "Email"
+msgstr "E-poçt"
+
+#: apps/organizations/forms.py:51 apps/organizations/forms.py:62
+#: apps/organizations/templates/organizations/team.html:33
+msgid "Role"
+msgstr "Rol"
+
+#: apps/organizations/models.py:22
+msgid "Hospitality & restaurants"
+msgstr "Qonaqpərvərlik və restoranlar"
+
+#: apps/organizations/models.py:23
+msgid "Retail & e-commerce"
+msgstr "Pərakəndə və e-ticarət"
+
+#: apps/organizations/models.py:24
+msgid "Manufacturing"
+msgstr "İstehsalat"
+
+#: apps/organizations/models.py:25
+msgid "Logistics & warehousing"
+msgstr "Logistika və anbar"
+
+#: apps/organizations/models.py:26
+msgid "Construction"
+msgstr "Tikinti"
+
+#: apps/organizations/models.py:27
+msgid "Healthcare"
+msgstr "Səhiyyə"
+
+#: apps/organizations/models.py:28
+msgid "Education"
+msgstr "Təhsil"
+
+#: apps/organizations/models.py:30
+msgid "Marketing & agencies"
+msgstr "Marketinq və agentliklər"
+
+#: apps/organizations/models.py:31
+msgid "Real estate & facilities"
+msgstr "Daşınmaz əmlak və obyektlər"
+
+#: apps/organizations/models.py:32
+msgid "Technology"
+msgstr "Texnologiya"
+
+#: apps/organizations/models.py:33
+msgid "Public sector & non-profit"
+msgstr "Dövlət sektoru və qeyri-kommersiya"
+
+#: apps/organizations/models.py:34
+msgid "Other"
+msgstr "Digər"
+
+#: apps/organizations/models.py:39
+msgid "Standard"
+msgstr "Standart"
+
+#: apps/organizations/models.py:40
+msgid "Agency"
+msgstr "Agentlik"
+
+#: apps/organizations/models.py:43 apps/subscriptions/models.py:58
+msgid "Active"
+msgstr "Aktiv"
+
+#: apps/organizations/models.py:44
+msgid "Suspended"
+msgstr "Dayandırılıb"
+
+#: apps/organizations/models.py:46
+msgid "organization name"
+msgstr "təşkilatın adı"
+
+#: apps/organizations/models.py:47
+msgid "URL name"
+msgstr "URL adı"
+
+#: apps/organizations/models.py:48
+msgid "logo"
+msgstr "loqo"
+
+#: apps/organizations/models.py:49
+msgid "website"
+msgstr "veb sayt"
+
+#: apps/organizations/models.py:50
+msgid "industry"
+msgstr "sahə"
+
+#: apps/organizations/models.py:52
+msgid "country"
+msgstr "ölkə"
+
+#: apps/organizations/models.py:53
+msgid "time zone"
+msgstr "saat qurşağı"
+
+#: apps/organizations/models.py:54
+msgid "default language"
+msgstr "əsas dil"
+
+#: apps/organizations/models.py:56
+msgid "contact email"
+msgstr "əlaqə e-poçtu"
+
+#: apps/organizations/models.py:57
+msgid "contact phone"
+msgstr "əlaqə telefonu"
+
+#: apps/organizations/models.py:59
+msgid "owner"
+msgstr "sahib"
+
+#: apps/organizations/models.py:62
+msgid "managed by"
+msgstr "idarə edən"
+
+#: apps/organizations/models.py:63
+msgid "type"
+msgstr "növ"
+
+#: apps/organizations/models.py:65 apps/subscriptions/models.py:70
+msgid "status"
+msgstr "status"
+
+#: apps/organizations/models.py:71
+msgid "organizations"
+msgstr "təşkilatlar"
+
+#: apps/organizations/models.py:86 apps/organizations/models.py:106
+msgid "role"
+msgstr "rol"
+
+#: apps/organizations/models.py:91
+msgid "membership"
+msgstr "üzvlük"
+
+#: apps/organizations/models.py:92
+msgid "memberships"
+msgstr "üzvlüklər"
+
+#: apps/organizations/models.py:105
+msgid "email"
+msgstr "e-poçt"
+
+#: apps/organizations/models.py:119
+msgid "invitation"
+msgstr "dəvət"
+
+#: apps/organizations/models.py:120
+msgid "invitations"
+msgstr "dəvətlər"
+
+#: apps/organizations/navigation.py:10
+#: apps/organizations/templates/organizations/dashboard.html:3
+#: apps/organizations/templates/organizations/dashboard.html:4
+msgid "Overview"
+msgstr "Ümumi baxış"
+
+#: apps/organizations/navigation.py:11
+#: apps/organizations/templates/organizations/team.html:3
+#: apps/organizations/templates/organizations/team.html:4
+#: apps/organizations/templates/organizations/team.html:8
+msgid "Team"
+msgstr "Komanda"
+
+#: apps/organizations/navigation.py:13
+#: apps/organizations/templates/organizations/settings.html:3
+#: apps/organizations/templates/organizations/settings.html:4
+msgid "Settings"
+msgstr "Ayarlar"
+
+#: apps/organizations/roles.py:6
+msgid "Owner"
+msgstr "Sahib"
+
+#: apps/organizations/roles.py:7
+msgid "Admin"
+msgstr "Admin"
+
+#: apps/organizations/roles.py:8
+msgid "Manager"
+msgstr "Menecer"
+
+#: apps/organizations/roles.py:9
+msgid "Member"
+msgstr "Üzv"
+
+#: apps/organizations/roles.py:10
+msgid "Viewer"
+msgstr "İzləyici"
+
+#: apps/organizations/roles.py:16
+msgid "Full control, including billing and the organization itself."
+msgstr "Ödəniş və təşkilatın özü daxil olmaqla tam nəzarət."
+
+#: apps/organizations/roles.py:17
+msgid "Manage settings, team and all content."
+msgstr "Ayarları, komandanı və bütün məzmunu idarə edir."
+
+#: apps/organizations/roles.py:18
+msgid "Create, edit and delete content; view analytics."
+msgstr "Məzmun yaradır, redaktə edir və silir; analitikaya baxır."
+
+#: apps/organizations/roles.py:19
+msgid "Create and edit content."
+msgstr "Məzmun yaradır və redaktə edir."
+
+#: apps/organizations/roles.py:20
+msgid "Read-only access."
+msgstr "Yalnız baxış hüququ."
+
+#: apps/organizations/services.py:67
+msgid "You cannot invite someone with this role."
+msgstr "Bu rolla kimisə dəvət edə bilməzsiniz."
+
+#: apps/organizations/services.py:69
+msgid "This person is already a member of the organization."
+msgstr "Bu şəxs artıq təşkilatın üzvüdür."
+
+#: apps/organizations/services.py:74
+#, python-format
+msgid ""
+"Your plan allows up to %(limit)s team members (including pending "
+"invitations)."
+msgstr ""
+"Planınız gözləyən dəvətlər daxil olmaqla ən çox %(limit)s komanda üzvünə "
+"icazə verir."
+
+#: apps/organizations/services.py:91
+msgid "An invitation is already pending for this email."
+msgstr "Bu e-poçt üçün artıq gözləyən dəvət var."
+
+#: apps/organizations/services.py:124
+msgid "This invitation is no longer valid."
+msgstr "Bu dəvət artıq etibarlı deyil."
+
+#: apps/organizations/services.py:127
+#, python-format
+msgid ""
+"This invitation was sent to %(email)s. Sign in with that email to accept it."
+msgstr ""
+"Bu dəvət %(email)s ünvanına göndərilib. Qəbul etmək üçün həmin e-poçtla "
+"daxil olun."
+
+#: apps/organizations/services.py:131
+msgid "This organization is not available."
+msgstr "Bu təşkilat əlçatan deyil."
+
+#: apps/organizations/services.py:143
+#, python-format
+msgid "%(name)s joined %(org)s"
+msgstr "%(name)s %(org)s təşkilatına qoşuldu"
+
+#: apps/organizations/services.py:151
+msgid "Member not found."
+msgstr "Üzv tapılmadı."
+
+#: apps/organizations/services.py:153
+msgid "The organization owner cannot be changed or removed."
+msgstr "Təşkilatın sahibi dəyişdirilə və ya çıxarıla bilməz."
+
+#: apps/organizations/services.py:155
+msgid "You can only manage members with a lower role than yours."
+msgstr "Yalnız rolu sizinkindən aşağı olan üzvləri idarə edə bilərsiniz."
+
+#: apps/organizations/services.py:162 apps/organizations/views/team.py:76
+msgid "You cannot assign this role."
+msgstr "Bu rolu təyin edə bilməzsiniz."
+
+#: apps/organizations/services.py:182
+msgid "The owner cannot leave the organization."
+msgstr "Sahib təşkilatı tərk edə bilməz."
+
+#: apps/organizations/templates/organizations/_activity_label.html:1
+msgid "created the organization"
+msgstr "təşkilatı yaratdı"
+
+#: apps/organizations/templates/organizations/_activity_label.html:1
+msgid "updated organization settings"
+msgstr "təşkilat ayarlarını yenilədi"
+
+#: apps/organizations/templates/organizations/_activity_label.html:1
+msgid "invited"
+msgstr "dəvət etdi:"
+
+#: apps/organizations/templates/organizations/_activity_label.html:1
+msgid "revoked the invitation for"
+msgstr "dəvəti ləğv etdi:"
+
+#: apps/organizations/templates/organizations/_activity_label.html:1
+msgid "joined the team"
+msgstr "komandaya qoşuldu"
+
+#: apps/organizations/templates/organizations/_activity_label.html:1
+msgid "changed the role of"
+msgstr "rolunu dəyişdi:"
+
+#: apps/organizations/templates/organizations/_activity_label.html:1
+msgid "removed"
+msgstr "çıxardı:"
+
+#: apps/organizations/templates/organizations/_activity_label.html:1
+msgid "left the organization"
+msgstr "təşkilatı tərk etdi"
+
+#: apps/organizations/templates/organizations/_activity_label.html:1
+msgid "changed the plan"
+msgstr "planı dəyişdi"
+
+#: apps/organizations/templates/organizations/create.html:3
+#: apps/organizations/templates/organizations/create.html:6
+#: apps/organizations/views/workspace.py:49
+msgid "Create your organization"
+msgstr "Təşkilatınızı yaradın"
+
+#: apps/organizations/templates/organizations/create.html:5
+#: templates/layouts/app.html:42
+msgid "New organization"
+msgstr "Yeni təşkilat"
+
+#: apps/organizations/templates/organizations/create.html:5
+msgid "Step 1 of 1"
+msgstr "Addım 1/1"
+
+#: apps/organizations/templates/organizations/create.html:7
+msgid ""
+"An organization is your company's private workspace. You can invite your "
+"team and add more details later."
+msgstr ""
+"Təşkilat şirkətinizin şəxsi iş sahəsidir. Komandanızı dəvət edə və "
+"təfərrüatları sonra əlavə edə bilərsiniz."
+
+#: apps/organizations/templates/organizations/create.html:11
+msgid "Create organization"
+msgstr "Təşkilat yarat"
+
+#: apps/organizations/templates/organizations/create.html:12
+msgid "Cancel"
+msgstr "Ləğv et"
+
+#: apps/organizations/templates/organizations/dashboard.html:8
+#, python-format
+msgid "Welcome, %(name)s"
+msgstr "Xoş gəldiniz, %(name)s"
+
+#: apps/organizations/templates/organizations/dashboard.html:15
+#: apps/subscriptions/features.py:20
+msgid "Team members"
+msgstr "Komanda üzvləri"
+
+#: apps/organizations/templates/organizations/dashboard.html:17
+#, python-format
+msgid "%(n)s pending invitation"
+msgid_plural "%(n)s pending invitations"
+msgstr[0] "%(n)s gözləyən dəvət"
+msgstr[1] "%(n)s gözləyən dəvət"
+
+#: apps/organizations/templates/organizations/dashboard.html:20
+msgid "Plan"
+msgstr "Plan"
+
+#: apps/organizations/templates/organizations/dashboard.html:25
+#: templates/layouts/marketing.html:23 templates/layouts/marketing.html:41
+#: templates/layouts/marketing.html:66
+msgid "Products"
+msgstr "Məhsullar"
+
+#: apps/organizations/templates/organizations/dashboard.html:29
+msgid ""
+"QR Management is the first module and is being built now. It will appear in "
+"your menu as soon as it is released."
+msgstr ""
+"QR İdarəetmə ilk moduldur və hazırda hazırlanır. Buraxılan kimi menyunuzda "
+"görünəcək."
+
+#: apps/organizations/templates/organizations/dashboard.html:37
+msgid "Get started"
+msgstr "Başlanğıc"
+
+#: apps/organizations/templates/organizations/dashboard.html:56
+msgid "Recent activity"
+msgstr "Son fəaliyyət"
+
+#: apps/organizations/templates/organizations/dashboard.html:63
+msgid "System"
+msgstr "Sistem"
+
+#: apps/organizations/templates/organizations/dashboard.html:72
+msgid "Activity in your organization will appear here."
+msgstr "Təşkilatınızdakı fəaliyyət burada görünəcək."
+
+#: apps/organizations/templates/organizations/email/invitation.html:7
+#: apps/organizations/templates/organizations/invitation_accept.html:6
+#, python-format
+msgid "Join %(org)s on Qrumy"
+msgstr "Qrumy-də %(org)s təşkilatına qoşulun"
+
+#: apps/organizations/templates/organizations/email/invitation.html:8
+#: apps/organizations/templates/organizations/email/invitation.txt:1
+#, python-format
+msgid "%(inviter)s invited you to join %(org)s on Qrumy as %(role)s."
+msgstr ""
+"%(inviter)s sizi Qrumy-də %(org)s təşkilatına %(role)s kimi qoşulmağa dəvət "
+"etdi."
+
+#: apps/organizations/templates/organizations/email/invitation.html:9
+#: apps/organizations/templates/organizations/invitation_accept.html:14
+msgid "Accept invitation"
+msgstr "Dəvəti qəbul et"
+
+#: apps/organizations/templates/organizations/email/invitation.html:11
+#: apps/organizations/templates/organizations/email/invitation.txt:6
+#, python-format
+msgid ""
+"This link expires in %(days)s days. If you weren't expecting this email, you"
+" can ignore it."
+msgstr ""
+"Bu linkin müddəti %(days)s gündən sonra bitir. Bu məktubu gözləmirdinizsə, "
+"ona məhəl qoymaya bilərsiniz."
+
+#: apps/organizations/templates/organizations/email/invitation.txt:3
+msgid "Accept the invitation:"
+msgstr "Dəvəti qəbul edin:"
+
+#: apps/organizations/templates/organizations/email/invitation_subject.txt:1
+#, python-format
+msgid "You're invited to join %(org)s on Qrumy"
+msgstr "Qrumy-də %(org)s təşkilatına dəvət olunmusunuz"
+
+#: apps/organizations/templates/organizations/invitation_accept.html:3
+#: apps/organizations/templates/organizations/invitation_accept.html:5
+msgid "Invitation"
+msgstr "Dəvət"
+
+#: apps/organizations/templates/organizations/invitation_accept.html:8
+msgid "A team member"
+msgstr "Komanda üzvü"
+
+#: apps/organizations/templates/organizations/invitation_accept.html:8
+#, python-format
+msgid ""
+"%(inviter)s invited <strong class=\"text-ink\">%(email)s</strong> to join as"
+" <strong class=\"text-ink\">%(role)s</strong>."
+msgstr ""
+"%(inviter)s <strong class=\"text-ink\">%(email)s</strong> ünvanını <strong "
+"class=\"text-ink\">%(role)s</strong> kimi qoşulmağa dəvət etdi."
+
+#: apps/organizations/templates/organizations/invitation_accept.html:16
+#, python-format
+msgid ""
+"You are signed in as %(email)s. Sign out and sign in with the invited email "
+"to accept."
+msgstr ""
+"Siz %(email)s kimi daxil olmusunuz. Qəbul etmək üçün çıxış edin və dəvət "
+"olunan e-poçtla daxil olun."
+
+#: apps/organizations/templates/organizations/invitation_accept.html:17
+#: templates/components/user_menu.html:17
+msgid "Sign out"
+msgstr "Çıxış"
+
+#: apps/organizations/templates/organizations/invitation_accept.html:20
+msgid "Create an account"
+msgstr "Hesab yaradın"
+
+#: apps/organizations/templates/organizations/invitation_accept.html:21
+msgid "I already have an account"
+msgstr "Artıq hesabım var"
+
+#: apps/organizations/templates/organizations/invitation_invalid.html:3
+msgid "Invitation not valid"
+msgstr "Dəvət etibarsızdır"
+
+#: apps/organizations/templates/organizations/invitation_invalid.html:5
+msgid "This invitation is not valid"
+msgstr "Bu dəvət etibarlı deyil"
+
+#: apps/organizations/templates/organizations/invitation_invalid.html:6
+msgid ""
+"It may have expired, been revoked or already been used. Ask the person who "
+"invited you to send a new invitation."
+msgstr ""
+"Onun müddəti bitmiş, ləğv edilmiş və ya artıq istifadə olunmuş ola bilər. "
+"Sizi dəvət edən şəxsdən yeni dəvət göndərməsini xahiş edin."
+
+#: apps/organizations/templates/organizations/invitation_invalid.html:7
+msgid "Go to Qrumy"
+msgstr "Qrumy-yə keçin"
+
+#: apps/organizations/templates/organizations/settings.html:6
+msgid "Organization settings"
+msgstr "Təşkilat ayarları"
+
+#: apps/organizations/templates/organizations/settings.html:7
+msgid "These details appear on your public pages and emails."
+msgstr "Bu məlumatlar açıq səhifələrinizdə və e-poçtlarınızda görünür."
+
+#: apps/organizations/templates/organizations/settings.html:15
+#, python-format
+msgid "Workspace URL: /app/%(slug)s/"
+msgstr "İş sahəsinin ünvanı: /app/%(slug)s/"
+
+#: apps/organizations/templates/organizations/suspended.html:3
+msgid "Organization suspended"
+msgstr "Təşkilat dayandırılıb"
+
+#: apps/organizations/templates/organizations/suspended.html:5
+msgid "This organization is suspended"
+msgstr "Bu təşkilat dayandırılıb"
+
+#: apps/organizations/templates/organizations/suspended.html:6
+#, python-format
+msgid "Access to %(name)s has been suspended. Please contact Qrumy support."
+msgstr ""
+"%(name)s təşkilatına giriş dayandırılıb. Zəhmət olmasa Qrumy dəstəyi ilə "
+"əlaqə saxlayın."
+
+#: apps/organizations/templates/organizations/suspended.html:7
+msgid "Create another organization"
+msgstr "Başqa təşkilat yaradın"
+
+#: apps/organizations/templates/organizations/team.html:9
+msgid "Invite colleagues and choose what each person can do."
+msgstr "Həmkarlarınızı dəvət edin və hər kəsin nə edə biləcəyini seçin."
+
+#: apps/organizations/templates/organizations/team.html:19
+msgid "Members"
+msgstr "Üzvlər"
+
+#: apps/organizations/templates/organizations/team.html:26
+msgid "you"
+msgstr "siz"
+
+#: apps/organizations/templates/organizations/team.html:37
+msgid "Save"
+msgstr "Saxla"
+
+#: apps/organizations/templates/organizations/team.html:41
+#, python-format
+msgid "Remove %(name)s from the organization?"
+msgstr "%(name)s təşkilatdan çıxarılsın?"
+
+#: apps/organizations/templates/organizations/team.html:43
+msgid "Remove"
+msgstr "Çıxar"
+
+#: apps/organizations/templates/organizations/team.html:48
+msgid "Leave this organization? You will lose access to it."
+msgstr "Bu təşkilatı tərk edirsiniz? Ona girişinizi itirəcəksiniz."
+
+#: apps/organizations/templates/organizations/team.html:49
+msgid "Leave"
+msgstr "Tərk et"
+
+#: apps/organizations/templates/organizations/team.html:60
+msgid "Pending invitations"
+msgstr "Gözləyən dəvətlər"
+
+#: apps/organizations/templates/organizations/team.html:67
+#, python-format
+msgid "expires %(date)s"
+msgstr "%(date)s tarixində bitir"
+
+#: apps/organizations/templates/organizations/team.html:72
+msgid "Revoke"
+msgstr "Ləğv et"
+
+#: apps/organizations/templates/organizations/team.html:85
+#: apps/organizations/views/workspace.py:53
+msgid "Invite a teammate"
+msgstr "Komanda üzvü dəvət edin"
+
+#: apps/organizations/templates/organizations/team.html:90
+msgid "Send invitation"
+msgstr "Dəvət göndər"
+
+#: apps/organizations/templates/organizations/team.html:91
+#, python-format
+msgid "%(n)s seat used, including pending invitations."
+msgid_plural "%(n)s seats used, including pending invitations."
+msgstr[0] "Gözləyən dəvətlər daxil olmaqla %(n)s yer istifadə olunub."
+msgstr[1] "Gözləyən dəvətlər daxil olmaqla %(n)s yer istifadə olunub."
+
+#: apps/organizations/templates/organizations/team.html:96
+msgid "Roles"
+msgstr "Rollar"
+
+#: apps/organizations/views/invitations.py:21
+#, python-format
+msgid "You joined %(org)s."
+msgstr "Siz %(org)s təşkilatına qoşuldunuz."
+
+#: apps/organizations/views/team.py:61
+#, python-format
+msgid "Invitation sent to %(email)s."
+msgstr "Dəvət %(email)s ünvanına göndərildi."
+
+#: apps/organizations/views/team.py:79
+msgid "Role updated."
+msgstr "Rol yeniləndi."
+
+#: apps/organizations/views/team.py:92
+msgid "Member removed."
+msgstr "Üzv çıxarıldı."
+
+#: apps/organizations/views/team.py:105
+msgid "Invitation revoked."
+msgstr "Dəvət ləğv edildi."
+
+#: apps/organizations/views/team.py:116
+#, python-format
+msgid "You left %(org)s."
+msgstr "Siz %(org)s təşkilatını tərk etdiniz."
+
+#: apps/organizations/views/workspace.py:34
+msgid "Welcome to Qrumy! Your organization is ready."
+msgstr "Qrumy-yə xoş gəldiniz! Təşkilatınız hazırdır."
+
+#: apps/organizations/views/workspace.py:50
+msgid "Complete your organization profile"
+msgstr "Təşkilat profilinizi tamamlayın"
+
+#: apps/organizations/views/workspace.py:70
+msgid "Organization settings saved."
+msgstr "Təşkilat ayarları saxlanıldı."
+
+#: apps/subscriptions/apps.py:8
+msgid "Subscriptions"
+msgstr "Abunəliklər"
+
+#: apps/subscriptions/features.py:26
+msgid "Agency workspace"
+msgstr "Agentlik iş sahəsi"
+
+#: apps/subscriptions/features.py:27
+msgid "Remove Qrumy branding"
+msgstr "Qrumy brendini gizlətmək"
+
+#: apps/subscriptions/models.py:9
+msgid "key"
+msgstr "açar"
+
+#: apps/subscriptions/models.py:10
+msgid "name"
+msgstr "ad"
+
+#: apps/subscriptions/models.py:11
+msgid "description"
+msgstr "təsvir"
+
+#: apps/subscriptions/models.py:12
+msgid "monthly price (cents)"
+msgstr "aylıq qiymət (sent)"
+
+#: apps/subscriptions/models.py:13
+msgid "yearly price (cents)"
+msgstr "illik qiymət (sent)"
+
+#: apps/subscriptions/models.py:14
+msgid "currency"
+msgstr "valyuta"
+
+#: apps/subscriptions/models.py:15
+msgid "trial days"
+msgstr "sınaq günləri"
+
+#: apps/subscriptions/models.py:16
+msgid "shown on pricing page"
+msgstr "qiymətlər səhifəsində göstərilir"
+
+#: apps/subscriptions/models.py:17
+msgid "beta plan"
+msgstr "beta plan"
+
+#: apps/subscriptions/models.py:19
+msgid "order"
+msgstr "sıra"
+
+#: apps/subscriptions/models.py:23
+msgid "plan"
+msgstr "plan"
+
+#: apps/subscriptions/models.py:24
+msgid "plans"
+msgstr "planlar"
+
+#: apps/subscriptions/models.py:40 apps/subscriptions/models.py:102
+msgid "feature"
+msgstr "funksiya"
+
+#: apps/subscriptions/models.py:41 apps/subscriptions/models.py:103
+msgid "enabled"
+msgstr "aktiv"
+
+#: apps/subscriptions/models.py:42 apps/subscriptions/models.py:104
+msgid "limit"
+msgstr "limit"
+
+#: apps/subscriptions/models.py:43 apps/subscriptions/models.py:105
+msgid "Empty = unlimited"
+msgstr "Boş = limitsiz"
+
+#: apps/subscriptions/models.py:46
+msgid "plan feature"
+msgstr "plan funksiyası"
+
+#: apps/subscriptions/models.py:47
+msgid "plan features"
+msgstr "plan funksiyaları"
+
+#: apps/subscriptions/models.py:57
+msgid "Trialing"
+msgstr "Sınaq dövründə"
+
+#: apps/subscriptions/models.py:59
+msgid "Past due"
+msgstr "Gecikmiş ödəniş"
+
+#: apps/subscriptions/models.py:60
+msgid "Canceled"
+msgstr "Ləğv edilib"
+
+#: apps/subscriptions/models.py:61
+msgid "Expired"
+msgstr "Müddəti bitib"
+
+#: apps/subscriptions/models.py:64
+msgid "Monthly"
+msgstr "Aylıq"
+
+#: apps/subscriptions/models.py:65
+msgid "Yearly"
+msgstr "İllik"
+
+#: apps/subscriptions/models.py:72
+msgid "billing interval"
+msgstr "ödəniş dövrü"
+
+#: apps/subscriptions/models.py:74
+msgid "gateway"
+msgstr "ödəniş sistemi"
+
+#: apps/subscriptions/models.py:75
+msgid "system = assigned automatically, manual = by staff"
+msgstr "system = avtomatik təyin edilib, manual = işçi tərəfindən"
+
+#: apps/subscriptions/models.py:76
+msgid "gateway reference"
+msgstr "ödəniş sistemi istinadı"
+
+#: apps/subscriptions/models.py:77
+msgid "started at"
+msgstr "başlama vaxtı"
+
+#: apps/subscriptions/models.py:78
+msgid "trial ends"
+msgstr "sınağın bitməsi"
+
+#: apps/subscriptions/models.py:79
+msgid "current period ends"
+msgstr "cari dövrün bitməsi"
+
+#: apps/subscriptions/models.py:80
+msgid "canceled at"
+msgstr "ləğv vaxtı"
+
+#: apps/subscriptions/models.py:81
+msgid "ended at"
+msgstr "bitmə vaxtı"
+
+#: apps/subscriptions/models.py:85
+msgid "subscription"
+msgstr "abunəlik"
+
+#: apps/subscriptions/models.py:86
+msgid "subscriptions"
+msgstr "abunəliklər"
+
+#: apps/subscriptions/models.py:106
+msgid "reason"
+msgstr "səbəb"
+
+#: apps/subscriptions/models.py:107
+msgid "expires at"
+msgstr "bitmə vaxtı"
+
+#: apps/subscriptions/models.py:110
+msgid "feature override"
+msgstr "funksiya istisnası"
+
+#: apps/subscriptions/models.py:111
+msgid "feature overrides"
+msgstr "funksiya istisnaları"
+
+#: apps/subscriptions/plan_strings.py:6
+msgid "Everything available today, free while Qrumy is in beta."
+msgstr "Bu gün mövcud olan hər şey — Qrumy betada olduğu müddətdə pulsuz."
+
+#: apps/subscriptions/plan_strings.py:7
+msgid "Get started with QR codes and simple surveys."
+msgstr "QR kodlar və sadə sorğularla başlayın."
+
+#: apps/subscriptions/plan_strings.py:8
+msgid "For small businesses running their first campaigns."
+msgstr "İlk kampaniyalarını keçirən kiçik bizneslər üçün."
+
+#: apps/subscriptions/plan_strings.py:9
+msgid "Dynamic QR, events and assets for growing teams."
+msgstr "Böyüyən komandalar üçün dinamik QR, tədbirlər və aktivlər."
+
+#: apps/subscriptions/plan_strings.py:10
+msgid "Higher limits, AI insights and advanced permissions."
+msgstr "Daha yüksək limitlər, süni intellekt təhlili və geniş icazələr."
+
+#: apps/subscriptions/plan_strings.py:11
+msgid "Manage multiple clients from one workspace."
+msgstr "Çoxsaylı müştəriləri bir iş sahəsindən idarə edin."
+
+#: config/settings/base.py:176
+msgid "English"
+msgstr "İngilis dili"
+
+#: config/settings/base.py:176
+msgid "Azerbaijani"
+msgstr "Azərbaycan dili"
+
+#: templates/403.html:3 templates/403.html:10
+msgid "Access denied"
+msgstr "Giriş qadağandır"
+
+#: templates/403.html:11
+msgid "You don't have permission to view this page."
+msgstr "Bu səhifəyə baxmaq üçün icazəniz yoxdur."
+
+#: templates/403.html:12 templates/404.html:12 templates/429.html:12
+#: templates/layouts/account.html:9
+msgid "Back to app"
+msgstr "Tətbiqə qayıt"
+
+#: templates/403.html:12 templates/404.html:12 templates/429.html:12
+msgid "Go to homepage"
+msgstr "Ana səhifəyə keçin"
+
+#: templates/404.html:3 templates/404.html:10
+msgid "Page not found"
+msgstr "Səhifə tapılmadı"
+
+#: templates/404.html:11
+msgid ""
+"The page you're looking for doesn't exist or you don't have access to it."
+msgstr "Axtardığınız səhifə mövcud deyil və ya ona girişiniz yoxdur."
+
+#: templates/429.html:3 templates/429.html:10
+msgid "Too many requests"
+msgstr "Həddindən çox sorğu"
+
+#: templates/429.html:11
+msgid "Please wait a moment and try again."
+msgstr "Bir az gözləyin və yenidən cəhd edin."
+
+#: templates/base.html:8
+msgid ""
+"Qrumy — QR technology that powers smarter business operations: QR codes, "
+"customer feedback, asset tracking and event lead capture in one platform."
+msgstr ""
+"Qrumy — daha ağıllı biznes əməliyyatları üçün QR texnologiyası: QR kodlar, "
+"müştəri rəyləri, aktiv izləmə və tədbirlərdə müştəri toplama bir "
+"platformada."
+
+#: templates/components/forms/field.html:6
+msgid "optional"
+msgstr "istəyə bağlı"
+
+#: templates/components/language_switcher.html:6
+msgid "Language"
+msgstr "Dil"
+
+#: templates/components/language_switcher.html:14
+msgid "Change"
+msgstr "Dəyiş"
+
+#: templates/components/user_menu.html:3
+msgid "Account menu"
+msgstr "Hesab menyusu"
+
+#: templates/components/user_menu.html:13 templates/layouts/account.html:18
+msgid "Password"
+msgstr "Şifrə"
+
+#: templates/components/user_menu.html:14 templates/layouts/account.html:19
+msgid "Two-factor authentication"
+msgstr "İki mərhələli doğrulama"
+
+#: templates/layouts/account.html:14 templates/layouts/marketing.html:72
+msgid "Account"
+msgstr "Hesab"
+
+#: templates/layouts/account.html:17
+msgid "Email addresses"
+msgstr "E-poçt ünvanları"
+
+#: templates/layouts/app.html:15
+msgid "Close menu"
+msgstr "Menyunu bağla"
+
+#: templates/layouts/app.html:47 templates/layouts/marketing.html:22
+msgid "Main"
+msgstr "Əsas"
+
+#: templates/layouts/app.html:54
+msgid "Workspace"
+msgstr "İş sahəsi"
+
+#: templates/layouts/app.html:64
+msgid "Free beta"
+msgstr "Pulsuz beta"
+
+#: templates/layouts/app.html:65
+msgid "New modules are released here as soon as they are ready."
+msgstr "Yeni modullar hazır olan kimi burada buraxılır."
+
+#: templates/layouts/app.html:72
+msgid "Open menu"
+msgstr "Menyunu aç"
+
+#: templates/layouts/auth.html:10 templates/layouts/marketing.html:61
+msgid "QR technology that powers smarter business operations."
+msgstr "Daha ağıllı biznes əməliyyatlarını gücləndirən QR texnologiyası."
+
+#: templates/layouts/auth.html:12
+msgid "QR codes, feedback, assets and events in one account"
+msgstr "QR kodlar, rəylər, aktivlər və tədbirlər bir hesabda"
+
+#: templates/layouts/auth.html:13
+msgid "Your team, roles and data kept private to your organization"
+msgstr ""
+"Komandanız, rollarınız və məlumatlarınız yalnız təşkilatınıza məxsusdur"
+
+#: templates/layouts/auth.html:14
+msgid "Free while Qrumy is in beta"
+msgstr "Qrumy betada olduğu müddətdə pulsuz"
+
+#: templates/layouts/marketing.html:12
+msgid ""
+"Manage QR codes, collect customer feedback, track assets and turn event "
+"interactions into business opportunities — all in one platform."
+msgstr ""
+"QR kodları idarə edin, müştəri rəylərini toplayın, aktivləri izləyin və "
+"tədbirlərdəki əlaqələri biznes imkanlarına çevirin — hamısı bir platformada."
+
+#: templates/layouts/marketing.html:26 templates/layouts/marketing.html:44
+#: templates/layouts/marketing.html:68
+msgid "FAQ"
+msgstr "Tez-tez verilən suallar"
+
+#: templates/layouts/marketing.html:31 templates/layouts/marketing.html:48
+msgid "Open app"
+msgstr "Tətbiqi aç"
+
+#: templates/layouts/marketing.html:33 templates/layouts/marketing.html:49
+#: templates/layouts/marketing.html:74
+msgid "Sign in"
+msgstr "Daxil ol"
+
+#: templates/layouts/marketing.html:37
+msgid "Menu"
+msgstr "Menyu"
+
+#: templates/layouts/marketing.html:64
+msgid "Product"
+msgstr "Məhsul"
+
+#: templates/layouts/marketing.html:75
+msgid "Create account"
+msgstr "Hesab yarat"
+
+#: templates/layouts/marketing.html:82
+msgid "Free beta — features are released step by step."
+msgstr "Pulsuz beta — funksiyalar mərhələ-mərhələ buraxılır."

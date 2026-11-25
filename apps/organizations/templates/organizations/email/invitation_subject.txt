@@ -1,0 +1,1 @@
+{% load i18n %}{% blocktranslate with org=organization.name %}You're invited to join {{ org }} on Qrumy{% endblocktranslate %}

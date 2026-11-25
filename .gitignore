@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+media/
+staticfiles/
+static/dist/
+static/vendor/
+node_modules/
+.pytest_cache/
+.ruff_cache/
+.DS_Store
+*.mo
+docker/certs/

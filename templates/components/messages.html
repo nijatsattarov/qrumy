@@ -1,0 +1,14 @@
+{% load qrumy %}
+{% if messages %}
+<div class="space-y-2" role="status" aria-live="polite">
+  {% for message in messages %}
+  <div x-data="flash" x-show="visible" x-transition.opacity
+       class="flex items-start gap-3 rounded-lg border px-4 py-3 text-sm shadow-[var(--shadow-card)]
+       {% if message.tags == 'error' %}border-danger/20 bg-danger-soft text-danger{% elif message.tags == 'warning' %}border-warning/30 bg-warning-soft text-[#92400E]{% elif message.tags == 'success' %}border-success/20 bg-success-soft text-[#166534]{% else %}border-line bg-surface text-ink{% endif %}">
+    {% if message.tags == 'error' or message.tags == 'warning' %}{% icon 'alert' 'size-4 mt-0.5 shrink-0' %}{% elif message.tags == 'success' %}{% icon 'check' 'size-4 mt-0.5 shrink-0' %}{% else %}{% icon 'info' 'size-4 mt-0.5 shrink-0' %}{% endif %}
+    <p class="flex-1">{{ message }}</p>
+    <button type="button" @click="dismiss" class="opacity-60 hover:opacity-100" aria-label="Dismiss">{% icon 'x' 'size-4' %}</button>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}

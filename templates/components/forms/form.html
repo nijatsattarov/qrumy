@@ -1,0 +1,10 @@
+{% load i18n %}
+{% if form.non_field_errors %}
+<div class="mb-4 rounded-lg border border-danger/20 bg-danger-soft px-4 py-3 text-sm text-danger" role="alert">
+  {% for error in form.non_field_errors %}<p>{{ error }}</p>{% endfor %}
+</div>
+{% endif %}
+{% for field in form.hidden_fields %}{% for error in field.errors %}<p class="form-error">{{ field.label }}: {{ error }}</p>{% endfor %}{{ field }}{% endfor %}
+<div class="space-y-4">
+  {% for field in form.visible_fields %}{{ field.as_field_group }}{% endfor %}
+</div>

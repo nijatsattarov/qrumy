@@ -1,0 +1,11 @@
+{% load i18n %}
+<div class="form-field{% if field.errors %} has-error{% endif %}">
+  {% if field.widget_type == "checkbox" %}
+    <label class="flex items-center gap-2.5 text-sm text-ink" for="{{ field.auto_id }}">{{ field }}<span>{{ field.label }}</span></label>
+  {% else %}
+    <label class="form-label" for="{{ field.auto_id }}">{{ field.label }}{% if not field.field.required %} <span class="font-normal text-muted">({% translate "optional" %})</span>{% endif %}</label>
+    {{ field }}
+  {% endif %}
+  {% if field.help_text %}<div class="form-help [&_ul]:mt-1 [&_ul]:list-disc [&_ul]:pl-4">{{ field.help_text|safe }}</div>{% endif %}
+  {% for error in field.errors %}<p class="form-error">{{ error }}</p>{% endfor %}
+</div>

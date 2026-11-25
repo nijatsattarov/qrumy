@@ -1,6 +1,6 @@
 # Qrumy — Architecture & MVP Plan (v0.2 — Python/Django, for approval)
 
-Status: **DRAFT — awaiting approval. No application code has been written.**
+Status: **APPROVED (2026-11-25).** Phase 1 (Foundation) implemented — see docs/CHECKLIST.md.
 Date: 2026-11-25
 Supersedes: v0.1 (Laravel/PHP draft, commit `0e68522`, kept in git history only).
 
@@ -15,10 +15,12 @@ Supersedes: v0.1 (Laravel/PHP draft, commit `0e68522`, kept in git history only)
 | Stack | **Python only.** Django + DRF, PostgreSQL, Celery + Redis, Django Templates + Tailwind + HTMX (+ Alpine where needed), Docker Compose, Nginx, Gunicorn. No PHP, no Laravel, no React. |
 | Repo | Build Qrumy in this repository ✔ |
 | Phase order | Events before Assets ✔ |
-| Redirect domain | Separate short domain for dynamic QR redirects ✔ (name still to be chosen; configurable by env) |
+| Redirect domain | **`qrumy.com/q/<code>` for now.** The redirect host stays configurable, so a separate short domain can be added later without reprinting codes made before then (they keep resolving on qrumy.com). |
 | Billing | **Free beta first.** Plans, limits and entitlements are built; no payment provider is integrated yet. |
 | Languages | **English + Azerbaijani** (UI, marketing site, public pages, emails) |
-| Super-admin | Customized **Django Admin**. This replaces the earlier Filament choice, which was PHP-only. |
+| Super-admin | Customized **Django Admin** with **django-unfold** theme (replaces Filament, which is PHP-only). |
+| Signups | **Open registration** during the beta (email verification required; can be closed via `QRUMY_SIGNUP_OPEN`). |
+| Default language | **English** at `qrumy.com/`; Azerbaijani at `qrumy.com/az/`. Product pages follow the user's preference, else cookie / browser language. |
 
 ---
 
@@ -52,9 +54,10 @@ Static codes never reach our servers, and the UI says so. Types that need a host
 Feedback) are always dynamic.
 
 ### 1.5 Redirect abuse (main business risk)
-- Separate **short redirect domain** (decided). The redirect host gets its own minimal
-  URLconf (`request.urlconf` set by middleware), so the redirect app cannot reach
-  dashboard routes, and `qrumy.com` is shielded from blocklisting.
+- Redirects live at `qrumy.com/q/<code>` for now (decided). The redirect path is kept
+  minimal and cache-backed; moving it to a separate short domain later (own URLconf via
+  `request.urlconf`) shields `qrumy.com` from blocklisting and needs no reprinting —
+  existing codes keep resolving on qrumy.com.
 - Destination validation: only `http`/`https` schemes, a blocked-domain list, and an
   optional Safe Browsing (or similar) check behind a `UrlReputation` interface.
 - Creation rate limits during the free beta; admin can suspend a QR code or an
@@ -476,12 +479,20 @@ No code changes needed.
 
 ---
 
-## 11. Open questions (still needed)
+## 11. Decisions log
 
-1. **Short redirect domain name:** which domain will you buy (e.g. `qrumy.link`,
-   `qrumy.az`, `qrm.az`…)? Development uses a placeholder from env.
-2. **Beta signups:** open signup with strict limits (recommended), or invite / waitlist
-   only?
-3. **Default language** for `qrumy.com` with no language prefix: Azerbaijani or English
-   (with browser-language detection either way)?
-4. **Admin theme:** `django-unfold` (recommended) or plain Django Admin?
+All open questions are resolved (2026-11-25): redirect host `qrumy.com/q/` (short domain
+later), open beta signups, English default language, `django-unfold` admin theme.
+
+## 12. Changes made during Phase 1 implementation
+
+- Added a `marketing` app (top layer) for the landing/pricing pages, because they read plan
+  data from `subscriptions`, which `core` may not import.
+- Lower layers reach higher ones only through hooks: `core.quotas` (plan limits),
+  `core.navigation` (sidebar items) and `organizations.signals.organization_created`.
+- Tailwind source lives in `assets/` (outside `static/`) so `collectstatic` never processes it.
+- `/healthz` is answered by a first-in-chain middleware so container health checks pass
+  host validation and the HTTPS redirect.
+- `python-magic`/`libmagic` were deferred to Phase 2 (first file uploads beyond logos,
+  which are validated with Pillow).
+- Details and rationale: `docs/decisions/`.

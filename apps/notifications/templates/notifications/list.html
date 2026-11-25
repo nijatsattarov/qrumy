@@ -1,0 +1,33 @@
+{% extends "layouts/account.html" %}
+{% load i18n humanize qrumy %}
+{% block title %}{% translate "Notifications" %}{% endblock %}
+{% block content %}
+<div class="flex items-center justify-between gap-4">
+  <h1>{% translate "Notifications" %}</h1>
+  {% if unread_notifications %}
+  <form method="post" action="{% url 'notifications_read_all' %}">{% csrf_token %}<button class="btn btn-sm btn-secondary">{% translate "Mark all as read" %}</button></form>
+  {% endif %}
+</div>
+{% if page.object_list %}
+<ul class="mt-4 divide-y divide-line">
+  {% for n in page.object_list %}
+  <li class="flex gap-3 py-3.5">
+    <span class="mt-1.5 size-2 shrink-0 rounded-full {% if n.read_at %}bg-transparent{% else %}bg-accent-500{% endif %}"></span>
+    <div class="min-w-0 flex-1">
+      {% if n.url %}<a href="{{ n.url }}" class="text-sm font-medium text-ink">{{ n.title }}</a>{% else %}<p class="text-sm font-medium">{{ n.title }}</p>{% endif %}
+      {% if n.body %}<p class="mt-0.5 text-sm text-muted">{{ n.body }}</p>{% endif %}
+      <p class="mt-0.5 text-xs text-muted">{{ n.created_at|naturaltime }}</p>
+    </div>
+  </li>
+  {% endfor %}
+</ul>
+{% if page.has_other_pages %}
+<div class="mt-4 flex justify-between text-sm">
+  {% if page.has_previous %}<a href="?page={{ page.previous_page_number }}">{% translate "Newer" %}</a>{% else %}<span></span>{% endif %}
+  {% if page.has_next %}<a href="?page={{ page.next_page_number }}">{% translate "Older" %}</a>{% endif %}
+</div>
+{% endif %}
+{% else %}
+<p class="py-10 text-center text-sm text-muted">{% translate "You're all caught up." %}</p>
+{% endif %}
+{% endblock %}

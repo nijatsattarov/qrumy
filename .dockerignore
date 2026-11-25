@@ -1,0 +1,12 @@
+.git
+.venv
+node_modules
+static/dist
+static/vendor
+staticfiles
+media
+.env
+**/__pycache__
+.pytest_cache
+.ruff_cache
+*.mo

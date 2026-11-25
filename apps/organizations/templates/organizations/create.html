@@ -1,0 +1,14 @@
+{% extends "layouts/auth.html" %}
+{% load i18n %}
+{% block title %}{% translate "Create your organization" %}{% endblock %}
+{% block content %}
+<p class="eyebrow">{% if has_orgs %}{% translate "New organization" %}{% else %}{% translate "Step 1 of 1" %}{% endif %}</p>
+<h1 class="mt-2">{% translate "Create your organization" %}</h1>
+<p class="mt-2 text-sm text-muted">{% translate "An organization is your company's private workspace. You can invite your team and add more details later." %}</p>
+<form method="post" class="mt-8 space-y-6">
+  {% csrf_token %}
+  {{ form }}
+  <button type="submit" class="btn btn-primary btn-lg w-full">{% translate "Create organization" %}</button>
+  {% if has_orgs %}<a href="{% url 'app_home' %}" class="btn btn-ghost w-full">{% translate "Cancel" %}</a>{% endif %}
+</form>
+{% endblock %}

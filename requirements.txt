@@ -1,0 +1,19 @@
+# Runtime dependencies (pinned). Update deliberately; see docs/CHECKLIST.md.
+Django==5.2.19
+djangorestframework==3.18.3
+django-allauth[mfa,socialaccount]==65.22.1
+django-environ==0.14.0
+psycopg[binary]==3.3.9
+celery==5.7.0
+redis==8.2.0
+django-celery-beat==2.9.0
+django-unfold==0.110.1
+django-htmx==1.29.0
+django-template-partials==25.3
+django-csp==4.0
+django-ratelimit==4.1.0
+django-anymail==15.3
+django-countries==9.1.0
+pillow==13.0.0
+gunicorn==27.0.1
+whitenoise==6.12.0

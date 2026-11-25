@@ -1,0 +1,45 @@
+[project]
+name = "qrumy"
+version = "0.1.0"
+description = "Qrumy — QR-powered business platform"
+requires-python = ">=3.12"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = ["**/migrations/*.py", ".venv", "node_modules"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "DJ", "S", "C4", "SIM"]
+ignore = ["S101", "DJ001"]
+
+[tool.ruff.lint.per-file-ignores]
+"**/tests/**" = ["S105", "S106"]
+"config/settings/*.py" = ["F405", "F403"]
+"config/settings/test.py" = ["F405", "F403", "S105"]
+"conftest.py" = ["S105", "S106", "S107"]
+"apps/core/templatetags/qrumy.py" = ["E501"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings.test"
+python_files = ["test_*.py"]
+addopts = "-q --strict-markers --reuse-db"
+testpaths = ["apps", "tests"]
+
+[tool.importlinter]
+root_packages = ["apps"]
+
+[[tool.importlinter.contracts]]
+name = "Qrumy app layers"
+type = "layers"
+layers = [
+    "apps.marketing",
+    "apps.billing",
+    "apps.subscriptions",
+    "apps.organizations",
+    "apps.accounts | apps.notifications",
+    "apps.audit_logs",
+    "apps.core",
+]
+# Tests are allowed to cross layers (they exercise apps together).
+ignore_imports = ["apps.*.tests.** -> apps.**"]

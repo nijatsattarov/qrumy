@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load i18n qrumy %}
+{% block body_class %}min-h-full bg-canvas{% endblock %}
+{% block body %}
+<header class="border-b border-line bg-surface">
+  <div class="mx-auto flex h-16 max-w-5xl items-center gap-4 px-4 sm:px-6">
+    <a href="{% url 'app_home' %}" class="no-underline">{% include "components/logo.html" with size="h-7" %}</a>
+    <div class="flex-1"></div>
+    <a href="{% url 'app_home' %}" class="btn btn-sm btn-secondary">{% translate "Back to app" %}</a>
+    {% include "components/user_menu.html" %}
+  </div>
+</header>
+<div class="mx-auto grid max-w-5xl gap-6 px-4 py-8 sm:px-6 md:grid-cols-[200px_1fr]">
+  <nav class="flex gap-1 overflow-x-auto md:flex-col" aria-label="{% translate 'Account' %}">
+    {% url 'account_profile' as u1 %}{% url 'account_email' as u2 %}{% url 'account_change_password' as u3 %}{% url 'mfa_index' as u4 %}
+    <a href="{{ u1 }}" class="menu-item whitespace-nowrap {% if request.path == u1 %}bg-surface font-medium shadow-[var(--shadow-card)]{% endif %}">{% translate "Profile" %}</a>
+    <a href="{{ u2 }}" class="menu-item whitespace-nowrap {% if request.path == u2 %}bg-surface font-medium shadow-[var(--shadow-card)]{% endif %}">{% translate "Email addresses" %}</a>
+    <a href="{{ u3 }}" class="menu-item whitespace-nowrap {% if request.path == u3 %}bg-surface font-medium shadow-[var(--shadow-card)]{% endif %}">{% translate "Password" %}</a>
+    <a href="{{ u4 }}" class="menu-item whitespace-nowrap {% if request.path|slice:':13' == u4|slice:':13' %}bg-surface font-medium shadow-[var(--shadow-card)]{% endif %}">{% translate "Two-factor authentication" %}</a>
+  </nav>
+  <main class="min-w-0">
+    {% include "components/messages.html" %}
+    <div class="card card-body mt-0 {% if messages %}mt-4{% endif %} [&_h1]:text-xl [&_h1]:font-semibold [&_h2]:mt-6 [&_h2]:text-base [&_h2]:font-semibold">
+      {% block content %}{% endblock %}
+    </div>
+  </main>
+</div>
+{% endblock %}

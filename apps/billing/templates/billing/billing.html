@@ -1,0 +1,55 @@
+{% extends "layouts/app.html" %}
+{% load i18n qrumy %}
+{% block title %}{% translate "Plan & billing" %}{% endblock %}
+{% block breadcrumb %}{% translate "Plan & billing" %}{% endblock %}
+{% block content %}
+<h1 class="page-title">{% translate "Plan & billing" %}</h1>
+<p class="page-subtitle">{% translate "Your current plan, limits and billing history." %}</p>
+
+<div class="mt-6 grid gap-6 lg:grid-cols-3">
+  <section class="card lg:col-span-2">
+    <div class="card-header">
+      <div>
+        <p class="text-sm text-muted">{% translate "Current plan" %}</p>
+        <p class="mt-0.5 text-xl font-semibold">{{ subscription.plan.name|default:"—" }}</p>
+      </div>
+      {% if subscription %}<span class="badge badge-success">{{ subscription.get_status_display }}</span>{% endif %}
+    </div>
+    <div class="card-body">
+      {% if subscription.plan.is_beta %}
+      <div class="flex gap-3 rounded-lg bg-accent-50 px-4 py-3 text-sm text-navy-800">
+        {% icon 'info' 'size-4 mt-0.5 shrink-0 text-accent-600' %}
+        <p>{% translate "Qrumy is free during the beta. Paid plans will be introduced later, and we will notify you well in advance. Nothing is charged today." %}</p>
+      </div>
+      {% endif %}
+      <h2 class="mt-6 text-sm font-semibold">{% translate "Usage" %}</h2>
+      <div class="mt-3 space-y-4">
+        {% for item in limits %}
+        <div>
+          <div class="flex justify-between text-sm"><span>{{ item.label }}</span>
+            <span class="text-muted">{% if item.used is not None %}{{ item.used }} / {% endif %}{% if item.limit is None %}{% translate "Unlimited" %}{% else %}{{ item.limit }}{% endif %}</span></div>
+          {% if item.limit %}<progress class="progress mt-1.5{% if item.pct >= 90 %} is-warning{% endif %}" value="{{ item.used }}" max="{{ item.limit }}">{{ item.pct }}%</progress>{% endif %}
+        </div>
+        {% endfor %}
+      </div>
+      <h2 class="mt-8 text-sm font-semibold">{% translate "Included products" %}</h2>
+      <ul class="mt-3 grid gap-2 sm:grid-cols-2">
+        {% for m in modules %}
+        <li class="flex items-center gap-2 text-sm {% if not m.enabled %}text-muted{% endif %}">
+          {% if m.enabled %}{% icon 'check' 'size-4 text-success' %}{% else %}{% icon 'x' 'size-4' %}{% endif %}{{ m.label }}
+        </li>
+        {% endfor %}
+      </ul>
+      <p class="mt-3 text-xs text-muted">{% translate "Products appear in your menu once they are released." %}</p>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-header"><h2 class="section-title">{% translate "Billing history" %}</h2></div>
+    <div class="card-body text-center">
+      <span class="mx-auto inline-flex size-10 items-center justify-center rounded-full bg-canvas text-muted">{% icon 'card' %}</span>
+      <p class="mt-3 text-sm text-muted">{% translate "No invoices yet." %}</p>
+    </div>
+  </section>
+</div>
+{% endblock %}

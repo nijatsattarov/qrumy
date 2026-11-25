@@ -1,0 +1,20 @@
+{% load i18n qrumy %}
+<div x-data="dropdown" @click.outside="close" class="relative">
+  <button type="button" @click="toggle" class="flex items-center gap-2 rounded-full p-0.5 hover:ring-4 hover:ring-canvas" aria-label="{% translate 'Account menu' %}">
+    <span class="avatar size-8 text-xs">{{ user.display_name|initials }}</span>
+  </button>
+  <div x-show="open" x-cloak x-transition class="menu right-0">
+    <div class="px-3 py-2">
+      <p class="truncate text-sm font-medium">{{ user.display_name }}</p>
+      <p class="truncate text-xs text-muted">{{ user.email }}</p>
+    </div>
+    <div class="divider my-1.5"></div>
+    <a href="{% url 'account_profile' %}" class="menu-item">{% icon 'user' 'size-4 text-muted' %}{% translate "Profile" %}</a>
+    <a href="{% url 'account_change_password' %}" class="menu-item">{% icon 'lock' 'size-4 text-muted' %}{% translate "Password" %}</a>
+    <a href="{% url 'mfa_index' %}" class="menu-item">{% icon 'shield' 'size-4 text-muted' %}{% translate "Two-factor authentication" %}</a>
+    <div class="divider my-1.5"></div>
+    <form method="post" action="{% url 'account_logout' %}">{% csrf_token %}
+      <button type="submit" class="menu-item">{% icon 'logout' 'size-4 text-muted' %}{% translate "Sign out" %}</button>
+    </form>
+  </div>
+</div>

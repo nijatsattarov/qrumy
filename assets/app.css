@@ -1,0 +1,134 @@
+@import "tailwindcss";
+@source "../templates";
+@source "../apps";
+
+/* ------------------------------------------------------------------
+   Inter (self-hosted, latin + latin-ext covers Azerbaijani ə ğ ı ş ç ö ü)
+------------------------------------------------------------------- */
+@font-face {
+  font-family: "Inter Variable"; font-style: normal; font-display: swap; font-weight: 100 900;
+  src: url("../vendor/fonts/inter-latin-ext-wght-normal.woff2") format("woff2-variations");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Inter Variable"; font-style: normal; font-display: swap; font-weight: 100 900;
+  src: url("../vendor/fonts/inter-latin-wght-normal.woff2") format("woff2-variations");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ------------------------------------------------------------------
+   Design tokens — change the brand here; everything else follows.
+------------------------------------------------------------------- */
+@theme {
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+
+  --color-navy-950: #0a1126;
+  --color-navy-900: #101B3A;   /* primary */
+  --color-navy-800: #1D2E5B;   /* secondary */
+  --color-navy-700: #2a3f75;
+  --color-navy-600: #3a5296;
+  --color-accent-50: #eef3ff;
+  --color-accent-100: #dfe8ff;
+  --color-accent-200: #c2d3ff;
+  --color-accent-500: #4F7CFF; /* accent */
+  --color-accent-600: #3a64e6;
+  --color-accent-700: #2f50bd;
+
+  --color-canvas: #F7F9FC;     /* page background */
+  --color-surface: #FFFFFF;
+  --color-ink: #172033;        /* text primary */
+  --color-muted: #687386;      /* text secondary */
+  --color-line: #E3E8F0;       /* borders */
+  --color-line-strong: #CDD5E1;
+
+  --color-success: #16A34A;
+  --color-success-soft: #E8F6EE;
+  --color-warning: #F59E0B;
+  --color-warning-soft: #FEF5E6;
+  --color-danger: #DC2626;
+  --color-danger-soft: #FDECEC;
+
+  --radius-card: 0.75rem;
+  --shadow-card: 0 1px 2px rgb(16 27 58 / 0.04), 0 1px 3px rgb(16 27 58 / 0.06);
+  --shadow-pop: 0 10px 30px -10px rgb(16 27 58 / 0.25);
+}
+
+@layer base {
+  html { -webkit-text-size-adjust: 100%; }
+  body { @apply bg-canvas text-ink font-sans antialiased; font-feature-settings: "cv11", "ss01"; }
+  h1, h2, h3, h4 { @apply text-ink tracking-tight; }
+  a { @apply text-accent-600; }
+  :focus-visible { @apply outline-2 outline-offset-2 outline-accent-500; }
+  [x-cloak] { display: none !important; }
+}
+
+@layer components {
+  /* Buttons */
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium no-underline transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer; }
+  .btn-sm { @apply px-3 py-1.5 text-[13px]; }
+  .btn-lg { @apply px-5 py-3 text-[15px]; }
+  .btn-primary { @apply bg-navy-900 text-white hover:bg-navy-800; }
+  .btn-accent { @apply bg-accent-500 text-white hover:bg-accent-600; }
+  .btn-secondary { @apply bg-surface text-ink ring-1 ring-inset ring-line-strong hover:bg-canvas; }
+  .btn-ghost { @apply text-muted hover:text-ink hover:bg-canvas; }
+  .btn-danger { @apply bg-surface text-danger ring-1 ring-inset ring-line-strong hover:bg-danger-soft; }
+  .btn-on-dark { @apply bg-white text-navy-900 hover:bg-accent-50; }
+
+  /* Surfaces */
+  .card { @apply bg-surface rounded-[var(--radius-card)] border border-line shadow-[var(--shadow-card)]; }
+  .card-header { @apply flex items-center justify-between gap-4 border-b border-line px-5 py-4; }
+  .card-body { @apply p-5; }
+  .page-title { @apply text-xl font-semibold sm:text-2xl; }
+  .page-subtitle { @apply mt-1 text-sm text-muted; }
+  .section-title { @apply text-[15px] font-semibold; }
+  .eyebrow { @apply text-xs font-semibold uppercase tracking-[0.08em] text-accent-600; }
+
+  /* Badges */
+  .badge { @apply inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-medium ring-1 ring-inset; }
+  .badge-neutral { @apply bg-canvas text-muted ring-line; }
+  .badge-accent { @apply bg-accent-50 text-accent-700 ring-accent-200; }
+  .badge-success { @apply bg-success-soft text-success ring-success/20; }
+  .badge-warning { @apply bg-warning-soft text-[#B45309] ring-warning/25; }
+  .badge-danger { @apply bg-danger-soft text-danger ring-danger/20; }
+
+  /* Forms (applied to Django-rendered widgets) */
+  .form-field { @apply space-y-1.5; }
+  .form-label { @apply block text-sm font-medium text-ink; }
+  .form-help { @apply text-xs text-muted; }
+  .form-error { @apply text-xs font-medium text-danger; }
+  .form-field input:not([type=checkbox]):not([type=radio]):not([type=file]),
+  .form-field select, .form-field textarea, .input {
+    @apply block w-full rounded-lg border border-line-strong bg-surface px-3 py-2.5 text-sm text-ink placeholder:text-muted/70 shadow-[0_1px_0_rgb(16_27_58/0.02)] transition focus:border-accent-500 focus:outline-none focus:ring-4 focus:ring-accent-500/15;
+  }
+  .form-field input[type=file] { @apply block w-full text-sm text-muted file:mr-3 file:rounded-md file:border-0 file:bg-canvas file:px-3 file:py-2 file:text-sm file:font-medium file:text-ink hover:file:bg-line; }
+  .form-field input[type=checkbox], .checkbox { @apply size-4 rounded border-line-strong text-navy-900 accent-navy-900; }
+  .form-field.has-error input, .form-field.has-error select, .form-field.has-error textarea { @apply border-danger focus:ring-danger/15; }
+
+  /* Tables */
+  .table { @apply w-full text-left text-sm; }
+  .table th { @apply border-b border-line bg-canvas/60 px-5 py-2.5 text-xs font-medium uppercase tracking-wide text-muted; }
+  .table td { @apply border-b border-line px-5 py-3.5 align-middle; }
+  .table tr:last-child td { @apply border-b-0; }
+
+  /* Sidebar */
+  .nav-link { @apply flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-white/70 no-underline transition-colors hover:bg-white/[0.06] hover:text-white; }
+  .nav-link.is-active { @apply bg-white/[0.09] text-white; }
+
+  /* Dropdown */
+  .menu { @apply absolute z-40 mt-2 min-w-56 rounded-xl border border-line bg-surface p-1.5 shadow-[var(--shadow-pop)]; }
+  .menu-item { @apply flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-sm text-ink no-underline hover:bg-canvas; }
+
+  .progress { @apply block h-1.5 w-full appearance-none overflow-hidden rounded-full border-0 bg-canvas; }
+  .progress::-webkit-progress-bar { @apply bg-canvas; }
+  .progress::-webkit-progress-value { @apply rounded-full bg-accent-500; }
+  .progress::-moz-progress-bar { @apply rounded-full bg-accent-500; }
+  .progress.is-warning::-webkit-progress-value { @apply bg-warning; }
+  .progress.is-warning::-moz-progress-bar { @apply bg-warning; }
+  .avatar { @apply inline-flex shrink-0 items-center justify-center rounded-full bg-accent-100 font-semibold text-navy-800; }
+  .divider { @apply border-t border-line; }
+  .prose-muted p { @apply text-muted leading-relaxed; }
+}
+
+/* HTMX request indicator */
+.htmx-indicator { opacity: 0; transition: opacity 150ms; }
+.htmx-request .htmx-indicator, .htmx-request.htmx-indicator { opacity: 1; }

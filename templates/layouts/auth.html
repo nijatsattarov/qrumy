@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load i18n qrumy %}
+{% block body_class %}min-h-full bg-canvas{% endblock %}
+{% block body %}
+<div class="grid min-h-screen lg:grid-cols-[1fr_minmax(0,560px)]">
+  <aside class="relative hidden overflow-hidden bg-navy-900 lg:flex lg:flex-col lg:justify-between lg:p-12">
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 opacity-[0.07] [background-image:linear-gradient(white_1px,transparent_1px),linear-gradient(90deg,white_1px,transparent_1px)] [background-size:40px_40px]"></div>
+    <a href="{% url 'home' %}" class="relative no-underline">{% include "components/logo.html" with tone="light" size="h-8" %}</a>
+    <div class="relative max-w-md">
+      <p class="text-3xl font-semibold leading-tight tracking-tight text-white">{% translate "QR technology that powers smarter business operations." %}</p>
+      <ul class="mt-8 space-y-3 text-sm text-white/70">
+        <li class="flex items-center gap-3">{% icon 'check' 'size-4 text-accent-500' %}{% translate "QR codes, feedback, assets and events in one account" %}</li>
+        <li class="flex items-center gap-3">{% icon 'check' 'size-4 text-accent-500' %}{% translate "Your team, roles and data kept private to your organization" %}</li>
+        <li class="flex items-center gap-3">{% icon 'check' 'size-4 text-accent-500' %}{% translate "Free while Qrumy is in beta" %}</li>
+      </ul>
+    </div>
+    <p class="relative text-xs text-white/40">© {% now "Y" %} Qrumy</p>
+  </aside>
+  <div class="flex flex-col px-4 py-6 sm:px-8">
+    <div class="flex items-center justify-between">
+      <a href="{% url 'home' %}" class="no-underline lg:invisible">{% include "components/logo.html" with size="h-7" %}</a>
+      {% include "components/language_switcher.html" with id="auth" css="text-muted" %}
+    </div>
+    <main class="mx-auto flex w-full max-w-sm flex-1 flex-col justify-center py-10">
+      {% include "components/messages.html" %}
+      <div class="{% if messages %}mt-4{% endif %} [&_h1]:text-2xl [&_h1]:font-semibold [&_h1]:tracking-tight">
+        {% block content %}{% endblock %}
+      </div>
+    </main>
+  </div>
+</div>
+{% endblock %}

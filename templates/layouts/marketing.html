@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load i18n static qrumy %}
+{% block seo %}
+  {% get_current_language as LANGUAGE_CODE %}
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="{{ SITE_URL }}{{ request.path }}">
+  {% for code, name in LANGUAGES %}{% language code %}<link rel="alternate" hreflang="{{ code }}" href="{{ SITE_URL }}{% url request.resolver_match.view_name %}">{% endlanguage %}{% endfor %}
+  {% language "en" %}<link rel="alternate" hreflang="x-default" href="{{ SITE_URL }}{% url request.resolver_match.view_name %}">{% endlanguage %}
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Qrumy">
+  <meta property="og:title" content="{% block og_title %}Qrumy{% endblock %}">
+  <meta property="og:description" content="{% block og_description %}{% translate 'Manage QR codes, collect customer feedback, track assets and turn event interactions into business opportunities — all in one platform.' %}{% endblock %}">
+  <meta property="og:url" content="{{ SITE_URL }}{{ request.path }}">
+  <meta property="og:locale" content="{% if LANGUAGE_CODE == 'az' %}az_AZ{% else %}en_US{% endif %}">
+  <meta name="twitter:card" content="summary_large_image">
+{% endblock %}
+{% block body_class %}min-h-full bg-surface{% endblock %}
+{% block body %}
+<header x-data="disclosure" class="sticky top-0 z-40 border-b border-line/70 bg-surface/90 backdrop-blur">
+  <div class="mx-auto flex h-16 max-w-6xl items-center gap-6 px-4 sm:px-6">
+    <a href="{% url 'home' %}" class="no-underline" aria-label="Qrumy">{% include "components/logo.html" with size="h-7" %}</a>
+    <nav class="hidden items-center gap-6 text-sm font-medium md:flex" aria-label="{% translate 'Main' %}">
+      <a href="{% url 'home' %}#products" class="text-muted no-underline hover:text-ink">{% translate "Products" %}</a>
+      <a href="{% url 'home' %}#how-it-works" class="text-muted no-underline hover:text-ink">{% translate "How it works" %}</a>
+      <a href="{% url 'pricing' %}" class="text-muted no-underline hover:text-ink">{% translate "Pricing" %}</a>
+      <a href="{% url 'home' %}#faq" class="text-muted no-underline hover:text-ink">{% translate "FAQ" %}</a>
+    </nav>
+    <div class="ml-auto hidden items-center gap-2 md:flex">
+      {% include "components/language_switcher.html" with id="hdr" css="mr-2 text-muted" %}
+      {% if user.is_authenticated %}
+        <a href="{% url 'app_home' %}" class="btn btn-primary btn-sm">{% translate "Open app" %}</a>
+      {% else %}
+        <a href="{% url 'account_login' %}" class="btn btn-ghost btn-sm">{% translate "Sign in" %}</a>
+        <a href="{% url 'account_signup' %}" class="btn btn-primary btn-sm">{% translate "Get Started Free" %}</a>
+      {% endif %}
+    </div>
+    <button type="button" @click="toggle" class="btn-ghost ml-auto rounded-lg p-2 md:hidden" aria-label="{% translate 'Menu' %}">{% icon 'menu' %}</button>
+  </div>
+  <div x-show="open" x-cloak class="border-t border-line px-4 pb-4 md:hidden">
+    <nav class="flex flex-col py-2 text-sm font-medium">
+      <a href="{% url 'home' %}#products" class="py-2 text-ink no-underline">{% translate "Products" %}</a>
+      <a href="{% url 'home' %}#how-it-works" class="py-2 text-ink no-underline">{% translate "How it works" %}</a>
+      <a href="{% url 'pricing' %}" class="py-2 text-ink no-underline">{% translate "Pricing" %}</a>
+      <a href="{% url 'home' %}#faq" class="py-2 text-ink no-underline">{% translate "FAQ" %}</a>
+    </nav>
+    {% include "components/language_switcher.html" with id="mob" css="py-2 text-muted" %}
+    <div class="mt-2 grid grid-cols-2 gap-2">
+      {% if user.is_authenticated %}<a href="{% url 'app_home' %}" class="btn btn-primary col-span-2">{% translate "Open app" %}</a>{% else %}
+      <a href="{% url 'account_login' %}" class="btn btn-secondary">{% translate "Sign in" %}</a>
+      <a href="{% url 'account_signup' %}" class="btn btn-primary">{% translate "Get Started Free" %}</a>{% endif %}
+    </div>
+  </div>
+</header>
+
+<main>{% block content %}{% endblock %}</main>
+
+<footer class="border-t border-line bg-canvas">
+  <div class="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-4">
+    <div class="md:col-span-2">
+      {% include "components/logo.html" with size="h-7" %}
+      <p class="mt-4 max-w-sm text-sm leading-relaxed text-muted">{% translate "QR technology that powers smarter business operations." %}</p>
+    </div>
+    <div>
+      <p class="text-sm font-semibold">{% translate "Product" %}</p>
+      <ul class="mt-3 space-y-2 text-sm">
+        <li><a href="{% url 'home' %}#products" class="text-muted no-underline hover:text-ink">{% translate "Products" %}</a></li>
+        <li><a href="{% url 'pricing' %}" class="text-muted no-underline hover:text-ink">{% translate "Pricing" %}</a></li>
+        <li><a href="{% url 'home' %}#faq" class="text-muted no-underline hover:text-ink">{% translate "FAQ" %}</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="text-sm font-semibold">{% translate "Account" %}</p>
+      <ul class="mt-3 space-y-2 text-sm">
+        <li><a href="{% url 'account_login' %}" class="text-muted no-underline hover:text-ink">{% translate "Sign in" %}</a></li>
+        <li><a href="{% url 'account_signup' %}" class="text-muted no-underline hover:text-ink">{% translate "Create account" %}</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-line">
+    <div class="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-6 text-xs text-muted sm:flex-row sm:justify-between sm:px-6">
+      <p>© {% now "Y" %} Qrumy · qrumy.com</p>
+      <p>{% translate "Free beta — features are released step by step." %}</p>
+    </div>
+  </div>
+</footer>
+{% endblock %}

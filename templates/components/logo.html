@@ -1,0 +1,9 @@
+{# Qrumy logo. Params: tone="dark"|"light", size class (default h-7), wordmark=True/False #}
+<span class="inline-flex items-center gap-2.5 {% if tone == 'light' %}text-white{% else %}text-navy-900{% endif %}">
+  <svg viewBox="0 0 64 64" class="{{ size|default:'h-7' }} w-auto shrink-0" aria-hidden="true">
+    <defs><mask id="qrumy-q-{{ tone|default:'dark' }}"><rect width="64" height="64" fill="#fff"/><path d="M31 41h11l22 22v1H53z" fill="#000"/></mask></defs>
+    <path fill="currentColor" fill-rule="evenodd" mask="url(#qrumy-q-{{ tone|default:'dark' }})" d="M18 2h28a16 16 0 0 1 16 16v28a16 16 0 0 1-16 16H18A16 16 0 0 1 2 46V18A16 16 0 0 1 18 2zm2 13a5 5 0 0 0-5 5v24a5 5 0 0 0 5 5h24a5 5 0 0 0 5-5V20a5 5 0 0 0-5-5z"/>
+    <path fill="#4F7CFF" d="M28 41h9l20 21h-9z"/>
+  </svg>
+  {% if wordmark is not False %}<span class="text-[1.35rem] font-bold leading-none tracking-[-0.03em]">Qrumy</span>{% endif %}
+</span>

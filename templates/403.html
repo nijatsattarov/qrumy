@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Access denied" %}{% endblock %}
+{% block body_class %}min-h-full bg-canvas{% endblock %}
+{% block body %}
+<main class="grid min-h-screen place-items-center px-4 text-center">
+  <div>
+    <a href="{% url 'home' %}" class="no-underline">{% include "components/logo.html" with size="h-8" %}</a>
+    <p class="eyebrow mt-10">403</p>
+    <h1 class="mt-2 text-2xl font-semibold">{% translate "Access denied" %}</h1>
+    <p class="mx-auto mt-2 max-w-sm text-sm text-muted">{% translate "You don't have permission to view this page." %}</p>
+    <a href="{% if user.is_authenticated %}{% url 'app_home' %}{% else %}{% url 'home' %}{% endif %}" class="btn btn-primary mt-6">{% if user.is_authenticated %}{% translate "Back to app" %}{% else %}{% translate "Go to homepage" %}{% endif %}</a>
+  </div>
+</main>
+{% endblock %}

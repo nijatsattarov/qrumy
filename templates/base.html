@@ -1,0 +1,24 @@
+{% load static i18n %}<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}" class="h-full">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Qrumy{% endblock %}{% block title_suffix %} · Qrumy{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}{% translate 'Qrumy — QR technology that powers smarter business operations: QR codes, customer feedback, asset tracking and event lead capture in one platform.' %}{% endblock %}">
+  {% block seo %}<meta name="robots" content="noindex, nofollow">{% endblock %}
+  <meta name="theme-color" content="#101B3A">
+  <meta name="htmx-config" content='{"includeIndicatorStyles": false, "allowEval": false, "allowScriptTags": false}'>
+  <link rel="icon" href="{% static 'brand/favicon.svg' %}" type="image/svg+xml">
+  <link rel="preload" href="{% static 'vendor/fonts/inter-latin-wght-normal.woff2' %}" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="{% static 'dist/app.css' %}">
+  <script src="{% static 'js/app.js' %}" defer></script>
+  <script src="{% static 'vendor/htmx.min.js' %}" defer></script>
+  <script src="{% static 'vendor/alpine-csp.min.js' %}" defer></script>
+  {% block extra_head %}{% endblock %}
+</head>
+<body class="{% block body_class %}min-h-full{% endblock %}" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+  {% block body %}{% endblock %}
+  {% block extra_body %}{% endblock %}
+</body>
+</html>

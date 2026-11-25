@@ -1,0 +1,18 @@
+{% extends "layouts/marketing.html" %}
+{% load i18n %}
+{% block title %}{% translate "Pricing" %}{% endblock %}
+{% block meta_description %}{% translate "Qrumy is free during the beta. See the planned plans for QR management, surveys, events and asset tracking." %}{% endblock %}
+{% block og_title %}{% translate "Qrumy pricing" %}{% endblock %}
+{% block content %}
+<section class="py-16 sm:py-20">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6">
+    <div class="mx-auto max-w-2xl text-center">
+      <p class="eyebrow">{% translate "Pricing" %}</p>
+      <h1 class="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">{% translate "Free during the beta" %}</h1>
+      <p class="mt-4 text-lg text-muted">{% translate "Every released feature is free while Qrumy is in beta. The paid plans below are our current plan for after the beta; prices may change before launch." %}</p>
+    </div>
+    <div class="mt-12">{% include "marketing/_plans.html" %}</div>
+    <p class="mt-8 text-center text-sm text-muted">{% translate "Yearly billing will include two months free. All prices in USD, excluding taxes." %}</p>
+  </div>
+</section>
+{% endblock %}

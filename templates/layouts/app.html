@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load i18n qrumy %}
+{% block body_class %}h-full bg-canvas{% endblock %}
+{% block body %}
+<div x-data="shell" class="min-h-full">
+  {# ---------- Mobile sidebar backdrop ---------- #}
+  <div x-show="sidebarOpen" x-cloak x-transition.opacity @click="closeSidebar"
+       class="fixed inset-0 z-40 bg-navy-950/50 lg:hidden"></div>
+
+  {# ---------- Sidebar ---------- #}
+  <aside :class="sidebarClass"
+         class="fixed inset-y-0 left-0 z-50 flex w-64 -translate-x-full flex-col bg-navy-900 transition-transform duration-200 lg:translate-x-0">
+    <div class="flex h-16 items-center justify-between px-5">
+      <a href="{% url 'app_home' %}" class="no-underline">{% include "components/logo.html" with tone="light" size="h-7" %}</a>
+      <button type="button" @click="closeSidebar" class="text-white/70 lg:hidden" aria-label="{% translate 'Close menu' %}">{% icon 'x' %}</button>
+    </div>
+
+    {% if current_organization %}
+    <div x-data="dropdown" @click.outside="close" class="relative px-3">
+      <button type="button" @click="toggle" class="flex w-full items-center gap-3 rounded-lg bg-white/[0.06] px-3 py-2.5 text-left hover:bg-white/[0.09]">
+        {% if current_organization.logo %}
+          <img src="{{ current_organization.logo.url }}" alt="" class="size-8 rounded-md bg-white object-contain">
+        {% else %}
+          <span class="avatar size-8 rounded-md bg-accent-500 text-xs text-white">{{ current_organization.name|initials }}</span>
+        {% endif %}
+        <span class="min-w-0 flex-1">
+          <span class="block truncate text-sm font-semibold text-white">{{ current_organization.name }}</span>
+          <span class="block text-xs text-white/50">{{ current_membership.get_role_display }}</span>
+        </span>
+        {% icon 'chevron-down' 'size-4 text-white/50' %}
+      </button>
+      <div x-show="open" x-cloak x-transition class="menu left-3 right-3">
+        <p class="px-3 pb-1 pt-2 text-xs font-medium uppercase tracking-wide text-muted">{% translate "Organizations" %}</p>
+        {% for m in user_memberships %}
+          <a href="{% url 'dashboard' org_slug=m.organization.slug %}" class="menu-item">
+            <span class="avatar size-6 rounded text-[10px]">{{ m.organization.name|initials }}</span>
+            <span class="flex-1 truncate">{{ m.organization.name }}</span>
+            {% if m.organization_id == current_organization.id %}{% icon 'check' 'size-4 text-accent-600' %}{% endif %}
+          </a>
+        {% endfor %}
+        <div class="divider my-1.5"></div>
+        <a href="{% url 'organization_create' %}" class="menu-item">{% icon 'plus' 'size-4 text-muted' %}{% translate "New organization" %}</a>
+      </div>
+    </div>
+    {% endif %}
+
+    <nav class="mt-5 flex-1 space-y-6 overflow-y-auto px-3" aria-label="{% translate 'Main' %}">
+      <div class="space-y-0.5">
+        {% for item in nav_items %}{% if item.section == "main" %}
+          <a href="{{ item.url }}" class="nav-link{% if item.active %} is-active{% endif %}" {% if item.active %}aria-current="page"{% endif %}>{% icon item.icon 'size-[18px]' %}{{ item.label }}</a>
+        {% endif %}{% endfor %}
+      </div>
+      <div>
+        <p class="px-3 pb-2 text-[11px] font-semibold uppercase tracking-[0.1em] text-white/35">{% translate "Workspace" %}</p>
+        <div class="space-y-0.5">
+          {% for item in nav_items %}{% if item.section == "workspace" %}
+            <a href="{{ item.url }}" class="nav-link{% if item.active %} is-active{% endif %}" {% if item.active %}aria-current="page"{% endif %}>{% icon item.icon 'size-[18px]' %}{{ item.label }}</a>
+          {% endif %}{% endfor %}
+        </div>
+      </div>
+    </nav>
+
+    <div class="m-3 rounded-lg border border-white/10 bg-white/[0.04] p-3.5">
+      <p class="flex items-center gap-2 text-xs font-semibold text-white"><span class="size-1.5 rounded-full bg-accent-500"></span>{% translate "Free beta" %}</p>
+      <p class="mt-1 text-xs leading-relaxed text-white/55">{% translate "New modules are released here as soon as they are ready." %}</p>
+    </div>
+  </aside>
+
+  {# ---------- Main column ---------- #}
+  <div class="lg:pl-64">
+    <header class="sticky top-0 z-30 flex h-16 items-center gap-3 border-b border-line bg-surface/85 px-4 backdrop-blur sm:px-6 lg:px-8">
+      <button type="button" @click="openSidebar" class="btn-ghost -ml-1 rounded-lg p-2 lg:hidden" aria-label="{% translate 'Open menu' %}">{% icon 'menu' %}</button>
+      <div class="min-w-0 flex-1 truncate text-sm text-muted">{% block breadcrumb %}{% endblock %}</div>
+      <a href="{% url 'notifications' %}" class="btn-ghost relative rounded-lg p-2" aria-label="{% translate 'Notifications' %}">
+        {% icon 'bell' %}
+        {% if unread_notifications %}<span class="absolute right-1.5 top-1.5 size-2 rounded-full bg-accent-500 ring-2 ring-surface"></span>{% endif %}
+      </a>
+      {% include "components/user_menu.html" %}
+    </header>
+
+    <main class="mx-auto max-w-6xl px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
+      {% include "components/messages.html" %}
+      <div class="{% if messages %}mt-4{% endif %}">{% block content %}{% endblock %}</div>
+    </main>
+  </div>
+</div>
+{% endblock %}

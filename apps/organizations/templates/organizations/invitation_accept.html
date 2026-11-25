@@ -1,0 +1,24 @@
+{% extends "layouts/auth.html" %}
+{% load i18n %}
+{% block title %}{% translate "Invitation" %}{% endblock %}
+{% block content %}
+<p class="eyebrow">{% translate "Invitation" %}</p>
+<h1 class="mt-2">{% blocktranslate with org=invitation.organization.name %}Join {{ org }} on Qrumy{% endblocktranslate %}</h1>
+<p class="mt-3 text-sm leading-relaxed text-muted">
+  {% blocktranslate with inviter=invitation.invited_by.display_name|default:_("A team member") role=invitation.get_role_display email=invitation.email %}{{ inviter }} invited <strong class="text-ink">{{ email }}</strong> to join as <strong class="text-ink">{{ role }}</strong>.{% endblocktranslate %}
+</p>
+{% if error %}<div class="mt-5 rounded-lg border border-danger/20 bg-danger-soft px-4 py-3 text-sm text-danger" role="alert">{{ error }}</div>{% endif %}
+<div class="mt-8 space-y-3">
+  {% if user.is_authenticated %}
+    {% if email_matches %}
+      <form method="post">{% csrf_token %}<button type="submit" class="btn btn-primary btn-lg w-full">{% translate "Accept invitation" %}</button></form>
+    {% else %}
+      <p class="rounded-lg border border-line bg-surface px-4 py-3 text-sm">{% blocktranslate with email=user.email %}You are signed in as {{ email }}. Sign out and sign in with the invited email to accept.{% endblocktranslate %}</p>
+      <form method="post" action="{% url 'account_logout' %}">{% csrf_token %}<input type="hidden" name="next" value="{{ request.get_full_path }}"><button type="submit" class="btn btn-secondary w-full">{% translate "Sign out" %}</button></form>
+    {% endif %}
+  {% else %}
+    <a href="{% url 'account_signup' %}?next={{ request.get_full_path|urlencode }}" class="btn btn-primary btn-lg w-full">{% translate "Create an account" %}</a>
+    <a href="{% url 'account_login' %}?next={{ request.get_full_path|urlencode }}" class="btn btn-secondary btn-lg w-full">{% translate "I already have an account" %}</a>
+  {% endif %}
+</div>
+{% endblock %}

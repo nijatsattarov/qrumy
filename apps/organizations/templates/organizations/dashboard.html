@@ -1,0 +1,76 @@
+{% extends "layouts/app.html" %}
+{% load i18n qrumy humanize %}
+{% block title %}{% translate "Overview" %} — {{ current_organization.name }}{% endblock %}
+{% block breadcrumb %}{% translate "Overview" %}{% endblock %}
+{% block content %}
+<div class="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
+  <div>
+    <h1 class="page-title">{% blocktranslate with name=user.get_short_name %}Welcome, {{ name }}{% endblocktranslate %}</h1>
+    <p class="page-subtitle">{{ current_organization.name }}</p>
+  </div>
+</div>
+
+<div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+  <div class="card card-body">
+    <p class="flex items-center gap-2 text-sm text-muted">{% icon 'users' 'size-4' %}{% translate "Team members" %}</p>
+    <p class="mt-2 text-3xl font-semibold tracking-tight">{{ members_count }}</p>
+    {% if pending_count %}<p class="mt-1 text-xs text-muted">{% blocktranslate count n=pending_count %}{{ n }} pending invitation{% plural %}{{ n }} pending invitations{% endblocktranslate %}</p>{% endif %}
+  </div>
+  <div class="card card-body">
+    <p class="flex items-center gap-2 text-sm text-muted">{% icon 'card' 'size-4' %}{% translate "Plan" %}</p>
+    <p class="mt-2 text-3xl font-semibold tracking-tight">{{ plan_name|default:"—" }}</p>
+    <p class="mt-1 text-xs text-muted">{% translate "Free during the beta" %}</p>
+  </div>
+  <div class="card card-body sm:col-span-2 lg:col-span-1">
+    <p class="flex items-center gap-2 text-sm text-muted">{% icon 'sparkles' 'size-4' %}{% translate "Products" %}</p>
+    {% if QRUMY_AVAILABLE_MODULES %}
+      <p class="mt-2 text-3xl font-semibold tracking-tight">{{ QRUMY_AVAILABLE_MODULES|length }}</p>
+    {% else %}
+      <p class="mt-2 text-sm leading-relaxed text-ink">{% translate "QR Management is the first module and is being built now. It will appear in your menu as soon as it is released." %}</p>
+    {% endif %}
+  </div>
+</div>
+
+<div class="mt-6 grid gap-6 lg:grid-cols-5">
+  <section class="card lg:col-span-2">
+    <div class="card-header">
+      <h2 class="section-title">{% translate "Get started" %}</h2>
+      <span class="text-xs font-medium text-muted">{{ steps_done }}/{{ steps|length }}</span>
+    </div>
+    <ul class="divide-y divide-line">
+      {% for step in steps %}
+      <li class="flex items-center gap-3 px-5 py-3.5">
+        {% if step.done %}
+          <span class="inline-flex size-6 items-center justify-center rounded-full bg-success-soft text-success">{% icon 'check' 'size-3.5' %}</span>
+          <span class="text-sm text-muted line-through decoration-line-strong">{{ step.label }}</span>
+        {% else %}
+          <span class="size-6 rounded-full border-2 border-dashed border-line-strong"></span>
+          {% if step.url %}<a href="{% url step.url org_slug=current_organization.slug %}" class="flex-1 text-sm font-medium text-ink no-underline hover:text-accent-600">{{ step.label }}</a>{% icon 'chevron-right' 'size-4 text-muted' %}{% else %}<span class="text-sm">{{ step.label }}</span>{% endif %}
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <section class="card lg:col-span-3">
+    <div class="card-header"><h2 class="section-title">{% translate "Recent activity" %}</h2></div>
+    {% if activity %}
+    <ul class="divide-y divide-line">
+      {% for entry in activity %}
+      <li class="flex items-start gap-3 px-5 py-3.5">
+        <span class="avatar size-7 text-[10px]">{% if entry.actor %}{{ entry.actor.display_name|initials }}{% else %}Q{% endif %}</span>
+        <div class="min-w-0 flex-1">
+          <p class="text-sm"><span class="font-medium">{{ entry.actor.display_name|default:entry.actor_email|default:_("System") }}</span>
+            <span class="text-muted">{% include "organizations/_activity_label.html" with action=entry.action %}</span>
+            {% if entry.target_repr and entry.action != "organization.updated" and entry.action != "organization.created" %}<span class="font-medium">{{ entry.target_repr|truncatechars:60 }}</span>{% endif %}</p>
+          <p class="mt-0.5 text-xs text-muted">{{ entry.created_at|naturaltime }}</p>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <div class="card-body text-center"><p class="py-6 text-sm text-muted">{% translate "Activity in your organization will appear here." %}</p></div>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

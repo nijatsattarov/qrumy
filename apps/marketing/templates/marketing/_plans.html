@@ -1,0 +1,24 @@
+{% load i18n qrumy %}
+<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+  {% for plan in plans %}
+  <div class="flex flex-col rounded-2xl border {% if plan.is_beta %}border-navy-900 bg-navy-900 text-white shadow-[var(--shadow-pop)]{% else %}border-line bg-surface{% endif %} p-6">
+    <div class="flex items-center justify-between">
+      <h3 class="text-base font-semibold {% if plan.is_beta %}text-white{% endif %}">{{ plan.name }}</h3>
+      {% if plan.is_beta %}<span class="badge bg-accent-500 text-white ring-accent-500">{% translate "Available now" %}</span>{% else %}<span class="badge badge-neutral">{% translate "After beta" %}</span>{% endif %}
+    </div>
+    <p class="mt-2 text-sm {% if plan.is_beta %}text-white/70{% else %}text-muted{% endif %}">{% translate plan.description %}</p>
+    <p class="mt-5 flex items-baseline gap-1">
+      {% if plan.is_free %}<span class="text-3xl font-semibold tracking-tight">$0</span>{% else %}<span class="text-3xl font-semibold tracking-tight">${{ plan.price_monthly|floatformat:"0" }}</span><span class="text-sm {% if plan.is_beta %}text-white/60{% else %}text-muted{% endif %}">/ {% translate "month" %}</span>{% endif %}
+    </p>
+    {% if not plan.is_beta and not plan.is_free %}<p class="mt-1 text-xs text-muted">{% translate "Planned price — may change before launch" %}</p>{% endif %}
+    <ul class="mt-5 flex-1 space-y-2.5 text-sm">
+      {% for f in plan.display_features %}
+      <li class="flex items-start gap-2">{% icon 'check' 'size-4 mt-0.5 shrink-0 text-accent-500' %}<span>{{ f }}</span></li>
+      {% endfor %}
+    </ul>
+    {% if plan.is_beta %}
+      <a href="{% url 'account_signup' %}" class="btn btn-on-dark mt-6 w-full">{% translate "Join the free beta" %}</a>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>

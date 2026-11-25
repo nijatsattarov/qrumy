@@ -1,0 +1,74 @@
+# Production stack on a single VPS. Secrets come from .env (never committed).
+#   docker compose -f docker-compose.prod.yml up -d --build
+x-app: &app
+  build: { context: ., dockerfile: docker/Dockerfile }
+  image: qrumy:latest
+  env_file: .env
+  environment:
+    DJANGO_SETTINGS_MODULE: config.settings.prod
+    DATABASE_URL: postgres://qrumy:${POSTGRES_PASSWORD}@db:5432/qrumy
+    REDIS_URL: redis://redis:6379/0
+    MEDIA_ROOT: /app/media
+  volumes: [media:/app/media]
+  restart: unless-stopped
+  depends_on:
+    db: { condition: service_healthy }
+    redis: { condition: service_healthy }
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: qrumy
+      POSTGRES_USER: qrumy
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+    volumes: [pgdata:/var/lib/postgresql/data]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U qrumy"]
+      interval: 5s
+      retries: 10
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes: [redisdata:/data]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      retries: 10
+  web:
+    <<: *app
+    command: ["web"]
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings.prod
+      DATABASE_URL: postgres://qrumy:${POSTGRES_PASSWORD}@db:5432/qrumy
+      REDIS_URL: redis://redis:6379/0
+      MEDIA_ROOT: /app/media
+      RUN_MIGRATIONS: "1"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/healthz')"]
+      interval: 15s
+      retries: 5
+  worker:
+    <<: *app
+    command: ["worker"]
+  beat:
+    <<: *app
+    command: ["beat"]
+  nginx:
+    image: nginx:1.27-alpine
+    ports: ["80:80", "443:443"]
+    volumes:
+      - ./docker/nginx/qrumy.conf:/etc/nginx/conf.d/default.conf:ro
+      - media:/srv/media:ro
+      - ${CERTS_DIR:-./docker/certs}:/etc/nginx/certs:ro
+      - certbot-webroot:/var/www/certbot
+    depends_on: [web]
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  redisdata:
+  media:
+  certbot-webroot:
