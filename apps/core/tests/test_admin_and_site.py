@@ -95,3 +95,7 @@ def test_hash_ip_is_salted_and_not_reversible():
 def test_healthz_bypasses_host_validation(client, settings):
     settings.ALLOWED_HOSTS = ["qrumy.com"]
     assert client.get("/healthz", HTTP_HOST="127.0.0.1:8000").status_code == 200
+
+
+def test_permissions_policy_header(client):
+    assert "camera=()" in client.get("/")["Permissions-Policy"]

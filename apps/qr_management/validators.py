@@ -18,9 +18,29 @@ def _host_matches(host: str, domains) -> bool:
     return any(host == d or host.endswith("." + d) for d in domains)
 
 
-def validate_destination_url(url: str) -> str:
+BLOCKLIST_CACHE_KEY = "qr:blocked-domains"
+
+
+def blocked_domains() -> set[str]:
+    """Settings + staff-managed blocklist, cached for 5 minutes (cleared on change)."""
+    from django.core.cache import cache
+
     from .models import BlockedDomain
 
+    domains = cache.get(BLOCKLIST_CACHE_KEY)
+    if domains is None:
+        domains = set(getattr(settings, "QRUMY_BLOCKED_DOMAINS", []))
+        domains.update(BlockedDomain.objects.values_list("domain", flat=True))
+        cache.set(BLOCKLIST_CACHE_KEY, domains, 300)
+    return domains
+
+
+def is_blocked(url: str) -> bool:
+    host = (urlsplit(url or "").hostname or "").lower().rstrip(".")
+    return bool(host) and _host_matches(host, blocked_domains())
+
+
+def validate_destination_url(url: str) -> str:
     url = (url or "").strip()
     if len(url) > MAX_URL_LENGTH:
         raise ValidationError(_("The link is too long."))
@@ -39,9 +59,7 @@ def validate_destination_url(url: str) -> str:
     own = urlsplit(settings.QRUMY_QR_BASE_URL)
     if host == (own.hostname or "") and parts.path.startswith(own.path):
         raise ValidationError(_("A QR code cannot point to another Qrumy short link."))
-    blocked = set(getattr(settings, "QRUMY_BLOCKED_DOMAINS", []))
-    blocked.update(BlockedDomain.objects.values_list("domain", flat=True))
-    if _host_matches(host, blocked):
+    if _host_matches(host, blocked_domains()):
         raise ValidationError(_("This destination is not allowed on Qrumy."))
     if not url_reputation_ok(url):
         raise ValidationError(_("This link was flagged as unsafe and cannot be used."))

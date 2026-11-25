@@ -22,6 +22,7 @@ from apps.organizations.permissions import require_capability, require_module
 from . import redirect_cache
 from .models import HostedFile, QRCode
 from .types import get_type
+from .validators import is_blocked
 
 
 def _build_info(qr: QRCode) -> dict:
@@ -83,7 +84,9 @@ def _choose_app_url(payload: dict, user_agent: str) -> str:
 
 @never_cache
 @require_http_methods(["GET", "HEAD"])
-@ratelimit(key="ip", rate="120/m", block=True)
+# Never block a scan: many real people can share one IP (mobile carrier NAT, event Wi-Fi).
+# Above the rate, people are still redirected but the scans are not counted.
+@ratelimit(key="ip", rate="300/m", block=False)
 def scan(request, code):
     try:
         info = _load(code)
@@ -100,6 +103,12 @@ def scan(request, code):
     if info["expires_at"] and datetime.fromisoformat(info["expires_at"]) <= timezone.now():
         return _status_page(request, info, "expired", 410)
 
+    if not getattr(request, "limited", False):
+        _record(request, info)
+    return _respond(request, info, code)
+
+
+def _record(request, info):
     record_scan(qr_code_id=info["id"], organization_id=info["org"], ip=client_ip(request),
                 user_agent=request.META.get("HTTP_USER_AGENT", ""),
                 referrer=request.META.get("HTTP_REFERER", ""), query=request.GET,
@@ -107,11 +116,17 @@ def scan(request, code):
                 country_header=request.META.get(settings.QRUMY_COUNTRY_HEADER, "")
                 if settings.QRUMY_COUNTRY_HEADER else "")
 
+
+def _respond(request, info, code):
     kind = info["kind"]
     if kind == "redirect":
+        if is_blocked(info["dest"]):  # domain blocked after the code was created
+            return _status_page(request, info, "suspended", 410)
         return _no_store(HttpResponseRedirect(info["dest"]))
     if kind == "app":
         url = _choose_app_url(info["payload"], request.META.get("HTTP_USER_AGENT", ""))
+        if url and is_blocked(url):
+            return _status_page(request, info, "suspended", 410)
         if url:
             return _no_store(HttpResponseRedirect(url))
         return _no_store(render(request, "qr_management/public/app.html", {"info": info}))

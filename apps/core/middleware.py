@@ -55,3 +55,19 @@ class HealthCheckMiddleware:
 
             return healthz(request)
         return self.get_response(request)
+
+
+class SecurityHeadersMiddleware:
+    """Headers Django doesn't set itself. Camera access is not needed by any page
+    (photo uploads use the file picker, which doesn't require the permission)."""
+
+    POLICY = ("camera=(), microphone=(), geolocation=(), payment=(), usb=(), "
+              "interest-cohort=()")
+
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        response = self.get_response(request)
+        response.setdefault("Permissions-Policy", self.POLICY)
+        return response

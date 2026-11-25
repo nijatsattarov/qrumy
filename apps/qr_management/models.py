@@ -186,3 +186,17 @@ class BlockedDomain(models.Model):
     def save(self, *args, **kwargs):
         self.domain = self.domain.strip().lower().lstrip(".")
         super().save(*args, **kwargs)
+        _clear_blocklist_cache()
+
+    def delete(self, *args, **kwargs):
+        result = super().delete(*args, **kwargs)
+        _clear_blocklist_cache()
+        return result
+
+
+def _clear_blocklist_cache() -> None:
+    from django.core.cache import cache
+
+    from .validators import BLOCKLIST_CACHE_KEY
+
+    cache.delete(BLOCKLIST_CACHE_KEY)

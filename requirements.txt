@@ -21,3 +21,4 @@ ua-parser[regex]==1.0.2
 geoip2==5.4.0
 gunicorn==27.0.1
 whitenoise==6.12.0
+sentry-sdk==3.0.1

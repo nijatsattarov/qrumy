@@ -76,6 +76,7 @@ MIDDLEWARE = [
     "allauth.account.middleware.AccountMiddleware",
     "django_htmx.middleware.HtmxMiddleware",
     "csp.middleware.CSPMiddleware",
+    "apps.core.middleware.SecurityHeadersMiddleware",
     "apps.core.middleware.AdminAccessMiddleware",
     "apps.organizations.middleware.OrganizationMiddleware",
 ]

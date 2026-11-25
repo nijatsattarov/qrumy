@@ -215,3 +215,43 @@ def test_svg_bytes_never_used_as_logo(make_org, make_qr):
                      files={"s-logo": svg}, prefix="s")
     assert not form.is_valid() and "logo" in form.errors
     assert io  # keep import used
+
+
+def test_domain_blocked_after_creation_stops_redirect(client, make_org, make_qr):
+    from apps.qr_management.models import BlockedDomain
+
+    qr = make_qr(make_org(), payload={"url": "https://phish.example/login"})
+    assert _scan(client, qr).status_code == 302  # cached as a redirect
+    BlockedDomain.objects.create(domain="phish.example", reason="phishing")
+    resp = _scan(client, qr)
+    assert resp.status_code == 410 and "Location" not in resp
+
+
+def test_cached_scan_needs_no_database_queries(settings, client, make_org, make_qr,
+                                               django_assert_num_queries):
+    """The hot path: cache hit + Redis scan buffer → zero SQL queries per scan."""
+    redis = pytest.importorskip("redis")
+    try:
+        redis.Redis.from_url(settings.REDIS_URL).ping()
+    except Exception:  # noqa: BLE001
+        pytest.skip("Redis not available")
+    from apps.analytics.ingest import BUFFER_KEY, _redis
+
+    settings.QRUMY_SCAN_BUFFER = "redis"
+    qr = make_qr(make_org())
+    _scan(client, qr)  # warms the code and blocklist caches
+    with django_assert_num_queries(0):
+        resp = _scan(client, qr)
+    assert resp.status_code == 302
+    _redis().delete(BUFFER_KEY)
+
+
+def test_rate_limited_scans_still_redirect_but_are_not_counted(settings, client, make_org,
+                                                               make_qr):
+    settings.CACHES = {"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+                                   "LOCATION": "ratelimit-test"}}
+    qr = make_qr(make_org())
+    for _ in range(305):
+        resp = _scan(client, qr)
+        assert resp.status_code == 302  # people behind a shared IP are never blocked
+    assert Scan.objects.count() == 300
