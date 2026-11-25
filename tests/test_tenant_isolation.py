@@ -15,7 +15,13 @@ from apps.organizations.models import Invitation, Membership
 
 pytestmark = pytest.mark.django_db
 
-OBJECT_ROUTES_COVERED = {"team_member_role", "team_member_remove", "team_invitation_revoke"}
+OBJECT_ROUTES_COVERED = {
+    "team_member_role", "team_member_remove", "team_invitation_revoke",
+    # QR Management
+    "qr_detail", "qr_edit", "qr_set_status", "qr_delete", "qr_download", "qr_landing_preview",
+    "qr_analytics_export", "qr_folder_rename", "qr_folder_delete",
+    "qr_create",  # extra kwarg is a type key, not an object id
+}
 
 
 def _org_routes():
@@ -57,7 +63,9 @@ def test_foreign_org_slug_is_404_for_every_route(client, two_orgs):
     victim, _, attacker = two_orgs
     client.force_login(attacker)
     for name, route in _org_routes():
-        kwargs = {"org_slug": victim.slug, **dict.fromkeys(_extra_kwargs(route), 1)}
+        extra = {k: ("svg" if k == "fmt" else "url" if k == "type_key" else 1)
+                 for k in _extra_kwargs(route)}
+        kwargs = {"org_slug": victim.slug, **extra}
         url = reverse(name, kwargs=kwargs)
         assert client.get(url).status_code == 404, url
         assert client.post(url, {}).status_code == 404, url
@@ -112,3 +120,86 @@ def test_for_org_requires_organization():
 
     with pytest.raises(ValueError):
         Subscription.objects.for_org(None)
+
+
+@pytest.fixture
+def victim_qr(two_orgs, make_qr):
+    victim, _, _ = two_orgs
+    return make_qr(victim, name="Victim code")
+
+
+QR_OBJECT_ROUTES = [
+    ("qr_detail", {}, "get"), ("qr_edit", {}, "get"), ("qr_set_status", {}, "post"),
+    ("qr_delete", {}, "post"), ("qr_download", {"fmt": "png"}, "get"),
+    ("qr_landing_preview", {}, "get"), ("qr_analytics_export", {}, "get"),
+]
+
+
+@pytest.mark.parametrize("name,extra,method", QR_OBJECT_ROUTES)
+def test_cannot_touch_foreign_qr_codes(client, two_orgs, victim_qr, name, extra, method):
+    _, attacker_org, attacker = two_orgs
+    client.force_login(attacker)
+    url = reverse(name, kwargs={"org_slug": attacker_org.slug, "pk": victim_qr.pk, **extra})
+    resp = getattr(client, method)(url, {"status": "paused"} if method == "post" else None)
+    assert resp.status_code == 404
+    victim_qr.refresh_from_db()
+    assert victim_qr.status == "active" and victim_qr.deleted_at is None
+
+
+def test_bulk_action_ignores_foreign_ids(client, two_orgs, victim_qr):
+    _, attacker_org, attacker = two_orgs
+    client.force_login(attacker)
+    client.post(reverse("qr_bulk_action", kwargs={"org_slug": attacker_org.slug}),
+                {"ids": [victim_qr.pk], "action": "delete"})
+    victim_qr.refresh_from_db()
+    assert victim_qr.deleted_at is None
+    resp = client.post(reverse("qr_bulk_action", kwargs={"org_slug": attacker_org.slug}),
+                       {"ids": [victim_qr.pk], "action": "export_png"})
+    assert resp["Content-Type"] != "application/zip"
+
+
+def test_cannot_touch_foreign_folders(client, two_orgs):
+    from apps.qr_management.models import Folder
+
+    victim, attacker_org, attacker = two_orgs
+    folder = Folder.objects.create(organization=victim, name="Secret")
+    client.force_login(attacker)
+    for name in ("qr_folder_rename", "qr_folder_delete"):
+        url = reverse(name, kwargs={"org_slug": attacker_org.slug, "folder_id": folder.pk})
+        assert client.post(url, {"name": "pwned"}).status_code == 404
+    folder.refresh_from_db()
+    assert folder.name == "Secret"
+
+
+def test_cannot_file_codes_into_foreign_folder(client, two_orgs):
+    from apps.qr_management.models import Folder, QRCode
+
+    victim, attacker_org, attacker = two_orgs
+    folder = Folder.objects.create(organization=victim, name="Secret")
+    client.force_login(attacker)
+    client.post(reverse("qr_create", kwargs={"org_slug": attacker_org.slug, "type_key": "url"}), {
+        "c-url": "https://example.com", "meta-name": "x", "meta-mode": "dynamic",
+        "meta-folder": folder.pk, "s-fg": "#101B3A", "s-bg": "#FFFFFF",
+        "s-eye_color": "#101B3A", "s-module_shape": "square", "s-eye_frame": "square",
+        "s-eye_ball": "square", "s-frame": "none", "s-frame_color": "#101B3A"})
+    assert not QRCode.objects.filter(folder=folder).exists()
+
+
+def test_analytics_never_include_foreign_scans(client, two_orgs, victim_qr):
+    _, attacker_org, attacker = two_orgs
+    client.get(f"/q/{victim_qr.short_code}", HTTP_USER_AGENT="Mozilla/5.0 (iPhone; Mobile)")
+    client.force_login(attacker)
+    resp = client.get(reverse("analytics_overview", kwargs={"org_slug": attacker_org.slug}))
+    assert resp.context["totals"]["scans"] == 0
+    csv = client.get(reverse("analytics_export", kwargs={"org_slug": attacker_org.slug}))
+    assert b"Victim code" not in csv.content
+
+
+def test_preview_cannot_read_foreign_logo(client, two_orgs, victim_qr):
+    _, attacker_org, attacker = two_orgs
+    client.force_login(attacker)
+    resp = client.post(reverse("qr_preview", kwargs={"org_slug": attacker_org.slug}), {
+        "type": "url", "qr": victim_qr.pk, "s-fg": "#101B3A", "s-bg": "#FFFFFF",
+        "s-eye_color": "#101B3A", "s-module_shape": "square", "s-eye_frame": "square",
+        "s-eye_ball": "square", "s-frame": "none", "s-frame_color": "#101B3A"})
+    assert victim_qr.short_code.encode() not in resp.content

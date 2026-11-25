@@ -8,6 +8,7 @@ from django.urls import include, path
 from apps.accounts.views import set_language
 from apps.core import views as core_views
 from apps.marketing.sitemaps import StaticViewSitemap
+from apps.qr_management import urls as qr_urls
 
 admin.site.site_header = "Qrumy"
 
@@ -17,6 +18,8 @@ urlpatterns = [
     path("accounts/", include("allauth.urls")),
     path("i18n/setlang/", set_language, name="set_language"),
     path("app/<slug:org_slug>/billing/", include("apps.billing.urls")),
+    path("app/<slug:org_slug>/", include(qr_urls.app_urlpatterns)),
+    path("q/", include(qr_urls.public_urlpatterns)),
     path("app/", include("apps.organizations.urls")),
     path("invitations/", include("apps.organizations.invitation_urls")),
     path("notifications/", include("apps.notifications.urls")),

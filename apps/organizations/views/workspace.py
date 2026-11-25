@@ -5,7 +5,7 @@ from django.utils import timezone
 from django.utils.translation import gettext as _
 
 from apps.audit_logs.models import AuditLog
-from apps.core import quotas
+from apps.core import quotas, widgets
 
 from .. import services
 from ..forms import OrganizationCreateForm, OrganizationSettingsForm
@@ -57,6 +57,7 @@ def dashboard(request, org_slug):
         "members_count": members, "pending_count": pending, "activity": activity,
         "steps": steps, "steps_done": sum(s["done"] for s in steps),
         "plan_name": quotas.plan_name(org),
+        "widgets": widgets.for_request(request),
     })
 
 

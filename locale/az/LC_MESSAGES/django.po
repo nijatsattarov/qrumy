@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-25 11:27+0000\n"
+"POT-Creation-Date: 2026-11-25 12:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -94,12 +94,29 @@ msgstr "istifadəçilər"
 
 #: apps/accounts/templates/accounts/profile.html:10
 #: apps/organizations/templates/organizations/settings.html:16
+#: apps/qr_management/templates/qr_management/form.html:77
 msgid "Save changes"
 msgstr "Dəyişiklikləri saxla"
 
 #: apps/accounts/views.py:17
 msgid "Your profile has been updated."
 msgstr "Profiliniz yeniləndi."
+
+#: apps/analytics/apps.py:8 apps/qr_management/navigation.py:11
+#: apps/qr_management/templates/qr_management/analytics.html:3
+#: apps/qr_management/templates/qr_management/analytics.html:4
+#: apps/qr_management/templates/qr_management/analytics.html:9
+msgid "Analytics"
+msgstr "Analitika"
+
+#: apps/analytics/models.py:31
+msgid "scan"
+msgstr "skan"
+
+#: apps/analytics/models.py:32 apps/qr_management/models.py:94
+#: apps/qr_management/templates/qr_management/list.html:123
+msgid "scans"
+msgstr "skan"
 
 #: apps/audit_logs/apps.py:8
 msgid "Audit logs"
@@ -162,7 +179,7 @@ msgstr "audit qeydi"
 msgid "audit log"
 msgstr "audit jurnalı"
 
-#: apps/billing/admin.py:11
+#: apps/billing/admin.py:11 apps/qr_management/admin.py:12
 msgid "Reason"
 msgstr "Səbəb"
 
@@ -323,6 +340,7 @@ msgid "Scans, last 14 days"
 msgstr "Skanlar, son 14 gün"
 
 #: apps/marketing/templates/marketing/home.html:45
+#: apps/qr_management/templates/qr_management/_breakdown.html:8
 msgid "Mobile"
 msgstr "Mobil"
 
@@ -536,7 +554,8 @@ msgstr ""
 "İllik ödənişdə iki ay pulsuz olacaq. Bütün qiymətlər ABŞ dolları ilə, "
 "vergilər daxil edilmədən göstərilib."
 
-#: apps/marketing/views.py:9 apps/subscriptions/features.py:21
+#: apps/marketing/views.py:9 apps/qr_management/apps.py:8
+#: apps/subscriptions/features.py:21
 msgid "QR Management"
 msgstr "QR İdarəetmə"
 
@@ -820,11 +839,16 @@ msgstr "Loqo 2 MB-dan böyük olmamalıdır."
 msgid "Upload a valid PNG, JPEG or WebP image."
 msgstr "Düzgün PNG, JPEG və ya WebP şəkli yükləyin."
 
-#: apps/organizations/forms.py:50
+#: apps/organizations/forms.py:36 apps/organizations/models.py:49
+msgid "website"
+msgstr "veb sayt"
+
+#: apps/organizations/forms.py:53 apps/qr_management/types.py:82
+#: apps/qr_management/types.py:287
 msgid "Email"
 msgstr "E-poçt"
 
-#: apps/organizations/forms.py:51 apps/organizations/forms.py:62
+#: apps/organizations/forms.py:54 apps/organizations/forms.py:65
 #: apps/organizations/templates/organizations/team.html:33
 msgid "Role"
 msgstr "Rol"
@@ -874,6 +898,7 @@ msgid "Public sector & non-profit"
 msgstr "Dövlət sektoru və qeyri-kommersiya"
 
 #: apps/organizations/models.py:34
+#: apps/qr_management/templates/qr_management/_breakdown.html:8
 msgid "Other"
 msgstr "Digər"
 
@@ -885,11 +910,16 @@ msgstr "Standart"
 msgid "Agency"
 msgstr "Agentlik"
 
-#: apps/organizations/models.py:43 apps/subscriptions/models.py:58
+#: apps/organizations/models.py:43 apps/qr_management/forms.py:119
+#: apps/qr_management/models.py:71
+#: apps/qr_management/templates/qr_management/_status_badge.html:1
+#: apps/subscriptions/models.py:58
 msgid "Active"
 msgstr "Aktiv"
 
-#: apps/organizations/models.py:44
+#: apps/organizations/models.py:44 apps/qr_management/forms.py:120
+#: apps/qr_management/models.py:73
+#: apps/qr_management/templates/qr_management/_status_badge.html:1
 msgid "Suspended"
 msgstr "Dayandırılıb"
 
@@ -901,13 +931,9 @@ msgstr "təşkilatın adı"
 msgid "URL name"
 msgstr "URL adı"
 
-#: apps/organizations/models.py:48
+#: apps/organizations/models.py:48 apps/qr_management/models.py:83
 msgid "logo"
 msgstr "loqo"
-
-#: apps/organizations/models.py:49
-msgid "website"
-msgstr "veb sayt"
 
 #: apps/organizations/models.py:50
 msgid "industry"
@@ -941,11 +967,12 @@ msgstr "sahib"
 msgid "managed by"
 msgstr "idarə edən"
 
-#: apps/organizations/models.py:63
+#: apps/organizations/models.py:63 apps/qr_management/models.py:76
 msgid "type"
 msgstr "növ"
 
-#: apps/organizations/models.py:65 apps/subscriptions/models.py:70
+#: apps/organizations/models.py:65 apps/qr_management/models.py:85
+#: apps/subscriptions/models.py:70
 msgid "status"
 msgstr "status"
 
@@ -993,6 +1020,7 @@ msgstr "Komanda"
 #: apps/organizations/navigation.py:13
 #: apps/organizations/templates/organizations/settings.html:3
 #: apps/organizations/templates/organizations/settings.html:4
+#: apps/qr_management/templates/qr_management/form.html:42
 msgid "Settings"
 msgstr "Ayarlar"
 
@@ -1131,6 +1159,38 @@ msgid "left the organization"
 msgstr "təşkilatı tərk etdi"
 
 #: apps/organizations/templates/organizations/_activity_label.html:1
+msgid "created QR code"
+msgstr "QR kod yaratdı:"
+
+#: apps/organizations/templates/organizations/_activity_label.html:1
+msgid "updated QR code"
+msgstr "QR kodu yenilədi:"
+
+#: apps/organizations/templates/organizations/_activity_label.html:1
+msgid "deleted QR code"
+msgstr "QR kodu sildi:"
+
+#: apps/organizations/templates/organizations/_activity_label.html:1
+msgid "paused QR code"
+msgstr "QR kodu dayandırdı:"
+
+#: apps/organizations/templates/organizations/_activity_label.html:1
+msgid "activated QR code"
+msgstr "QR kodu aktivləşdirdi:"
+
+#: apps/organizations/templates/organizations/_activity_label.html:1
+msgid "Qrumy suspended QR code"
+msgstr "Qrumy QR kodu blokladı:"
+
+#: apps/organizations/templates/organizations/_activity_label.html:1
+msgid "created folder"
+msgstr "qovluq yaratdı:"
+
+#: apps/organizations/templates/organizations/_activity_label.html:1
+msgid "deleted folder"
+msgstr "qovluğu sildi:"
+
+#: apps/organizations/templates/organizations/_activity_label.html:1
 msgid "changed the plan"
 msgstr "planı dəyişdi"
 
@@ -1162,6 +1222,7 @@ msgid "Create organization"
 msgstr "Təşkilat yarat"
 
 #: apps/organizations/templates/organizations/create.html:12
+#: apps/qr_management/templates/qr_management/form.html:78
 msgid "Cancel"
 msgstr "Ləğv et"
 
@@ -1192,27 +1253,27 @@ msgstr "Plan"
 msgid "Products"
 msgstr "Məhsullar"
 
-#: apps/organizations/templates/organizations/dashboard.html:29
+#: apps/organizations/templates/organizations/dashboard.html:26
 msgid ""
-"QR Management is the first module and is being built now. It will appear in "
-"your menu as soon as it is released."
+"QR Management is available. Surveys, Events and Assets are coming next and "
+"will appear in your menu when released."
 msgstr ""
-"QR İdarəetmə ilk moduldur və hazırda hazırlanır. Buraxılan kimi menyunuzda "
-"görünəcək."
+"QR İdarəetmə artıq mövcuddur. Növbəti Sorğular, Tədbirlər və Aktivlər "
+"gələcək və buraxılan kimi menyunuzda görünəcək."
 
-#: apps/organizations/templates/organizations/dashboard.html:37
+#: apps/organizations/templates/organizations/dashboard.html:35
 msgid "Get started"
 msgstr "Başlanğıc"
 
-#: apps/organizations/templates/organizations/dashboard.html:56
+#: apps/organizations/templates/organizations/dashboard.html:54
 msgid "Recent activity"
 msgstr "Son fəaliyyət"
 
-#: apps/organizations/templates/organizations/dashboard.html:63
+#: apps/organizations/templates/organizations/dashboard.html:61
 msgid "System"
 msgstr "Sistem"
 
-#: apps/organizations/templates/organizations/dashboard.html:72
+#: apps/organizations/templates/organizations/dashboard.html:70
 msgid "Activity in your organization will appear here."
 msgstr "Təşkilatınızdakı fəaliyyət burada görünəcək."
 
@@ -1359,6 +1420,7 @@ msgid "you"
 msgstr "siz"
 
 #: apps/organizations/templates/organizations/team.html:37
+#: apps/qr_management/templates/qr_management/list.html:45
 msgid "Save"
 msgstr "Saxla"
 
@@ -1447,9 +1509,1394 @@ msgstr "Qrumy-yə xoş gəldiniz! Təşkilatınız hazırdır."
 msgid "Complete your organization profile"
 msgstr "Təşkilat profilinizi tamamlayın"
 
-#: apps/organizations/views/workspace.py:70
+#: apps/organizations/views/workspace.py:71
 msgid "Organization settings saved."
 msgstr "Təşkilat ayarları saxlanıldı."
+
+#: apps/qr_management/admin.py:31
+msgid "Suspend selected QR codes (abuse)"
+msgstr "Seçilmiş QR kodları blokla (sui-istifadə)"
+
+#: apps/qr_management/admin.py:39
+msgid "Selected QR codes were suspended."
+msgstr "Seçilmiş QR kodlar bloklandı."
+
+#: apps/qr_management/admin.py:45
+msgid "Suspend QR codes"
+msgstr "QR kodları blokla"
+
+#: apps/qr_management/admin.py:47
+msgid "Lift suspension (set active)"
+msgstr "Bloku götür (aktiv et)"
+
+#: apps/qr_management/admin.py:59
+msgid "Suspension lifted."
+msgstr "Blok götürüldü."
+
+#: apps/qr_management/bulk.py:29
+msgid "The file must be 1 MB or smaller."
+msgstr "Fayl 1 MB-dan böyük olmamalıdır."
+
+#: apps/qr_management/bulk.py:34
+msgid "Save the file as UTF-8 CSV."
+msgstr "Faylı UTF-8 CSV kimi saxlayın."
+
+#: apps/qr_management/bulk.py:43
+msgid "The first row must contain the column names, including 'url'."
+msgstr "Birinci sətirdə sütun adları olmalıdır, o cümlədən 'url'."
+
+#: apps/qr_management/bulk.py:51
+#, python-format
+msgid "Only %(n)s rows can be imported at once."
+msgstr "Bir dəfəyə ən çox %(n)s sətir idxal etmək olar."
+
+#: apps/qr_management/bulk.py:57
+#, python-format
+msgid "Row %(line)s: %(error)s"
+msgstr "Sətir %(line)s: %(error)s"
+
+#: apps/qr_management/bulk.py:63
+msgid "The file has no rows to import."
+msgstr "Faylda idxal ediləcək sətir yoxdur."
+
+#: apps/qr_management/engine/verify.py:33
+msgid ""
+"Use a dark code color on a light background — many scanners cannot read "
+"inverted codes."
+msgstr ""
+"Açıq fonda tünd kod rəngi istifadə edin — bir çox skaner tərs rəngli kodları"
+" oxuya bilmir."
+
+#: apps/qr_management/engine/verify.py:37
+msgid "Increase the contrast between the code colors and the background."
+msgstr "Kodun rəngləri ilə fon arasındakı kontrastı artırın."
+
+#: apps/qr_management/engine/verify.py:42
+msgid "The frame color is too close to the background color."
+msgstr "Çərçivənin rəngi fonun rənginə çox yaxındır."
+
+#: apps/qr_management/files.py:30
+#, python-format
+msgid "The file must be %(mb)s MB or smaller."
+msgstr "Fayl %(mb)s MB-dan böyük olmamalıdır."
+
+#: apps/qr_management/files.py:33
+msgid "This file type is not supported here."
+msgstr "Bu fayl növü burada dəstəklənmir."
+
+#: apps/qr_management/forms.py:14 apps/qr_management/forms.py:121
+msgid "Name"
+msgstr "Ad"
+
+#: apps/qr_management/forms.py:15
+msgid "Only you see this name."
+msgstr "Bu adı yalnız siz görürsünüz."
+
+#: apps/qr_management/forms.py:16
+msgid "Type of code"
+msgstr "Kodun növü"
+
+#: apps/qr_management/forms.py:17
+#: apps/qr_management/templates/qr_management/list.html:101
+msgid "Folder"
+msgstr "Qovluq"
+
+#: apps/qr_management/forms.py:18 apps/qr_management/forms.py:108
+#: apps/qr_management/templates/qr_management/list.html:25
+#: apps/qr_management/templates/qr_management/list.html:102
+msgid "No folder"
+msgstr "Qovluqsuz"
+
+#: apps/qr_management/forms.py:19
+msgid "Tags"
+msgstr "Etiketlər"
+
+#: apps/qr_management/forms.py:20
+msgid "Separate with commas."
+msgstr "Vergüllə ayırın."
+
+#: apps/qr_management/forms.py:21
+msgid "Expires at"
+msgstr "Bitmə vaxtı"
+
+#: apps/qr_management/forms.py:23
+msgid "Dynamic codes stop working after this time."
+msgstr "Dinamik kodlar bu vaxtdan sonra işləmir."
+
+#: apps/qr_management/forms.py:28
+msgid "Dynamic — editable later, with scan analytics"
+msgstr "Dinamik — sonradan dəyişdirilə bilər, skan analitikası ilə"
+
+#: apps/qr_management/forms.py:29
+msgid "Static — content stored in the code, no analytics"
+msgstr "Statik — məzmun kodun içindədir, analitika yoxdur"
+
+#: apps/qr_management/forms.py:42
+msgid "Static codes cannot expire."
+msgstr "Statik kodların bitmə vaxtı ola bilməz."
+
+#: apps/qr_management/forms.py:47
+msgid "Code color"
+msgstr "Kodun rəngi"
+
+#: apps/qr_management/forms.py:49
+msgid "Background"
+msgstr "Fon"
+
+#: apps/qr_management/forms.py:51
+msgid "Corner color"
+msgstr "Künclərin rəngi"
+
+#: apps/qr_management/forms.py:53
+msgid "Pattern"
+msgstr "Naxış"
+
+#: apps/qr_management/forms.py:54 apps/qr_management/forms.py:56
+#: apps/qr_management/forms.py:58
+msgid "Square"
+msgstr "Kvadrat"
+
+#: apps/qr_management/forms.py:54 apps/qr_management/forms.py:56
+#: apps/qr_management/forms.py:58
+msgid "Rounded"
+msgstr "Yumru künclü"
+
+#: apps/qr_management/forms.py:54
+msgid "Dots"
+msgstr "Nöqtələr"
+
+#: apps/qr_management/forms.py:55
+msgid "Corner frame"
+msgstr "Künc çərçivəsi"
+
+#: apps/qr_management/forms.py:56 apps/qr_management/forms.py:58
+msgid "Circle"
+msgstr "Dairə"
+
+#: apps/qr_management/forms.py:57
+msgid "Corner dot"
+msgstr "Künc nöqtəsi"
+
+#: apps/qr_management/forms.py:59
+msgid "Frame"
+msgstr "Çərçivə"
+
+#: apps/qr_management/forms.py:60
+msgid "None"
+msgstr "Yoxdur"
+
+#: apps/qr_management/forms.py:60
+msgid "Label below"
+msgstr "Yazı aşağıda"
+
+#: apps/qr_management/forms.py:60
+msgid "Label above"
+msgstr "Yazı yuxarıda"
+
+#: apps/qr_management/forms.py:61
+msgid "Button below"
+msgstr "Düymə aşağıda"
+
+#: apps/qr_management/forms.py:62
+msgid "Frame color"
+msgstr "Çərçivənin rəngi"
+
+#: apps/qr_management/forms.py:64
+msgid "Call to action"
+msgstr "Çağırış mətni"
+
+#: apps/qr_management/forms.py:66
+msgid "Scan me"
+msgstr "Skan edin"
+
+#: apps/qr_management/forms.py:67
+msgid "Logo"
+msgstr "Loqo"
+
+#: apps/qr_management/forms.py:70
+msgid "Remove logo"
+msgstr "Loqonu sil"
+
+#: apps/qr_management/forms.py:82
+msgid "The logo must be 1 MB or smaller."
+msgstr "Loqo 1 MB-dan böyük olmamalıdır."
+
+#: apps/qr_management/forms.py:86
+msgid "Upload a PNG, JPEG or WebP image."
+msgstr "PNG, JPEG və ya WebP şəkli yükləyin."
+
+#: apps/qr_management/forms.py:104
+msgid "CSV file"
+msgstr "CSV faylı"
+
+#: apps/qr_management/forms.py:106
+msgid "Put codes in folder"
+msgstr "Kodları qovluğa yerləşdir"
+
+#: apps/qr_management/forms.py:116
+#: apps/qr_management/templates/qr_management/list.html:32
+#: apps/qr_management/templates/qr_management/list.html:44
+msgid "Folder name"
+msgstr "Qovluğun adı"
+
+#: apps/qr_management/forms.py:119
+msgid "All statuses"
+msgstr "Bütün statuslar"
+
+#: apps/qr_management/forms.py:119 apps/qr_management/models.py:72
+#: apps/qr_management/templates/qr_management/_status_badge.html:1
+msgid "Paused"
+msgstr "Dayandırılıb"
+
+#: apps/qr_management/forms.py:120
+#: apps/qr_management/templates/qr_management/_status_badge.html:1
+#: apps/subscriptions/models.py:61
+msgid "Expired"
+msgstr "Müddəti bitib"
+
+#: apps/qr_management/forms.py:121
+msgid "Newest"
+msgstr "Ən yenilər"
+
+#: apps/qr_management/forms.py:121
+msgid "Most scans"
+msgstr "Ən çox skan"
+
+#: apps/qr_management/forms.py:122
+msgid "Recently scanned"
+msgstr "Son skan edilənlər"
+
+#: apps/qr_management/models.py:35 apps/qr_management/models.py:49
+#: apps/qr_management/models.py:75 apps/subscriptions/models.py:10
+msgid "name"
+msgstr "ad"
+
+#: apps/qr_management/models.py:39 apps/qr_management/models.py:90
+msgid "folder"
+msgstr "qovluq"
+
+#: apps/qr_management/models.py:40
+msgid "folders"
+msgstr "qovluqlar"
+
+#: apps/qr_management/models.py:67
+#: apps/qr_management/templates/qr_management/choose_type.html:15
+#: apps/qr_management/templates/qr_management/list.html:77
+msgid "Static"
+msgstr "Statik"
+
+#: apps/qr_management/models.py:68
+#: apps/qr_management/templates/qr_management/choose_type.html:15
+#: apps/qr_management/templates/qr_management/list.html:76
+#: apps/qr_management/templates/qr_management/widgets/overview.html:9
+msgid "Dynamic"
+msgstr "Dinamik"
+
+#: apps/qr_management/models.py:77
+msgid "mode"
+msgstr "rejim"
+
+#: apps/qr_management/models.py:81
+msgid "content"
+msgstr "məzmun"
+
+#: apps/qr_management/models.py:82
+msgid "design"
+msgstr "dizayn"
+
+#: apps/qr_management/models.py:87
+msgid "suspension reason"
+msgstr "bloklama səbəbi"
+
+#: apps/qr_management/models.py:88 apps/subscriptions/models.py:107
+msgid "expires at"
+msgstr "bitmə vaxtı"
+
+#: apps/qr_management/models.py:91
+msgid "tags"
+msgstr "etiketlər"
+
+#: apps/qr_management/models.py:95
+msgid "last scan"
+msgstr "son skan"
+
+#: apps/qr_management/models.py:102
+msgid "QR code"
+msgstr "QR kod"
+
+#: apps/qr_management/models.py:103
+#: apps/qr_management/templates/qr_management/widgets/overview.html:8
+msgid "QR codes"
+msgstr "QR kodlar"
+
+#: apps/qr_management/models.py:174
+msgid "domain"
+msgstr "domen"
+
+#: apps/qr_management/models.py:175 apps/subscriptions/models.py:106
+msgid "reason"
+msgstr "səbəb"
+
+#: apps/qr_management/models.py:180
+msgid "blocked domain"
+msgstr "bloklanmış domen"
+
+#: apps/qr_management/models.py:181
+msgid "blocked domains"
+msgstr "bloklanmış domenlər"
+
+#: apps/qr_management/navigation.py:9
+#: apps/qr_management/templates/qr_management/bulk.html:4
+#: apps/qr_management/templates/qr_management/choose_type.html:4
+#: apps/qr_management/templates/qr_management/detail.html:5
+#: apps/qr_management/templates/qr_management/form.html:4
+#: apps/qr_management/templates/qr_management/list.html:3
+#: apps/qr_management/templates/qr_management/list.html:4
+#: apps/qr_management/templates/qr_management/list.html:8
+#: apps/qr_management/templates/qr_management/widgets/overview.html:4
+msgid "QR Codes"
+msgstr "QR kodlar"
+
+#: apps/qr_management/services.py:31
+#, python-format
+msgid ""
+"Your plan allows %(limit)s dynamic QR codes. Pause is not enough — delete "
+"unused codes or upgrade your plan."
+msgstr ""
+"Planınız %(limit)s dinamik QR koda icazə verir. Dayandırmaq kifayət deyil — "
+"istifadə olunmayan kodları silin və ya planınızı yüksəldin."
+
+#: apps/qr_management/services.py:49
+msgid ""
+"This design cannot be scanned reliably. Increase the contrast, make the logo"
+" smaller or choose simpler shapes."
+msgstr ""
+"Bu dizayn etibarlı şəkildə skan olunmur. Kontrastı artırın, loqonu kiçildin "
+"və ya daha sadə formalar seçin."
+
+#: apps/qr_management/services.py:69
+#, python-format
+msgid "This QR type cannot be %(mode)s."
+msgstr "Bu QR növü %(mode)s ola bilməz."
+
+#: apps/qr_management/services.py:73
+msgid "Upload a file."
+msgstr "Fayl yükləyin."
+
+#: apps/qr_management/services.py:116
+msgid "This QR code was suspended by Qrumy and cannot be changed."
+msgstr "Bu QR kod Qrumy tərəfindən bloklanıb və dəyişdirilə bilməz."
+
+#: apps/qr_management/services.py:118
+msgid "Invalid status."
+msgstr "Yanlış status."
+
+#: apps/qr_management/templates/admin/qr_management/suspend.html:6
+msgid "The following QR codes will stop working and show a 'disabled' page:"
+msgstr "Aşağıdakı QR kodlar işləməyəcək və 'deaktiv' səhifəsi göstərəcək:"
+
+#: apps/qr_management/templates/admin/qr_management/suspend.html:11
+msgid "Suspend"
+msgstr "Blokla"
+
+#: apps/qr_management/templates/qr_management/_breakdown.html:8
+msgid "Tablet"
+msgstr "Planşet"
+
+#: apps/qr_management/templates/qr_management/_breakdown.html:8
+msgid "Desktop"
+msgstr "Kompüter"
+
+#: apps/qr_management/templates/qr_management/_breakdown.html:14
+msgid "No data yet."
+msgstr "Hələ məlumat yoxdur."
+
+#: apps/qr_management/templates/qr_management/_chart.html:3
+#: apps/qr_management/templates/qr_management/_chart.html:6
+#: apps/qr_management/templates/qr_management/analytics.html:19
+#: apps/qr_management/templates/qr_management/detail.html:74
+#: apps/qr_management/templates/qr_management/detail.html:81
+msgid "Scans"
+msgstr "Skanlar"
+
+#: apps/qr_management/templates/qr_management/_chart.html:3
+#: apps/qr_management/templates/qr_management/analytics.html:26
+msgid "Scans per day"
+msgstr "Gündəlik skanlar"
+
+#: apps/qr_management/templates/qr_management/_chart.html:5
+msgid "Show as table"
+msgstr "Cədvəl kimi göstər"
+
+#: apps/qr_management/templates/qr_management/_chart.html:6
+msgid "Date"
+msgstr "Tarix"
+
+#: apps/qr_management/templates/qr_management/_content_summary.html:5
+msgid "Network"
+msgstr "Şəbəkə"
+
+#: apps/qr_management/templates/qr_management/_content_summary.html:11
+#, python-format
+msgid "%(n)s link"
+msgid_plural "%(n)s links"
+msgstr[0] "%(n)s link"
+msgstr[1] "%(n)s link"
+
+#: apps/qr_management/templates/qr_management/_content_summary.html:14
+msgid "Preview page"
+msgstr "Səhifəyə önizləmə"
+
+#: apps/qr_management/templates/qr_management/_period.html:2
+msgid "Time range"
+msgstr "Dövr"
+
+#: apps/qr_management/templates/qr_management/_preview.html:3
+msgid "Check the design fields to see a preview."
+msgstr "Önizləməni görmək üçün dizayn sahələrini yoxlayın."
+
+#: apps/qr_management/templates/qr_management/_preview.html:9
+msgid "Test scan passed"
+msgstr "Test skanı uğurludur"
+
+#: apps/qr_management/templates/qr_management/_preview.html:11
+msgid "This design could not be scanned. Try more contrast or a smaller logo."
+msgstr ""
+"Bu dizayn skan olunmadı. Daha çox kontrast və ya daha kiçik loqo sınayın."
+
+#: apps/qr_management/templates/qr_management/analytics.html:10
+msgid "Scans of all dynamic QR codes in this organization."
+msgstr "Bu təşkilatdakı bütün dinamik QR kodların skanları."
+
+#: apps/qr_management/templates/qr_management/analytics.html:20
+#: apps/qr_management/templates/qr_management/detail.html:82
+msgid "Unique (estimated)"
+msgstr "Unikal (təxmini)"
+
+#: apps/qr_management/templates/qr_management/analytics.html:21
+msgid "Dynamic codes"
+msgstr "Dinamik kodlar"
+
+#: apps/qr_management/templates/qr_management/analytics.html:30
+msgid "Top QR codes"
+msgstr "Ən çox skan edilən QR kodlar"
+
+#: apps/qr_management/templates/qr_management/analytics.html:35
+msgid "No scans in this period."
+msgstr "Bu dövrdə skan yoxdur."
+
+#: apps/qr_management/templates/qr_management/analytics.html:41
+#: apps/qr_management/templates/qr_management/detail.html:90
+msgid ""
+"Locations are approximate and based on IP address. Visitor IP addresses are "
+"never stored. Bots and link previews are excluded."
+msgstr ""
+"Yerləşmə məlumatları təxminidir və IP ünvanına əsaslanır. Ziyarətçilərin IP "
+"ünvanları heç vaxt saxlanılmır. Botlar və link önizləmələri nəzərə alınmır."
+
+#: apps/qr_management/templates/qr_management/bulk.html:3
+#: apps/qr_management/templates/qr_management/bulk.html:4
+#: apps/qr_management/templates/qr_management/list.html:13
+msgid "Bulk create"
+msgstr "Toplu yaratma"
+
+#: apps/qr_management/templates/qr_management/bulk.html:6
+msgid "Bulk create from CSV"
+msgstr "CSV-dən toplu yaratma"
+
+#: apps/qr_management/templates/qr_management/bulk.html:7
+msgid ""
+"Create many dynamic website QR codes at once. You can edit each one later."
+msgstr ""
+"Bir dəfəyə çoxlu dinamik veb sayt QR kodu yaradın. Hər birini sonradan "
+"dəyişə bilərsiniz."
+
+#: apps/qr_management/templates/qr_management/bulk.html:9
+msgid "Bulk creation is not included in your current plan."
+msgstr "Toplu yaratma cari planınıza daxil deyil."
+
+#: apps/qr_management/templates/qr_management/bulk.html:16
+msgid "Nothing was created. Fix these rows and upload again:"
+msgstr "Heç nə yaradılmadı. Bu sətirləri düzəldib yenidən yükləyin:"
+
+#: apps/qr_management/templates/qr_management/bulk.html:18
+#, python-format
+msgid "…and %(n)s more."
+msgstr "…və daha %(n)s."
+
+#: apps/qr_management/templates/qr_management/bulk.html:22
+msgid "Create QR codes"
+msgstr "QR kodları yarat"
+
+#: apps/qr_management/templates/qr_management/bulk.html:25
+msgid "File format"
+msgstr "Faylın formatı"
+
+#: apps/qr_management/templates/qr_management/bulk.html:27
+msgid "required, the destination"
+msgstr "məcburi, yönləndirmə ünvanı"
+
+#: apps/qr_management/templates/qr_management/bulk.html:28
+#: templates/components/forms/field.html:6
+msgid "optional"
+msgstr "istəyə bağlı"
+
+#: apps/qr_management/templates/qr_management/bulk.html:29
+msgid "optional, comma-separated"
+msgstr "istəyə bağlı, vergüllə ayrılmış"
+
+#: apps/qr_management/templates/qr_management/bulk.html:31
+#, python-format
+msgid ""
+"UTF-8 CSV, up to %(max_rows)s rows. All rows are checked first; if any row "
+"has an error, nothing is created."
+msgstr ""
+"UTF-8 CSV, ən çox %(max_rows)s sətir. Əvvəlcə bütün sətirlər yoxlanılır; hər"
+" hansı sətirdə xəta olarsa, heç nə yaradılmır."
+
+#: apps/qr_management/templates/qr_management/bulk.html:32
+msgid "Download template"
+msgstr "Şablonu yüklə"
+
+#: apps/qr_management/templates/qr_management/choose_type.html:3
+#: apps/qr_management/templates/qr_management/form.html:3
+#: apps/qr_management/templates/qr_management/form.html:77
+#: apps/qr_management/templates/qr_management/list.html:14
+#: apps/qr_management/templates/qr_management/list.html:149
+msgid "Create QR code"
+msgstr "QR kod yarat"
+
+#: apps/qr_management/templates/qr_management/choose_type.html:4
+msgid "New"
+msgstr "Yeni"
+
+#: apps/qr_management/templates/qr_management/choose_type.html:6
+msgid "What should the QR code do?"
+msgstr "QR kod nə etməlidir?"
+
+#: apps/qr_management/templates/qr_management/choose_type.html:7
+msgid "Choose a type. You can design the code in the next step."
+msgstr "Növü seçin. Kodun dizaynını növbəti addımda edəcəksiniz."
+
+#: apps/qr_management/templates/qr_management/detail.html:10
+#, python-format
+msgid "created %(date)s"
+msgstr "yaradılıb: %(date)s"
+
+#: apps/qr_management/templates/qr_management/detail.html:14
+msgid "Edit"
+msgstr "Redaktə et"
+
+#: apps/qr_management/templates/qr_management/detail.html:17
+#: apps/qr_management/templates/qr_management/list.html:98
+msgid "Pause"
+msgstr "Dayandır"
+
+#: apps/qr_management/templates/qr_management/detail.html:18
+#: apps/qr_management/templates/qr_management/list.html:98
+msgid "Activate"
+msgstr "Aktivləşdir"
+
+#: apps/qr_management/templates/qr_management/detail.html:23
+msgid ""
+"Delete this QR code? Printed copies will stop working and the short link "
+"will never be reused."
+msgstr ""
+"Bu QR kod silinsin? Çap olunmuş nüsxələr işləməyəcək və qısa link bir daha "
+"istifadə olunmayacaq."
+
+#: apps/qr_management/templates/qr_management/detail.html:23
+msgid "Delete this QR code?"
+msgstr "Bu QR kod silinsin?"
+
+#: apps/qr_management/templates/qr_management/detail.html:24
+#: apps/qr_management/templates/qr_management/list.html:99
+msgid "Delete"
+msgstr "Sil"
+
+#: apps/qr_management/templates/qr_management/detail.html:31
+msgid ""
+"This QR code was suspended by Qrumy because its destination breaks our "
+"rules. Scans show a 'disabled' page. Contact support if you think this is a "
+"mistake."
+msgstr ""
+"Bu QR kod yönləndirdiyi ünvan qaydalarımızı pozduğu üçün Qrumy tərəfindən "
+"bloklanıb. Skan edənlər 'deaktiv' səhifəsini görür. Səhv olduğunu "
+"düşünürsünüzsə, dəstək xidməti ilə əlaqə saxlayın."
+
+#: apps/qr_management/templates/qr_management/detail.html:47
+msgid "SVG is best for print."
+msgstr "Çap üçün ən yaxşısı SVG-dir."
+
+#: apps/qr_management/templates/qr_management/detail.html:53
+msgid "Short link"
+msgstr "Qısa link"
+
+#: apps/qr_management/templates/qr_management/detail.html:56
+msgid "Copy link"
+msgstr "Linki kopyala"
+
+#: apps/qr_management/templates/qr_management/detail.html:58
+msgid "Add ?utm_source=flyer to track where scans come from."
+msgstr ""
+"Skanların haradan gəldiyini izləmək üçün ?utm_source=flyer əlavə edin."
+
+#: apps/qr_management/templates/qr_management/detail.html:62
+msgid "Opens"
+msgstr "Açır"
+
+#: apps/qr_management/templates/qr_management/detail.html:62
+msgid "Encoded content"
+msgstr "Kodlaşdırılmış məzmun"
+
+#: apps/qr_management/templates/qr_management/detail.html:65
+msgid "Expires"
+msgstr "Bitmə vaxtı"
+
+#: apps/qr_management/templates/qr_management/detail.html:77
+msgid "Export CSV"
+msgstr "CSV ixrac et"
+
+#: apps/qr_management/templates/qr_management/detail.html:83
+msgid "All time"
+msgstr "Bütün dövr"
+
+#: apps/qr_management/templates/qr_management/detail.html:92
+msgid "You don't have access to analytics."
+msgstr "Analitikaya girişiniz yoxdur."
+
+#: apps/qr_management/templates/qr_management/detail.html:95
+msgid "Static code — no analytics"
+msgstr "Statik kod — analitika yoxdur"
+
+#: apps/qr_management/templates/qr_management/detail.html:96
+msgid ""
+"The content is stored directly in the pattern, so scans don't reach Qrumy "
+"and can't be counted or redirected. Create a dynamic code to edit it after "
+"printing and see scan statistics."
+msgstr ""
+"Məzmun birbaşa naxışın içində saxlanılır, ona görə skanlar Qrumy-yə çatmır "
+"və sayıla və ya yönləndirilə bilmir. Çapdan sonra dəyişmək və skan "
+"statistikasını görmək üçün dinamik kod yaradın."
+
+#: apps/qr_management/templates/qr_management/form.html:3
+#: apps/qr_management/templates/qr_management/form.html:9
+msgid "Edit QR code"
+msgstr "QR kodu redaktə et"
+
+#: apps/qr_management/templates/qr_management/form.html:9
+#, python-format
+msgid "New %(t)s QR code"
+msgstr "Yeni QR kod: %(t)s"
+
+#: apps/qr_management/templates/qr_management/form.html:23
+msgid "Content"
+msgstr "Məzmun"
+
+#: apps/qr_management/templates/qr_management/form.html:25
+msgid ""
+"This is a static code: changing the content changes the printed pattern. "
+"Codes already printed will keep the old content."
+msgstr ""
+"Bu statik koddur: məzmunu dəyişmək naxışı dəyişir. Artıq çap olunmuş kodlar "
+"köhnə məzmunu saxlayacaq."
+
+#: apps/qr_management/templates/qr_management/form.html:30
+#: apps/qr_management/types.py:186
+msgid "File"
+msgstr "Fayl"
+
+#: apps/qr_management/templates/qr_management/form.html:32
+#, python-format
+msgid ""
+"Current file: %(name)s. Upload a new file to replace it — the QR code stays "
+"the same."
+msgstr ""
+"Cari fayl: %(name)s. Əvəz etmək üçün yeni fayl yükləyin — QR kod dəyişməz "
+"qalır."
+
+#: apps/qr_management/templates/qr_management/form.html:32
+msgid "PDF, PNG, JPEG or WebP, depending on the type."
+msgstr "Növdən asılı olaraq PDF, PNG, JPEG və ya WebP."
+
+#: apps/qr_management/templates/qr_management/form.html:53
+msgid "Design"
+msgstr "Dizayn"
+
+#: apps/qr_management/templates/qr_management/form.html:60
+msgid ""
+"Every design is test-scanned before it is saved. Logos are placed in the "
+"center with extra error correction."
+msgstr ""
+"Hər dizayn yadda saxlanmazdan əvvəl test skanından keçir. Loqo əlavə xəta "
+"korreksiyası ilə mərkəzdə yerləşdirilir."
+
+#: apps/qr_management/templates/qr_management/form.html:67
+msgid "Preview"
+msgstr "Önizləmə"
+
+#: apps/qr_management/templates/qr_management/form.html:76
+#, python-format
+msgid "Dynamic codes in use: %(n)s"
+msgstr "İstifadədə olan dinamik kodlar: %(n)s"
+
+#: apps/qr_management/templates/qr_management/list.html:9
+#, python-format
+msgid "%(used)s dynamic codes in use"
+msgstr "İstifadədə olan dinamik kodlar: %(used)s"
+
+#: apps/qr_management/templates/qr_management/list.html:22
+msgid "Folders"
+msgstr "Qovluqlar"
+
+#: apps/qr_management/templates/qr_management/list.html:24
+msgid "All codes"
+msgstr "Bütün kodlar"
+
+#: apps/qr_management/templates/qr_management/list.html:33
+msgid "New folder"
+msgstr "Yeni qovluq"
+
+#: apps/qr_management/templates/qr_management/list.html:34
+msgid "Add folder"
+msgstr "Qovluq əlavə et"
+
+#: apps/qr_management/templates/qr_management/list.html:40
+msgid "Folder options"
+msgstr "Qovluq parametrləri"
+
+#: apps/qr_management/templates/qr_management/list.html:48
+msgid "Delete this folder? QR codes inside will be kept."
+msgstr "Bu qovluq silinsin? İçindəki QR kodlar saxlanılacaq."
+
+#: apps/qr_management/templates/qr_management/list.html:49
+msgid "Delete folder"
+msgstr "Qovluğu sil"
+
+#: apps/qr_management/templates/qr_management/list.html:64
+msgid "Search"
+msgstr "Axtar"
+
+#: apps/qr_management/templates/qr_management/list.html:65
+msgid "Search by name, tag or short code"
+msgstr "Ad, etiket və ya qısa koda görə axtarın"
+
+#: apps/qr_management/templates/qr_management/list.html:67
+msgid "Type"
+msgstr "Növ"
+
+#: apps/qr_management/templates/qr_management/list.html:68
+msgid "All types"
+msgstr "Bütün növlər"
+
+#: apps/qr_management/templates/qr_management/list.html:71
+msgid "Status"
+msgstr "Status"
+
+#: apps/qr_management/templates/qr_management/list.html:74
+msgid "Mode"
+msgstr "Rejim"
+
+#: apps/qr_management/templates/qr_management/list.html:75
+msgid "Static & dynamic"
+msgstr "Statik və dinamik"
+
+#: apps/qr_management/templates/qr_management/list.html:79
+msgid "Sort"
+msgstr "Sıralama"
+
+#: apps/qr_management/templates/qr_management/list.html:82
+msgid "Filter"
+msgstr "Filtr"
+
+#: apps/qr_management/templates/qr_management/list.html:93
+msgid "Select all"
+msgstr "Hamısını seç"
+
+#: apps/qr_management/templates/qr_management/list.html:93
+msgid "codes"
+msgstr "kod"
+
+#: apps/qr_management/templates/qr_management/list.html:93
+msgid "selected"
+msgstr "seçilib"
+
+#: apps/qr_management/templates/qr_management/list.html:95
+msgid "Action"
+msgstr "Əməliyyat"
+
+#: apps/qr_management/templates/qr_management/list.html:96
+msgid "Download PNG (ZIP)"
+msgstr "PNG yüklə (ZIP)"
+
+#: apps/qr_management/templates/qr_management/list.html:97
+msgid "Download SVG (ZIP)"
+msgstr "SVG yüklə (ZIP)"
+
+#: apps/qr_management/templates/qr_management/list.html:98
+msgid "Move to folder"
+msgstr "Qovluğa köçür"
+
+#: apps/qr_management/templates/qr_management/list.html:105
+msgid "Apply this action to the selected codes?"
+msgstr "Bu əməliyyat seçilmiş kodlara tətbiq edilsin?"
+
+#: apps/qr_management/templates/qr_management/list.html:105
+msgid "Apply"
+msgstr "Tətbiq et"
+
+#: apps/qr_management/templates/qr_management/list.html:111
+#, python-format
+msgid "Select %(name)s"
+msgstr "%(name)s seç"
+
+#: apps/qr_management/templates/qr_management/list.html:123
+msgid "not tracked"
+msgstr "izlənmir"
+
+#: apps/qr_management/templates/qr_management/list.html:131
+msgid "Pagination"
+msgstr "Səhifələmə"
+
+#: apps/qr_management/templates/qr_management/list.html:132
+#, python-format
+msgid "Page %(n)s of %(total)s"
+msgstr "Səhifə %(n)s / %(total)s"
+
+#: apps/qr_management/templates/qr_management/list.html:134
+msgid "Previous"
+msgstr "Əvvəlki"
+
+#: apps/qr_management/templates/qr_management/list.html:135
+msgid "Next"
+msgstr "Növbəti"
+
+#: apps/qr_management/templates/qr_management/list.html:141
+msgid "No QR codes match these filters."
+msgstr "Bu filtrlərə uyğun QR kod yoxdur."
+
+#: apps/qr_management/templates/qr_management/list.html:142
+msgid "Clear filters"
+msgstr "Filtrləri təmizlə"
+
+#: apps/qr_management/templates/qr_management/list.html:147
+#: apps/qr_management/templates/qr_management/widgets/overview.html:15
+msgid "Create your first QR code"
+msgstr "İlk QR kodunuzu yaradın"
+
+#: apps/qr_management/templates/qr_management/list.html:148
+msgid ""
+"Dynamic codes can be edited after printing and show where every scan comes "
+"from."
+msgstr ""
+"Dinamik kodları çapdan sonra da dəyişmək olar və onlar hər skanın haradan "
+"gəldiyini göstərir."
+
+#: apps/qr_management/templates/qr_management/public/base.html:14
+msgid "Preview — this visit is not counted as a scan."
+msgstr "Önizləmə — bu baxış skan kimi sayılmır."
+
+#: apps/qr_management/templates/qr_management/public/base.html:17
+msgid "Powered by"
+msgstr "Təqdim edir:"
+
+#: apps/qr_management/templates/qr_management/public/coupon.html:13
+msgid "Your code"
+msgstr "Kodunuz"
+
+#: apps/qr_management/templates/qr_management/public/coupon.html:15
+msgid "Copy code"
+msgstr "Kodu kopyala"
+
+#: apps/qr_management/templates/qr_management/public/coupon.html:15
+msgid "Copied"
+msgstr "Kopyalandı"
+
+#: apps/qr_management/templates/qr_management/public/coupon.html:19
+#, python-format
+msgid "Valid until %(d)s"
+msgstr "%(d)s tarixinədək etibarlıdır"
+
+#: apps/qr_management/templates/qr_management/public/coupon.html:23
+msgid "Use offer"
+msgstr "Təklifdən istifadə et"
+
+#: apps/qr_management/templates/qr_management/public/status.html:3
+#: apps/qr_management/templates/qr_management/public/status.html:7
+msgid "Temporarily inactive"
+msgstr "Müvəqqəti olaraq aktiv deyil"
+
+#: apps/qr_management/templates/qr_management/public/status.html:3
+#: apps/qr_management/templates/qr_management/public/status.html:7
+msgid "This QR code has expired"
+msgstr "Bu QR kodun müddəti bitib"
+
+#: apps/qr_management/templates/qr_management/public/status.html:3
+#: apps/qr_management/templates/qr_management/public/status.html:7
+msgid "This QR code is disabled"
+msgstr "Bu QR kod deaktiv edilib"
+
+#: apps/qr_management/templates/qr_management/public/status.html:3
+#: apps/qr_management/templates/qr_management/public/status.html:7
+msgid "QR code not found"
+msgstr "QR kod tapılmadı"
+
+#: apps/qr_management/templates/qr_management/public/status.html:8
+msgid "The owner has paused this QR code. Please try again later."
+msgstr "Sahibi bu QR kodu dayandırıb. Zəhmət olmasa sonra yenidən cəhd edin."
+
+#: apps/qr_management/templates/qr_management/public/status.html:8
+msgid "The campaign behind this QR code has ended."
+msgstr "Bu QR koda aid kampaniya başa çatıb."
+
+#: apps/qr_management/templates/qr_management/public/status.html:8
+msgid "This QR code was disabled by Qrumy because it broke our rules."
+msgstr "Bu QR kod qaydalarımızı pozduğu üçün Qrumy tərəfindən deaktiv edilib."
+
+#: apps/qr_management/templates/qr_management/public/status.html:8
+msgid "This QR code doesn't exist or is no longer in use."
+msgstr "Bu QR kod mövcud deyil və ya artıq istifadə olunmur."
+
+#: apps/qr_management/templates/qr_management/public/vcard.html:19
+msgid "Save contact"
+msgstr "Kontaktı yadda saxla"
+
+#: apps/qr_management/templates/qr_management/widgets/overview.html:5
+msgid "View all"
+msgstr "Hamısına bax"
+
+#: apps/qr_management/templates/qr_management/widgets/overview.html:10
+msgid "Scans, 30 days"
+msgstr "Skanlar, 30 gün"
+
+#: apps/qr_management/types.py:29 apps/qr_management/types.py:31
+msgid "Enter a valid phone number."
+msgstr "Düzgün telefon nömrəsi daxil edin."
+
+#: apps/qr_management/types.py:54
+msgid "Website URL"
+msgstr "Veb saytın ünvanı"
+
+#: apps/qr_management/types.py:58 apps/qr_management/types.py:279
+msgid "Text"
+msgstr "Mətn"
+
+#: apps/qr_management/types.py:63
+msgid "Network name (SSID)"
+msgstr "Şəbəkənin adı (SSID)"
+
+#: apps/qr_management/types.py:64
+msgid "Security"
+msgstr "Təhlükəsizlik"
+
+#: apps/qr_management/types.py:65
+msgid "No password"
+msgstr "Şifrəsiz"
+
+#: apps/qr_management/types.py:66 templates/components/user_menu.html:13
+#: templates/layouts/account.html:18
+msgid "Password"
+msgstr "Şifrə"
+
+#: apps/qr_management/types.py:67
+msgid "Hidden network"
+msgstr "Gizli şəbəkə"
+
+#: apps/qr_management/types.py:72
+msgid "Enter the network password."
+msgstr "Şəbəkənin şifrəsini daxil edin."
+
+#: apps/qr_management/types.py:77
+msgid "First name"
+msgstr "Ad"
+
+#: apps/qr_management/types.py:78
+msgid "Last name"
+msgstr "Soyad"
+
+#: apps/qr_management/types.py:79
+msgid "Company"
+msgstr "Şirkət"
+
+#: apps/qr_management/types.py:80
+msgid "Job title"
+msgstr "Vəzifə"
+
+#: apps/qr_management/types.py:81
+msgid "Phone"
+msgstr "Telefon"
+
+#: apps/qr_management/types.py:83 apps/qr_management/types.py:258
+msgid "Website"
+msgstr "Veb sayt"
+
+#: apps/qr_management/types.py:84
+msgid "Address"
+msgstr "Ünvan"
+
+#: apps/qr_management/types.py:85
+msgid "Note"
+msgstr "Qeyd"
+
+#: apps/qr_management/types.py:90 apps/qr_management/types.py:94
+msgid "Phone number"
+msgstr "Telefon nömrəsi"
+
+#: apps/qr_management/types.py:95 apps/qr_management/types.py:102
+msgid "Message"
+msgstr "Mesaj"
+
+#: apps/qr_management/types.py:100
+msgid "Email address"
+msgstr "E-poçt ünvanı"
+
+#: apps/qr_management/types.py:101
+msgid "Subject"
+msgstr "Mövzu"
+
+#: apps/qr_management/types.py:107
+msgid "WhatsApp number (with country code)"
+msgstr "WhatsApp nömrəsi (ölkə kodu ilə)"
+
+#: apps/qr_management/types.py:108
+msgid "Pre-filled message"
+msgstr "Hazır mesaj"
+
+#: apps/qr_management/types.py:113
+msgid "Latitude"
+msgstr "En dairəsi"
+
+#: apps/qr_management/types.py:115
+msgid "Longitude"
+msgstr "Uzunluq dairəsi"
+
+#: apps/qr_management/types.py:117
+msgid "Place name"
+msgstr "Məkanın adı"
+
+#: apps/qr_management/types.py:121
+msgid "Page title"
+msgstr "Səhifənin başlığı"
+
+#: apps/qr_management/types.py:122 apps/qr_management/types.py:173
+msgid "Description"
+msgstr "Təsvir"
+
+#: apps/qr_management/types.py:125
+msgid "Links"
+msgstr "Linklər"
+
+#: apps/qr_management/types.py:126
+msgid "One per line: Label | https://example.com (up to 12 links)."
+msgstr "Hər sətirdə bir: Ad | https://example.com (ən çox 12 link)."
+
+#: apps/qr_management/types.py:142
+#, python-format
+msgid "Line %(n)s: %(error)s"
+msgstr "Sətir %(n)s: %(error)s"
+
+#: apps/qr_management/types.py:145
+msgid "Add at least one link."
+msgstr "Ən azı bir link əlavə edin."
+
+#: apps/qr_management/types.py:147
+msgid "You can add up to 12 links."
+msgstr "Ən çox 12 link əlavə edə bilərsiniz."
+
+#: apps/qr_management/types.py:159
+msgid "App name"
+msgstr "Tətbiqin adı"
+
+#: apps/qr_management/types.py:160
+msgid "App Store link"
+msgstr "App Store linki"
+
+#: apps/qr_management/types.py:161
+msgid "Google Play link"
+msgstr "Google Play linki"
+
+#: apps/qr_management/types.py:162
+msgid "Link for other devices"
+msgstr "Digər cihazlar üçün link"
+
+#: apps/qr_management/types.py:167
+msgid "Add at least one store link."
+msgstr "Ən azı bir mağaza linki əlavə edin."
+
+#: apps/qr_management/types.py:172
+msgid "Offer title"
+msgstr "Təklifin başlığı"
+
+#: apps/qr_management/types.py:175
+msgid "Coupon code"
+msgstr "Kupon kodu"
+
+#: apps/qr_management/types.py:176
+msgid "Valid until"
+msgstr "Etibarlılıq tarixi"
+
+#: apps/qr_management/types.py:178
+msgid "Terms"
+msgstr "Şərtlər"
+
+#: apps/qr_management/types.py:180
+msgid "Button label"
+msgstr "Düymənin mətni"
+
+#: apps/qr_management/types.py:181
+msgid "Button link"
+msgstr "Düymənin linki"
+
+#: apps/qr_management/types.py:185
+msgid "Title"
+msgstr "Başlıq"
+
+#: apps/qr_management/types.py:258
+msgid "Open any web page"
+msgstr "İstənilən veb səhifəni açın"
+
+#: apps/qr_management/types.py:260
+msgid "Multi-link & social"
+msgstr "Çoxlu link və sosial şəbəkələr"
+
+#: apps/qr_management/types.py:261
+msgid "A mobile page with several links"
+msgstr "Bir neçə linkdən ibarət mobil səhifə"
+
+#: apps/qr_management/types.py:262
+msgid "PDF"
+msgstr "PDF"
+
+#: apps/qr_management/types.py:262
+msgid "Share a PDF document"
+msgstr "PDF sənəd paylaşın"
+
+#: apps/qr_management/types.py:264 templates/layouts/marketing.html:37
+msgid "Menu"
+msgstr "Menyu"
+
+#: apps/qr_management/types.py:264
+msgid "Restaurant menu as PDF or image"
+msgstr "PDF və ya şəkil şəklində restoran menyusu"
+
+#: apps/qr_management/types.py:267
+msgid "Image"
+msgstr "Şəkil"
+
+#: apps/qr_management/types.py:267
+msgid "Show an image"
+msgstr "Şəkil göstərin"
+
+#: apps/qr_management/types.py:269
+msgid "Contact card"
+msgstr "Vizit kartı"
+
+#: apps/qr_management/types.py:269
+msgid "Save contact details (vCard)"
+msgstr "Əlaqə məlumatlarını saxlayın (vCard)"
+
+#: apps/qr_management/types.py:271
+msgid "WhatsApp"
+msgstr "WhatsApp"
+
+#: apps/qr_management/types.py:271
+msgid "Start a WhatsApp chat"
+msgstr "WhatsApp söhbəti başladın"
+
+#: apps/qr_management/types.py:273
+msgid "Location"
+msgstr "Məkan"
+
+#: apps/qr_management/types.py:273
+msgid "Open a place on the map"
+msgstr "Xəritədə məkanı açın"
+
+#: apps/qr_management/types.py:275
+msgid "App download"
+msgstr "Tətbiq yükləmə"
+
+#: apps/qr_management/types.py:275
+msgid "Send people to the right app store"
+msgstr "İnsanları düzgün tətbiq mağazasına yönləndirin"
+
+#: apps/qr_management/types.py:277
+msgid "Coupon"
+msgstr "Kupon"
+
+#: apps/qr_management/types.py:277
+msgid "Show a discount or offer"
+msgstr "Endirim və ya təklif göstərin"
+
+#: apps/qr_management/types.py:279
+msgid "Show a short text"
+msgstr "Qısa mətn göstərin"
+
+#: apps/qr_management/types.py:281
+msgid "Wi-Fi"
+msgstr "Wi-Fi"
+
+#: apps/qr_management/types.py:281
+msgid "Join a Wi-Fi network"
+msgstr "Wi-Fi şəbəkəsinə qoşulun"
+
+#: apps/qr_management/types.py:283
+msgid "Phone call"
+msgstr "Zəng"
+
+#: apps/qr_management/types.py:283
+msgid "Call a number"
+msgstr "Nömrəyə zəng edin"
+
+#: apps/qr_management/types.py:285
+msgid "SMS"
+msgstr "SMS"
+
+#: apps/qr_management/types.py:285
+msgid "Send a text message"
+msgstr "SMS göndərin"
+
+#: apps/qr_management/types.py:287
+msgid "Write an email"
+msgstr "E-poçt yazın"
+
+#: apps/qr_management/validators.py:26
+msgid "The link is too long."
+msgstr "Link çox uzundur."
+
+#: apps/qr_management/validators.py:29
+msgid "Enter a full web address starting with https:// or http://."
+msgstr "https:// və ya http:// ilə başlayan tam veb ünvan daxil edin."
+
+#: apps/qr_management/validators.py:31
+msgid "Links with embedded usernames or passwords are not allowed."
+msgstr "İçində istifadəçi adı və ya şifrə olan linklərə icazə verilmir."
+
+#: apps/qr_management/validators.py:38
+msgid "This address is not allowed."
+msgstr "Bu ünvana icazə verilmir."
+
+#: apps/qr_management/validators.py:41
+msgid "A QR code cannot point to another Qrumy short link."
+msgstr "QR kod başqa Qrumy qısa linkinə yönləndirə bilməz."
+
+#: apps/qr_management/validators.py:45
+msgid "This destination is not allowed on Qrumy."
+msgstr "Bu ünvana Qrumy-də icazə verilmir."
+
+#: apps/qr_management/validators.py:47
+msgid "This link was flagged as unsafe and cannot be used."
+msgstr "Bu link təhlükəli kimi işarələnib və istifadə edilə bilməz."
+
+#: apps/qr_management/views/bulk.py:31
+#, python-format
+msgid "%(n)s QR codes created."
+msgstr "%(n)s QR kod yaradıldı."
+
+#: apps/qr_management/views/codes.py:139
+msgid "QR code created."
+msgstr "QR kod yaradıldı."
+
+#: apps/qr_management/views/codes.py:151
+msgid "This QR code was suspended by Qrumy and cannot be edited."
+msgstr "Bu QR kod Qrumy tərəfindən bloklanıb və redaktə edilə bilməz."
+
+#: apps/qr_management/views/codes.py:168
+msgid "Changes saved."
+msgstr "Dəyişikliklər saxlanıldı."
+
+#: apps/qr_management/views/codes.py:242
+msgid "7 days"
+msgstr "7 gün"
+
+#: apps/qr_management/views/codes.py:242
+msgid "30 days"
+msgstr "30 gün"
+
+#: apps/qr_management/views/codes.py:243
+msgid "90 days"
+msgstr "90 gün"
+
+#: apps/qr_management/views/codes.py:243
+msgid "12 months"
+msgstr "12 ay"
+
+#: apps/qr_management/views/codes.py:245
+msgid "Devices"
+msgstr "Cihazlar"
+
+#: apps/qr_management/views/codes.py:245
+msgid "Operating systems"
+msgstr "Əməliyyat sistemləri"
+
+#: apps/qr_management/views/codes.py:246
+msgid "Browsers"
+msgstr "Brauzerlər"
+
+#: apps/qr_management/views/codes.py:246
+msgid "Countries"
+msgstr "Ölkələr"
+
+#: apps/qr_management/views/codes.py:247
+msgid "Cities"
+msgstr "Şəhərlər"
+
+#: apps/qr_management/views/codes.py:247
+msgid "Referrers"
+msgstr "Mənbə saytlar"
+
+#: apps/qr_management/views/codes.py:248
+msgid "UTM sources"
+msgstr "UTM mənbələri"
+
+#: apps/qr_management/views/codes.py:248
+msgid "Campaigns"
+msgstr "Kampaniyalar"
+
+#: apps/qr_management/views/codes.py:283
+msgid "QR code activated."
+msgstr "QR kod aktivləşdirildi."
+
+#: apps/qr_management/views/codes.py:284
+msgid "QR code paused. Scans now show an 'inactive' page."
+msgstr ""
+"QR kod dayandırıldı. Skan edənlər indi 'aktiv deyil' səhifəsini görəcək."
+
+#: apps/qr_management/views/codes.py:296
+msgid "QR code deleted."
+msgstr "QR kod silindi."
+
+#: apps/qr_management/views/codes.py:311
+msgid "Select at least one QR code."
+msgstr "Ən azı bir QR kod seçin."
+
+#: apps/qr_management/views/codes.py:315
+#, python-format
+msgid "Export up to %(n)s codes at a time."
+msgstr "Bir dəfəyə ən çox %(n)s kod ixrac edin."
+
+#: apps/qr_management/views/codes.py:326
+#, python-format
+msgid "%(n)s QR codes updated."
+msgstr "%(n)s QR kod yeniləndi."
+
+#: apps/qr_management/views/codes.py:334
+#, python-format
+msgid "%(n)s QR codes moved."
+msgstr "%(n)s QR kod köçürüldü."
+
+#: apps/qr_management/views/codes.py:340
+#, python-format
+msgid "%(n)s QR codes deleted."
+msgstr "%(n)s QR kod silindi."
+
+#: apps/qr_management/views/folders.py:25
+#: apps/qr_management/views/folders.py:45
+msgid "A folder with this name already exists."
+msgstr "Bu adda qovluq artıq mövcuddur."
+
+#: apps/qr_management/views/folders.py:57
+msgid "Folder deleted. Its QR codes were kept."
+msgstr "Qovluq silindi. İçindəki QR kodlar saxlanıldı."
 
 #: apps/subscriptions/apps.py:8
 msgid "Subscriptions"
@@ -1463,13 +2910,21 @@ msgstr "Agentlik iş sahəsi"
 msgid "Remove Qrumy branding"
 msgstr "Qrumy brendini gizlətmək"
 
+#: apps/subscriptions/features.py:28
+msgid "Dynamic QR codes"
+msgstr "Dinamik QR kodlar"
+
+#: apps/subscriptions/features.py:29
+msgid "Bulk QR creation"
+msgstr "Toplu QR yaratma"
+
+#: apps/subscriptions/features.py:30
+msgid "File size per QR (MB)"
+msgstr "QR başına fayl ölçüsü (MB)"
+
 #: apps/subscriptions/models.py:9
 msgid "key"
 msgstr "açar"
-
-#: apps/subscriptions/models.py:10
-msgid "name"
-msgstr "ad"
 
 #: apps/subscriptions/models.py:11
 msgid "description"
@@ -1547,10 +3002,6 @@ msgstr "Gecikmiş ödəniş"
 msgid "Canceled"
 msgstr "Ləğv edilib"
 
-#: apps/subscriptions/models.py:61
-msgid "Expired"
-msgstr "Müddəti bitib"
-
 #: apps/subscriptions/models.py:64
 msgid "Monthly"
 msgstr "Aylıq"
@@ -1603,14 +3054,6 @@ msgstr "abunəlik"
 msgid "subscriptions"
 msgstr "abunəliklər"
 
-#: apps/subscriptions/models.py:106
-msgid "reason"
-msgstr "səbəb"
-
-#: apps/subscriptions/models.py:107
-msgid "expires at"
-msgstr "bitmə vaxtı"
-
 #: apps/subscriptions/models.py:110
 msgid "feature override"
 msgstr "funksiya istisnası"
@@ -1643,11 +3086,11 @@ msgstr "Daha yüksək limitlər, süni intellekt təhlili və geniş icazələr.
 msgid "Manage multiple clients from one workspace."
 msgstr "Çoxsaylı müştəriləri bir iş sahəsindən idarə edin."
 
-#: config/settings/base.py:176
+#: config/settings/base.py:179
 msgid "English"
 msgstr "İngilis dili"
 
-#: config/settings/base.py:176
+#: config/settings/base.py:179
 msgid "Azerbaijani"
 msgstr "Azərbaycan dili"
 
@@ -1694,10 +3137,6 @@ msgstr ""
 "müştəri rəyləri, aktiv izləmə və tədbirlərdə müştəri toplama bir "
 "platformada."
 
-#: templates/components/forms/field.html:6
-msgid "optional"
-msgstr "istəyə bağlı"
-
 #: templates/components/language_switcher.html:6
 msgid "Language"
 msgstr "Dil"
@@ -1709,10 +3148,6 @@ msgstr "Dəyiş"
 #: templates/components/user_menu.html:3
 msgid "Account menu"
 msgstr "Hesab menyusu"
-
-#: templates/components/user_menu.html:13 templates/layouts/account.html:18
-msgid "Password"
-msgstr "Şifrə"
 
 #: templates/components/user_menu.html:14 templates/layouts/account.html:19
 msgid "Two-factor authentication"
@@ -1788,10 +3223,6 @@ msgstr "Tətbiqi aç"
 #: templates/layouts/marketing.html:74
 msgid "Sign in"
 msgstr "Daxil ol"
-
-#: templates/layouts/marketing.html:37
-msgid "Menu"
-msgstr "Menyu"
 
 #: templates/layouts/marketing.html:64
 msgid "Product"

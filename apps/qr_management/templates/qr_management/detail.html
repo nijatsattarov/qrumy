@@ -1,0 +1,101 @@
+{% extends "layouts/app.html" %}
+{% load i18n qrumy static %}
+{% block title %}{{ qr.name }}{% endblock %}
+{% block scripts %}<script src="{% static 'vendor/chart.umd.min.js' %}" defer></script><script src="{% static 'js/charts.js' %}" defer></script>{% endblock %}
+{% block breadcrumb %}<a href="{% url 'qr_list' org_slug=current_organization.slug %}" class="text-muted no-underline hover:text-ink">{% translate "QR Codes" %}</a> / {{ qr.name }}{% endblock %}
+{% block content %}
+<div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+  <div class="min-w-0">
+    <div class="flex flex-wrap items-center gap-2"><h1 class="page-title truncate">{{ qr.name }}</h1>{% include "qr_management/_status_badge.html" %}</div>
+    <p class="page-subtitle">{{ qr.type_def.label }} · {{ qr.get_mode_display }}{% if qr.folder %} · {{ qr.folder.name }}{% endif %} · {% blocktranslate with date=qr.created_at|date:"j M Y" %}created {{ date }}{% endblocktranslate %}</p>
+  </div>
+  <div class="flex flex-wrap gap-2">
+    {% if can.content_edit and qr.status != "suspended" %}
+      <a href="{% url 'qr_edit' org_slug=current_organization.slug pk=qr.pk %}" class="btn btn-secondary">{% icon 'edit' 'size-4' %}{% translate "Edit" %}</a>
+      {% if qr.is_dynamic %}
+      <form method="post" action="{% url 'qr_set_status' org_slug=current_organization.slug pk=qr.pk %}">{% csrf_token %}
+        {% if qr.status == "active" %}<input type="hidden" name="status" value="paused"><button class="btn btn-secondary">{% icon 'pause' 'size-4' %}{% translate "Pause" %}</button>
+        {% else %}<input type="hidden" name="status" value="active"><button class="btn btn-secondary">{% icon 'play' 'size-4' %}{% translate "Activate" %}</button>{% endif %}
+      </form>
+      {% endif %}
+    {% endif %}
+    {% if can.content_delete %}
+    <form method="post" action="{% url 'qr_delete' org_slug=current_organization.slug pk=qr.pk %}" data-confirm="{% if qr.is_dynamic %}{% translate 'Delete this QR code? Printed copies will stop working and the short link will never be reused.' %}{% else %}{% translate 'Delete this QR code?' %}{% endif %}">{% csrf_token %}
+      <button class="btn btn-danger" aria-label="{% translate 'Delete' %}">{% icon 'trash' 'size-4' %}</button>
+    </form>
+    {% endif %}
+  </div>
+</div>
+
+{% if qr.status == "suspended" %}
+<div class="mt-4 flex gap-3 rounded-lg border border-danger/20 bg-danger-soft px-4 py-3 text-sm text-danger">{% icon 'alert' 'size-4 mt-0.5 shrink-0' %}<p>{% translate "This QR code was suspended by Qrumy because its destination breaks our rules. Scans show a 'disabled' page. Contact support if you think this is a mistake." %}</p></div>
+{% endif %}
+
+<div class="mt-6 grid items-start gap-6 lg:grid-cols-[320px_1fr]">
+  <aside class="space-y-4">
+    <div class="card p-5">
+      <div class="qr-frame overflow-hidden rounded-lg">{{ svg|safe }}</div>
+      <div class="mt-4 grid grid-cols-2 gap-2">
+        <div x-data="dropdown" @click.outside="close" class="relative">
+          <button type="button" @click="toggle" class="btn btn-primary w-full">{% icon 'download' 'size-4' %}PNG</button>
+          <div x-show="open" x-cloak class="menu left-0">
+            {% for s in png_sizes %}<a class="menu-item" href="{% url 'qr_download' org_slug=current_organization.slug pk=qr.pk fmt='png' %}?size={{ s }}">{{ s }} × {{ s }} px</a>{% endfor %}
+          </div>
+        </div>
+        <a href="{% url 'qr_download' org_slug=current_organization.slug pk=qr.pk fmt='svg' %}" class="btn btn-secondary">{% icon 'download' 'size-4' %}SVG</a>
+      </div>
+      <p class="mt-2 text-center text-xs text-muted">{% translate "SVG is best for print." %}</p>
+    </div>
+
+    <div class="card divide-y divide-line text-sm">
+      {% if qr.is_dynamic %}
+      <div class="p-4">
+        <p class="text-xs text-muted">{% translate "Short link" %}</p>
+        <div class="mt-1 flex items-center gap-2" x-data="copy" data-copy="{{ qr.short_url }}">
+          <code class="min-w-0 flex-1 truncate font-mono text-[13px]">{{ qr.short_url }}</code>
+          <button type="button" @click="copy" class="btn-ghost rounded p-1.5" aria-label="{% translate 'Copy link' %}"><span x-show="notCopied">{% icon 'copy' 'size-4' %}</span><span x-show="copied" x-cloak class="text-success">{% icon 'check' 'size-4' %}</span></button>
+        </div>
+        <p class="mt-2 text-xs text-muted">{% translate "Add ?utm_source=flyer to track where scans come from." %}</p>
+      </div>
+      {% endif %}
+      <div class="p-4">
+        <p class="text-xs text-muted">{% if qr.is_dynamic %}{% translate "Opens" %}{% else %}{% translate "Encoded content" %}{% endif %}</p>
+        <div class="mt-1 break-words">{% include "qr_management/_content_summary.html" %}</div>
+      </div>
+      {% if qr.expires_at %}<div class="p-4"><p class="text-xs text-muted">{% translate "Expires" %}</p><p class="mt-1">{{ qr.expires_at|date:"j M Y, H:i" }}</p></div>{% endif %}
+      {% if qr.tags.all %}<div class="flex flex-wrap gap-1.5 p-4">{% for t in qr.tags.all %}<span class="chip">#{{ t.name }}</span>{% endfor %}</div>{% endif %}
+    </div>
+  </aside>
+
+  <div class="min-w-0 space-y-6">
+    {% if analytics %}
+    <section class="card">
+      <div class="card-header flex-wrap">
+        <h2 class="section-title">{% translate "Scans" %}</h2>
+        <div class="flex items-center gap-2">
+          {% include "qr_management/_period.html" with days=analytics.days %}
+          <a href="{% url 'qr_analytics_export' org_slug=current_organization.slug pk=qr.pk %}?days={{ analytics.days }}" class="btn btn-sm btn-secondary" title="{% translate 'Export CSV' %}">{% icon 'download' 'size-4' %}CSV</a>
+        </div>
+      </div>
+      <div class="grid grid-cols-3 divide-x divide-line border-b border-line">
+        <div class="p-5"><p class="text-xs text-muted">{% translate "Scans" %}</p><p class="mt-1 text-2xl font-semibold tabular-nums">{{ analytics.totals.scans }}</p></div>
+        <div class="p-5"><p class="text-xs text-muted">{% translate "Unique (estimated)" %}</p><p class="mt-1 text-2xl font-semibold tabular-nums">{{ analytics.totals.unique }}</p></div>
+        <div class="p-5"><p class="text-xs text-muted">{% translate "All time" %}</p><p class="mt-1 text-2xl font-semibold tabular-nums">{{ qr.total_scans }}</p></div>
+      </div>
+      <div class="p-5">{% include "qr_management/_chart.html" with series=analytics.series chart_id="qr-series" %}</div>
+    </section>
+    <div class="grid gap-4 md:grid-cols-2">
+      {% for dim, label, rows in analytics.breakdowns %}{% include "qr_management/_breakdown.html" %}{% endfor %}
+    </div>
+    <p class="text-xs text-muted">{% translate "Locations are approximate and based on IP address. Visitor IP addresses are never stored. Bots and link previews are excluded." %}</p>
+    {% elif qr.is_dynamic %}
+    <div class="card card-body text-sm text-muted">{% translate "You don't have access to analytics." %}</div>
+    {% else %}
+    <div class="card card-body">
+      <h2 class="section-title">{% translate "Static code — no analytics" %}</h2>
+      <p class="mt-1 text-sm text-muted">{% translate "The content is stored directly in the pattern, so scans don't reach Qrumy and can't be counted or redirected. Create a dynamic code to edit it after printing and see scan statistics." %}</p>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

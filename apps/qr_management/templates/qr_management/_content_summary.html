@@ -1,0 +1,15 @@
+{% load i18n %}{% with p=qr.payload t=qr.qr_type %}
+{% if t == "url" %}<a href="{{ p.url }}" target="_blank" rel="noopener noreferrer nofollow">{{ p.url|truncatechars:80 }}</a>
+{% elif t == "whatsapp" or t == "phone" or t == "sms" %}{{ p.phone }}{% if p.message %} — {{ p.message|truncatechars:60 }}{% endif %}
+{% elif t == "email" %}{{ p.email }}{% if p.subject %} — {{ p.subject }}{% endif %}
+{% elif t == "wifi" %}{% translate "Network" %}: {{ p.ssid }}
+{% elif t == "location" %}{{ p.label|default:"" }} ({{ p.latitude }}, {{ p.longitude }})
+{% elif t == "vcard" %}{{ p.first_name }} {{ p.last_name }}{% if p.organization %} · {{ p.organization }}{% endif %}
+{% elif t == "text" %}{{ p.text|truncatechars:120 }}
+{% elif t == "app" %}{{ p.app_name }}
+{% elif t == "coupon" %}{{ p.title }}{% if p.code %} · {{ p.code }}{% endif %}
+{% elif t == "links" %}{{ p.title }} · {% blocktranslate count n=p.links|length %}{{ n }} link{% plural %}{{ n }} links{% endblocktranslate %}
+{% elif qr.type_def.hosted_file %}{% if hosted_file %}{{ hosted_file.original_name }} ({{ hosted_file.size|filesizeformat }}){% endif %}
+{% endif %}
+{% if qr.type_def.landing and qr.is_dynamic %}<a class="mt-1 flex items-center gap-1 text-xs" href="{% url 'qr_landing_preview' org_slug=current_organization.slug pk=qr.pk %}" target="_blank" rel="noopener">{% translate "Preview page" %}</a>{% endif %}
+{% endwith %}

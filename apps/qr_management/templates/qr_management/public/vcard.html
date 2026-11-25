@@ -1,0 +1,20 @@
+{% extends "qr_management/public/base.html" %}
+{% load i18n qrumy %}
+{% block title %}{{ p.first_name }} {{ p.last_name }}{% endblock %}
+{% block page %}
+<div class="card overflow-hidden">
+  <div class="bg-navy-900 px-6 py-8 text-center text-white">
+    <span class="avatar mx-auto size-16 text-lg">{{ p.first_name|slice:":1" }}{{ p.last_name|slice:":1" }}</span>
+    <h1 class="mt-3 text-xl font-semibold text-white">{{ p.first_name }} {{ p.last_name }}</h1>
+    {% if p.title or p.organization %}<p class="mt-1 text-sm text-white/70">{{ p.title }}{% if p.title and p.organization %} · {% endif %}{{ p.organization }}</p>{% endif %}
+  </div>
+  <ul class="divide-y divide-line text-sm">
+    {% if p.phone %}<li><a href="tel:{{ p.phone }}" class="flex items-center gap-3 px-5 py-4 text-ink no-underline">{% icon 'phone' 'size-4 text-muted' %}{{ p.phone }}</a></li>{% endif %}
+    {% if p.email %}<li><a href="mailto:{{ p.email }}" class="flex items-center gap-3 px-5 py-4 text-ink no-underline">{% icon 'mail' 'size-4 text-muted' %}{{ p.email }}</a></li>{% endif %}
+    {% if p.website %}<li><a href="{{ p.website }}" rel="noopener noreferrer nofollow" class="flex items-center gap-3 px-5 py-4 text-ink no-underline">{% icon 'globe' 'size-4 text-muted' %}{{ p.website }}</a></li>{% endif %}
+    {% if p.address %}<li class="flex items-center gap-3 px-5 py-4">{% icon 'pin' 'size-4 text-muted' %}{{ p.address }}</li>{% endif %}
+    {% if p.note %}<li class="px-5 py-4 text-muted">{{ p.note }}</li>{% endif %}
+  </ul>
+</div>
+{% if not preview %}<a href="{% url 'qr_vcard' code=code %}" class="btn btn-primary btn-lg mt-4 w-full">{% icon 'download' 'size-4' %}{% translate "Save contact" %}</a>{% endif %}
+{% endblock %}

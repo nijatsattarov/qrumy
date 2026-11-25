@@ -26,6 +26,8 @@ QRUMY_APPS = [
     "apps.organizations",
     "apps.subscriptions",
     "apps.billing",
+    "apps.analytics",
+    "apps.qr_management",
     "apps.marketing",
 ]
 
@@ -191,6 +193,9 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = Path(env("MEDIA_ROOT", default=str(BASE_DIR / "media")))
 STORAGES = {
     "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+    # Files that must never be served directly by the web server (served via views).
+    "private": {"BACKEND": "django.core.files.storage.FileSystemStorage",
+                "OPTIONS": {"location": str(MEDIA_ROOT / "private"), "base_url": None}},
     "staticfiles": {"BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"},
 }
 FILE_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024
@@ -264,7 +269,27 @@ QRUMY_DEFAULT_PLAN = env("QRUMY_DEFAULT_PLAN", default="beta")
 QRUMY_INVITATION_TTL_DAYS = 7
 # Product modules that are implemented and can be shown in navigation / marketing.
 # A module is listed here only once it actually works (see docs/CHECKLIST.md).
-QRUMY_AVAILABLE_MODULES: list[str] = []
+QRUMY_AVAILABLE_MODULES: list[str] = ["qr"]
+
+# --- QR Management / analytics ---
+# Base of dynamic QR links. Changing it later only affects codes created afterwards.
+QRUMY_QR_BASE_URL = env("QRUMY_QR_BASE_URL", default=SITE_URL + "/q/")
+# "redis" buffers scans and processes them in Celery; "sync" writes immediately (tests/dev).
+QRUMY_SCAN_BUFFER = env("QRUMY_SCAN_BUFFER", default="redis")
+QRUMY_SCAN_RETENTION_DAYS = env.int("QRUMY_SCAN_RETENTION_DAYS", default=180)
+QRUMY_GEOIP_CITY_DB = env("QRUMY_GEOIP_CITY_DB", default=str(BASE_DIR / "var/GeoLite2-City.mmdb"))
+# Trust a CDN country header (e.g. "HTTP_CF_IPCOUNTRY") when no GeoIP database is present.
+QRUMY_COUNTRY_HEADER = env("QRUMY_COUNTRY_HEADER", default="")
+QRUMY_SAFE_BROWSING_KEY = env("QRUMY_SAFE_BROWSING_KEY", default="")
+QRUMY_BLOCKED_DOMAINS = env.list("QRUMY_BLOCKED_DOMAINS", default=[])
+QRUMY_SERVE_FILES_WITH_X_ACCEL = env.bool("QRUMY_SERVE_FILES_WITH_X_ACCEL", default=False)
+
+CELERY_BEAT_SCHEDULE = {
+    "analytics-process-scan-buffer": {
+        "task": "apps.analytics.tasks.process_scan_buffer", "schedule": 15.0},
+    "analytics-purge-old-scans": {
+        "task": "apps.analytics.tasks.purge_old_scans", "schedule": 60 * 60 * 6},
+}
 
 # ---------------------------------------------------------------------------
 # Django Admin theme (Unfold)
@@ -299,3 +324,5 @@ LOGGING = {
 FORM_RENDERER = "apps.core.forms.QrumyFormRenderer"
 # Number of trusted reverse proxies in front of the app (Nginx = 1 in production).
 QRUMY_TRUSTED_PROXY_COUNT = env.int("QRUMY_TRUSTED_PROXY_COUNT", default=0)
+# django-ratelimit: use the real client IP (Nginx sets X-Forwarded-For).
+RATELIMIT_IP_META_KEY = "apps.core.utils.client_ip"

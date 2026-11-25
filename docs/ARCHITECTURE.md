@@ -1,6 +1,6 @@
 # Qrumy — Architecture & MVP Plan (v0.2 — Python/Django, for approval)
 
-Status: **APPROVED (2026-11-25).** Phase 1 (Foundation) implemented — see docs/CHECKLIST.md.
+Status: **APPROVED (2026-11-25).** Phases 1 (Foundation) and 2 (QR Management) implemented — see docs/CHECKLIST.md.
 Date: 2026-11-25
 Supersedes: v0.1 (Laravel/PHP draft, commit `0e68522`, kept in git history only).
 
@@ -496,3 +496,14 @@ later), open beta signups, English default language, `django-unfold` admin theme
 - `python-magic`/`libmagic` were deferred to Phase 2 (first file uploads beyond logos,
   which are validated with Pillow).
 - Details and rationale: `docs/decisions/`.
+
+## 13. Changes made during Phase 2 implementation
+
+- `analytics` sits below `qr_management` in the layer order; it references the QR model
+  only through `apps.get_model` (no import), so analytics can serve other modules later.
+- `core.widgets` registry added: product apps contribute cards to the dashboard overview.
+- `organizations.permissions.require_module` gates every product view on
+  `QRUMY_AVAILABLE_MODULES` + the plan's `module.<name>` feature.
+- File type detection uses byte signatures/Pillow instead of libmagic (no system package).
+- Redirects use `qrumy.com/q/<code>` (`QRUMY_QR_BASE_URL`), per the product decision.
+- Details: `docs/decisions/0005-qr-engine-and-scans.md`.

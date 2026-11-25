@@ -1,0 +1,24 @@
+{% extends "qr_management/public/base.html" %}
+{% load i18n qrumy %}
+{% block title %}{{ p.title }}{% endblock %}
+{% block page %}
+<div class="card overflow-hidden text-center">
+  <div class="px-6 py-8">
+    <span class="mx-auto inline-flex size-12 items-center justify-center rounded-full bg-accent-50 text-accent-600">{% icon 'ticket' %}</span>
+    <h1 class="mt-4 text-2xl font-semibold">{{ p.title }}</h1>
+    {% if p.description %}<p class="mt-2 text-sm text-muted">{{ p.description|linebreaksbr }}</p>{% endif %}
+  </div>
+  {% if p.code %}
+  <div class="border-y border-dashed border-line-strong bg-canvas px-6 py-5" x-data="copy" data-copy="{{ p.code }}">
+    <p class="text-xs uppercase tracking-wide text-muted">{% translate "Your code" %}</p>
+    <p class="mt-1 font-mono text-2xl font-semibold tracking-widest">{{ p.code }}</p>
+    <button type="button" @click="copy" class="btn btn-sm btn-secondary mt-3"><span x-show="notCopied">{% translate "Copy code" %}</span><span x-show="copied" x-cloak>{% translate "Copied" %}</span></button>
+  </div>
+  {% endif %}
+  <div class="space-y-1 px-6 py-5 text-xs text-muted">
+    {% if p.valid_until %}<p>{% blocktranslate with d=p.valid_until %}Valid until {{ d }}{% endblocktranslate %}</p>{% endif %}
+    {% if p.terms %}<p>{{ p.terms }}</p>{% endif %}
+  </div>
+</div>
+{% if p.button_url %}<a href="{{ p.button_url }}" rel="noopener noreferrer nofollow" class="btn btn-primary btn-lg mt-4 w-full">{% if p.button_label %}{{ p.button_label }}{% else %}{% translate "Use offer" %}{% endif %}</a>{% endif %}
+{% endblock %}

@@ -124,6 +124,18 @@
   .progress::-moz-progress-bar { @apply rounded-full bg-accent-500; }
   .progress.is-warning::-webkit-progress-value { @apply bg-warning; }
   .progress.is-warning::-moz-progress-bar { @apply bg-warning; }
+  .form-field [type=radio] { @apply size-4 accent-navy-900; }
+  .form-field div:has(> div > label > [type=radio]) { @apply space-y-2; }
+  .form-field label:has(> [type=radio]) { @apply flex items-center gap-2.5 rounded-lg border border-line px-3 py-2.5 text-sm font-normal hover:bg-canvas; }
+  .form-field label:has(> [type=radio]:checked) { @apply border-navy-900 bg-accent-50/40; }
+  .form-field input[type=color] { @apply h-10 w-full cursor-pointer p-1; }
+  .chip { @apply inline-flex items-center gap-1.5 rounded-full border border-line bg-surface px-3 py-1 text-xs font-medium text-muted no-underline hover:text-ink; }
+  .chip.is-active { @apply border-navy-900 bg-navy-900 text-white; }
+  .seg { @apply inline-flex rounded-lg border border-line bg-surface p-0.5; }
+  .seg a { @apply rounded-md px-3 py-1.5 text-xs font-medium text-muted no-underline hover:text-ink; }
+  .seg a.is-active { @apply bg-navy-900 text-white; }
+  .meter { @apply relative h-1.5 overflow-hidden rounded-full bg-canvas; }
+  .qr-frame svg { @apply h-auto w-full; }
   .avatar { @apply inline-flex shrink-0 items-center justify-center rounded-full bg-accent-100 font-semibold text-navy-800; }
   .divider { @apply border-t border-line; }
   .prose-muted p { @apply text-muted leading-relaxed; }

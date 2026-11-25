@@ -114,14 +114,19 @@ def build_layout(content: str, style: QRStyle, logo: bytes | None = None) -> Lay
             rr = (2.1, 1.3) if style.eye_frame == "rounded" else (0, 0)
             prims.append(Prim("rect", x, y, 7, 7, r=rr[0], color=style.eye))
             prims.append(Prim("rect", x + 1, y + 1, 5, 5, r=rr[1], color=style.bg))
-        prims.append(_shape(style.eye_ball, x + 2, y + 2, 3, style.ball, 0.9, 1.5))
+        if style.eye_frame == "circle" and style.eye_ball == "square":
+            # Sharp square corners sit too close to a round frame for reliable detection
+            # once a logo removes part of the error-correction budget; soften them.
+            prims.append(Prim("rect", x + 2, y + 2, 3, 3, r=0.6, color=style.ball))
+        else:
+            prims.append(_shape(style.eye_ball, x + 2, y + 2, 3, style.ball, 0.9, 1.5))
 
     # Logo (drawn on a background tile so modules never touch it)
     if logo_box:
         x0, y0, x1, y1 = logo_box
         tile = Prim("rect", qx + x0, qy + y0, x1 - x0, y1 - y0, r=1.0, color=style.bg)
         prims.append(tile)
-        inset = 1.3
+        inset = 1.0
         prims.append(Prim("image", tile.x + inset, tile.y + inset, tile.w - 2 * inset,
                           tile.h - 2 * inset, data=logo))
 

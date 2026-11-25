@@ -1,0 +1,156 @@
+{% extends "layouts/app.html" %}
+{% load i18n qrumy partials %}
+{% block title %}{% translate "QR Codes" %}{% endblock %}
+{% block breadcrumb %}{% translate "QR Codes" %}{% endblock %}
+{% block content %}
+<div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+  <div>
+    <h1 class="page-title">{% translate "QR Codes" %}</h1>
+    <p class="page-subtitle">{% blocktranslate with used=dynamic_used %}{{ used }} dynamic codes in use{% endblocktranslate %}</p>
+  </div>
+  {% if can.content_create %}
+  <div class="flex gap-2">
+    <a href="{% url 'qr_bulk' org_slug=current_organization.slug %}" class="btn btn-secondary">{% icon 'upload' 'size-4' %}{% translate "Bulk create" %}</a>
+    <a href="{% url 'qr_choose_type' org_slug=current_organization.slug %}" class="btn btn-primary">{% icon 'plus' 'size-4' %}{% translate "Create QR code" %}</a>
+  </div>
+  {% endif %}
+</div>
+
+<div class="mt-6 grid gap-6 lg:grid-cols-[220px_1fr]">
+  {# ---------- Folders ---------- #}
+  <aside class="space-y-4">
+    <nav class="card p-2" aria-label="{% translate 'Folders' %}">
+      {% url 'qr_list' org_slug=current_organization.slug as list_url %}
+      <a href="{{ list_url }}" class="menu-item {% if not filters.folder %}bg-canvas font-medium{% endif %}">{% icon 'qr' 'size-4 text-muted' %}{% translate "All codes" %}</a>
+      <a href="{{ list_url }}?folder=none" class="menu-item {% if filters.folder == 'none' %}bg-canvas font-medium{% endif %}">{% icon 'folder' 'size-4 text-muted' %}{% translate "No folder" %}</a>
+      {% for f in folders %}
+        <a href="{{ list_url }}?folder={{ f.pk }}" class="menu-item {% if filters.folder == f.pk|stringformat:'s' %}bg-canvas font-medium{% endif %}">{% icon 'folder' 'size-4 text-muted' %}<span class="truncate">{{ f.name }}</span></a>
+      {% endfor %}
+      {% if can.content_create %}
+      <form method="post" action="{% url 'qr_folder_create' org_slug=current_organization.slug %}" class="mt-1 flex gap-1 border-t border-line p-1 pt-2">
+        {% csrf_token %}
+        <label for="new-folder" class="sr-only">{% translate "Folder name" %}</label>
+        <input id="new-folder" name="name" required maxlength="80" placeholder="{% translate 'New folder' %}" class="input py-1.5 text-[13px]">
+        <button class="btn btn-sm btn-secondary" aria-label="{% translate 'Add folder' %}">{% icon 'plus' 'size-4' %}</button>
+      </form>
+      {% endif %}
+    </nav>
+    {% if filters.folder and filters.folder != 'none' %}{% for f in folders %}{% if filters.folder == f.pk|stringformat:'s' %}
+    <div class="card space-y-2 p-3" x-data="disclosure">
+      <button type="button" @click="toggle" class="text-xs font-medium text-muted hover:text-ink">{% translate "Folder options" %}</button>
+      <div x-show="open" x-cloak class="space-y-2">
+        {% if can.content_edit %}
+        <form method="post" action="{% url 'qr_folder_rename' org_slug=current_organization.slug folder_id=f.pk %}" class="flex gap-1">{% csrf_token %}
+          <input name="name" value="{{ f.name }}" required maxlength="80" class="input py-1.5 text-[13px]" aria-label="{% translate 'Folder name' %}">
+          <button class="btn btn-sm btn-secondary">{% translate "Save" %}</button>
+        </form>{% endif %}
+        {% if can.content_delete %}
+        <form method="post" action="{% url 'qr_folder_delete' org_slug=current_organization.slug folder_id=f.pk %}" data-confirm="{% translate 'Delete this folder? QR codes inside will be kept.' %}">{% csrf_token %}
+          <button class="btn btn-sm btn-danger w-full">{% translate "Delete folder" %}</button>
+        </form>{% endif %}
+      </div>
+    </div>
+    {% endif %}{% endfor %}{% endif %}
+  </aside>
+
+  <div class="min-w-0">
+    {# ---------- Filters (HTMX) ---------- #}
+    <form id="qr-filters" method="get" class="card flex flex-wrap items-center gap-2 p-3"
+          hx-get="{% url 'qr_list' org_slug=current_organization.slug %}" hx-target="#qr-results" hx-push-url="true"
+          hx-trigger="input changed delay:350ms from:input[name=q], change">
+      {% if filters.folder %}<input type="hidden" name="folder" value="{{ filters.folder }}">{% endif %}
+      <div class="relative min-w-48 flex-1">
+        <span class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted">{% icon 'search' 'size-4' %}</span>
+        <label for="q" class="sr-only">{% translate "Search" %}</label>
+        <input id="q" name="q" value="{{ filters.q }}" placeholder="{% translate 'Search by name, tag or short code' %}" class="input pl-9">
+      </div>
+      <select name="type" class="input w-auto" aria-label="{% translate 'Type' %}">
+        <option value="">{% translate "All types" %}</option>
+        {% for t in types %}<option value="{{ t.key }}" {% if filters.type == t.key %}selected{% endif %}>{{ t.label }}</option>{% endfor %}
+      </select>
+      <select name="status" class="input w-auto" aria-label="{% translate 'Status' %}">
+        {% for v, l in status_filters %}<option value="{{ v }}" {% if filters.status == v %}selected{% endif %}>{{ l }}</option>{% endfor %}
+      </select>
+      <select name="mode" class="input w-auto" aria-label="{% translate 'Mode' %}">
+        <option value="">{% translate "Static & dynamic" %}</option>
+        <option value="dynamic" {% if filters.mode == 'dynamic' %}selected{% endif %}>{% translate "Dynamic" %}</option>
+        <option value="static" {% if filters.mode == 'static' %}selected{% endif %}>{% translate "Static" %}</option>
+      </select>
+      <select name="sort" class="input w-auto" aria-label="{% translate 'Sort' %}">
+        {% for v, l in sorts %}<option value="{{ v }}" {% if filters.sort == v %}selected{% endif %}>{{ l }}</option>{% endfor %}
+      </select>
+      <noscript><button class="btn btn-secondary">{% translate "Filter" %}</button></noscript>
+    </form>
+
+    <div id="qr-results" class="mt-4">
+    {% partialdef results inline %}
+      {% if page.object_list %}
+      <form method="post" action="{% url 'qr_bulk_action' org_slug=current_organization.slug %}" x-data="selection">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ request.get_full_path }}">
+        <div class="card overflow-hidden">
+          <div class="flex flex-wrap items-center gap-2 border-b border-line px-4 py-2.5">
+            <label class="flex items-center gap-2 text-sm text-muted"><input type="checkbox" class="checkbox" @change="toggleAll" aria-label="{% translate 'Select all' %}"><span x-show="noSelection">{{ page.paginator.count }} {% translate "codes" %}</span><span x-show="hasSelection" x-cloak><span x-text="count"></span> {% translate "selected" %}</span></label>
+            <div x-show="hasSelection" x-cloak class="ml-auto flex flex-wrap items-center gap-2">
+              <select name="action" class="input w-auto py-1.5 text-[13px]" aria-label="{% translate 'Action' %}">
+                <option value="export_png">{% translate "Download PNG (ZIP)" %}</option>
+                <option value="export_svg">{% translate "Download SVG (ZIP)" %}</option>
+                {% if can.content_edit %}<option value="pause">{% translate "Pause" %}</option><option value="activate">{% translate "Activate" %}</option><option value="move">{% translate "Move to folder" %}</option>{% endif %}
+                {% if can.content_delete %}<option value="delete">{% translate "Delete" %}</option>{% endif %}
+              </select>
+              <select name="folder" class="input w-auto py-1.5 text-[13px]" aria-label="{% translate 'Folder' %}">
+                <option value="">{% translate "No folder" %}</option>
+                {% for f in folders %}<option value="{{ f.pk }}">{{ f.name }}</option>{% endfor %}
+              </select>
+              <button class="btn btn-sm btn-primary" data-confirm="{% translate 'Apply this action to the selected codes?' %}">{% translate "Apply" %}</button>
+            </div>
+          </div>
+          <ul class="divide-y divide-line">
+            {% for qr in page.object_list %}
+            <li class="flex items-center gap-3 px-4 py-3 hover:bg-canvas/50">
+              <input type="checkbox" name="ids" value="{{ qr.pk }}" class="checkbox" @change="update" aria-label="{% blocktranslate with name=qr.name %}Select {{ name }}{% endblocktranslate %}">
+              <span class="inline-flex size-10 shrink-0 items-center justify-center rounded-lg bg-canvas text-navy-800">{% icon qr.type_def.icon 'size-5' %}</span>
+              <a href="{% url 'qr_detail' org_slug=current_organization.slug pk=qr.pk %}" class="min-w-0 flex-1 text-ink no-underline">
+                <span class="flex items-center gap-2"><span class="truncate text-sm font-medium">{{ qr.name }}</span>{% include "qr_management/_status_badge.html" %}</span>
+                <span class="mt-0.5 flex flex-wrap items-center gap-x-2 text-xs text-muted">
+                  <span>{{ qr.type_def.label }} · {{ qr.get_mode_display }}</span>
+                  {% if qr.short_code %}<span class="font-mono">/q/{{ qr.short_code }}</span>{% endif %}
+                  {% if qr.folder %}<span class="inline-flex items-center gap-1">{% icon 'folder' 'size-3' %}{{ qr.folder.name }}</span>{% endif %}
+                  {% for t in qr.tags.all %}<span class="rounded bg-canvas px-1.5">#{{ t.name }}</span>{% endfor %}
+                </span>
+              </a>
+              <div class="hidden text-right sm:block">
+                {% if qr.is_dynamic %}<p class="text-sm font-semibold tabular-nums">{{ qr.total_scans }}</p><p class="text-xs text-muted">{% translate "scans" %}</p>{% else %}<p class="text-xs text-muted">{% translate "not tracked" %}</p>{% endif %}
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </form>
+      {% if page.has_other_pages %}
+      <nav class="mt-4 flex items-center justify-between text-sm" aria-label="{% translate 'Pagination' %}">
+        <span class="text-muted">{% blocktranslate with n=page.number total=page.paginator.num_pages %}Page {{ n }} of {{ total }}{% endblocktranslate %}</span>
+        <span class="flex gap-2">
+          {% if page.has_previous %}<a class="btn btn-sm btn-secondary" href="?{% for k, v in filters.items %}{% if k != 'page' %}{{ k }}={{ v|urlencode }}&{% endif %}{% endfor %}page={{ page.previous_page_number }}">{% translate "Previous" %}</a>{% endif %}
+          {% if page.has_next %}<a class="btn btn-sm btn-secondary" href="?{% for k, v in filters.items %}{% if k != 'page' %}{{ k }}={{ v|urlencode }}&{% endif %}{% endfor %}page={{ page.next_page_number }}">{% translate "Next" %}</a>{% endif %}
+        </span>
+      </nav>
+      {% endif %}
+      {% elif filtered %}
+      <div class="card card-body py-12 text-center">
+        <p class="font-medium">{% translate "No QR codes match these filters." %}</p>
+        <a href="{% url 'qr_list' org_slug=current_organization.slug %}" class="mt-2 inline-block text-sm">{% translate "Clear filters" %}</a>
+      </div>
+      {% else %}
+      <div class="card card-body py-14 text-center">
+        <span class="mx-auto inline-flex size-12 items-center justify-center rounded-xl bg-navy-900 text-white">{% icon 'qr' 'size-6' %}</span>
+        <p class="mt-4 text-lg font-semibold">{% translate "Create your first QR code" %}</p>
+        <p class="mx-auto mt-1 max-w-sm text-sm text-muted">{% translate "Dynamic codes can be edited after printing and show where every scan comes from." %}</p>
+        {% if can.content_create %}<a href="{% url 'qr_choose_type' org_slug=current_organization.slug %}" class="btn btn-primary mt-6">{% icon 'plus' 'size-4' %}{% translate "Create QR code" %}</a>{% endif %}
+      </div>
+      {% endif %}
+    {% endpartialdef %}
+    </div>
+  </div>
+</div>
+{% endblock %}

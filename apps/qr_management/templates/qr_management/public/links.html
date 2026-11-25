@@ -1,0 +1,10 @@
+{% extends "qr_management/public/base.html" %}
+{% load i18n qrumy %}
+{% block title %}{{ p.title }}{% endblock %}
+{% block page %}
+<h1 class="text-center text-2xl font-semibold">{{ p.title }}</h1>
+{% if p.description %}<p class="mt-2 text-center text-sm text-muted">{{ p.description|linebreaksbr }}</p>{% endif %}
+<ul class="mt-6 space-y-3">
+  {% for l in p.links %}<li><a href="{{ l.url }}" rel="noopener noreferrer nofollow" class="card flex items-center justify-between gap-3 px-5 py-4 font-medium text-ink no-underline hover:border-navy-900"><span class="truncate">{{ l.label }}</span>{% icon 'chevron-right' 'size-4 text-muted' %}</a></li>{% endfor %}
+</ul>
+{% endblock %}

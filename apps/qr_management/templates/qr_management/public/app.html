@@ -1,0 +1,13 @@
+{% extends "qr_management/public/base.html" %}
+{% load i18n qrumy %}
+{% block title %}{{ info.payload.app_name }}{% endblock %}
+{% block page %}
+<div class="card card-body text-center">
+  <span class="mx-auto inline-flex size-12 items-center justify-center rounded-xl bg-navy-900 text-white">{% icon 'phone-device' %}</span>
+  <h1 class="mt-4 text-xl font-semibold">{{ info.payload.app_name }}</h1>
+  <div class="mt-6 space-y-3">
+    {% if info.payload.ios_url %}<a href="{{ info.payload.ios_url }}" rel="noopener noreferrer nofollow" class="btn btn-primary btn-lg w-full">App Store</a>{% endif %}
+    {% if info.payload.android_url %}<a href="{{ info.payload.android_url }}" rel="noopener noreferrer nofollow" class="btn btn-primary btn-lg w-full">Google Play</a>{% endif %}
+  </div>
+</div>
+{% endblock %}

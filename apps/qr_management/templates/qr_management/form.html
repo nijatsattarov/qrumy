@@ -1,0 +1,81 @@
+{% extends "layouts/app.html" %}
+{% load i18n qrumy %}
+{% block title %}{% if qr %}{% translate "Edit QR code" %}{% else %}{% translate "Create QR code" %}{% endif %}{% endblock %}
+{% block breadcrumb %}<a href="{% url 'qr_list' org_slug=current_organization.slug %}" class="text-muted no-underline hover:text-ink">{% translate "QR Codes" %}</a> / {% if qr %}{{ qr.name }}{% else %}{{ type_def.label }}{% endif %}{% endblock %}
+{% block content %}
+<div class="flex items-center gap-3">
+  <span class="inline-flex size-10 items-center justify-center rounded-lg bg-navy-900 text-white">{% icon type_def.icon 'size-5' %}</span>
+  <div>
+    <h1 class="page-title">{% if qr %}{% translate "Edit QR code" %}{% else %}{% blocktranslate with t=type_def.label %}New {{ t }} QR code{% endblocktranslate %}{% endif %}</h1>
+    <p class="page-subtitle">{{ type_def.description }}</p>
+  </div>
+</div>
+
+<form id="qr-form" method="post" enctype="multipart/form-data" class="mt-6 grid items-start gap-6 lg:grid-cols-[1fr_340px]">
+  {% csrf_token %}
+  <input type="hidden" name="type" value="{{ type_def.key }}">
+  {% if qr %}<input type="hidden" name="qr" value="{{ qr.pk }}">{% endif %}
+
+  <div class="space-y-6">
+    {% for f in meta.non_field_errors %}<div class="rounded-lg border border-danger/20 bg-danger-soft px-4 py-3 text-sm text-danger" role="alert">{{ f }}</div>{% endfor %}
+
+    <section class="card">
+      <div class="card-header"><h2 class="section-title">1. {% translate "Content" %}</h2></div>
+      <div class="card-body space-y-4">
+        {% if qr and not qr.is_dynamic %}<p class="rounded-lg bg-warning-soft px-3 py-2 text-xs text-[#92400E]">{% translate "This is a static code: changing the content changes the printed pattern. Codes already printed will keep the old content." %}</p>{% endif %}
+        {% if type_def.hosted_file %}
+          {% for e in payload.non_field_errors %}<p class="form-error">{{ e }}</p>{% endfor %}
+          {{ payload.title.as_field_group }}
+          <div class="form-field{% if payload.file.errors %} has-error{% endif %}">
+            <label class="form-label" for="{{ payload.file.auto_id }}">{% translate "File" %}</label>
+            <input type="file" name="{{ payload.file.html_name }}" id="{{ payload.file.auto_id }}" accept="{% for m in type_def.hosted_file %}{{ m }}{% if not forloop.last %},{% endif %}{% endfor %}" {% if not qr %}required{% endif %}>
+            <p class="form-help">{% if qr and qr.hosted_file %}{% blocktranslate with name=qr.hosted_file.original_name %}Current file: {{ name }}. Upload a new file to replace it — the QR code stays the same.{% endblocktranslate %}{% else %}{% translate "PDF, PNG, JPEG or WebP, depending on the type." %}{% endif %}</p>
+            {% for e in payload.file.errors %}<p class="form-error">{{ e }}</p>{% endfor %}
+          </div>
+        {% else %}
+          {{ payload }}
+        {% endif %}
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-header"><h2 class="section-title">2. {% translate "Settings" %}</h2></div>
+      <div class="card-body grid gap-4 sm:grid-cols-2">
+        <div class="sm:col-span-2">{{ meta.name.as_field_group }}</div>
+        {% if not qr %}<div class="sm:col-span-2">{{ meta.mode.as_field_group }}</div>{% endif %}
+        {{ meta.folder.as_field_group }}
+        {{ meta.tags.as_field_group }}
+        <div class="sm:col-span-2">{{ meta.expires_at.as_field_group }}</div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-header"><h2 class="section-title">3. {% translate "Design" %}</h2></div>
+      <div class="card-body space-y-5">
+        {% for e in style.non_field_errors %}<div class="rounded-lg border border-danger/20 bg-danger-soft px-4 py-3 text-sm text-danger" role="alert">{{ e }}</div>{% endfor %}
+        <div class="grid gap-4 sm:grid-cols-3">{{ style.fg.as_field_group }}{{ style.bg.as_field_group }}{{ style.eye_color.as_field_group }}</div>
+        <div class="grid gap-4 sm:grid-cols-3">{{ style.module_shape.as_field_group }}{{ style.eye_frame.as_field_group }}{{ style.eye_ball.as_field_group }}</div>
+        <div class="grid gap-4 sm:grid-cols-3">{{ style.frame.as_field_group }}{{ style.frame_color.as_field_group }}{{ style.cta_text.as_field_group }}</div>
+        <div class="grid gap-4 sm:grid-cols-2">{{ style.logo.as_field_group }}{% if qr and qr.logo %}<div class="pt-7">{{ style.remove_logo.as_field_group }}</div>{% endif %}</div>
+        <p class="text-xs text-muted">{% translate "Every design is test-scanned before it is saved. Logos are placed in the center with extra error correction." %}</p>
+      </div>
+    </section>
+  </div>
+
+  <aside class="space-y-4 lg:sticky lg:top-24">
+    <div class="card p-5">
+      <p class="text-xs font-medium uppercase tracking-wide text-muted">{% translate "Preview" %}</p>
+      <div id="qr-preview" class="mt-3"
+           hx-post="{% url 'qr_preview' org_slug=current_organization.slug %}"
+           hx-trigger="load, change from:#qr-form, input from:#qr-form delay:600ms"
+           hx-include="#qr-form input:not([type=file]), #qr-form select, #qr-form textarea, #qr-form input[name='s-logo']"
+           hx-encoding="multipart/form-data" hx-sync="this:queue last">
+        <div class="aspect-square animate-pulse rounded-lg bg-canvas"></div>
+      </div>
+    </div>
+    {% if not qr and dynamic_used is not None %}<p class="px-1 text-xs text-muted">{% blocktranslate with n=dynamic_used %}Dynamic codes in use: {{ n }}{% endblocktranslate %}</p>{% endif %}
+    <button type="submit" class="btn btn-primary btn-lg w-full">{% if qr %}{% translate "Save changes" %}{% else %}{% translate "Create QR code" %}{% endif %}</button>
+    <a href="{% if qr %}{% url 'qr_detail' org_slug=current_organization.slug pk=qr.pk %}{% else %}{% url 'qr_choose_type' org_slug=current_organization.slug %}{% endif %}" class="btn btn-ghost w-full">{% translate "Cancel" %}</a>
+  </aside>
+</form>
+{% endblock %}

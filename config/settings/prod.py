@@ -17,3 +17,4 @@ if SENTRY_DSN:  # optional dependency, installed only where used
     import sentry_sdk
 
     sentry_sdk.init(dsn=SENTRY_DSN, send_default_pii=False, traces_sample_rate=0.0)
+QRUMY_SERVE_FILES_WITH_X_ACCEL = env.bool("QRUMY_SERVE_FILES_WITH_X_ACCEL", default=True)

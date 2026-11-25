@@ -21,6 +21,10 @@ Edit `.env`:
 | `DEFAULT_FROM_EMAIL` | `Qrumy <no-reply@qrumy.com>` |
 | `CERTS_DIR` | `/etc/letsencrypt/live/qrumy.com` |
 | `SENTRY_DSN` | optional (requires `pip install sentry-sdk` in the image) |
+| `QRUMY_QR_BASE_URL` | `https://qrumy.com/q/` — **printed into every dynamic QR code; never change it for existing codes** |
+| `QRUMY_GEOIP_CITY_DB` | path to MaxMind GeoLite2-City `.mmdb` (optional; without it, country/city stay empty) |
+| `QRUMY_COUNTRY_HEADER` | `HTTP_CF_IPCOUNTRY` if Qrumy runs behind Cloudflare (country only) |
+| `QRUMY_SAFE_BROWSING_KEY` | optional Google Safe Browsing key (blocks known-malicious destinations) |
 
 > Without an email provider, `EMAIL_BACKEND` defaults to the console backend and **no
 > emails are delivered** (sign-up verification will not reach users).
@@ -55,12 +59,18 @@ docker compose -f docker-compose.prod.yml exec -T db pg_dump -U qrumy -Fc qrumy 
 Keep 7 daily / 4 weekly / 3 monthly. Test a restore before launch:
 `pg_restore -U qrumy -d qrumy_restore --clean /backups/<file>.dump`.
 
+## GeoIP (optional)
+Create a free MaxMind account, download **GeoLite2-City.mmdb** and mount it into the
+`web` container (e.g. `./var:/app/var:ro` and `QRUMY_GEOIP_CITY_DB=/app/var/GeoLite2-City.mmdb`).
+Refresh it monthly (MaxMind's `geoipupdate` tool). Only country/region/city are derived; the
+raw IP is hashed with a daily salt and never stored.
+
 ## Services
 | Service | Role |
 |---|---|
-| `nginx` | TLS, HTTP→HTTPS redirect, rejects unknown hosts, serves public media |
+| `nginx` | TLS, HTTP→HTTPS redirect, rejects unknown hosts, serves public media and (via X-Accel) files behind QR codes |
 | `web` | Gunicorn (Django); static files via WhiteNoise |
 | `worker` | Celery worker (emails, background jobs) |
-| `beat` | Celery beat (scheduled jobs, stored in the database) |
+| `beat` | Celery beat: drains the scan buffer every 15 s, purges old raw scans |
 | `db` | PostgreSQL 16 |
 | `redis` | cache, sessions, Celery broker |

@@ -1,0 +1,10 @@
+{% extends "qr_management/public/base.html" %}
+{% load i18n qrumy %}
+{% block title %}{% if state == "paused" %}{% translate "Temporarily inactive" %}{% elif state == "expired" %}{% translate "This QR code has expired" %}{% elif state == "suspended" %}{% translate "This QR code is disabled" %}{% else %}{% translate "QR code not found" %}{% endif %}{% endblock %}
+{% block page %}
+<div class="card card-body mt-10 text-center">
+  <span class="mx-auto inline-flex size-12 items-center justify-center rounded-full bg-canvas text-muted">{% if state == "paused" %}{% icon 'pause' %}{% elif state == "suspended" %}{% icon 'shield' %}{% else %}{% icon 'info' %}{% endif %}</span>
+  <h1 class="mt-4 text-xl font-semibold">{% if state == "paused" %}{% translate "Temporarily inactive" %}{% elif state == "expired" %}{% translate "This QR code has expired" %}{% elif state == "suspended" %}{% translate "This QR code is disabled" %}{% else %}{% translate "QR code not found" %}{% endif %}</h1>
+  <p class="mt-2 text-sm text-muted">{% if state == "paused" %}{% translate "The owner has paused this QR code. Please try again later." %}{% elif state == "expired" %}{% translate "The campaign behind this QR code has ended." %}{% elif state == "suspended" %}{% translate "This QR code was disabled by Qrumy because it broke our rules." %}{% else %}{% translate "This QR code doesn't exist or is no longer in use." %}{% endif %}</p>
+</div>
+{% endblock %}

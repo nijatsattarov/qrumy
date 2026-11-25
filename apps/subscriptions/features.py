@@ -25,4 +25,7 @@ FEATURES = {f.key: f for f in [
     Feature("module.ai", "bool", _("Qrumy Intelligence")),
     Feature("module.agency", "bool", _("Agency workspace")),
     Feature("branding.remove", "bool", _("Remove Qrumy branding")),
+    Feature("qr.dynamic", "limit", _("Dynamic QR codes")),
+    Feature("qr.bulk", "bool", _("Bulk QR creation")),
+    Feature("qr.file_mb", "limit", _("File size per QR (MB)")),
 ]}

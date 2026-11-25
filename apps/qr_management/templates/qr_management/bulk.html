@@ -1,0 +1,36 @@
+{% extends "layouts/app.html" %}
+{% load i18n qrumy %}
+{% block title %}{% translate "Bulk create" %}{% endblock %}
+{% block breadcrumb %}<a href="{% url 'qr_list' org_slug=current_organization.slug %}" class="text-muted no-underline hover:text-ink">{% translate "QR Codes" %}</a> / {% translate "Bulk create" %}{% endblock %}
+{% block content %}
+<h1 class="page-title">{% translate "Bulk create from CSV" %}</h1>
+<p class="page-subtitle">{% translate "Create many dynamic website QR codes at once. You can edit each one later." %}</p>
+{% if not_in_plan %}
+<div class="card card-body mt-6 text-sm">{% translate "Bulk creation is not included in your current plan." %}</div>
+{% else %}
+<div class="mt-6 grid items-start gap-6 lg:grid-cols-[1fr_320px]">
+  <form method="post" enctype="multipart/form-data" class="card card-body space-y-5">
+    {% csrf_token %}
+    {% if errors %}
+    <div class="rounded-lg border border-danger/20 bg-danger-soft px-4 py-3 text-sm text-danger" role="alert">
+      <p class="font-medium">{% translate "Nothing was created. Fix these rows and upload again:" %}</p>
+      <ul class="mt-2 list-disc space-y-0.5 pl-5">{% for e in errors|slice:":30" %}<li>{{ e }}</li>{% endfor %}</ul>
+      {% if errors|length > 30 %}<p class="mt-1">{% blocktranslate with n=errors|length|add:"-30" %}…and {{ n }} more.{% endblocktranslate %}</p>{% endif %}
+    </div>
+    {% endif %}
+    {{ form }}
+    <button class="btn btn-primary">{% icon 'upload' 'size-4' %}{% translate "Create QR codes" %}</button>
+  </form>
+  <aside class="card card-body text-sm">
+    <h2 class="section-title">{% translate "File format" %}</h2>
+    <ul class="mt-3 space-y-2 text-muted">
+      <li><code class="text-ink">url</code> — {% translate "required, the destination" %}</li>
+      <li><code class="text-ink">name</code> — {% translate "optional" %}</li>
+      <li><code class="text-ink">tags</code> — {% translate "optional, comma-separated" %}</li>
+    </ul>
+    <p class="mt-3 text-muted">{% blocktranslate %}UTF-8 CSV, up to {{ max_rows }} rows. All rows are checked first; if any row has an error, nothing is created.{% endblocktranslate %}</p>
+    <a href="{% url 'qr_bulk_template' org_slug=current_organization.slug %}" class="btn btn-secondary mt-4">{% icon 'download' 'size-4' %}{% translate "Download template" %}</a>
+  </aside>
+</div>
+{% endif %}
+{% endblock %}

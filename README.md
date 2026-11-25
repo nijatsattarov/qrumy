@@ -3,7 +3,7 @@
 QR-powered business platform: QR management, surveys & feedback, asset management and
 event lead capture — one account, one team, one QR infrastructure. Domain: **qrumy.com**.
 
-> Status: **Phase 1 (Foundation) complete.** Product modules are built phase by phase —
+> Status: **Phase 2 (QR Management) complete.** Product modules are built phase by phase —
 > see [`docs/CHECKLIST.md`](docs/CHECKLIST.md) and [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
 ## Stack
@@ -35,6 +35,7 @@ python manage.py compilemessages --ignore=.venv
 python manage.py createsuperuser
 python manage.py runserver
 celery -A config worker -l info       # second terminal (emails, background jobs)
+celery -A config beat -l info         # third terminal (processes QR scans every 15 s)
 ```
 While editing templates: `npm run watch:css`.
 

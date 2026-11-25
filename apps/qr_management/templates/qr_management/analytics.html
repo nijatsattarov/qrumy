@@ -1,0 +1,42 @@
+{% extends "layouts/app.html" %}
+{% load i18n qrumy static %}
+{% block title %}{% translate "Analytics" %}{% endblock %}
+{% block breadcrumb %}{% translate "Analytics" %}{% endblock %}
+{% block scripts %}<script src="{% static 'vendor/chart.umd.min.js' %}" defer></script><script src="{% static 'js/charts.js' %}" defer></script>{% endblock %}
+{% block content %}
+<div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+  <div>
+    <h1 class="page-title">{% translate "Analytics" %}</h1>
+    <p class="page-subtitle">{% translate "Scans of all dynamic QR codes in this organization." %}</p>
+  </div>
+  <div class="flex items-center gap-2">
+    {% include "qr_management/_period.html" %}
+    <a href="{% url 'analytics_export' org_slug=current_organization.slug %}?days={{ days }}" class="btn btn-sm btn-secondary">{% icon 'download' 'size-4' %}CSV</a>
+  </div>
+</div>
+
+<div class="mt-6 grid gap-4 sm:grid-cols-3">
+  <div class="card card-body"><p class="text-sm text-muted">{% translate "Scans" %}</p><p class="mt-1 text-3xl font-semibold tabular-nums">{{ totals.scans }}</p></div>
+  <div class="card card-body"><p class="text-sm text-muted">{% translate "Unique (estimated)" %}</p><p class="mt-1 text-3xl font-semibold tabular-nums">{{ totals.unique }}</p></div>
+  <div class="card card-body"><p class="text-sm text-muted">{% translate "Dynamic codes" %}</p><p class="mt-1 text-3xl font-semibold tabular-nums">{{ dynamic_count }}</p></div>
+</div>
+
+<div class="mt-6 grid gap-6 lg:grid-cols-3">
+  <section class="card lg:col-span-2">
+    <div class="card-header"><h2 class="section-title">{% translate "Scans per day" %}</h2></div>
+    <div class="p-5">{% include "qr_management/_chart.html" with chart_id="org-series" %}</div>
+  </section>
+  <section class="card">
+    <div class="card-header"><h2 class="section-title">{% translate "Top QR codes" %}</h2></div>
+    {% if top %}
+    <ol class="divide-y divide-line">
+      {% for t in top %}<li class="flex items-center gap-3 px-5 py-3 text-sm"><span class="w-4 text-xs text-muted">{{ forloop.counter }}</span><a class="min-w-0 flex-1 truncate text-ink" href="{% url 'qr_detail' org_slug=current_organization.slug pk=t.qr_code_id %}">{{ t.qr_code__name }}</a><span class="tabular-nums text-muted">{{ t.scans }}</span></li>{% endfor %}
+    </ol>
+    {% else %}<p class="px-5 py-6 text-sm text-muted">{% translate "No scans in this period." %}</p>{% endif %}
+  </section>
+</div>
+<div class="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+  {% for dim, label, rows in breakdowns %}{% include "qr_management/_breakdown.html" %}{% endfor %}
+</div>
+<p class="mt-4 text-xs text-muted">{% translate "Locations are approximate and based on IP address. Visitor IP addresses are never stored. Bots and link previews are excluded." %}</p>
+{% endblock %}

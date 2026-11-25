@@ -9,6 +9,20 @@ from apps.organizations.services import create_organization
 @pytest.fixture(autouse=True)
 def _media(settings, tmp_path):
     settings.MEDIA_ROOT = tmp_path / "media"
+    settings.STORAGES = {
+        **settings.STORAGES,
+        "private": {"BACKEND": "django.core.files.storage.FileSystemStorage",
+                    "OPTIONS": {"location": str(tmp_path / "private"), "base_url": None}},
+    }
+
+
+@pytest.fixture(autouse=True)
+def _clear_cache():
+    from django.core.cache import cache
+
+    cache.clear()
+    yield
+    cache.clear()
 
 
 @pytest.fixture
@@ -37,3 +51,17 @@ def add_member():
         return Membership.objects.create(organization=org, user=user, role=role)
 
     return _add
+
+
+@pytest.fixture
+def make_qr():
+    from apps.qr_management import services
+    from apps.qr_management.engine import QRStyle
+
+    def _make(org, *, qr_type="url", mode="dynamic", name="Menu", payload=None, **kw):
+        payload = payload or {"url": "https://example.com/menu"}
+        return services.create_qr(organization=org, actor=org.owner, qr_type=qr_type, mode=mode,
+                                  name=name, payload=payload, style=kw.pop("style", QRStyle()),
+                                  verify=kw.pop("verify", False), **kw)
+
+    return _make

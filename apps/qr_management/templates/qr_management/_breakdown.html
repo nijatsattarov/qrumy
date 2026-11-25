@@ -1,0 +1,16 @@
+{% load i18n %}
+<section class="card">
+  <div class="card-header py-3"><h3 class="text-sm font-semibold">{{ label }}</h3></div>
+  {% if rows %}
+  <ul class="space-y-3 p-5">
+    {% for r in rows %}
+    <li>
+      <div class="flex justify-between gap-3 text-sm"><span class="truncate">{% if r.other %}{% translate "Other" %}{% elif dim == "country" %}{% include "qr_management/_country.html" with code=r.value %}{% elif dim == "device" %}{% if r.value == "mobile" %}{% translate "Mobile" %}{% elif r.value == "tablet" %}{% translate "Tablet" %}{% elif r.value == "desktop" %}{% translate "Desktop" %}{% else %}{% translate "Other" %}{% endif %}{% else %}{{ r.value|default:"—" }}{% endif %}</span><span class="shrink-0 tabular-nums text-muted">{{ r.scans }} · {{ r.pct }}%</span></div>
+      <progress class="progress mt-1.5" value="{{ r.pct }}" max="100">{{ r.pct }}%</progress>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="px-5 py-6 text-sm text-muted">{% translate "No data yet." %}</p>
+  {% endif %}
+</section>

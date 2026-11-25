@@ -1,0 +1,4 @@
+{% load i18n %}
+<nav class="seg" aria-label="{% translate 'Time range' %}">
+  {% for d, label in periods %}<a href="?days={{ d }}" class="{% if days == d %}is-active{% endif %}">{{ label }}</a>{% endfor %}
+</nav>

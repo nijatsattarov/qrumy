@@ -22,6 +22,31 @@ document.addEventListener("alpine:init", () => {
     init() { setTimeout(() => { this.visible = false; }, 6000); },
   }));
 
+  // Copy text from data-copy to the clipboard.
+  Alpine.data("copy", () => ({
+    copied: false,
+    get notCopied() { return !this.copied; },
+    copy() {
+      const text = this.$el.dataset.copy || "";
+      navigator.clipboard?.writeText(text).then(() => {
+        this.copied = true;
+        setTimeout(() => { this.copied = false; }, 1600);
+      });
+    },
+  }));
+
+  // Bulk selection on the QR list.
+  Alpine.data("selection", () => ({
+    count: 0,
+    get hasSelection() { return this.count > 0; },
+    get noSelection() { return this.count === 0; },
+    update() { this.count = this.$root.querySelectorAll("input[name=ids]:checked").length; },
+    toggleAll(event) {
+      this.$root.querySelectorAll("input[name=ids]").forEach((el) => { el.checked = event.target.checked; });
+      this.update();
+    },
+  }));
+
   Alpine.data("disclosure", () => ({
     open: false,
     toggle() { this.open = !this.open; },

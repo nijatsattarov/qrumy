@@ -15,6 +15,7 @@
   <script src="{% static 'js/app.js' %}" defer></script>
   <script src="{% static 'vendor/htmx.min.js' %}" defer></script>
   <script src="{% static 'vendor/alpine-csp.min.js' %}" defer></script>
+  {% block scripts %}{% endblock %}
   {% block extra_head %}{% endblock %}
 </head>
 <body class="{% block body_class %}min-h-full{% endblock %}" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>

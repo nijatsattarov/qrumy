@@ -1,0 +1,17 @@
+{% load i18n qrumy %}
+<section class="card">
+  <div class="card-header">
+    <h2 class="section-title">{% translate "QR Codes" %}</h2>
+    <a href="{% url 'qr_list' org_slug=current_organization.slug %}" class="text-sm no-underline">{% translate "View all" %}</a>
+  </div>
+  <div class="grid grid-cols-3 divide-x divide-line border-b border-line">
+    <div class="p-5"><p class="text-xs text-muted">{% translate "QR codes" %}</p><p class="mt-1 text-2xl font-semibold tabular-nums">{{ w.qr_count }}</p></div>
+    <div class="p-5"><p class="text-xs text-muted">{% translate "Dynamic" %}</p><p class="mt-1 text-2xl font-semibold tabular-nums">{{ w.dynamic_count }}</p></div>
+    <div class="p-5"><p class="text-xs text-muted">{% translate "Scans, 30 days" %}</p><p class="mt-1 text-2xl font-semibold tabular-nums">{{ w.scans_30d }}</p></div>
+  </div>
+  {% if w.top_codes %}
+  <ul class="divide-y divide-line">{% for t in w.top_codes %}<li class="flex justify-between gap-3 px-5 py-3 text-sm"><a class="truncate text-ink" href="{% url 'qr_detail' org_slug=current_organization.slug pk=t.qr_code_id %}">{{ t.qr_code__name }}</a><span class="tabular-nums text-muted">{{ t.scans }}</span></li>{% endfor %}</ul>
+  {% elif not w.qr_count and can.content_create %}
+  <div class="p-5"><a href="{% url 'qr_choose_type' org_slug=current_organization.slug %}" class="btn btn-primary btn-sm">{% icon 'plus' 'size-4' %}{% translate "Create your first QR code" %}</a></div>
+  {% endif %}
+</section>

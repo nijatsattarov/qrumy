@@ -36,20 +36,42 @@ Legend: `[ ]` not started · `[~]` in progress · `[x]` done and tested
 - Tests: 59 passing on PostgreSQL 16
 
 ### Known gaps / follow-ups (not blocking Phase 2)
-- [ ] CI workflow not yet run on GitHub (push blocked: GitHub App access)
+- [ ] CI workflow not yet run on GitHub (push blocked: GitHub App access for nijatsattarov/qrumy)
 - [ ] Transactional email provider + DNS (SPF/DKIM/DMARC) — needed before public launch
 - [ ] Terms of Service / Privacy Policy pages (legal text must come from the business)
 - [ ] Branded HTML versions of allauth emails (currently allauth's plain-text, translated)
 - [ ] Off-site backups + restore drill (Phase 7)
 - [ ] Optional Postgres Row-Level Security (Phase 7)
 
-## Phase 2 — QR Management (next)
-- [ ] QR engine (segno + custom renderer), styles, decode check (zxing-cpp)
-- [ ] QR types + payload validation; static vs dynamic
-- [ ] `/q/<code>` redirect: cache, status/expiry, scan buffer → Celery enrichment → rollups
-- [ ] Folders, tags, search, filters, pause/expire, bulk CSV create, PNG/SVG/ZIP export
-- [ ] Analytics UI + CSV export, bot filtering, GeoLite2
-- [ ] Abuse controls: URL validation, creation rate limits, admin suspension
+## Phase 2 — QR Management ✅ (2026-11-25)
+- [x] QR engine: segno matrix + own renderer (SVG/PNG), 3 module shapes, 3 eye frames,
+      3 eye centres, colours, logo, 4 frame styles with call-to-action (az glyphs)
+- [x] Scannability: contrast rules + ZXing decode check on every save; 756-combination matrix passes
+- [x] 15 types: website, multi-link & social, PDF, menu, image, contact card (vCard), WhatsApp,
+      location, app download, coupon, text, Wi-Fi, phone, SMS, email; static vs dynamic rules
+- [x] Hosted landing pages (links, vCard + .vcf, coupon, text, app chooser) and hosted files
+- [x] `/q/<code>` redirect: cache, pause/expiry/suspension/deletion pages, never-reused codes
+- [x] Scan pipeline: Redis buffer → Celery (15 s) → UA/bot/geo enrichment → daily rollups;
+      no raw IP stored; unique estimates; retention purge; CDN country header support
+- [x] UI: list with search/filters/sort/pagination (HTMX), folders, tags, bulk select actions,
+      create/edit with live preview + test-scan status, detail page, PNG (512–4096)/SVG download
+- [x] Bulk CSV create (all-or-nothing, quota-aware, template download), ZIP export (PNG/SVG)
+- [x] Analytics: per-code and organization pages, 7/30/90/365-day ranges, bar chart with
+      table view, 8 breakdowns, CSV export (formula-injection safe); dashboard widget
+- [x] Abuse controls: URL validation, staff blocklist, optional Safe Browsing, creation rate
+      limit, admin suspension with reason (audited), suspended page
+- [x] Plan features: `qr.dynamic`, `qr.bulk`, `qr.file_mb`; module gating per plan
+- [x] Tenant isolation extended to every QR/folder/analytics route (mutation-tested)
+- [x] Azerbaijani translations (711 strings)
+- [x] Production stack re-verified: Nginx TLS → scans → Celery rollups; PDF via X-Accel
+- Tests: 150 passing on PostgreSQL 16 + Redis 7
+
+### Phase 2 follow-ups
+- [ ] GeoLite2 database on the server (needs a free MaxMind licence key) — until then
+      country/city analytics stay empty unless a CDN country header is configured
+- [ ] Video type (link to external hosting) and Survey/Event/Product types arrive with their modules
+- [ ] Scan partitioning by month once volume requires it
+
 ## Phase 3 — Surveys
 ## Phase 4 — Events A (lead capture)
 ## Phase 5 — Events B (registration & check-in)

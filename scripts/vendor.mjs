@@ -4,6 +4,8 @@ import { cpSync, mkdirSync } from "node:fs";
 const files = [
   ["node_modules/htmx.org/dist/htmx.min.js", "static/vendor/htmx.min.js"],
   ["node_modules/@alpinejs/csp/dist/cdn.min.js", "static/vendor/alpine-csp.min.js"],
+  ["node_modules/chart.js/dist/chart.umd.min.js", "static/vendor/chart.umd.min.js"],
+  ["node_modules/chart.js/dist/chart.umd.min.js.map", "static/vendor/chart.umd.min.js.map"],
   ["node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2",
    "static/vendor/fonts/inter-latin-wght-normal.woff2"],
   ["node_modules/@fontsource-variable/inter/files/inter-latin-ext-wght-normal.woff2",
