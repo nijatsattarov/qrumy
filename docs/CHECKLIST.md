@@ -134,6 +134,10 @@ Legend: `[ ]` not started · `[~]` in progress · `[x]` done and tested
       assets, paid subscriptions / expected MRR, sign-up and scan charts, latest sign-ups
 - [x] Blog (en/az): posts written in the admin (drafts, scheduling, cover and inline images,
       safe formatting), list + post pages, JSON-LD, sitemap, navigation; 2 starter posts
+- [x] Free QR generator on the homepage, no account: website, Wi-Fi, text, phone, SMS,
+      email, WhatsApp, location, vCard (static only, nothing stored); pattern / corner /
+      frame shapes, colours, call to action, logo; live preview with test scan; PNG + SVG;
+      rate-limited. Dynamic codes, landing pages, surveys and assets lead to sign-up
 - [x] Account deletion (audit e-mail anonymised); ownership transfer; organization deletion
 - [x] Tests: 243 passing; Azerbaijani translations: 1,212 strings
 - [ ] Deployment to the VPS and go-live items — see docs/LAUNCH.md

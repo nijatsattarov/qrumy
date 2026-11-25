@@ -1,0 +1,18 @@
+{% load i18n qrumy %}
+<div id="gen-content">
+  <input type="hidden" name="type" value="{{ gen_type.key }}">
+  <div class="flex flex-wrap gap-2" role="tablist" aria-label="{% translate 'QR code type' %}">
+    {% for t in gen_types %}
+    <a href="?type={{ t.key }}#generator" role="tab" aria-selected="{% if t.key == gen_type.key %}true{% else %}false{% endif %}"
+       hx-get="{% url 'generator_fields' %}?type={{ t.key }}" hx-target="#gen-content" hx-swap="outerHTML"
+       class="chip {% if t.key == gen_type.key %}is-active{% endif %}">{% icon t.icon 'size-3.5' %}{{ t.label }}</a>
+    {% endfor %}
+  </div>
+  <p class="mt-4 text-sm text-muted">{{ gen_type.description }}</p>
+  <div class="mt-4 space-y-4">
+    {% for field in gen_form %}{{ field.as_field_group }}{% endfor %}
+  </div>
+  {# Refresh the preview whenever the type changes. #}
+  <div hx-post="{% url 'generator_preview' %}" hx-trigger="load" hx-target="#gen-preview"
+       hx-include="#gen-form" hx-encoding="multipart/form-data"></div>
+</div>

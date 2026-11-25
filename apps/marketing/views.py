@@ -85,8 +85,11 @@ FAQ = [
 def home(request):
     available = set(settings.QRUMY_AVAILABLE_MODULES)
     products = [{**p, "available": p["key"] in available} for p in PRODUCTS]
-    return render(request, "marketing/home.html", {"products": products, "plans": _plans(),
-                                                  "faq": FAQ})
+    from .generator import generator_context
+
+    return render(request, "marketing/home.html", {
+        "products": products, "plans": _plans(), "faq": FAQ,
+        **generator_context(request, request.GET.get("type"))})
 
 
 def pricing(request):

@@ -1,0 +1,62 @@
+{% load i18n qrumy %}
+<section id="generator" class="scroll-mt-20">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6">
+    <div class="mb-4">{% include "components/messages.html" %}</div>
+    <form id="gen-form" method="post" enctype="multipart/form-data" class="card grid overflow-hidden lg:grid-cols-[1fr_360px]"
+          hx-post="{% url 'generator_preview' %}" hx-target="#gen-preview" hx-encoding="multipart/form-data"
+          hx-trigger="change, input delay:500ms" hx-sync="this:queue last">
+      {% csrf_token %}
+      <div class="space-y-8 p-5 sm:p-7">
+        <div>
+          <h2 class="flex items-center gap-2 text-lg font-semibold"><span class="inline-flex size-6 items-center justify-center rounded-full bg-navy-900 text-xs text-white">1</span>{% translate "Choose the content" %}</h2>
+          <div class="mt-4">{% include "marketing/generator/_content.html" %}</div>
+        </div>
+        <div>
+          <h2 class="flex items-center gap-2 text-lg font-semibold"><span class="inline-flex size-6 items-center justify-center rounded-full bg-navy-900 text-xs text-white">2</span>{% translate "Design your code" %}</h2>
+          <div class="mt-4 space-y-5">
+            {% include "marketing/generator/_shapes.html" with field=gen_style.module_shape kind="module_shape" %}
+            <div class="grid gap-5 sm:grid-cols-2">
+              {% include "marketing/generator/_shapes.html" with field=gen_style.eye_frame kind="eye_frame" %}
+              {% include "marketing/generator/_shapes.html" with field=gen_style.eye_ball kind="eye_ball" %}
+            </div>
+            <div class="grid gap-4 grid-cols-3">{{ gen_style.fg.as_field_group }}{{ gen_style.bg.as_field_group }}{{ gen_style.eye_color.as_field_group }}</div>
+            {% include "marketing/generator/_shapes.html" with field=gen_style.frame kind="frame" %}
+            <div class="grid gap-4 sm:grid-cols-2">{{ gen_style.cta_text.as_field_group }}{{ gen_style.frame_color.as_field_group }}</div>
+            {{ gen_style.logo.as_field_group }}
+          </div>
+        </div>
+      </div>
+      <aside class="border-t border-line bg-canvas p-5 sm:p-7 lg:border-l lg:border-t-0">
+        <div class="lg:sticky lg:top-24">
+          <h2 class="flex items-center gap-2 text-lg font-semibold"><span class="inline-flex size-6 items-center justify-center rounded-full bg-navy-900 text-xs text-white">3</span>{% translate "Download" %}</h2>
+          <div id="gen-preview" class="mt-4" aria-live="polite">
+            {% include "marketing/generator/_preview.html" with empty=True %}
+          </div>
+          <div class="mt-5 grid grid-cols-2 gap-2">
+            <button type="submit" formaction="{% url 'generator_download' 'png' %}" class="btn btn-primary">{% icon 'download' 'size-4' %}PNG</button>
+            <button type="submit" formaction="{% url 'generator_download' 'svg' %}" class="btn btn-secondary">{% icon 'download' 'size-4' %}SVG</button>
+          </div>
+          <p class="mt-3 text-xs leading-relaxed text-muted">{% translate "Free, no sign-up. Static codes keep working forever, but they cannot be edited or tracked after printing." %}</p>
+        </div>
+      </aside>
+    </form>
+
+    <div class="mt-6 rounded-2xl bg-navy-900 p-6 text-white sm:p-8">
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p class="text-lg font-semibold">{% translate "Need more than a static code?" %}</p>
+          <p class="mt-1 text-sm text-white/70">{% translate "These need a free account — still free during the beta." %}</p>
+        </div>
+        <a href="{% if user.is_authenticated %}{% url 'app_home' %}{% else %}{% url 'account_signup' %}{% endif %}" class="btn btn-on-dark shrink-0">{% if user.is_authenticated %}{% translate "Open app" %}{% else %}{% translate "Create a free account" %}{% endif %}{% icon 'arrow-right' 'size-4' %}</a>
+      </div>
+      <div class="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {% for f in pro_features %}
+        <a href="{% if user.is_authenticated %}{% url 'app_home' %}{% else %}{% url 'account_signup' %}{% endif %}" class="flex gap-3 rounded-xl bg-white/[0.06] p-4 text-white no-underline ring-1 ring-white/10 hover:bg-white/[0.1]">
+          <span class="inline-flex size-9 shrink-0 items-center justify-center rounded-lg bg-white/10">{% icon f.icon 'size-4' %}</span>
+          <span><span class="flex items-center gap-2 text-sm font-semibold">{{ f.title }}{% icon 'lock' 'size-3.5 text-white/50' %}</span><span class="mt-0.5 block text-xs text-white/65">{{ f.text }}</span></span>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>

@@ -8,50 +8,15 @@
 {% endblock %}
 {% block content %}
 
-{# ============================== HERO ============================== #}
-<section class="relative overflow-hidden">
-  <div aria-hidden="true" class="pointer-events-none absolute inset-x-0 top-0 h-[540px] bg-[radial-gradient(ellipse_60%_60%_at_70%_0%,rgb(79_124_255/0.10),transparent)]"></div>
-  <div class="relative mx-auto grid max-w-6xl items-center gap-12 px-4 pb-16 pt-14 sm:px-6 lg:grid-cols-[1.05fr_1fr] lg:pb-24 lg:pt-20">
-    <div>
-      <p class="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1 text-xs font-medium text-muted"><span class="size-1.5 rounded-full bg-accent-500"></span>{% translate "Free beta — now open" %}</p>
-      <h1 class="mt-5 text-4xl font-semibold leading-[1.08] tracking-[-0.035em] sm:text-5xl lg:text-[3.4rem]">{% translate "QR technology." %}<br><span class="text-navy-700">{% translate "Smarter business operations." %}</span></h1>
-      <p class="mt-5 max-w-xl text-lg leading-relaxed text-muted">{% translate "Manage QR codes, collect customer feedback, track assets, and turn event interactions into business opportunities — all in one platform." %}</p>
-      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-        <a href="{% url 'account_signup' %}" class="btn btn-primary btn-lg">{% translate "Get Started Free" %}{% icon 'arrow-right' 'size-4' %}</a>
-        <a href="#products" class="btn btn-secondary btn-lg">{% translate "Explore Products" %}</a>
-      </div>
-      <p class="mt-4 text-sm text-muted">{% translate "No credit card. Free while in beta." %}</p>
-    </div>
-
-    {# Product preview (illustrative mock-up of the QR dashboard) #}
-    <figure class="relative">
-      <div class="card overflow-hidden shadow-[var(--shadow-pop)]">
-        <div class="flex items-center gap-1.5 border-b border-line bg-canvas px-4 py-2.5">
-          <span class="size-2.5 rounded-full bg-line-strong"></span><span class="size-2.5 rounded-full bg-line-strong"></span><span class="size-2.5 rounded-full bg-line-strong"></span>
-          <span class="ml-3 text-xs text-muted">app.qrumy.com</span>
-        </div>
-        <div class="grid gap-5 p-5 sm:grid-cols-[150px_1fr]">
-          <div class="space-y-3">
-            <img src="{% static 'brand/hero-qr.svg' %}" alt="{% translate 'Example QR code linking to qrumy.com' %}" class="w-full rounded-lg border border-line" width="150" height="150">
-            <p class="text-center text-xs font-medium">{% translate "Spring menu" %}</p>
-            <p class="flex items-center justify-center gap-1.5 text-xs text-success"><span class="size-1.5 rounded-full bg-success"></span>{% translate "Dynamic · Active" %}</p>
-          </div>
-          <div>
-            <p class="text-xs font-medium uppercase tracking-wide text-muted">{% translate "Scans, last 14 days" %}</p>
-            <div class="mt-3 flex h-28 items-end gap-1.5" aria-hidden="true">
-              <span class="h-[28%] flex-1 rounded-t bg-accent-200"></span><span class="h-[40%] flex-1 rounded-t bg-accent-200"></span><span class="h-[34%] flex-1 rounded-t bg-accent-200"></span><span class="h-[47%] flex-1 rounded-t bg-accent-200"></span><span class="h-[40%] flex-1 rounded-t bg-accent-200"></span><span class="h-[60%] flex-1 rounded-t bg-accent-200"></span><span class="h-[52%] flex-1 rounded-t bg-accent-200"></span><span class="h-[47%] flex-1 rounded-t bg-accent-200"></span><span class="h-[66%] flex-1 rounded-t bg-accent-200"></span><span class="h-[60%] flex-1 rounded-t bg-accent-200"></span><span class="h-[78%] flex-1 rounded-t bg-accent-200"></span><span class="h-[72%] flex-1 rounded-t bg-accent-200"></span><span class="h-[86%] flex-1 rounded-t bg-accent-500"></span><span class="h-full flex-1 rounded-t bg-accent-500"></span>
-            </div>
-            <div class="mt-4 grid grid-cols-3 gap-2 text-center">
-              <div class="rounded-lg bg-canvas px-2 py-2.5"><p class="text-xs text-muted">{% translate "Mobile" %}</p><p class="text-sm font-semibold">iOS · Android</p></div>
-              <div class="rounded-lg bg-canvas px-2 py-2.5"><p class="text-xs text-muted">{% translate "Top country" %}</p><p class="text-sm font-semibold">AZ</p></div>
-              <div class="rounded-lg bg-canvas px-2 py-2.5"><p class="text-xs text-muted">{% translate "Source" %}</p><p class="text-sm font-semibold">{% translate "Table card" %}</p></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <figcaption class="mt-3 text-center text-xs text-muted">{% translate "Product preview" %}</figcaption>
-    </figure>
+{# ============================== HERO + FREE GENERATOR ============================== #}
+<section class="relative overflow-hidden pb-16 lg:pb-24">
+  <div aria-hidden="true" class="pointer-events-none absolute inset-x-0 top-0 h-[540px] bg-[radial-gradient(ellipse_60%_60%_at_50%_0%,rgb(79_124_255/0.10),transparent)]"></div>
+  <div class="relative mx-auto max-w-3xl px-4 pb-10 pt-12 text-center sm:px-6 lg:pt-16">
+    <p class="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1 text-xs font-medium text-muted"><span class="size-1.5 rounded-full bg-accent-500"></span>{% translate "Free QR code generator — no sign-up" %}</p>
+    <h1 class="mt-5 text-4xl font-semibold leading-[1.08] tracking-[-0.035em] sm:text-5xl">{% translate "Create a QR code in seconds" %}</h1>
+    <p class="mt-4 text-lg leading-relaxed text-muted">{% translate "Website, Wi-Fi, phone, email, WhatsApp and more. Pick a style, add your logo and download — free, without an account." %}</p>
   </div>
+  <div class="relative">{% include "marketing/generator/_section.html" %}</div>
 </section>
 
 {# ============================== ECOSYSTEM ============================== #}
