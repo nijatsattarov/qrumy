@@ -1,0 +1,26 @@
+{% extends "assets/public/base.html" %}
+{% load i18n qrumy %}
+{% block title %}{{ asset.name }}{% endblock %}
+{% block page %}
+<div class="card overflow-hidden">
+  <div class="bg-navy-900 px-6 py-7 text-white">
+    <p class="font-mono text-xs text-white/60">{{ asset.asset_code }}</p>
+    <h1 class="mt-1 text-2xl font-semibold text-white">{{ asset.name }}</h1>
+    {% if asset.public_visibility != "minimal" %}<p class="mt-3">{% include "assets/_status.html" with s=asset.status label=asset.get_status_display %}</p>{% endif %}
+  </div>
+  {% if asset.public_visibility != "minimal" %}
+  <dl class="divide-y divide-line text-sm">
+    {% if location %}<div class="flex gap-3 px-5 py-3.5">{% icon 'pin' 'size-4 mt-0.5 shrink-0 text-muted' %}<div><dt class="text-xs text-muted">{% translate "Location" %}</dt><dd>{{ location }}</dd></div></div>{% endif %}
+    {% if asset.category %}<div class="flex gap-3 px-5 py-3.5">{% icon 'tag' 'size-4 mt-0.5 shrink-0 text-muted' %}<div><dt class="text-xs text-muted">{% translate "Category" %}</dt><dd>{{ asset.category.name }}</dd></div></div>{% endif %}
+    {% if asset.brand or asset.model_name %}<div class="flex gap-3 px-5 py-3.5">{% icon 'box' 'size-4 mt-0.5 shrink-0 text-muted' %}<div><dt class="text-xs text-muted">{% translate "Brand & model" %}</dt><dd>{{ asset.brand }} {{ asset.model_name }}</dd></div></div>{% endif %}
+    {% if asset.public_visibility == "full" %}
+      {% if asset.warranty_expires_at %}<div class="flex gap-3 px-5 py-3.5">{% icon 'shield' 'size-4 mt-0.5 shrink-0 text-muted' %}<div><dt class="text-xs text-muted">{% translate "Warranty until" %}</dt><dd>{{ asset.warranty_expires_at|date:"j M Y" }}</dd></div></div>{% endif %}
+      <div class="flex gap-3 px-5 py-3.5">{% icon 'settings' 'size-4 mt-0.5 shrink-0 text-muted' %}<div><dt class="text-xs text-muted">{% translate "Last maintenance" %}</dt><dd>{% if last_maintenance %}{{ last_maintenance.performed_on|date:"j M Y" }} · {{ last_maintenance.get_kind_display }}{% else %}—{% endif %}</dd></div></div>
+    {% endif %}
+  </dl>
+  {% endif %}
+  {% if asset.instructions %}<div class="border-t border-line bg-canvas/60 px-5 py-4"><p class="text-xs font-medium text-muted">{% translate "Instructions" %}</p><p class="mt-1 text-sm leading-relaxed">{{ asset.instructions|linebreaksbr }}</p></div>{% endif %}
+</div>
+<a href="{% url 'asset_public_report' token=asset.public_token %}" class="btn btn-primary btn-lg mt-4 w-full">{% icon 'alert' 'size-5' %}{% translate "Report a problem" %}</a>
+{% if member %}<a href="{% url 'asset_detail' org_slug=org.slug pk=asset.pk %}" class="btn btn-secondary mt-2 w-full">{% icon 'external' 'size-4' %}{% translate "Open in Qrumy" %}</a>{% endif %}
+{% endblock %}

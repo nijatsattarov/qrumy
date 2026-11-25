@@ -30,4 +30,5 @@ FEATURES = {f.key: f for f in [
     Feature("qr.file_mb", "limit", _("File size per QR (MB)")),
     Feature("surveys.max", "limit", _("Surveys")),
     Feature("surveys.responses_month", "limit", _("Survey responses per month")),
+    Feature("assets.max", "limit", _("Assets")),
 ]}

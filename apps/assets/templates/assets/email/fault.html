@@ -1,0 +1,13 @@
+{% load i18n %}<!DOCTYPE html>
+<html><body style="margin:0;background:#F7F9FC;font-family:Inter,Segoe UI,Arial,sans-serif;color:#172033">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="padding:32px 16px"><tr><td align="center">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;background:#fff;border:1px solid #E3E8F0;border-radius:12px">
+<tr><td style="padding:28px 32px 0"><span style="font-size:22px;font-weight:700;color:#101B3A">Qrumy</span></td></tr>
+<tr><td style="padding:20px 32px 8px">
+<p style="margin:0 0 6px;font-size:13px;font-weight:600;color:#DC2626">{{ fault.get_priority_display }}</p>
+<h1 style="margin:0 0 12px;font-size:20px">{{ asset.name }} — {{ fault.get_category_display }}</h1>
+<p style="margin:0 0 6px;font-size:14px;color:#687386">{{ asset.asset_code }}{% if location %} · {{ location }}{% endif %}</p>
+<p style="margin:12px 0 24px;font-size:15px;line-height:1.6">{{ fault.description|linebreaksbr }}</p>
+<a href="{{ url }}" style="display:inline-block;background:#101B3A;color:#fff;text-decoration:none;font-weight:600;font-size:15px;padding:12px 22px;border-radius:8px">{% translate "Open the report" %}</a>
+</td></tr><tr><td style="padding:24px 32px 28px"></td></tr>
+</table></td></tr></table></body></html>

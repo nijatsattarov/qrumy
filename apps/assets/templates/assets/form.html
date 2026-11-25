@@ -1,0 +1,54 @@
+{% extends "layouts/app.html" %}
+{% load i18n qrumy %}
+{% block title %}{% if asset %}{% translate "Edit asset" %}{% else %}{% translate "Add asset" %}{% endif %}{% endblock %}
+{% block breadcrumb %}<a href="{% url 'asset_list' org_slug=current_organization.slug %}" class="text-muted no-underline hover:text-ink">{% translate "Assets" %}</a> / {% if asset %}{{ asset.name }}{% else %}{% translate "New" %}{% endif %}{% endblock %}
+{% block content %}
+<h1 class="page-title">{% if asset %}{% translate "Edit asset" %}{% else %}{% translate "Add asset" %}{% endif %}</h1>
+<form method="post" class="mt-6 space-y-6">{% csrf_token %}
+  {% for e in form.non_field_errors %}<div class="rounded-lg border border-danger/20 bg-danger-soft px-4 py-3 text-sm text-danger" role="alert">{{ e }}</div>{% endfor %}
+  <section class="card">
+    <div class="card-header"><h2 class="section-title">{% translate "Basics" %}</h2></div>
+    <div class="card-body grid gap-5 sm:grid-cols-2">
+      <div class="sm:col-span-2">{{ form.name.as_field_group }}</div>
+      {{ form.asset_code.as_field_group }}{{ form.status.as_field_group }}
+      {{ form.category.as_field_group }}{{ form.serial_number.as_field_group }}
+      {{ form.brand.as_field_group }}{{ form.model_name.as_field_group }}
+      <div class="sm:col-span-2">{{ form.description.as_field_group }}</div>
+    </div>
+  </section>
+  <section class="card">
+    <div class="card-header"><h2 class="section-title">{% translate "Location & responsibility" %}</h2>{% if can.content_edit %}<a class="text-sm no-underline" href="{% url 'asset_setup' org_slug=current_organization.slug %}">{% translate "Manage locations" %}</a>{% endif %}</div>
+    <div class="card-body grid gap-5 sm:grid-cols-2">{{ form.location.as_field_group }}{{ form.department.as_field_group }}<div class="sm:col-span-2">{{ form.responsible.as_field_group }}</div></div>
+  </section>
+  <section class="card">
+    <div class="card-header"><h2 class="section-title">{% translate "Purchase & warranty" %}</h2></div>
+    <div class="card-body grid gap-5 sm:grid-cols-2">
+      {{ form.purchase_date.as_field_group }}{{ form.warranty_expires_at.as_field_group }}
+      {{ form.purchase_price.as_field_group }}{{ form.currency.as_field_group }}
+      <div class="sm:col-span-2">{{ form.supplier.as_field_group }}</div>
+    </div>
+  </section>
+  <section class="card">
+    <div class="card-header"><h2 class="section-title">{% translate "QR profile" %}</h2></div>
+    <div class="card-body grid gap-5">
+      {{ form.public_visibility.as_field_group }}{{ form.instructions.as_field_group }}{{ form.custom_fields_text.as_field_group }}
+      {% if not asset %}<label class="flex items-center gap-2.5 text-sm"><input type="checkbox" name="create_qr" value="1" class="checkbox" checked>{% translate "Create a QR label for this asset" %}</label>{% endif %}
+    </div>
+  </section>
+  <div class="flex justify-end gap-2">
+    <a href="{% if asset %}{% url 'asset_detail' org_slug=current_organization.slug pk=asset.pk %}{% else %}{% url 'asset_list' org_slug=current_organization.slug %}{% endif %}" class="btn btn-ghost">{% translate "Cancel" %}</a>
+    <button class="btn btn-primary">{% if asset %}{% translate "Save changes" %}{% else %}{% translate "Add asset" %}{% endif %}</button>
+  </div>
+</form>
+
+{% if asset and can.content_delete %}
+<section class="card mt-10 border-danger/30">
+  <div class="card-header"><h2 class="section-title text-danger">{% translate "Delete asset" %}</h2></div>
+  <form method="post" action="{% url 'asset_delete' org_slug=current_organization.slug pk=asset.pk %}" class="card-body space-y-4">{% csrf_token %}
+    <p class="text-sm text-muted">{% translate "This permanently deletes the asset with its files, fault reports and maintenance history. Its QR label is paused. To keep the history, set the status to “Retired” instead." %}</p>
+    <div class="form-field max-w-sm"><label class="form-label" for="confirm_code">{% blocktranslate with c=asset.asset_code %}Type “{{ c }}” to confirm{% endblocktranslate %}</label><input id="confirm_code" name="confirm_code" required autocomplete="off"></div>
+    <button class="btn btn-danger">{% icon 'trash' 'size-4' %}{% translate "Delete asset" %}</button>
+  </form>
+</section>
+{% endif %}
+{% endblock %}

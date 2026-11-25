@@ -10,6 +10,7 @@
 {% elif t == "coupon" %}{{ p.title }}{% if p.code %} · {{ p.code }}{% endif %}
 {% elif t == "links" %}{{ p.title }} · {% blocktranslate count n=p.links|length %}{{ n }} link{% plural %}{{ n }} links{% endblocktranslate %}
 {% elif t == "survey" %}{{ p.survey_title }}
+{% elif t == "asset" %}{{ p.asset_code }} · {{ p.asset_name }}
 {% elif qr.type_def.hosted_file %}{% if hosted_file %}{{ hosted_file.original_name }} ({{ hosted_file.size|filesizeformat }}){% endif %}
 {% endif %}
 {% if qr.type_def.landing and qr.is_dynamic %}<a class="mt-1 flex items-center gap-1 text-xs" href="{% url 'qr_landing_preview' org_slug=current_organization.slug pk=qr.pk %}" target="_blank" rel="noopener">{% translate "Preview page" %}</a>{% endif %}

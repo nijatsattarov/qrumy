@@ -1,0 +1,77 @@
+{% extends "layouts/app.html" %}
+{% load i18n qrumy partials %}
+{% block title %}{% translate "Assets" %}{% endblock %}
+{% block breadcrumb %}{% translate "Assets" %}{% endblock %}
+{% block content %}
+<div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+  <div>
+    <h1 class="page-title">{% translate "Assets" %}</h1>
+    <p class="page-subtitle">{% translate "Equipment, tools and facilities with a QR profile each." %}</p>
+  </div>
+  <div class="flex gap-2">
+    <a href="{% url 'asset_export' org_slug=current_organization.slug %}?{{ request.GET.urlencode }}" class="btn btn-secondary">{% icon 'download' 'size-4' %}CSV</a>
+    {% if can.content_create %}<a href="{% url 'asset_create' org_slug=current_organization.slug %}" class="btn btn-primary">{% icon 'plus' 'size-4' %}{% translate "Add asset" %}</a>{% endif %}
+  </div>
+</div>
+{% include "assets/_tabs.html" %}
+
+<div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+  <div class="card card-body"><p class="text-sm text-muted">{% translate "Assets" %}</p><p class="mt-1 text-3xl font-semibold tabular-nums">{{ summary.total }}</p></div>
+  <a href="?status=broken" class="card card-body text-ink no-underline hover:border-navy-900"><p class="text-sm text-muted">{% translate "Need attention" %}</p><p class="mt-1 text-3xl font-semibold tabular-nums">{{ summary.attention }}</p><p class="mt-1 text-xs text-muted">{% translate "broken or under maintenance" %}</p></a>
+  <a href="{% url 'asset_faults' org_slug=current_organization.slug %}" class="card card-body text-ink no-underline hover:border-navy-900"><p class="text-sm text-muted">{% translate "Open fault reports" %}</p><p class="mt-1 text-3xl font-semibold tabular-nums">{{ summary.open_faults }}</p>{% if summary.urgent_faults %}<p class="mt-1 text-xs font-medium text-danger">{% blocktranslate with n=summary.urgent_faults %}{{ n }} high priority{% endblocktranslate %}</p>{% endif %}</a>
+  <div class="card card-body"><p class="text-sm text-muted">{% translate "Maintenance cost, 12 months" %}</p><p class="mt-1 text-3xl font-semibold tabular-nums">{{ summary.cost_12m|floatformat:"0" }}</p>{% if summary.warranty_soon %}<p class="mt-1 text-xs text-[#B45309]">{% blocktranslate with n=summary.warranty_soon %}{{ n }} warranties end within 60 days{% endblocktranslate %}</p>{% endif %}</div>
+</div>
+
+<form method="get" class="card mt-6 flex flex-wrap items-center gap-2 p-3" hx-get="{% url 'asset_list' org_slug=current_organization.slug %}" hx-target="#asset-results" hx-push-url="true" hx-trigger="input changed delay:350ms from:input[name=q], change">
+  <div class="relative min-w-48 flex-1">
+    <span class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted">{% icon 'search' 'size-4' %}</span>
+    <label for="aq" class="sr-only">{% translate "Search" %}</label>
+    <input id="aq" name="q" value="{{ filters.q }}" placeholder="{% translate 'Name, ID, serial number or model' %}" class="input pl-9">
+  </div>
+  <select name="status" class="input w-auto" aria-label="{% translate 'Status' %}"><option value="">{% translate "All statuses" %}</option>{% for v, l in statuses %}<option value="{{ v }}" {% if filters.status == v %}selected{% endif %}>{{ l }}</option>{% endfor %}</select>
+  <select name="category" class="input w-auto" aria-label="{% translate 'Category' %}"><option value="">{% translate "All categories" %}</option>{% for c in categories %}<option value="{{ c.pk }}" {% if filters.category == c.pk|stringformat:'s' %}selected{% endif %}>{{ c.name }}</option>{% endfor %}</select>
+  <select name="location" class="input w-auto" aria-label="{% translate 'Location' %}"><option value="">{% translate "All locations" %}</option>{% for pk, label, loc in location_choices %}<option value="{{ pk }}" {% if filters.location == pk|stringformat:'s' %}selected{% endif %}>{{ label }}</option>{% endfor %}</select>
+  <select name="faults" class="input w-auto" aria-label="{% translate 'Faults' %}"><option value="">{% translate "With or without faults" %}</option><option value="open" {% if filters.faults == 'open' %}selected{% endif %}>{% translate "With open faults" %}</option></select>
+</form>
+
+<div id="asset-results" class="mt-4">
+{% partialdef results inline %}
+  {% if page.object_list %}
+  <div class="card overflow-hidden">
+    <ul class="divide-y divide-line">
+      {% for a in page.object_list %}
+      <li>
+        <a href="{% url 'asset_detail' org_slug=current_organization.slug pk=a.pk %}" class="flex flex-wrap items-center gap-3 px-5 py-3.5 text-ink no-underline hover:bg-canvas/50">
+          <span class="inline-flex size-10 shrink-0 items-center justify-center rounded-lg bg-canvas text-navy-800">{% icon 'box' 'size-5' %}</span>
+          <span class="min-w-0 flex-1">
+            <span class="flex flex-wrap items-center gap-2"><span class="truncate text-sm font-medium">{{ a.name }}</span>{% include "assets/_status.html" with s=a.status label=a.get_status_display %}{% if a.open_faults %}<span class="badge badge-danger">{% blocktranslate count n=a.open_faults %}{{ n }} open fault{% plural %}{{ n }} open faults{% endblocktranslate %}</span>{% endif %}</span>
+            <span class="mt-0.5 block truncate text-xs text-muted"><span class="font-mono">{{ a.asset_code }}</span>{% if a.category %} · {{ a.category.name }}{% endif %}{% if a.location_path %} · {{ a.location_path }}{% endif %}{% if a.brand or a.model_name %} · {{ a.brand }} {{ a.model_name }}{% endif %}</span>
+          </span>
+          {% if a.responsible %}<span class="avatar size-7 text-[10px]" title="{{ a.responsible.display_name }}">{{ a.responsible.display_name|initials }}</span>{% endif %}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% if page.has_other_pages %}
+  <nav class="mt-4 flex items-center justify-between text-sm" aria-label="{% translate 'Pagination' %}">
+    <span class="text-muted">{% blocktranslate with n=page.number total=page.paginator.num_pages %}Page {{ n }} of {{ total }}{% endblocktranslate %}</span>
+    <span class="flex gap-2">
+      {% if page.has_previous %}<a class="btn btn-sm btn-secondary" href="?{% for k, v in filters.items %}{% if k != 'page' %}{{ k }}={{ v|urlencode }}&{% endif %}{% endfor %}page={{ page.previous_page_number }}">{% translate "Previous" %}</a>{% endif %}
+      {% if page.has_next %}<a class="btn btn-sm btn-secondary" href="?{% for k, v in filters.items %}{% if k != 'page' %}{{ k }}={{ v|urlencode }}&{% endif %}{% endfor %}page={{ page.next_page_number }}">{% translate "Next" %}</a>{% endif %}
+    </span>
+  </nav>
+  {% endif %}
+  {% elif filtered %}
+  <div class="card card-body py-12 text-center text-sm text-muted">{% translate "No assets match these filters." %} <a href="{% url 'asset_list' org_slug=current_organization.slug %}">{% translate "Clear filters" %}</a></div>
+  {% else %}
+  <div class="card card-body py-14 text-center">
+    <span class="mx-auto inline-flex size-12 items-center justify-center rounded-xl bg-navy-900 text-white">{% icon 'box' 'size-6' %}</span>
+    <p class="mt-4 text-lg font-semibold">{% translate "Add your first asset" %}</p>
+    <p class="mx-auto mt-1 max-w-sm text-sm text-muted">{% translate "Give every machine, device or tool a QR label. Staff scan it to see instructions and report problems in seconds." %}</p>
+    {% if can.content_create %}<a href="{% url 'asset_create' org_slug=current_organization.slug %}" class="btn btn-primary mt-6">{% icon 'plus' 'size-4' %}{% translate "Add asset" %}</a>{% endif %}
+  </div>
+  {% endif %}
+{% endpartialdef %}
+</div>
+{% endblock %}

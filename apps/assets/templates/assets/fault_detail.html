@@ -1,0 +1,42 @@
+{% extends "layouts/app.html" %}
+{% load i18n qrumy %}
+{% block title %}{% translate "Fault report" %} — {{ fault.asset.name }}{% endblock %}
+{% block breadcrumb %}<a href="{% url 'asset_faults' org_slug=current_organization.slug %}" class="text-muted no-underline hover:text-ink">{% translate "Fault reports" %}</a> / {{ fault.asset.name }}{% endblock %}
+{% block content %}
+<div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+  <div>
+    <div class="flex flex-wrap items-center gap-2"><h1 class="page-title">{{ fault.get_category_display }}</h1>{% include "assets/_priority.html" with p=fault.priority label=fault.get_priority_display %}<span class="badge {% if fault.is_open %}badge-accent{% else %}badge-neutral{% endif %}">{{ fault.get_status_display }}</span></div>
+    <p class="page-subtitle"><a href="{% url 'asset_detail' org_slug=current_organization.slug pk=fault.asset.pk %}">{{ fault.asset.asset_code }} · {{ fault.asset.name }}</a>{% if fault.location_label %} · {{ fault.location_label }}{% endif %}</p>
+  </div>
+</div>
+<div class="mt-6 grid items-start gap-6 lg:grid-cols-[1fr_340px]">
+  <div class="space-y-6">
+    <section class="card card-body">
+      <p class="text-[15px] leading-relaxed">{{ fault.description|linebreaksbr }}</p>
+      {% if fault.photo %}<a href="{% url 'asset_fault_photo' org_slug=current_organization.slug pk=fault.pk %}" target="_blank" rel="noopener"><img src="{% url 'asset_fault_photo' org_slug=current_organization.slug pk=fault.pk %}" alt="{% translate 'Photo of the problem' %}" class="mt-4 max-h-80 rounded-lg border border-line object-contain"></a>{% endif %}
+      <p class="mt-4 text-xs text-muted">{% blocktranslate with d=fault.created_at|date:"j M Y, H:i" %}Reported {{ d }}{% endblocktranslate %}{% if fault.reporter_name %} · {{ fault.reporter_name }}{% endif %}{% if fault.reporter_contact %} · {{ fault.reporter_contact }}{% endif %}{% if fault.via_qr %} · {% translate "via QR code" %}{% endif %}</p>
+    </section>
+    {% if fault.resolution and not can.content_edit %}<section class="card card-body"><h2 class="section-title">{% translate "Resolution" %}</h2><p class="mt-2 text-sm">{{ fault.resolution|linebreaksbr }}</p></section>{% endif %}
+    {% if maintenance %}<section class="card"><div class="card-header"><h2 class="section-title">{% translate "Maintenance" %}</h2></div><ul class="divide-y divide-line">{% for m in maintenance %}<li class="px-5 py-3 text-sm">{{ m.performed_on|date:"j M Y" }} · {{ m.get_kind_display }}{% if m.cost %} · {{ m.cost|floatformat:"2" }} {{ fault.asset.currency }}{% endif %}{% if m.notes %}<p class="text-muted">{{ m.notes }}</p>{% endif %}</li>{% endfor %}</ul></section>{% endif %}
+  </div>
+  {% if can.content_edit %}
+  <form method="post" action="{% url 'asset_fault_update' org_slug=current_organization.slug pk=fault.pk %}" class="card divide-y divide-line">{% csrf_token %}
+    <div class="space-y-4 p-5">
+      <div class="form-field"><label class="form-label" for="assigned_to">{% translate "Assigned to" %}</label><select id="assigned_to" name="assigned_to"><option value="">{% translate "Nobody" %}</option>{% for m in members %}<option value="{{ m.pk }}" {% if fault.assigned_to_id == m.pk %}selected{% endif %}>{{ m.display_name }}</option>{% endfor %}</select></div>
+      <div class="form-field"><label class="form-label" for="status">{% translate "Status" %}</label><select id="status" name="status">{% for v, l in statuses %}<option value="{{ v }}" {% if fault.status == v %}selected{% endif %}>{{ l }}</option>{% endfor %}</select></div>
+      <div class="form-field"><label class="form-label" for="resolution">{% translate "Resolution / notes" %}</label><textarea id="resolution" name="resolution" rows="3" maxlength="2000">{{ fault.resolution }}</textarea></div>
+    </div>
+    <div class="space-y-2.5 p-5 text-sm">
+      <p class="text-xs font-medium text-muted">{% translate "When saving" %}</p>
+      <label class="flex items-center gap-2.5"><input type="checkbox" name="asset_maintenance" value="1" class="checkbox">{% translate "If “In progress”: set asset to Under maintenance" %}</label>
+      <label class="flex items-center gap-2.5"><input type="checkbox" name="asset_active" value="1" class="checkbox" checked>{% translate "If “Completed”: set asset back to Active" %}</label>
+      <label class="flex items-center gap-2.5"><input type="checkbox" name="log_maintenance" value="1" class="checkbox" checked>{% translate "If “Completed”: log a repair in the maintenance history" %}</label>
+      <div class="form-field pl-6"><label class="form-label text-xs" for="cost">{% translate "Repair cost" %}</label><input id="cost" name="cost" type="number" min="0" step="0.01" inputmode="decimal"></div>
+    </div>
+    <div class="p-5"><button class="btn btn-primary w-full">{% translate "Save" %}</button></div>
+  </form>
+  {% else %}
+  <aside class="card card-body text-sm"><p class="text-xs text-muted">{% translate "Assigned to" %}</p><p class="mt-1">{{ fault.assigned_to.display_name|default:"—" }}</p></aside>
+  {% endif %}
+</div>
+{% endblock %}

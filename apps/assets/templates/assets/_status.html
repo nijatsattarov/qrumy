@@ -1,0 +1,1 @@
+{% load i18n %}{% if s == "active" or s == "in_use" or s == "available" %}<span class="badge badge-success">{{ label }}</span>{% elif s == "maintenance" %}<span class="badge badge-warning">{{ label }}</span>{% elif s == "broken" or s == "lost" %}<span class="badge badge-danger">{{ label }}</span>{% else %}<span class="badge badge-neutral">{{ label }}</span>{% endif %}

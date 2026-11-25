@@ -1,0 +1,11 @@
+{% extends "assets/public/base.html" %}
+{% load i18n qrumy %}
+{% block title %}{% translate "Thank you" %}{% endblock %}
+{% block page %}
+<div class="card card-body mt-6 py-12 text-center">
+  <span class="mx-auto inline-flex size-14 items-center justify-center rounded-full bg-success-soft text-success">{% icon 'check' 'size-7' %}</span>
+  <h1 class="mt-5 text-2xl font-semibold">{% translate "Report sent" %}</h1>
+  <p class="mx-auto mt-2 max-w-xs text-[15px] text-muted">{% blocktranslate with name=asset.name %}Thank you. The team responsible for {{ name }} has been notified.{% endblocktranslate %}</p>
+  <a href="{% url 'asset_public' token=asset.public_token %}" class="btn btn-secondary mt-6">{% translate "Back to the asset" %}</a>
+</div>
+{% endblock %}

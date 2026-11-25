@@ -1,0 +1,11 @@
+{% load i18n %}{% blocktranslate with name=asset.name code=asset.asset_code %}A fault was reported for {{ name }} ({{ code }}).{% endblocktranslate %}
+
+{% translate "Problem" %}: {{ fault.get_category_display }}
+{% translate "Priority" %}: {{ fault.get_priority_display }}
+{% if location %}{% translate "Location" %}: {{ location }}
+{% endif %}
+{{ fault.description }}
+
+{% translate "Open the report:" %} {{ url }}
+
+— Qrumy

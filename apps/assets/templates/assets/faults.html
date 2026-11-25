@@ -1,0 +1,35 @@
+{% extends "layouts/app.html" %}
+{% load i18n qrumy %}
+{% block title %}{% translate "Fault reports" %}{% endblock %}
+{% block breadcrumb %}<a href="{% url 'asset_list' org_slug=current_organization.slug %}" class="text-muted no-underline hover:text-ink">{% translate "Assets" %}</a> / {% translate "Fault reports" %}{% endblock %}
+{% block content %}
+<h1 class="page-title">{% translate "Assets" %}</h1>
+{% include "assets/_tabs.html" %}
+<form method="get" class="mt-6 flex flex-wrap items-center gap-2">
+  <select name="state" class="input w-auto" data-autosubmit aria-label="{% translate 'Status' %}">
+    <option value="open" {% if state == 'open' %}selected{% endif %}>{% translate "Open" %}</option>
+    <option value="all" {% if state == 'all' %}selected{% endif %}>{% translate "All" %}</option>
+    {% for v, l in statuses %}<option value="{{ v }}" {% if state == v %}selected{% endif %}>{{ l }}</option>{% endfor %}
+  </select>
+  <select name="priority" class="input w-auto" data-autosubmit aria-label="{% translate 'Priority' %}"><option value="">{% translate "Any priority" %}</option>{% for v, l in priorities %}<option value="{{ v }}" {% if filters.priority == v %}selected{% endif %}>{{ l }}</option>{% endfor %}</select>
+  <select name="assigned" class="input w-auto" data-autosubmit aria-label="{% translate 'Assigned' %}"><option value="">{% translate "Anyone" %}</option><option value="me" {% if filters.assigned == 'me' %}selected{% endif %}>{% translate "Assigned to me" %}</option><option value="none" {% if filters.assigned == 'none' %}selected{% endif %}>{% translate "Unassigned" %}</option></select>
+  <noscript><button class="btn btn-secondary">{% translate "Filter" %}</button></noscript>
+</form>
+{% if page.object_list %}
+<div class="card mt-4 overflow-hidden">
+  <ul class="divide-y divide-line">{% for f in page.object_list %}
+    <li><a href="{% url 'asset_fault' org_slug=current_organization.slug pk=f.pk %}" class="flex flex-wrap items-center gap-3 px-5 py-3.5 text-ink no-underline hover:bg-canvas/50">
+      <span class="min-w-0 flex-1">
+        <span class="flex flex-wrap items-center gap-2 text-sm"><span class="font-medium">{{ f.asset.name }}</span><span class="text-muted">· {{ f.get_category_display }}</span></span>
+        <span class="mt-0.5 block truncate text-sm text-muted">{{ f.description }}</span>
+      </span>
+      {% include "assets/_priority.html" with p=f.priority label=f.get_priority_display %}
+      <span class="badge {% if f.is_open %}badge-accent{% else %}badge-neutral{% endif %}">{{ f.get_status_display }}</span>
+      <span class="w-24 text-right text-xs text-muted">{{ f.created_at|date:"j M, H:i" }}{% if f.assigned_to %}<br>{{ f.assigned_to.get_short_name }}{% endif %}</span>
+    </a></li>{% endfor %}
+  </ul>
+</div>
+{% else %}
+<div class="card card-body mt-4 py-12 text-center text-sm text-muted">{% if state == "open" %}{% translate "No open fault reports. Everything is working." %}{% else %}{% translate "No fault reports match these filters." %}{% endif %}</div>
+{% endif %}
+{% endblock %}

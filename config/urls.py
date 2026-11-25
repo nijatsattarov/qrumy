@@ -6,6 +6,7 @@ from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path
 
 from apps.accounts.views import set_language
+from apps.assets import urls as asset_urls
 from apps.core import views as core_views
 from apps.marketing.sitemaps import StaticViewSitemap
 from apps.qr_management import urls as qr_urls
@@ -23,6 +24,8 @@ urlpatterns = [
     path("q/", include(qr_urls.public_urlpatterns)),
     path("app/<slug:org_slug>/", include(survey_urls.app_urlpatterns)),
     path("s/", include(survey_urls.public_urlpatterns)),
+    path("app/<slug:org_slug>/", include(asset_urls.app_urlpatterns)),
+    path("a/", include(asset_urls.public_urlpatterns)),
     path("app/", include("apps.organizations.urls")),
     path("invitations/", include("apps.organizations.invitation_urls")),
     path("notifications/", include("apps.notifications.urls")),

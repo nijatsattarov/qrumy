@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load i18n qrumy %}
+{% block title_suffix %}{% endblock %}
+{% block seo %}<meta name="robots" content="noindex, nofollow">{% endblock %}
+{% block body_class %}min-h-full bg-canvas{% endblock %}
+{% block body %}
+<main class="mx-auto flex min-h-screen max-w-md flex-col px-4 py-8">
+  <header class="mb-6 flex items-center justify-center gap-3">
+    {% if org.logo %}<img src="{{ org.logo.url }}" alt="" class="size-9 rounded-lg bg-white object-contain">{% endif %}
+    <p class="text-sm font-semibold">{{ org.name }}</p>
+  </header>
+  <div class="flex-1">{% block page %}{% endblock %}</div>
+  {% if branding %}<footer class="mt-10 text-center"><a href="{% url 'home' %}" class="inline-flex items-center gap-1.5 text-xs text-muted no-underline">{% translate "Powered by" %} {% include "components/logo.html" with size="h-3.5" wordmark=False %}<span class="font-semibold text-navy-900">Qrumy</span></a></footer>{% endif %}
+</main>
+{% endblock %}

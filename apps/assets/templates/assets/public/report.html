@@ -1,0 +1,22 @@
+{% extends "assets/public/base.html" %}
+{% load i18n qrumy %}
+{% block title %}{% translate "Report a problem" %} — {{ asset.name }}{% endblock %}
+{% block page %}
+<a href="{% url 'asset_public' token=asset.public_token %}" class="inline-flex items-center gap-1 text-sm text-muted no-underline">{% icon 'chevron-down' 'size-4 rotate-90' %}{{ asset.name }}</a>
+<form method="post" enctype="multipart/form-data" class="card mt-3 space-y-6 p-5" novalidate>{% csrf_token %}
+  <div><h1 class="text-xl font-semibold">{% translate "Report a problem" %}</h1><p class="mt-1 text-sm text-muted"><span class="font-mono">{{ asset.asset_code }}</span> · {{ asset.name }}</p></div>
+  {{ form.started }}
+  <div class="hidden" aria-hidden="true"><input type="text" name="website" tabindex="-1" autocomplete="off"></div>
+  {% if form.non_field_errors %}<div class="rounded-lg border border-danger/20 bg-danger-soft px-4 py-3 text-sm text-danger" role="alert">{% translate "This form expired. Please try again." %}</div>{% endif %}
+  <fieldset class="space-y-2 {% if form.category.errors %}s-has-error{% endif %}">
+    <legend class="mb-2 text-sm font-semibold">{{ form.category.label }}</legend>
+    <div class="grid grid-cols-2 gap-2">{% for opt in form.category.subwidgets %}<label class="s-choice px-3 py-2.5 text-sm" for="{{ opt.id_for_label }}">{{ opt.tag }}<span>{{ opt.choice_label }}</span></label>{% endfor %}</div>
+    {% for e in form.category.errors %}<p class="form-error">{{ e }}</p>{% endfor %}
+  </fieldset>
+  {{ form.description.as_field_group }}
+  {{ form.priority.as_field_group }}
+  {{ form.photo.as_field_group }}
+  <div class="grid gap-4 sm:grid-cols-2">{{ form.reporter_name.as_field_group }}{{ form.reporter_contact.as_field_group }}</div>
+  <button class="btn btn-primary btn-lg w-full">{% translate "Send report" %}</button>
+</form>
+{% endblock %}
