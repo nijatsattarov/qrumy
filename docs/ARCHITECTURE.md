@@ -1,402 +1,425 @@
-# Qrumy — Architecture & MVP Plan (v0.1, for approval)
+# Qrumy — Architecture & MVP Plan (v0.2 — Python/Django, for approval)
 
 Status: **DRAFT — awaiting approval. No application code has been written.**
 Date: 2026-11-25
+Supersedes: v0.1 (Laravel/PHP draft, commit `0e68522`, kept in git history only).
 
 ---
 
-## 0. Current state of the repository
+## 0. Current state & decisions already made
 
-| Item | Finding |
+| Item | Finding / decision |
 |---|---|
-| Repository | `nijatsattarov/dergah`, empty (no commits, no remote branches) |
-| Existing code / schema / data | None — greenfield. Nothing to preserve or migrate. |
-| Toolchain in dev container | PHP 8.3.6 (pdo_mysql, gd, intl, redis, sodium, zip), Composer, Node 22, Redis 7, Docker. No local MySQL (will run MySQL 8 in Docker for tests). |
+| Repository | `nijatsattarov/dergah`. It contains only `docs/ARCHITECTURE.md` and `docs/CHECKLIST.md` (planning documents). No application code, schema or data, so **there is nothing to migrate.** The stack change only replaces this plan. |
+| Dev container | Python 3.13, PostgreSQL 16, Redis 7, Docker, Chromium/Playwright (for end-to-end tests) |
+| Stack | **Python only.** Django + DRF, PostgreSQL, Celery + Redis, Django Templates + Tailwind + HTMX (+ Alpine where needed), Docker Compose, Nginx, Gunicorn. No PHP, no Laravel, no React. |
+| Repo | Build Qrumy in this repository ✔ |
+| Phase order | Events before Assets ✔ |
+| Redirect domain | Separate short domain for dynamic QR redirects ✔ (name still to be chosen; configurable by env) |
+| Billing | **Free beta first.** Plans, limits and entitlements are built; no payment provider is integrated yet. |
+| Languages | **English + Azerbaijani** (UI, marketing site, public pages, emails) |
+| Super-admin | Customized **Django Admin**. This replaces the earlier Filament choice, which was PHP-only. |
 
 ---
 
-## 1. Architectural problems found in the specification
+## 1. Architectural problems and how this design handles them
 
-These are the issues that would cause rework or risk later if not decided now.
+### 1.1 Scope (six products)
+Each module is a SaaS product on its own. The plan ships **Foundation → QR → Surveys →
+Events (lead capture) → Events (registration/check-in) → basic Assets**, then hardens
+for the beta launch. AI and Agency come after the beta.
 
-### 1.1 Scope is ~6 products; the MVP must be cut hard
-Each module (QR, Surveys, Assets, Events, AI, Agency) is a standalone SaaS in its own
-right. Building all of them to the depth described before launch would take a single
-team many months. The plan below ships **Foundation + QR + Surveys** first, then
-**Event lead capture**, then **basic Assets**. AI and Agency come after that.
+### 1.2 Exhibitor leads break simple organization tenancy
+Organizer and exhibitors are different companies inside one event. Design:
+- `events.Event` belongs to the organizer's organization.
+- `events.Exhibitor` is a participation record. It can optionally link to the
+  exhibitor's **own** Qrumy organization, so the exhibitor keeps its leads in its own
+  account after the event.
+- `events.Lead` is authorized by **exhibitor membership** (`ExhibitorMember`), not by
+  organizer membership. The organizer sees aggregates by default. Raw lead access is
+  an explicit, per-event, consent-backed setting.
+- This area gets a dedicated isolation test suite.
 
-### 1.2 Event exhibitors break the simple "one organization owns the row" tenancy model
-Organizer and exhibitors are *different companies* sharing one event. Leads captured
-by Exhibitor A must be invisible to Exhibitor B and, by default, to the organizer as
-raw personal data (organizer sees aggregates). So `organization_id` alone is not
-enough. The design adds a second scope:
-
-- An event belongs to the organizer's organization.
-- `event_exhibitors` is a participation record. It optionally links to the exhibitor's
-  **own** Qrumy organization (`exhibitor_organization_id`), so that exhibitor keeps
-  its leads in its own account after the event (an onboarding hook for us).
-- `event_leads` carry `event_exhibitor_id` and are authorized by **exhibitor
-  membership**, not by organizer membership. Organizer access to raw leads is an
-  explicit, per-event, consent-backed setting.
-
-This is the single highest-risk isolation area and will get dedicated tests.
-
-### 1.3 Agency = organizations that manage other organizations
-If organizations are flat now, Phase 7 becomes a rewrite. We add
-`organizations.parent_organization_id` (nullable) and an `organization_type`
-(`standard | agency`) from day one. Nothing uses them until Phase 7, but the tenancy
-resolver and policies are written so that "agency member acting on client org" is an
-added rule, not a new model.
+### 1.3 Agency needs groundwork now
+`Organization.parent` (nullable FK to self) and `Organization.kind`
+(`standard | agency`) exist from day one. Permission checks go through one
+`organizations.access` service, so "agency member acting on client org" becomes an
+added rule in Phase 10, not a rewrite.
 
 ### 1.4 Static QR codes cannot be tracked
-Static codes encode the payload directly, so scans never touch our servers. The UI
-must say so plainly ("Static — no scan analytics"). Several listed types (PDF, Image,
-Video, Menu, Multi-link, Coupon, Survey, Feedback, Event, Product info) **require a
-hosted landing page**, so they are always dynamic. Only URL, Text, Wi-Fi, vCard,
-Phone, SMS, Email, WhatsApp and Location can be static.
+Static codes never reach our servers, and the UI says so. Types that need a hosted page
+(PDF, Image, Menu, Multi-link, Coupon, App download, Survey, Event, Product info,
+Feedback) are always dynamic.
 
-### 1.5 Dynamic QR redirect abuse is the main business risk
-Dynamic redirect services are a common phishing vector. If `qrumy.com` gets on Google
-Safe Browsing or a spam blocklist, **every** customer's printed QR breaks *and* the
-marketing site goes down with it. Mitigations:
+### 1.5 Redirect abuse (main business risk)
+- Separate **short redirect domain** (decided). The redirect host gets its own minimal
+  URLconf (`request.urlconf` set by middleware), so the redirect app cannot reach
+  dashboard routes, and `qrumy.com` is shielded from blocklisting.
+- Destination validation: only `http`/`https` schemes, a blocked-domain list, and an
+  optional Safe Browsing (or similar) check behind a `UrlReputation` interface.
+- Creation rate limits during the free beta; admin can suspend a QR code or an
+  organization with one action.
+- Short codes are **immutable and never reused**.
 
-- **Recommendation:** serve redirects from a separate short domain (e.g.
-  `qrumy.link/abc123`, to be decided). That protects the main domain, and a shorter
-  URL gives a less dense, more scannable QR. `qrumy.com/q/{code}` stays supported
-  as a route, configurable by env.
-- URL checks on create/update (Safe Browsing API or a similar service, behind an
-  interface), plus a domain blocklist.
-- Rate limits on QR creation for free accounts, and admin suspension.
-- Printed codes are permanent: short codes are **immutable** and never reused.
+### 1.6 Redirect speed
+The redirect view is the hottest path:
+1. Look up the short code in Redis (cache hit) or Postgres (cache miss).
+2. Check status and expiry.
+3. Push a minimal scan record (code, time, IP hash, UA, referrer, UTM) to a Redis list.
+4. Return 302.
 
-### 1.6 Scan tracking must not slow the redirect
-The redirect endpoint is the hottest path in the system. Design: resolve the code
-from cache, then write a minimal scan row (or dispatch to the queue when Redis is
-available), then return a 302. Parsing (UA, geo, bot detection) and **daily rollup
-tables** happen asynchronously. Dashboards read rollups, never raw scans. Raw scans
-get a configurable retention period, and IPs are stored only as a salted hash
-(daily-rotating salt, which also gives "estimated unique scans").
+Celery workers drain the list in batches, enrich each scan (user-agent parsing, bot
+filter, geo-IP), bulk-insert raw rows, and update **daily rollup** tables. Dashboards
+read only the rollups. Raw scans have configurable retention, and the IP is stored
+only as a hash with a daily-rotating salt, which also gives "estimated unique scans".
+Partitioning by month (Postgres declarative partitioning) is ready for when volume
+needs it.
 
-### 1.7 QR styling vs. library capabilities
-Eye shapes, module patterns, frames and logos are not all supported by every PHP
-library. **Recommendation: `chillerlan/php-qrcode` (v5)**, which supports custom
-module and finder rendering in SVG and raster output. Frames and CTA text are composed
-as an SVG layer around the code. Scannability guards: enforce minimum
-foreground/background contrast, use error correction H when a logo is present, cap the
-logo at about 20% of the area, and keep a quiet zone. An optional server-side decode
-check can be added later.
+### 1.7 QR styling and scannability
+- **`segno`** generates the QR matrix (pure Python, full error-correction control).
+- A Qrumy **custom renderer** draws modules and finder "eyes" with selectable shapes,
+  colors, logo, frame and CTA text. It outputs SVG natively and PNG via Pillow.
+- Scannability guards: minimum contrast ratio, error correction H when a logo is used,
+  logo ≤ ~20% of the area, enforced quiet zone.
+- **Automated decode check** using `zxing-cpp` (Python wheels): every style preset in
+  tests, and the user's design on save, so we don't ship codes that cannot be scanned.
 
-### 1.8 Payments depend on where the business is registered
-Stripe is not available to merchants in every country. If the legal entity cannot use
-Stripe, a **Merchant-of-Record** provider (Paddle, Lemon Squeezy) is usually the
-simplest route for selling internationally (it also handles VAT and sales tax). The
-billing layer will be a `PaymentGateway` interface, plus a `ManualGateway` for
-development and admin-granted plans. It never fakes success: a dev "activation" is an
-explicit admin action that is logged as such.
+### 1.8 Payments
+Free beta, so no gateway yet. The `billing` app defines a `PaymentGateway` interface
+and a `ManualGateway` (admin-assigned plans, always logged as manual). Nothing ever
+marks a payment as successful without a real gateway. Provider choice (Stripe vs a
+Merchant-of-Record such as Paddle) is made before paid plans launch.
 
-### 1.9 Email consent and personal data (GDPR-style)
-Lead capture, event registration and follow-up emails process personal data of
-people who are **not** Qrumy users. Required from the start: a consent checkbox and
-the stored consent text/version per lead/attendee, unsubscribe links, a per-org sender
-identity, and data export/deletion per contact. Follow-up emails are sent only to
-contacts with recorded consent.
+### 1.9 Personal data of non-users (leads, attendees, respondents)
+Required from the start: consent checkbox with the stored consent text and version,
+unsubscribe links, per-contact export and delete, and retention settings. Follow-up
+emails go only to contacts with recorded consent.
 
-### 1.10 Public, unauthenticated surfaces bypass tenant scoping
-Survey pages, asset profiles, fault forms, lead capture pages, ticket pages and
-redirects are public. They must resolve their tenant **from an unguessable token**,
-never from a user session. They also need rate limiting and spam protection
-(honeypot, plus an optional captcha).
+### 1.10 Public, unauthenticated pages
+Survey pages, asset profiles, fault forms, lead capture pages, tickets and redirects
+resolve the tenant **from an unguessable token**, never from a session. All of them
+are rate-limited and have a honeypot (captcha optional).
 
-### 1.11 Things the spec does not mention but that affect the schema
-- **Localization (i18n):** public survey and event pages almost certainly need
-  multiple languages. Build with Laravel translations and per-org default locale from
-  day one (UI strings), with per-survey translations later.
-- **Time zones:** store UTC, render in the organization's or event's time zone.
-- **Camera check-in requires HTTPS** (browser camera API); offline check-in is out of
-  scope as the spec says.
-- **File uploads (PDF/image/video QR):** size caps per plan, MIME sniffing, files kept
-  off the public web root, and served via signed or streamed routes. Video should
-  link to external hosting in the MVP, not host large files.
+### 1.11 Django-specific pitfalls handled up front
+- **Custom user model** (email login) is created before the first migration. It cannot
+  be changed cheaply later.
+- **Django has no global query scopes.** Tenancy is enforced by explicit, mandatory
+  patterns (see §2.2) and a test suite, not by thread-local "magic".
+- **Django's built-in Groups/Permissions are global**, not per-organization. They are
+  used only for staff (super-admin) access. Tenant roles live on `Membership`.
+- **Alpine.js and Content-Security-Policy:** use Alpine's CSP build so that no
+  `unsafe-eval` is needed.
+- **Azerbaijani text:** Inter covers ə, ğ, ı, ş, ç, ö, ü. URL slugs use a small
+  az→Latin transliteration (e.g. ə→e). Postgres collation and search are configured
+  for mixed az/en content.
+- **Time zones:** `USE_TZ=True`, stored in UTC, shown in the org's or event's time
+  zone (default `Asia/Baku`, configurable).
 
 ---
 
 ## 2. Recommended final architecture
 
-**Modular monolith on Laravel**, one deployable app, one MySQL database.
+**Modular monolith**: one Django project, independent Django apps, one PostgreSQL
+database, Celery workers on Redis.
 
 ```
-            ┌───────────────────────── Laravel application ─────────────────────────┐
- Browser ──►│  Web (Blade + Tailwind + Alpine)     Public pages     Redirect endpoint │
-            │           │                              │                  │          │
-            │   ┌───────▼──────────── Core (shared kernel) ──────────────▼───────┐  │
-            │   │ Auth · Organizations · Memberships/Roles · Tenancy · Entitlements│ │
-            │   │ Billing · QR Engine (render + short codes) · Analytics · Files  │  │
-            │   │ Notifications · Audit log · Activity feed · Settings/Flags      │  │
-            │   └───────▲──────────▲──────────▲──────────▲──────────▲─────────────┘  │
-            │        QR Mgmt   Surveys    Events     Assets   (Intelligence, Agency) │
-            │   Modules depend on Core only. Modules never import each other;       │
-            │   cross-module links go through Core contracts (e.g. "Qrable").       │
-            └──────────────┬───────────────────────────┬─────────────────────────────┘
-                     MySQL 8 (single schema)      Redis (cache/queue/sessions)
-                                                    └─► Queue workers (Supervisor)
-                                                    └─► Scheduler (cron)
+                         ┌────────────────────── Django project "qrumy" ───────────────────────┐
+  qrumy.com ──► Nginx ──►│ Gunicorn                                                             │
+  <short-domain> ───────►│  ├─ Marketing (i18n: /en, /az)   ├─ App UI (/app/<org>/…, HTMX)      │
+                         │  ├─ Public pages (/s/, /e/, /a/)  ├─ REST API (/api/v1, DRF)          │
+                         │  ├─ Redirect URLconf (short domain only)                             │
+                         │  └─ Super-admin (/<secret-path>/, Django Admin, staff + 2FA)         │
+                         │                                                                      │
+                         │  PRODUCT APPS:  qr_management* · surveys · events · assets ·          │
+                         │                 agency · ai_intelligence                             │
+                         │  PLATFORM APPS: core · accounts · organizations · subscriptions ·    │
+                         │                 billing · analytics · notifications · audit_logs     │
+                         └─────────┬──────────────────────────────┬─────────────────────────────┘
+                              PostgreSQL 16                  Redis 7 (cache, sessions, broker,
+                                                             scan buffer)
+                                                               ├─► Celery workers
+                                                               └─► Celery beat (schedules)
+   * qr_management is both a product (QR Codes) and the shared QR engine other apps use.
 ```
 
-Key decisions:
+### 2.1 Key decisions
 
 | Concern | Decision | Why |
 |---|---|---|
-| Framework | Current stable Laravel major at setup time, PHP 8.3 | As specified; 8.3 is installed |
-| Module system | Plain Laravel: `app/Modules/<Name>` with its own ServiceProvider that registers routes, views, migrations and policies. No `nwidart/laravel-modules`. | Avoid a heavy dependency; easy to extract later |
-| Tenancy | Single database, `organization_id` on every tenant row; `BelongsToOrganization` trait with global scope + explicit `TenantContext` service; policies on every controller action; tests per module | Cheapest to run on a VPS; isolation enforced server-side |
-| Roles | Role per membership (`owner, admin, manager, member, viewer`) + a config capability matrix checked by Gates/Policies | Covers the spec without `spatie/permission`; custom roles can come later |
-| Plans/limits | `Entitlements` service: features (bool) + limits (int) resolved from plan + add-ons + per-org overrides; usage counters | One place for "can this org do X / how many" |
-| Shared QR | One `qr_codes` table is the **single redirect/short-code registry**. Surveys, exhibitor pages and assets attach via a polymorphic `qrable` target. Event **tickets** use their own token table (volume, different lifecycle). | "Shared QR infrastructure" without coupling modules |
-| Frontend | Blade components as the design system, Tailwind (tokens as CSS variables), Alpine, Vite. Chart.js for charts. SortableJS for the survey builder. A small, maintained JS scanner for check-in. | Matches spec; minimal JS |
-| Admin panel | Separate `/admin` area, separate guard and `admin_users` table, custom Blade on the same design system | Stack consistency; avoids Livewire; admin is small initially |
-| Queues/cache | Redis when available; `database` driver fallback | VPS-friendly |
-| Storage | Laravel filesystem disks; `local` now, S3-compatible via config | As specified |
-| AI (later) | `AiProvider` interface, usage metered through Entitlements, server-side only | Vendor-neutral |
-| Geo-IP | MaxMind GeoLite2 local DB (free license key) behind `GeoLocator` interface; country/region/city only | No per-request API cost; no GPS claims |
+| Versions | Python 3.13 (min 3.12), **Django 5.2 LTS**, DRF 3.16, Celery 5.5, PostgreSQL 16, Redis 7 | LTS supported to April 2028; every dependency supports it |
+| Settings | `config/settings/{base,dev,test,prod}.py` + `django-environ` | 12-factor; secrets only in env |
+| Auth | **`django-allauth`**: email login, verification, password reset, remember-me, rate-limited login, Google OAuth (configured later), MFA/TOTP (built in, enabled later) | Covers the whole auth spec with one well-maintained library |
+| Tenancy | Org in URL (`/app/<org_slug>/…`), `OrganizationMiddleware` + membership check, `TenantModel` base, `OrgScopedQuerySet.for_org()`, view mixins and DRF base viewsets that **always** scope; isolation test suite. Postgres Row-Level Security as optional defence in depth (Phase 7). | Explicit, testable; multi-org and agency switching are natural |
+| Roles | `Membership.role` ∈ owner/admin/manager/member/viewer + capability matrix (`organizations/capabilities.py`) checked via `require_capability` decorator/mixin and DRF permission classes | Per-tenant roles without bending Django's global permissions |
+| Plans & limits | `subscriptions.entitlements`: `org.can("qr.dynamic")`, `org.limit("qr.dynamic.max")`, usage counters; a **Beta plan** is assigned to all orgs during the beta | Limits work now; paid plans need no rework |
+| Shared QR | `qr_management.QRCode` is the single short-code registry. Other apps hold an FK to it (e.g. `Survey.qr_code`, `Asset.qr_code`, `Exhibitor.capture_qr`). Each sets a `purpose`; apps register a resolver in `AppConfig.ready()`. Event **tickets** use their own token model (high volume, different lifecycle). | Real FKs (no GenericForeignKey); dependencies point to the platform only |
+| Frontend | Django Templates; components as `{% include %}`-based partials + `django-template-partials` for HTMX fragments; `django-htmx`; HTMX 2; Alpine (CSP build); Tailwind v4 built in a Docker build stage (Node only at build time, not in production); Chart.js; SortableJS (survey builder); a maintained JS scanner for camera check-in | Matches spec; no SPA |
+| Design tokens | CSS variables in `static/src/tokens.css` mapped into the Tailwind theme (navy palette from the spec); Inter font self-hosted | Global restyling from one file |
+| i18n | Django i18n; `LANGUAGES = [("en"), ("az")]`; `i18n_patterns` for the marketing site; user/org language preference; `.po` files for en/az. User-authored content (survey questions, event pages) gets optional per-language fields (JSONB) from Phase 3. | Both languages from day one |
+| API | DRF under `/api/v1`. Session auth for in-app JS (check-in scanner, builder saves); per-org hashed API keys later. `drf-spectacular` for OpenAPI. | Spec requires REST where needed |
+| Background jobs | Celery + Redis; `django-celery-beat` for schedules; tasks receive `organization_id` explicitly, never an implicit context | Safe tenancy in workers |
+| Email | `django-anymail` (provider-agnostic) sent via Celery; templates in en/az | Swap providers by config |
+| Files | Django storages: local now, `django-storages` S3 later; validation with `python-magic` + Pillow, size caps per plan; private files served through Nginx `X-Accel-Redirect` after a permission check | Secure uploads |
+| Analytics libs | `ua-parser` (UA), crawler list + heuristics (bots), `geoip2` + MaxMind GeoLite2 local DB (country/region/city only) | No per-scan API cost; no GPS claims |
+| Super-admin | Django Admin themed with **`django-unfold`** (Tailwind-based, modern), staff-only, MFA required, non-default URL, every write audited | Premium admin with little custom code |
+| Security | Django CSRF/autoescape/ORM parameterization, `django-csp`, `django-ratelimit` on public endpoints, allauth login throttling, HSTS, secure cookies, safe-redirect validator, `audit_logs` for sensitive actions | Spec §19 |
+| Quality | `pytest` + `pytest-django` + `factory_boy`, tests against real PostgreSQL; Playwright for key end-to-end flows; `ruff`; `mypy` + `django-stubs` on platform apps; `pre-commit` | "Works end to end", not "pages render" |
+| Observability | Structured logging, `sentry-sdk` (optional DSN), health endpoint | Launch readiness |
+
+### 2.2 Tenancy pattern (mandatory for every product app)
+
+```python
+class TenantModel(models.Model):            # core/models.py
+    organization = models.ForeignKey("organizations.Organization",
+                                     on_delete=models.CASCADE, db_index=True)
+    objects = OrgScopedManager()            # .for_org(org) is the only sanctioned entry point
+    class Meta: abstract = True
+
+class OrgScopedViewMixin:                   # core/views.py
+    model = None
+    capability = None                       # e.g. "qr.edit"
+    def get_queryset(self):
+        return self.model.objects.for_org(self.request.organization)
+```
+
+`request.organization` is set only after the middleware verifies the user's
+membership. Objects are always fetched through the scoped queryset, so an ID from
+another organization returns **404**, not 403. The isolation suite automatically
+visits every app URL with another organization's object IDs and expects 404.
 
 ---
 
-## 3. Folder structure
+## 3. Project structure
 
 ```
-app/
-  Core/
-    Auth/            (controllers, OAuth driver stubs, 2FA-ready columns)
-    Organizations/   (Organization, Membership, Invitation, TenantContext, middleware)
-    Authorization/   (Role enum, capability matrix, base policies)
-    Billing/         (Plan, Subscription, Entitlements, PaymentGateway contracts, ManualGateway)
-    Qr/              (QrRenderer, ShortCodeGenerator, Qrable contract, styling DTOs)
-    Analytics/       (ScanRecorder, UserAgentParser, BotDetector, GeoLocator, rollup jobs)
-    Files/           (secure upload service, MIME/size validation)
-    Audit/           (AuditLog, ActivityLog)
-    Notifications/
-    Settings/        (system settings, feature flags)
-    Support/         (shared helpers, base controller, CSV export)
-  Modules/
-    QrManagement/    {Models, Http/Controllers, Http/Requests, Services, Policies,
-                      Jobs, routes/web.php, database/migrations, resources/views,
-                      QrManagementServiceProvider.php}
-    Surveys/         (same layout)
-    Events/          (same layout)
-    Assets/          (same layout)
-    Intelligence/    (later)
-    Agency/          (later)
-  Admin/             (admin guard, controllers, views)
-config/qrumy.php     (domains, retention, capability matrix, module registry)
-resources/
-  css/tokens.css     (design tokens → Tailwind theme)
-  views/components/  (design-system Blade components: button, input, card, table, stat…)
-  views/layouts/     (marketing, app, public, admin)
-  views/marketing/   (landing, pricing, SEO pages)
-tests/
-  Feature/Core/…  Feature/Modules/<Module>/…  Unit/…
-  Feature/Isolation/ (cross-tenant attack tests for every module)
-docker/              (nginx, php-fpm, mysql, compose files)
-docs/                (this file, decisions/ADRs, CHECKLIST.md, DEPLOYMENT.md)
+dergah/                          (repository root)
+├─ config/                       Django project: settings/, urls.py, urls_redirect.py,
+│                                celery.py, wsgi.py, asgi.py
+├─ apps/
+│  ├─ core/            base models (TimeStamped, TenantModel, PublicToken), mixins,
+│  │                   capability decorators, safe-redirect + upload validators, CSV export,
+│  │                   template components, design system, dashboard shell, marketing pages
+│  ├─ accounts/        custom User (email login), allauth adapters, profile, language pref
+│  ├─ organizations/   Organization, Membership, Invitation, roles/capabilities,
+│  │                   middleware, org switcher, team management
+│  ├─ subscriptions/   Plan, PlanFeature, Subscription, FeatureOverride, UsageCounter,
+│  │                   entitlements service, module registry (which products are on)
+│  ├─ billing/         PaymentGateway interface, ManualGateway, Invoice (later: real provider)
+│  ├─ audit_logs/      AuditLog (admin + sensitive tenant actions), ActivityLog (feed)
+│  ├─ notifications/   Notification model, in-app + email channels, preferences, templates
+│  ├─ analytics/       scan ingestion (Redis buffer → Celery), UA/bot/geo enrichment,
+│  │                   rollups, reporting queries, CSV export
+│  ├─ qr_management/   QRCode, Folder, Tag, HostedFile; QR engine (segno + renderer),
+│  │                   type payload schemas, redirect view, bulk CSV, export, abuse checks
+│  ├─ surveys/         Survey, Question, Option, Response, Answer, ResponseNote;
+│  │                   builder, public pages, embed, NPS/CSAT/CES scoring, analytics
+│  ├─ events/          Event, Exhibitor, ExhibitorMember, Stand, Lead, LeadNote,
+│  │                   FollowUpTask, FollowUpTemplate, RegistrationForm, Attendee,
+│  │                   Ticket, CheckIn; organizer & exhibitor dashboards
+│  ├─ assets/          Asset, Category, Location (tree), AssetDocument, FaultReport,
+│  │                   MaintenanceRecord (later: schedules, tasks)
+│  ├─ agency/          (Phase 10) client workspaces, branding, client reports
+│  └─ ai_intelligence/ (Phase 9) AIProvider interface, usage metering, insight jobs
+│     each app: models.py, services/, selectors.py, views/, api/, forms.py, tasks.py,
+│               admin.py, urls.py, templates/<app>/, migrations/, tests/
+├─ templates/          base layouts: marketing, app, public, email
+├─ static/src/         tokens.css, app.css (Tailwind entry), js/ (htmx, alpine, charts)
+├─ locale/az/, locale/en/
+├─ docker/             Dockerfile (multi-stage), nginx.conf, entrypoints
+├─ docker-compose.yml  (dev)   docker-compose.prod.yml
+├─ tests/e2e/          Playwright end-to-end flows
+├─ pyproject.toml      (deps, ruff, pytest, mypy config)
+└─ docs/               ARCHITECTURE.md, CHECKLIST.md, DEPLOYMENT.md, decisions/
 ```
+
+Code layout rule inside apps: **views stay thin**. Writes go through `services/`
+(business logic, transactions, audit calls); reads go through `selectors.py`. This
+prevents giant views and duplicated logic.
 
 ---
 
-## 4. Database ERD (MVP scope)
+## 4. Database ERD (MVP scope, PostgreSQL)
 
-All tenant tables carry `organization_id` (FK, indexed) and timestamps; most carry
-soft deletes. IDs are `bigint` internally; anything exposed publicly uses a separate
-random token or ULID.
+Conventions: `bigint` PKs internally; public identifiers are separate random tokens or
+ULIDs; all tenant tables carry `organization_id` (FK + index) and `created_at` /
+`updated_at`. Flexible data uses JSONB. Uniqueness rules are DB constraints (e.g. one
+check-in per ticket).
 
-### 4.1 Core
+### 4.1 Platform
 
 ```mermaid
 erDiagram
-  users ||--o{ memberships : has
-  organizations ||--o{ memberships : has
-  organizations ||--o{ invitations : sends
-  organizations ||--o| organizations : "parent (agency, later)"
-  organizations ||--o{ subscriptions : has
-  plans ||--o{ plan_features : defines
-  plans ||--o{ subscriptions : "subscribed to"
-  organizations ||--o{ feature_overrides : has
-  organizations ||--o{ usage_counters : tracks
-  subscriptions ||--o{ invoices : bills
-  organizations ||--o{ audit_logs : logs
-  organizations ||--o{ activity_logs : feeds
+  accounts_user ||--o{ organizations_membership : has
+  organizations_organization ||--o{ organizations_membership : has
+  organizations_organization ||--o{ organizations_invitation : sends
+  organizations_organization |o--o{ organizations_organization : "parent (agency)"
+  organizations_organization ||--o{ subscriptions_subscription : has
+  subscriptions_plan ||--o{ subscriptions_planfeature : defines
+  subscriptions_plan ||--o{ subscriptions_subscription : "subscribed to"
+  organizations_organization ||--o{ subscriptions_featureoverride : has
+  organizations_organization ||--o{ subscriptions_usagecounter : tracks
+  organizations_organization ||--o{ audit_logs_auditlog : logs
+  organizations_organization ||--o{ notifications_notification : receives
 
-  users { bigint id; string name; string email; string password; timestamp email_verified_at; string google_id; text two_factor_secret; string status }
-  organizations { bigint id; string name; string slug; string logo_path; string website; string industry; char country; string timezone; string locale; bigint owner_id; bigint parent_organization_id; string type; string status }
-  memberships { bigint id; bigint user_id; bigint organization_id; string role }
-  plans { bigint id; string key; string name; int price_monthly_cents; int price_yearly_cents; int trial_days; bool is_public }
-  plan_features { bigint plan_id; string feature_key; bool enabled; int limit_value }
-  subscriptions { bigint id; bigint organization_id; bigint plan_id; string status; string interval; string gateway; string gateway_ref; timestamp trial_ends_at; timestamp current_period_end; timestamp cancels_at }
-  usage_counters { bigint organization_id; string metric; string period; int value }
+  accounts_user { bigint id; citext email UK; string full_name; string language; bool is_staff; timestamp date_joined }
+  organizations_organization { bigint id; string name; string slug UK; string logo; string website; string industry; char country; string timezone; string language; bigint owner_id; bigint parent_id; string kind; string status }
+  organizations_membership { bigint user_id; bigint organization_id; string role; "UK(user, org)" }
+  subscriptions_plan { string key UK; string name; int price_monthly_cents; int price_yearly_cents; int trial_days; bool is_public; bool is_beta }
+  subscriptions_planfeature { bigint plan_id; string feature_key; bool enabled; int limit_value }
+  subscriptions_subscription { bigint organization_id; bigint plan_id; string status; string interval; string gateway; string gateway_ref; timestamp trial_ends_at; timestamp current_period_end }
+  subscriptions_usagecounter { bigint organization_id; string metric; string period; int value }
+  audit_logs_auditlog { bigint actor_id; bigint organization_id; string action; string target_type; string target_id; jsonb changes; inet_hash ip_hash; timestamp at }
 ```
 
-### 4.2 QR Management & analytics
+### 4.2 QR management & analytics
 
 ```mermaid
 erDiagram
-  organizations ||--o{ qr_codes : owns
-  qr_folders ||--o{ qr_codes : contains
-  qr_codes }o--o{ tags : tagged
-  qr_codes ||--o{ qr_scans : records
-  qr_codes ||--o{ qr_scan_daily : "rolled up"
-  qr_codes ||--o{ qr_assets_files : "hosted files"
+  organizations_organization ||--o{ qr_qrcode : owns
+  qr_folder ||--o{ qr_qrcode : contains
+  qr_qrcode }o--o{ qr_tag : tagged
+  qr_qrcode ||--o{ qr_hostedfile : hosts
+  qr_qrcode ||--o{ analytics_scan : records
+  qr_qrcode ||--o{ analytics_scandaily : "rolled up"
 
-  qr_codes { bigint id; bigint organization_id; bigint folder_id; string name; string type; string mode "static|dynamic"; string short_code "unique, immutable"; json payload; string destination_url; string qrable_type; bigint qrable_id; json style; string status "active|paused|suspended"; timestamp expires_at; bigint created_by }
-  qr_scans { bigint id; bigint qr_code_id; bigint organization_id; timestamp scanned_at; char ip_hash; char country; string region; string city; string device; string os; string browser; string referrer; json utm; bool is_bot }
-  qr_scan_daily { bigint qr_code_id; date day; string dimension; string value; int scans; int unique_scans }
+  qr_qrcode { bigint id; bigint organization_id; bigint folder_id; string name; string qr_type; string mode "static|dynamic"; string short_code UK "immutable"; string purpose "standalone|survey|asset|exhibitor"; jsonb payload; text destination_url; jsonb style; string status "active|paused|suspended"; timestamp expires_at; bigint created_by_id }
+  analytics_scan { bigint id; bigint qr_code_id; bigint organization_id; timestamp scanned_at "BRIN"; char ip_hash; char country; string region; string city; string device; string os; string browser; text referrer; jsonb utm; bool is_bot }
+  analytics_scandaily { bigint qr_code_id; date day; string dimension; string value; int scans; int unique_scans; "UK(qr, day, dimension, value)" }
 ```
 
 ### 4.3 Surveys
 
 ```mermaid
 erDiagram
-  organizations ||--o{ surveys : owns
-  surveys ||--o{ survey_questions : has
-  survey_questions ||--o{ survey_question_options : has
-  surveys ||--o{ survey_responses : receives
-  survey_responses ||--o{ survey_answers : contains
-  survey_responses ||--o{ response_notes : annotated
-  survey_responses }o--o{ tags : tagged
+  organizations_organization ||--o{ surveys_survey : owns
+  qr_qrcode |o--o| surveys_survey : "distributes"
+  surveys_survey ||--o{ surveys_question : has
+  surveys_question ||--o{ surveys_option : has
+  surveys_survey ||--o{ surveys_response : receives
+  surveys_response ||--o{ surveys_answer : contains
+  surveys_response ||--o{ surveys_responsenote : annotated
 
-  surveys { bigint id; bigint organization_id; string public_token; string title; text description; json theme; json settings "anonymous, limits, redirect, thank-you"; timestamp closes_at; int response_limit; string status }
-  survey_questions { bigint id; bigint survey_id; string type; string label; bool required; int position; json config; json logic "conditional logic, later" }
-  survey_responses { bigint id; bigint survey_id; bigint organization_id; string source "qr|link|embed|email"; bigint qr_code_id; bool completed; bigint assigned_to; string status "open|resolved"; timestamp submitted_at }
-  survey_answers { bigint response_id; bigint question_id; text value_text; decimal value_number; json value_json }
+  surveys_survey { bigint id; bigint organization_id; string public_token UK; bigint qr_code_id; string title; jsonb title_i18n; text description; jsonb theme; jsonb settings; timestamp closes_at; int response_limit; string status }
+  surveys_question { bigint survey_id; string qtype; string label; jsonb label_i18n; bool required; int position; jsonb config; jsonb logic "later" }
+  surveys_response { bigint survey_id; bigint organization_id; string source; string status "open|resolved"; bigint assigned_to_id; bool completed; timestamp submitted_at; string language }
+  surveys_answer { bigint response_id; bigint question_id; text value_text; numeric value_number; jsonb value_json }
 ```
 
-### 4.4 Events (lead capture first, then registration/check-in)
+### 4.4 Events
 
 ```mermaid
 erDiagram
-  organizations ||--o{ events : organizes
-  events ||--o{ event_exhibitors : hosts
-  organizations |o--o{ event_exhibitors : "exhibitor's own org (optional)"
-  event_exhibitors ||--o{ event_exhibitor_users : staff
-  event_exhibitors ||--o| event_stands : at
-  event_exhibitors ||--o{ event_leads : captures
-  event_leads ||--o{ event_lead_notes : has
-  event_leads ||--o{ event_followup_tasks : has
-  event_followup_templates ||--o{ event_followup_tasks : uses
-  events ||--o{ event_registration_forms : has
-  events ||--o{ event_attendees : registers
-  event_attendees ||--o| event_tickets : holds
-  event_tickets ||--o{ event_checkins : "checked in"
+  organizations_organization ||--o{ events_event : organizes
+  events_event ||--o{ events_exhibitor : hosts
+  organizations_organization |o--o{ events_exhibitor : "exhibitor's own org"
+  events_exhibitor ||--o{ events_exhibitormember : staff
+  events_exhibitor |o--o| events_stand : at
+  qr_qrcode |o--o| events_exhibitor : "capture QR"
+  events_exhibitor ||--o{ events_lead : captures
+  events_lead ||--o{ events_leadnote : has
+  events_lead ||--o{ events_followuptask : has
+  events_followuptemplate ||--o{ events_followuptask : uses
+  events_event ||--o{ events_registrationform : has
+  events_event ||--o{ events_attendee : registers
+  events_attendee ||--o| events_ticket : holds
+  events_ticket ||--o| events_checkin : "checked in (UK)"
 
-  events { bigint id; bigint organization_id; string slug; string name; string type; datetime starts_at; datetime ends_at; string timezone; string venue; bool is_public; int capacity; json settings "organizer_lead_access, consent text" }
-  event_exhibitors { bigint id; bigint event_id; bigint exhibitor_organization_id; string company_name; string capture_token; json lead_fields }
-  event_leads { bigint id; bigint event_exhibitor_id; bigint event_id; string first_name; string email; string phone; string company; json answers; string temperature "hot|warm|cold"; string stage; bigint assigned_to; bool consent_marketing; string consent_version; string source }
-  event_attendees { bigint id; bigint event_id; string first_name; string email; string status; json answers; bool consent_marketing }
-  event_tickets { bigint id; bigint attendee_id; char token_hash "QR holds random token only" }
-  event_checkins { bigint id; bigint ticket_id; bigint checked_in_by; timestamp checked_in_at }
+  events_event { bigint id; bigint organization_id; string slug; string name; jsonb name_i18n; string event_type; timestamp starts_at; timestamp ends_at; string timezone; string venue; bool is_public; int capacity; jsonb settings "organizer_lead_access, consent_text" }
+  events_exhibitor { bigint id; bigint event_id; bigint exhibitor_org_id; string company_name; string capture_token UK; jsonb lead_fields }
+  events_exhibitormember { bigint exhibitor_id; bigint user_id; string role }
+  events_lead { bigint id; bigint exhibitor_id; bigint event_id; string full_name; citext email; string phone; string company; string job_title; jsonb answers; string temperature; string stage; bigint assigned_to_id; bool consent_marketing; string consent_version; string source }
+  events_attendee { bigint id; bigint event_id; string full_name; citext email; string status; jsonb answers; bool consent_marketing }
+  events_ticket { bigint attendee_id; char token_hash UK "QR holds random token only" }
+  events_checkin { bigint ticket_id UK; bigint checked_in_by_id; timestamp checked_in_at }
 ```
 
 ### 4.5 Assets (basic MVP)
 
 ```mermaid
 erDiagram
-  organizations ||--o{ assets : owns
-  asset_categories ||--o{ assets : classifies
-  asset_locations ||--o{ assets : located
-  asset_locations ||--o| asset_locations : parent
-  assets ||--o| qr_codes : "qrable"
-  assets ||--o{ asset_documents : has
-  assets ||--o{ fault_reports : receives
-  assets ||--o{ maintenance_records : history
-  assets ||--o{ asset_activity_logs : logs
+  organizations_organization ||--o{ assets_asset : owns
+  assets_category ||--o{ assets_asset : classifies
+  assets_location ||--o{ assets_asset : located
+  assets_location |o--o{ assets_location : parent
+  qr_qrcode |o--o| assets_asset : profile
+  assets_asset ||--o{ assets_assetdocument : has
+  assets_asset ||--o{ assets_faultreport : receives
+  assets_asset ||--o{ assets_maintenancerecord : history
 
-  assets { bigint id; bigint organization_id; string asset_code; string name; bigint category_id; string brand; string model; string serial_number; date purchase_date; date warranty_expires_at; int purchase_price_cents; bigint location_id; bigint responsible_user_id; string status; json custom_fields; string public_visibility }
-  asset_locations { bigint id; bigint organization_id; bigint parent_id; string type "branch|building|floor|room|department"; string name }
-  fault_reports { bigint id; bigint asset_id; string category; text description; string priority; string status; string reporter_name; bigint reported_by }
-  maintenance_records { bigint id; bigint asset_id; string kind "preventive|corrective"; date performed_on; bigint technician_id; int cost_cents; text notes }
+  assets_asset { bigint id; bigint organization_id; string asset_code; string name; bigint category_id; string brand; string model; string serial_number; date purchase_date; date warranty_expires_at; int purchase_price_cents; bigint location_id; bigint responsible_user_id; string status; jsonb custom_fields; string public_visibility; bigint qr_code_id }
+  assets_location { bigint organization_id; bigint parent_id; string kind "branch|building|floor|room|department"; string name; string path "materialized" }
+  assets_faultreport { bigint asset_id; string category; text description; string priority; string status; string reporter_name; bigint reported_by_id }
+  assets_maintenancerecord { bigint asset_id; string kind; date performed_on; bigint technician_id; int cost_cents; text notes }
 ```
-
-`maintenance_schedules`, `asset_tasks` (full workflow) and notifications for overdue
-items are post-MVP (Phase 4b), as section 22 of the spec allows.
 
 ---
 
-## 5. Module dependency map
+## 5. App dependency map
 
 ```
-                 ┌──────────────┐
-                 │     Core     │  Auth · Orgs · Roles · Tenancy · Entitlements · Billing
-                 │              │  QR Engine · Analytics · Files · Audit · Notifications
-                 └──────┬───────┘
-      ┌──────────┬──────┴─────┬──────────┬─────────────┐
-      ▼          ▼            ▼          ▼             ▼
- QR Management  Surveys     Events     Assets     Admin panel
-      │          │            │          │
-      └──────────┴─────┬──────┴──────────┘
-                       ▼  (read-only, via module "insight providers")
-                 Intelligence (Phase 6)
- Agency (Phase 7) = Core extension (parent orgs, client switching, branding) + reports
+ Layer 0  core
+ Layer 1  accounts · organizations · audit_logs
+ Layer 2  subscriptions · billing · notifications
+ Layer 3  analytics · qr_management (shared QR engine + QR product)
+ Layer 4  surveys · events · assets              ← product apps
+ Layer 5  ai_intelligence · agency                ← read product data via each app's
+                                                    selectors / registered "insight providers"
 ```
-
-Rules: modules depend only on Core. A survey or asset "gets a QR" by implementing
-Core's `Qrable` contract; QR Management lists all codes but does not import Survey
-classes. Each module registers its own navigation item, entitlement keys and dashboard
-widget with Core, so the sidebar shows only enabled modules.
+Rules: an app may import only from lower layers. **Product apps never import each
+other.** Cross-app reactions use Django signals or registries defined in a lower
+layer (e.g. "QR resolver", "dashboard widget", "navigation item", "entitlement key").
+An `import-linter` contract in CI enforces the layers.
 
 ---
 
-## 6. MVP scope
+## 6. MVP (free beta) scope
 
-**In MVP (launch):**
-- Core: registration/login/verify/reset, remember-me, organizations, invitations,
-  5 roles, tenancy, plans + entitlements + limits, manual/dev billing gateway, admin
-  panel foundation (users, orgs, plans, QR abuse suspension, audit log), dashboard
-  overview, design system, marketing landing + pricing + SEO basics.
-- QR: static + dynamic, the 9 static-capable types + URL, Multi-link, PDF, Image,
-  Menu (as PDF/link), App download, Coupon, Survey link; folders, tags, search, filter,
-  pause/expire, styling (colors, logo, eye/module style, frame + CTA), PNG/SVG
-  export, CSV bulk create, ZIP bulk export, scan analytics with rollups and CSV export,
-  bot filtering.
-- Surveys: builder (all listed question types except conditional logic), public page,
-  QR/link/embed distribution, NPS/CSAT/CES, analytics, response management (filter,
-  tag, assign, notes, resolve, export).
-- Events, part A: event creation, exhibitors, exhibitor lead capture pages + QR,
-  qualification (hot/warm/cold + custom fields), pipeline, assignment, notes,
-  follow-up tasks + templates (manual send with consent), organizer/exhibitor
-  dashboards, CSV export.
-- Events, part B: registration forms, attendees, QR tickets, camera + manual
-  check-in, duplicate prevention, attendance stats.
-- Assets (basic): registration, categories, hierarchical locations, QR profile with
-  visibility levels, fault reporting, basic maintenance history, simple stats.
+**In the beta:**
+- Platform: signup/login/verify/reset/remember-me (en/az), organizations, invitations,
+  5 roles, tenancy, Beta plan with limits, module enable/disable, Django Admin
+  super-admin (users, orgs, plans, feature flags, QR abuse suspension, audit log),
+  dashboard overview, design system, landing + pricing ("Free during beta") + SEO.
+- QR: static + dynamic; URL, Text, Wi-Fi, vCard, Phone, SMS, Email, WhatsApp,
+  Location, Social, Multi-link, PDF, Image, Menu, App download, Coupon, Survey link;
+  folders, tags, search, filter, pause, expiry; styling with decode check; PNG/SVG;
+  CSV bulk create; ZIP bulk export; analytics with rollups, filters, CSV export, bot
+  filtering.
+- Surveys: builder (all listed question types; conditional logic later), public page
+  (en/az), QR/link/embed, NPS/CSAT/CES, analytics, response management.
+- Events A: events, exhibitors, lead capture pages + QR, qualification, pipeline,
+  assignment, notes, follow-up tasks + templates (manual send, consent only),
+  organizer and exhibitor dashboards, CSV export.
+- Events B: registration forms, attendees, QR tickets (email), camera + manual
+  check-in, duplicate prevention, stats.
+- Assets basic: assets, categories, location tree, QR profile with visibility levels,
+  public fault reporting, maintenance history, simple stats.
 
-**Post-MVP:** payment-provider integration (once the provider is chosen, it can come
-before launch if paid plans must be live on day one), Google OAuth activation, 2FA,
-survey conditional logic, preventive maintenance schedules + task workflow +
-notifications, automated follow-ups, Intelligence, Agency/white-label, PDF export,
-custom domains.
+**After the beta:** payment provider, Google OAuth activation, enforced 2FA for users,
+survey conditional logic + per-language content editor, preventive maintenance and
+task workflow + notifications, automated follow-ups, AI, Agency/white-label, PDF
+export, custom domains, public API keys.
 
 ---
 
-## 7. Development phases (proposed order)
+## 7. Phases
 
-The spec places Assets (4) before Events (5), but its own MVP section ranks Events
-higher. **Proposal: Events before Assets.** Each phase ends with passing tests, a
-checklist update and a demo-able workflow.
-
-| # | Phase | Main deliverables | Relative size |
+| # | Phase | Main deliverables | Size |
 |---|---|---|---|
-| 1 | Foundation | Laravel + Docker setup, design tokens and components, auth, orgs, invitations, roles, tenancy + isolation test harness, plans/entitlements, manual gateway, admin foundation, dashboard shell, landing page v1 | L |
-| 2 | QR Management | QR engine, types, styling, static/dynamic, redirect endpoint, scan pipeline + rollups, folders/tags, bulk CSV, export, analytics UI, abuse controls | L |
-| 3 | Surveys | Builder, public pages, embed, scoring, analytics, response management | M–L |
-| 4 | Events A — lead capture | Events, exhibitors, capture pages, leads, pipeline, follow-ups, dashboards | L |
-| 5 | Events B — registration & check-in | Forms, attendees, tickets, scanner, check-in stats | M |
+| 1 | Foundation | Repo skeleton, Docker Compose (web, worker, beat, postgres, redis, nginx), settings, CI config, custom User + allauth, organizations / memberships / invitations / roles, tenancy base + isolation harness, subscriptions + Beta plan + entitlements, billing interface, audit_logs, notifications base, Unfold admin, design system + layouts, dashboard shell, en/az i18n, landing v1 | L |
+| 2 | QR Management | QR engine + decode check, types, styling, static/dynamic, short-domain redirect, scan pipeline + rollups, folders/tags, bulk CSV, export, analytics UI, abuse controls | L |
+| 3 | Surveys | Builder (HTMX + SortableJS), public pages, embed, scoring, analytics, response management | M–L |
+| 4 | Events A | Lead capture end to end + dashboards | L |
+| 5 | Events B | Registration, tickets, check-in | M |
 | 6 | Assets basic | Assets, locations, QR profile, fault reports, maintenance history | M |
-| 7 | Launch prep | Security review, performance (redirect path), backups, monitoring, deploy docs, payment provider | M |
-| 8 | Assets advanced | Schedules, tasks workflow, notifications | M |
-| 9 | Intelligence | Provider abstraction, feedback sentiment/summaries, lead summaries, reports | M–L |
-| 10 | Agency | Client orgs, switching, client reports, white-label architecture | L |
+| 7 | Beta launch prep | Security review (+ optional Postgres RLS), performance test of redirect path, backups + restore test, Sentry, deployment docs, VPS deploy | M |
+| 8 | Assets advanced | Schedules, task workflow, notifications | M |
+| 9 | ai_intelligence | Provider interface, feedback sentiment and summaries, lead summaries, reports | M–L |
+| 10 | agency | Client orgs, switching, client reports, white-label base | L |
+| 11 | billing | Real payment provider, upgrades/downgrades, invoices | M |
 
-Rough effort for one experienced full-stack developer: Phases 1–7 ≈ 14–20 weeks;
-8–10 another 8–12 weeks. In this setup I build phase by phase in this repository and
-you review between phases.
+Each phase ends with: tests passing on PostgreSQL, the isolation suite green,
+Playwright flows for that phase green, checklist updated, and a short report to you.
+The next phase starts only after that.
 
 ---
 
@@ -404,62 +427,61 @@ you review between phases.
 
 | Risk | Impact | Mitigation |
 |---|---|---|
-| Cross-tenant data leak (esp. exhibitor leads) | Critical | Global scopes + policies + dedicated isolation test suite that attacks every route with a foreign org's IDs |
-| Redirect domain blocklisted due to abuse | Critical | Separate redirect domain, URL scanning, rate limits, fast admin suspension |
-| Redirect latency / DB load under scan spikes | High | Cached code lookup, minimal write, async enrichment, rollups, raw-scan retention |
-| Unscannable styled QR codes | High | Contrast/logo/ECC guards; preview; optional decode verification |
-| Payment provider unavailable in the company's country | High | Gateway abstraction; decide MoR vs Stripe early |
-| Personal-data compliance for leads and attendees | High | Consent records, unsubscribe, export/delete, retention settings |
-| Scope creep across 6 products | High | Strict phase gates; post-MVP list above |
-| Email deliverability | Medium | Transactional provider, SPF/DKIM/DMARC, per-org reply-to |
-| File-upload abuse / storage cost | Medium | Plan-based caps, MIME sniffing, no video hosting in MVP |
-| Global-scope pitfalls in queues/console | Medium | Jobs carry `organization_id` explicitly; `TenantContext` set per job |
+| Cross-tenant leak (esp. exhibitor leads) | Critical | Mandatory scoped querysets, 404-on-foreign-ID, automated isolation suite, optional RLS |
+| Redirect domain blocklisted | Critical | Separate short domain, URL checks, beta rate limits, one-click suspension |
+| Free beta attracts spam and abuse | High | Email verification before dynamic QR, low beta limits, URL checks, admin review queue |
+| Redirect latency under scan spikes | High | Redis lookup + buffered writes, async enrichment, rollups, load test in Phase 7 |
+| Unscannable styled codes | High | Contrast/logo/ECC rules + zxing-cpp decode check |
+| Personal-data compliance | High | Consent records, unsubscribe, export/delete, retention |
+| Scope creep | High | Phase gates; post-beta list |
+| Celery tasks running without tenant context | Medium | Tasks take `organization_id` explicitly; helper re-loads scoped objects |
+| Two-language maintenance | Medium | All strings via gettext from day one; CI fails if az catalog is missing strings |
+| Email deliverability | Medium | Transactional provider via anymail, SPF/DKIM/DMARC |
 
 ---
 
 ## 9. Infrastructure requirements
 
-- **Launch VPS:** 2–4 vCPU, 4–8 GB RAM, 80 GB SSD (Ubuntu 24.04 LTS).
-- Nginx, PHP-FPM 8.3 + OPcache, MySQL 8, Redis, Supervisor (queue workers), cron
-  (`schedule:run`), Certbot TLS.
-- Transactional email provider (SMTP/API).
-- MaxMind GeoLite2 license key (free) for geolocation.
-- Optional: Safe Browsing (or similar) API key for URL checks; Sentry-compatible error
-  monitoring.
-- Off-site backups: nightly `mysqldump` + storage sync to S3-compatible storage
-  (restic or similar), with 7/30-day retention and a tested restore.
-- DNS: `qrumy.com` (app + marketing), plus the redirect short domain if approved.
+- **Beta VPS:** 2–4 vCPU, 4–8 GB RAM, 80 GB SSD, Ubuntu 24.04 LTS, Docker Engine +
+  Compose plugin.
+- Containers: `nginx`, `web` (Gunicorn), `worker` (Celery), `beat` (Celery beat),
+  `postgres` (16), `redis` (7). Volumes for Postgres, Redis, media.
+- Domains: `qrumy.com` (+ `www`), and the short redirect domain (to be purchased).
+  TLS via Certbot/Let's Encrypt, or Cloudflare in front.
+- Transactional email provider account; MaxMind GeoLite2 free license key;
+  optional Sentry DSN; optional URL-reputation API key.
+- Off-site backups: nightly `pg_dump` + media sync to S3-compatible storage
+  (7 daily / 4 weekly / 3 monthly), with a restore drill before launch.
 
 ## 10. Deployment architecture
 
 ```
-            Cloudflare (optional: DNS, TLS, caching static marketing assets, DDoS)
-                                   │
-                 ┌──────────── VPS (Docker Compose or native) ────────────┐
-                 │  Nginx ──► PHP-FPM (app)                                │
-                 │            ├─ queue workers (Supervisor / container)    │
-                 │            └─ scheduler (cron / container)              │
-                 │  MySQL 8 (volume)     Redis (volume)                    │
-                 │  storage/ (volume) ──► S3-compatible later              │
-                 └─────────────────────────────────────────────────────────┘
-                     nightly backups ──► off-site object storage
+         (optional) Cloudflare — DNS, TLS, DDoS, static caching
+                           │
+   ┌────────────────────── VPS: docker compose -f docker-compose.prod.yml ──────────────────────┐
+   │  nginx :443 ── qrumy.com ───────► web (gunicorn, N workers) ──┐                             │
+   │       │      └ short domain ───► web (same image, redirect URLconf)                         │
+   │       ├─ /static/ (collected, hashed)                         ├──► postgres (volume)         │
+   │       └─ /protected-media/ (X-Accel-Redirect after auth)      ├──► redis (volume)            │
+   │                                    worker (celery) ◄──────────┤                              │
+   │                                    beat   (celery beat) ◄─────┘                              │
+   └────────────────────────────────────────────────────────────────────────────────────────────┘
+          nightly backup container ──► off-site S3-compatible storage
 ```
 
-Zero-downtime-ish deploys: `git pull` (or image pull) → `composer install
---no-dev` → `npm run build` → `php artisan migrate --force` →
-`config/route/view:cache` → `queue:restart`. Scaling path: move MySQL to a managed
-instance, add a second app node behind a load balancer, and move files to S3. No
-code changes are needed because sessions, cache and queue are already on Redis.
+Deploy steps: build image (Tailwind compiled in a Node build stage, Python runtime
+stage) → `migrate` → `collectstatic` → restart `web`/`worker`/`beat` with health
+checks. Scaling path: managed Postgres → more `web`/`worker` replicas → media to S3.
+No code changes needed.
 
 ---
 
-## 11. Decisions needed before implementation
+## 11. Open questions (still needed)
 
-1. **Repository:** build Qrumy in `nijatsattarov/dergah` (empty)?
-2. **Phase order:** Events before Assets (recommended)?
-3. **Redirect domain:** separate short domain (recommended), or `qrumy.com/q/…` only?
-4. **Payments:** where is the selling entity registered, and do you prefer Stripe or
-   a Merchant-of-Record (Paddle / Lemon Squeezy)? Must paid plans be live at launch?
-5. **Languages:** English only at launch, or additional UI/public-page languages
-   (which)?
-6. **Admin panel:** custom Blade (recommended), or Filament (faster, adds Livewire)?
+1. **Short redirect domain name:** which domain will you buy (e.g. `qrumy.link`,
+   `qrumy.az`, `qrm.az`…)? Development uses a placeholder from env.
+2. **Beta signups:** open signup with strict limits (recommended), or invite / waitlist
+   only?
+3. **Default language** for `qrumy.com` with no language prefix: Azerbaijani or English
+   (with browser-language detection either way)?
+4. **Admin theme:** `django-unfold` (recommended) or plain Django Admin?
