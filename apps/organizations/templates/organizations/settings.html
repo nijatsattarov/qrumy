@@ -16,4 +16,30 @@
     <button type="submit" class="btn btn-primary">{% translate "Save changes" %}</button>
   </div>
 </form>
+
+{% if can.org_delete %}
+<section class="card mt-10 border-danger/30">
+  <div class="card-header"><h2 class="section-title text-danger">{% translate "Owner actions" %}</h2></div>
+  <div class="divide-y divide-line">
+    <form method="post" action="{% url 'organization_danger' org_slug=current_organization.slug %}" class="card-body space-y-3">{% csrf_token %}
+      <input type="hidden" name="action" value="transfer">
+      <h3 class="text-sm font-semibold">{% translate "Transfer ownership" %}</h3>
+      <p class="text-sm text-muted">{% translate "The new owner gets full control, including billing and deletion. You become an admin." %}</p>
+      {% if transfer_candidates %}
+      <div class="flex flex-wrap items-end gap-2">
+        <div class="form-field min-w-60"><label class="form-label" for="member">{% translate "New owner" %}</label><select id="member" name="member">{% for m in transfer_candidates %}<option value="{{ m.pk }}">{{ m.user.display_name }} — {{ m.get_role_display }}</option>{% endfor %}</select></div>
+        <button class="btn btn-secondary" data-confirm="{% translate 'Transfer ownership? You cannot undo this yourself.' %}">{% translate "Transfer" %}</button>
+      </div>
+      {% else %}<p class="text-sm text-muted">{% translate "Invite someone to the team first." %}</p>{% endif %}
+    </form>
+    <form method="post" action="{% url 'organization_danger' org_slug=current_organization.slug %}" class="card-body space-y-3">{% csrf_token %}
+      <input type="hidden" name="action" value="delete">
+      <h3 class="text-sm font-semibold text-danger">{% translate "Delete organization" %}</h3>
+      <p class="text-sm text-muted">{% translate "Permanently deletes the organization with all QR codes, scan statistics, surveys, responses, assets and files. Printed QR codes stop working. This cannot be undone." %}</p>
+      <div class="form-field max-w-sm"><label class="form-label" for="confirm_name">{% blocktranslate with n=current_organization.name %}Type “{{ n }}” to confirm{% endblocktranslate %}</label><input id="confirm_name" name="confirm_name" required autocomplete="off"></div>
+      <button class="btn btn-danger">{% translate "Delete organization" %}</button>
+    </form>
+  </div>
+</section>
+{% endif %}
 {% endblock %}

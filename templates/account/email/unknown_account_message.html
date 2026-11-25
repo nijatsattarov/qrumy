@@ -1,0 +1,6 @@
+{% extends "account/email/base_message.html" %}
+{% load i18n %}
+{% block content %}
+<h1 style="margin:0 0 12px;font-size:20px">{% translate "No Qrumy account for this email" %}</h1>
+<p style="margin:0;color:#687386">{% blocktranslate %}Someone asked for a password reset or sign-in code for {{ email }}, but there is no Qrumy account with this address. You can create one at qrumy.com.{% endblocktranslate %}</p>
+{% endblock %}

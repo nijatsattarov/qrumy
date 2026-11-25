@@ -66,3 +66,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     @property
     def display_name(self) -> str:
         return self.get_full_name()
+
+
+from .legal import LegalDocument, TermsAcceptance  # noqa: E402, F401  (registers the models)

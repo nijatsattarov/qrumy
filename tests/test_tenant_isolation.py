@@ -64,6 +64,16 @@ def two_orgs(make_user, make_org, add_member):
     return victim, attacker_org, attacker
 
 
+def test_foreign_org_owner_actions_blocked(client, two_orgs):
+    from apps.organizations.models import Organization
+
+    victim, attacker_org, attacker = two_orgs
+    client.force_login(attacker)
+    url = reverse("organization_danger", kwargs={"org_slug": victim.slug})
+    assert client.post(url, {"action": "delete", "confirm_name": victim.name}).status_code == 404
+    assert Organization.objects.filter(pk=victim.pk).exists()
+
+
 def test_routes_were_discovered():
     names = {n for n, _ in _org_routes()}
     assert {"dashboard", "team", "billing", "organization_settings"} <= names

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Qrumy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-25 13:44+0000\n"
+"POT-Creation-Date: 2026-11-25 14:04+0000\n"
 "PO-Revision-Date: 2026-11-25 00:00+0000\n"
 "Last-Translator: Qrumy team\n"
 "Language-Team: Azerbaijani\n"
@@ -18,33 +18,33 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: apps/accounts/admin.py:38 apps/accounts/templates/accounts/profile.html:3
+#: apps/accounts/admin.py:39 apps/accounts/templates/accounts/profile.html:3
 #: apps/accounts/templates/accounts/profile.html:5
 #: templates/components/user_menu.html:12 templates/layouts/account.html:16
 msgid "Profile"
 msgstr "Profil"
 
-#: apps/accounts/admin.py:39
+#: apps/accounts/admin.py:40
 msgid "Access"
 msgstr "Giriş hüquqları"
 
-#: apps/accounts/admin.py:41
+#: apps/accounts/admin.py:42
 msgid "Dates"
 msgstr "Tarixlər"
 
-#: apps/accounts/admin.py:47
+#: apps/accounts/admin.py:48
 msgid "Suspend selected users"
 msgstr "Seçilmiş istifadəçiləri dayandır"
 
-#: apps/accounts/admin.py:54
+#: apps/accounts/admin.py:55
 msgid "Selected users were suspended."
 msgstr "Seçilmiş istifadəçilər dayandırıldı."
 
-#: apps/accounts/admin.py:56
+#: apps/accounts/admin.py:57
 msgid "Activate selected users"
 msgstr "Seçilmiş istifadəçiləri aktivləşdir"
 
-#: apps/accounts/admin.py:62
+#: apps/accounts/admin.py:63
 msgid "Selected users were activated."
 msgstr "Seçilmiş istifadəçilər aktivləşdirildi."
 
@@ -52,13 +52,75 @@ msgstr "Seçilmiş istifadəçilər aktivləşdirildi."
 msgid "Accounts"
 msgstr "Hesablar"
 
-#: apps/accounts/forms.py:11 apps/accounts/forms.py:28
+#: apps/accounts/forms.py:11 apps/accounts/forms.py:50
 msgid "Full name"
 msgstr "Ad və soyad"
 
-#: apps/accounts/forms.py:28
+#: apps/accounts/forms.py:27
+msgid ""
+"I agree to the <a href=\"{}\" target=\"_blank\">Terms of Service</a> and <a "
+"href=\"{}\" target=\"_blank\">Privacy Policy</a>"
+msgstr ""
+"<a href=\"{}\" target=\"_blank\">İstifadə Şərtləri</a> və <a href=\"{}\" "
+"target=\"_blank\">Məxfilik Siyasəti</a> ilə razıyam"
+
+#: apps/accounts/forms.py:50
 msgid "Interface language"
 msgstr "İnterfeys dili"
+
+#: apps/accounts/legal.py:11 templates/layouts/marketing.html:82
+msgid "Terms of Service"
+msgstr "İstifadə Şərtləri"
+
+#: apps/accounts/legal.py:12 templates/layouts/marketing.html:82
+msgid "Privacy Policy"
+msgstr "Məxfilik Siyasəti"
+
+#: apps/accounts/legal.py:14
+msgid "document"
+msgstr "sənəd"
+
+#: apps/accounts/legal.py:15 apps/accounts/models.py:36
+msgid "language"
+msgstr "dil"
+
+#: apps/accounts/legal.py:16
+msgid "version"
+msgstr "versiya"
+
+#: apps/accounts/legal.py:17
+msgid "e.g. 2026-12-01. Increase it for every change users must accept again."
+msgstr ""
+"məs. 2026-12-01. İstifadəçilərin yenidən qəbul etməli olduğu hər "
+"dəyişiklikdə artırın."
+
+#: apps/accounts/legal.py:19 apps/surveys/models.py:30
+msgid "title"
+msgstr "ad"
+
+#: apps/accounts/legal.py:20
+msgid "text"
+msgstr "mətn"
+
+#: apps/accounts/legal.py:20
+msgid "Plain text. Blank lines start new paragraphs."
+msgstr "Sadə mətn. Boş sətir yeni abzas başladır."
+
+#: apps/accounts/legal.py:22
+msgid "published at"
+msgstr "dərc vaxtı"
+
+#: apps/accounts/legal.py:23
+msgid "Empty = draft (not shown to anyone)."
+msgstr "Boş = qaralama (heç kimə göstərilmir)."
+
+#: apps/accounts/legal.py:29
+msgid "legal document"
+msgstr "hüquqi sənəd"
+
+#: apps/accounts/legal.py:30
+msgid "legal documents"
+msgstr "hüquqi sənədlər"
 
 #: apps/accounts/models.py:33
 msgid "email address"
@@ -67,10 +129,6 @@ msgstr "e-poçt ünvanı"
 #: apps/accounts/models.py:34
 msgid "full name"
 msgstr "ad və soyad"
-
-#: apps/accounts/models.py:36
-msgid "language"
-msgstr "dil"
 
 #: apps/accounts/models.py:38 apps/subscriptions/models.py:18
 msgid "active"
@@ -92,6 +150,41 @@ msgstr "istifadəçi"
 msgid "users"
 msgstr "istifadəçilər"
 
+#: apps/accounts/templates/accounts/delete.html:3
+#: apps/accounts/templates/accounts/delete.html:5
+#: apps/accounts/templates/accounts/profile.html:13
+msgid "Delete account"
+msgstr "Hesabı sil"
+
+#: apps/accounts/templates/accounts/delete.html:7
+msgid ""
+"You own these organizations. Transfer ownership to someone else or delete "
+"them first (Organization settings → Owner actions):"
+msgstr ""
+"Bu təşkilatların sahibisiniz. Əvvəlcə sahibliyi başqasına ötürün və ya "
+"onları silin (Təşkilat ayarları → Sahib əməliyyatları):"
+
+#: apps/accounts/templates/accounts/delete.html:10
+msgid ""
+"This permanently deletes your account and removes you from all "
+"organizations. Content you created in organizations stays with those "
+"organizations."
+msgstr ""
+"Bu, hesabınızı birdəfəlik silir və sizi bütün təşkilatlardan çıxarır. "
+"Təşkilatlarda yaratdığınız məzmun həmin təşkilatlarda qalır."
+
+#: apps/accounts/templates/accounts/delete.html:13
+msgid "Your password"
+msgstr "Şifrəniz"
+
+#: apps/accounts/templates/accounts/delete.html:14
+msgid "I understand that this cannot be undone."
+msgstr "Bunun geri qaytarıla bilməyəcəyini başa düşürəm."
+
+#: apps/accounts/templates/accounts/delete.html:15
+msgid "Delete my account"
+msgstr "Hesabımı sil"
+
 #: apps/accounts/templates/accounts/profile.html:10
 #: apps/assets/templates/assets/form.html:40
 #: apps/organizations/templates/organizations/settings.html:16
@@ -100,9 +193,29 @@ msgstr "istifadəçilər"
 msgid "Save changes"
 msgstr "Dəyişiklikləri saxla"
 
-#: apps/accounts/views.py:17
+#: apps/accounts/templates/accounts/profile.html:14
+msgid "Permanently delete your Qrumy account."
+msgstr "Qrumy hesabınızı birdəfəlik silin."
+
+#: apps/accounts/templates/accounts/profile.html:14
+msgid "Continue"
+msgstr "Davam et"
+
+#: apps/accounts/views.py:18
 msgid "Your profile has been updated."
 msgstr "Profiliniz yeniləndi."
+
+#: apps/accounts/views.py:44
+msgid "The password is not correct."
+msgstr "Şifrə düzgün deyil."
+
+#: apps/accounts/views.py:46
+msgid "Please confirm that you understand this cannot be undone."
+msgstr "Bunun geri qaytarıla bilməyəcəyini başa düşdüyünüzü təsdiq edin."
+
+#: apps/accounts/views.py:56
+msgid "Your account was deleted."
+msgstr "Hesabınız silindi."
 
 #: apps/analytics/apps.py:8 apps/qr_management/navigation.py:11
 #: apps/qr_management/templates/qr_management/analytics.html:3
@@ -1737,6 +1850,11 @@ msgid ""
 msgstr ""
 "Pulsuz betaya qoşulun və hər yeni Qrumy məhsulunu buraxılan kimi əldə edin."
 
+#: apps/marketing/templates/marketing/legal.html:8
+#, python-format
+msgid "Version %(v)s · published %(d)s"
+msgstr "Versiya %(v)s · dərc edilib: %(d)s"
+
 #: apps/marketing/templates/marketing/pricing.html:4
 msgid ""
 "Qrumy is free during the beta. See the planned plans for QR management, "
@@ -2319,6 +2437,19 @@ msgstr "Bu rolu təyin edə bilməzsiniz."
 msgid "The owner cannot leave the organization."
 msgstr "Sahib təşkilatı tərk edə bilməz."
 
+#: apps/organizations/services.py:192
+msgid "Only the owner can transfer ownership."
+msgstr "Sahibliyi yalnız sahib ötürə bilər."
+
+#: apps/organizations/services.py:195 apps/organizations/views/workspace.py:89
+msgid "Choose another member of this organization."
+msgstr "Bu təşkilatın başqa üzvünü seçin."
+
+#: apps/organizations/services.py:206
+#, python-format
+msgid "You are now the owner of %(org)s"
+msgstr "Artıq %(org)s təşkilatının sahibisiniz"
+
 #: apps/organizations/templates/organizations/_activity_label.html:1
 msgid "created the organization"
 msgstr "təşkilatı yaratdı"
@@ -2576,6 +2707,58 @@ msgstr "Bu məlumatlar açıq səhifələrinizdə və e-poçtlarınızda görün
 msgid "Workspace URL: /app/%(slug)s/"
 msgstr "İş sahəsinin ünvanı: /app/%(slug)s/"
 
+#: apps/organizations/templates/organizations/settings.html:22
+msgid "Owner actions"
+msgstr "Sahib əməliyyatları"
+
+#: apps/organizations/templates/organizations/settings.html:26
+msgid "Transfer ownership"
+msgstr "Sahibliyi ötür"
+
+#: apps/organizations/templates/organizations/settings.html:27
+msgid ""
+"The new owner gets full control, including billing and deletion. You become "
+"an admin."
+msgstr ""
+"Yeni sahib ödəniş və silmə daxil olmaqla tam nəzarət alır. Siz admin "
+"olursunuz."
+
+#: apps/organizations/templates/organizations/settings.html:30
+msgid "New owner"
+msgstr "Yeni sahib"
+
+#: apps/organizations/templates/organizations/settings.html:31
+msgid "Transfer ownership? You cannot undo this yourself."
+msgstr "Sahiblik ötürülsün? Bunu özünüz geri qaytara bilməyəcəksiniz."
+
+#: apps/organizations/templates/organizations/settings.html:31
+msgid "Transfer"
+msgstr "Ötür"
+
+#: apps/organizations/templates/organizations/settings.html:33
+msgid "Invite someone to the team first."
+msgstr "Əvvəlcə komandaya kimisə dəvət edin."
+
+#: apps/organizations/templates/organizations/settings.html:37
+#: apps/organizations/templates/organizations/settings.html:40
+msgid "Delete organization"
+msgstr "Təşkilatı sil"
+
+#: apps/organizations/templates/organizations/settings.html:38
+msgid ""
+"Permanently deletes the organization with all QR codes, scan statistics, "
+"surveys, responses, assets and files. Printed QR codes stop working. This "
+"cannot be undone."
+msgstr ""
+"Təşkilatı bütün QR kodları, skan statistikası, sorğuları, cavabları, "
+"aktivləri və faylları ilə birlikdə birdəfəlik silir. Çap olunmuş QR kodlar "
+"işləməyəcək. Bu, geri qaytarıla bilməz."
+
+#: apps/organizations/templates/organizations/settings.html:39
+#, python-format
+msgid "Type “%(n)s” to confirm"
+msgstr "Təsdiq üçün “%(n)s” yazın"
+
 #: apps/organizations/templates/organizations/suspended.html:3
 msgid "Organization suspended"
 msgstr "Təşkilat dayandırılıb"
@@ -2695,6 +2878,19 @@ msgstr "Təşkilat profilinizi tamamlayın"
 #: apps/organizations/views/workspace.py:71
 msgid "Organization settings saved."
 msgstr "Təşkilat ayarları saxlanıldı."
+
+#: apps/organizations/views/workspace.py:95
+msgid "Ownership transferred. You are now an admin."
+msgstr "Sahiblik ötürüldü. Artıq adminsiniz."
+
+#: apps/organizations/views/workspace.py:99
+msgid "Type the organization name exactly to confirm."
+msgstr "Təsdiq üçün təşkilatın adını dəqiq yazın."
+
+#: apps/organizations/views/workspace.py:104
+#, python-format
+msgid "%(org)s and all its data were deleted."
+msgstr "%(org)s və onun bütün məlumatları silindi."
 
 #: apps/qr_management/admin.py:31
 msgid "Suspend selected QR codes (abuse)"
@@ -3862,31 +4058,31 @@ msgstr "SMS göndərin"
 msgid "Write an email"
 msgstr "E-poçt yazın"
 
-#: apps/qr_management/validators.py:26
+#: apps/qr_management/validators.py:46
 msgid "The link is too long."
 msgstr "Link çox uzundur."
 
-#: apps/qr_management/validators.py:29
+#: apps/qr_management/validators.py:49
 msgid "Enter a full web address starting with https:// or http://."
 msgstr "https:// və ya http:// ilə başlayan tam veb ünvan daxil edin."
 
-#: apps/qr_management/validators.py:31
+#: apps/qr_management/validators.py:51
 msgid "Links with embedded usernames or passwords are not allowed."
 msgstr "İçində istifadəçi adı və ya şifrə olan linklərə icazə verilmir."
 
-#: apps/qr_management/validators.py:38
+#: apps/qr_management/validators.py:58
 msgid "This address is not allowed."
 msgstr "Bu ünvana icazə verilmir."
 
-#: apps/qr_management/validators.py:41
+#: apps/qr_management/validators.py:61
 msgid "A QR code cannot point to another Qrumy short link."
 msgstr "QR kod başqa Qrumy qısa linkinə yönləndirə bilməz."
 
-#: apps/qr_management/validators.py:45
+#: apps/qr_management/validators.py:63
 msgid "This destination is not allowed on Qrumy."
 msgstr "Bu ünvana Qrumy-də icazə verilmir."
 
-#: apps/qr_management/validators.py:47
+#: apps/qr_management/validators.py:65
 msgid "This link was flagged as unsafe and cannot be used."
 msgstr "Bu link təhlükəli kimi işarələnib və istifadə edilə bilməz."
 
@@ -4310,10 +4506,6 @@ msgstr "Soruşma (anonim)"
 #: apps/surveys/models.py:27
 msgid "Optional"
 msgstr "İstəyə bağlı"
-
-#: apps/surveys/models.py:30
-msgid "title"
-msgstr "ad"
 
 #: apps/surveys/models.py:36
 msgid "survey language"
@@ -5144,11 +5336,11 @@ msgstr "Sorğu və onun cavabları silindi."
 msgid "QR code created. You can change its design in QR Codes."
 msgstr "QR kod yaradıldı. Dizaynını QR kodlar bölməsində dəyişə bilərsiniz."
 
-#: config/settings/base.py:181
+#: config/settings/base.py:182
 msgid "English"
 msgstr "İngilis dili"
 
-#: config/settings/base.py:181
+#: config/settings/base.py:182
 msgid "Azerbaijani"
 msgstr "Azərbaycan dili"
 
@@ -5185,6 +5377,78 @@ msgstr "Həddindən çox sorğu"
 #: templates/429.html:11
 msgid "Please wait a moment and try again."
 msgstr "Bir az gözləyin və yenidən cəhd edin."
+
+#: templates/account/email/base_message.html:7
+msgid "If you didn't request this, you can ignore this email."
+msgstr "Bunu siz istəməmisinizsə, bu məktuba məhəl qoymaya bilərsiniz."
+
+#: templates/account/email/base_message.txt:1
+msgid "Hello from Qrumy!"
+msgstr "Qrumy-dən salam!"
+
+#: templates/account/email/base_message.txt:5
+msgid "Thank you for using Qrumy."
+msgstr "Qrumy-dən istifadə etdiyiniz üçün təşəkkür edirik."
+
+#: templates/account/email/email_confirmation_message.html:4
+#: templates/account/email/email_confirmation_signup_message.html:4
+msgid "Confirm your email address"
+msgstr "E-poçt ünvanınızı təsdiqləyin"
+
+#: templates/account/email/email_confirmation_message.html:6
+#: templates/account/email/email_confirmation_signup_message.html:6
+msgid "Enter this code in your open browser window:"
+msgstr "Bu kodu açıq brauzer pəncərəsinə daxil edin:"
+
+#: templates/account/email/email_confirmation_message.html:9
+#: templates/account/email/email_confirmation_signup_message.html:9
+msgid ""
+"Please confirm that this is your email address so you can sign in to Qrumy."
+msgstr ""
+"Qrumy-yə daxil ola bilməyiniz üçün bunun sizin e-poçt ünvanınız olduğunu "
+"təsdiqləyin."
+
+#: templates/account/email/email_confirmation_message.html:10
+#: templates/account/email/email_confirmation_signup_message.html:10
+msgid "Confirm email"
+msgstr "E-poçtu təsdiqlə"
+
+#: templates/account/email/password_reset_key_message.html:4
+msgid "Reset your password"
+msgstr "Şifrənizi bərpa edin"
+
+#: templates/account/email/password_reset_key_message.html:5
+msgid ""
+"Someone asked to reset the password of your Qrumy account. Use the button "
+"below to choose a new one."
+msgstr ""
+"Qrumy hesabınızın şifrəsinin bərpası istənilib. Yeni şifrə seçmək üçün "
+"aşağıdakı düymədən istifadə edin."
+
+#: templates/account/email/password_reset_key_message.html:6
+msgid "Choose a new password"
+msgstr "Yeni şifrə seçin"
+
+#: templates/account/email/password_reset_key_message.html:8
+msgid ""
+"If you didn't ask for a password reset, you can ignore this email — your "
+"password stays the same."
+msgstr ""
+"Şifrə bərpası istəməmisinizsə, bu məktuba məhəl qoymaya bilərsiniz — "
+"şifrəniz dəyişməz qalır."
+
+#: templates/account/email/unknown_account_message.html:4
+msgid "No Qrumy account for this email"
+msgstr "Bu e-poçt üçün Qrumy hesabı yoxdur"
+
+#: templates/account/email/unknown_account_message.html:5
+#, python-format
+msgid ""
+"Someone asked for a password reset or sign-in code for %(email)s, but there "
+"is no Qrumy account with this address. You can create one at qrumy.com."
+msgstr ""
+"%(email)s üçün şifrə bərpası və ya giriş kodu istənilib, lakin bu ünvanla "
+"Qrumy hesabı yoxdur. qrumy.com saytında hesab yarada bilərsiniz."
 
 #: templates/base.html:8
 msgid ""

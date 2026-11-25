@@ -70,4 +70,37 @@ def organization_settings(request, org_slug):
                                      request=request)
         messages.success(request, _("Organization settings saved."))
         return redirect("organization_settings", org_slug=org.slug)
-    return render(request, "organizations/settings.html", {"form": form})
+    return render(request, "organizations/settings.html", {
+        "form": form,
+        "transfer_candidates": org.memberships.exclude(user=request.user).select_related("user"),
+    })
+
+
+@require_capability("org.delete")
+def organization_danger(request, org_slug):
+    org = request.organization
+    if request.method != "POST":
+        return redirect("organization_settings", org_slug=org_slug)
+    action = request.POST.get("action")
+    if action == "transfer":
+        target = org.memberships.filter(pk=request.POST.get("member")).first()
+        try:
+            if target is None:
+                raise services.OrganizationError(_("Choose another member of this organization."))
+            services.transfer_ownership(organization=org, actor_membership=request.membership,
+                                        target_membership=target, request=request)
+        except services.OrganizationError as exc:
+            messages.error(request, str(exc))
+        else:
+            messages.success(request, _("Ownership transferred. You are now an admin."))
+        return redirect("organization_settings", org_slug=org_slug)
+    if action == "delete":
+        if request.POST.get("confirm_name", "").strip() != org.name:
+            messages.error(request, _("Type the organization name exactly to confirm."))
+            return redirect("organization_settings", org_slug=org_slug)
+        name = org.name
+        services.delete_organization(organization=org, actor=request.user, request=request)
+        request.session.pop("current_org", None)
+        messages.success(request, _("%(org)s and all its data were deleted.") % {"org": name})
+        return redirect("app_home")
+    return redirect("organization_settings", org_slug=org_slug)

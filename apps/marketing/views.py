@@ -88,3 +88,14 @@ def home(request):
 
 def pricing(request):
     return render(request, "marketing/pricing.html", {"plans": _plans()})
+
+
+def legal(request, kind):
+    from django.http import Http404
+
+    from apps.accounts.legal import current
+
+    doc = current(kind)
+    if doc is None:
+        raise Http404
+    return render(request, "marketing/legal.html", {"doc": doc})

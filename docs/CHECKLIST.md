@@ -118,4 +118,15 @@ Legend: `[ ]` not started · `[~]` in progress · `[x]` done and tested
 - [ ] Bulk asset import from CSV
 - [ ] Asset utilisation analytics
 
-## Phase 7 — Beta launch preparation
+## Phase 7 — Beta launch preparation (code complete, deployment pending) — 2026-11-25
+- [x] Security review: deploy checks, dependency audits, manual review of raw HTML/SQL/redirects
+- [x] Domain blocklist enforced at scan time; Permissions-Policy; secret key rotation support
+- [x] Scan rate limiting no longer blocks people (shared IPs); limited scans aren't counted
+- [x] Zero-query cached scan path (test) and load test through Nginx TLS (~900 scans/s)
+- [x] Backup / restore scripts; restore drill and disaster recovery tested; deploy script
+- [x] Sentry with privacy-preserving settings
+- [x] Branded HTML emails for sign-up, confirmation and password reset (en/az)
+- [x] Terms / Privacy pages managed in the admin (versioned, en/az); sign-up consent recorded
+- [x] Account deletion (audit e-mail anonymised); ownership transfer; organization deletion
+- [x] Tests: 243 passing; Azerbaijani translations: 1,212 strings
+- [ ] Deployment to the VPS and go-live items — see docs/LAUNCH.md

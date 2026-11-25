@@ -8,6 +8,8 @@ urlpatterns = [
     path("<slug:org_slug>/", workspace.dashboard, name="dashboard"),
     path("<slug:org_slug>/settings/", workspace.organization_settings,
          name="organization_settings"),
+    path("<slug:org_slug>/settings/danger/", workspace.organization_danger,
+         name="organization_danger"),
     path("<slug:org_slug>/team/", team.team, name="team"),
     path("<slug:org_slug>/team/invite/", team.team_invite, name="team_invite"),
     path("<slug:org_slug>/team/leave/", team.leave, name="team_leave"),

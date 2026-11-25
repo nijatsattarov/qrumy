@@ -7,6 +7,7 @@ from unfold.forms import AdminPasswordChangeForm
 
 from apps.audit_logs.services import record
 
+from .legal import LegalDocument, TermsAcceptance
 from .models import User
 
 
@@ -60,3 +61,26 @@ class UserAdmin(DjangoUserAdmin, ModelAdmin):
             user.save(update_fields=["is_active"])
             record("admin.user.activated", actor=request.user, target=user, request=request)
         messages.success(request, _("Selected users were activated."))
+
+
+@admin.register(LegalDocument)
+class LegalDocumentAdmin(ModelAdmin):
+    list_display = ("kind", "language", "version", "title", "published_at")
+    list_filter = ("kind", "language")
+    search_fields = ("title", "body")
+
+    def save_model(self, request, obj, form, change):
+        super().save_model(request, obj, form, change)
+        record("admin.legal.saved", actor=request.user, target=obj,
+               changes={"version": obj.version, "published": bool(obj.published_at)},
+               request=request)
+
+
+@admin.register(TermsAcceptance)
+class TermsAcceptanceAdmin(ModelAdmin):
+    list_display = ("user", "terms_version", "privacy_version", "accepted_at")
+    search_fields = ("user__email",)
+    readonly_fields = ("user", "terms_version", "privacy_version", "accepted_at")
+
+    def has_add_permission(self, request):
+        return False

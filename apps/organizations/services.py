@@ -183,3 +183,33 @@ def leave_organization(*, membership, request=None) -> None:
     record("team.left", actor=membership.user, organization=membership.organization,
            target=membership, request=request)
     membership.delete()
+
+
+@transaction.atomic
+def transfer_ownership(*, organization, actor_membership, target_membership,
+                       request=None) -> None:
+    if actor_membership.role != Role.OWNER or actor_membership.organization_id != organization.pk:
+        raise OrganizationError(_("Only the owner can transfer ownership."))
+    if target_membership.organization_id != organization.pk or target_membership.pk == \
+            actor_membership.pk:
+        raise OrganizationError(_("Choose another member of this organization."))
+    target_membership.role = Role.OWNER
+    target_membership.save(update_fields=["role", "updated_at"])
+    actor_membership.role = Role.ADMIN
+    actor_membership.save(update_fields=["role", "updated_at"])
+    organization.owner = target_membership.user
+    organization.save(update_fields=["owner", "updated_at"])
+    record("organization.ownership_transferred", actor=actor_membership.user,
+           organization=organization, target=organization,
+           changes={"to": target_membership.user.email}, request=request)
+    notify(target_membership.user, kind="organization.owner", organization=organization,
+           title=_("You are now the owner of %(org)s") % {"org": organization.name},
+           url=reverse("organization_settings", kwargs={"org_slug": organization.slug}))
+
+
+@transaction.atomic
+def delete_organization(*, organization, actor, request=None) -> None:
+    """Deletes the organization and ALL its data (codes, surveys, assets, ...)."""
+    record("organization.deleted", actor=actor, organization=None, target=organization,
+           changes={"slug": organization.slug}, request=request)
+    organization.delete()

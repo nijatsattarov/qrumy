@@ -1,0 +1,6 @@
+{% load i18n %}{% autoescape off %}{% translate "Hello from Qrumy!" %}
+
+{% block content %}{% endblock content %}
+
+{% translate "Thank you for using Qrumy." %}
+{{ SITE_URL|default:"https://qrumy.com" }}{% endautoescape %}

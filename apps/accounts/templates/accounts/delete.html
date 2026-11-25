@@ -1,0 +1,18 @@
+{% extends "layouts/account.html" %}
+{% load i18n %}
+{% block title %}{% translate "Delete account" %}{% endblock %}
+{% block content %}
+<h1>{% translate "Delete account" %}</h1>
+{% if owned %}
+  <p class="mt-3 text-sm text-muted">{% translate "You own these organizations. Transfer ownership to someone else or delete them first (Organization settings → Owner actions):" %}</p>
+  <ul class="mt-3 space-y-1 text-sm">{% for org in owned %}<li><a href="{% url 'organization_settings' org_slug=org.slug %}">{{ org.name }}</a></li>{% endfor %}</ul>
+{% else %}
+  <p class="mt-3 text-sm text-muted">{% translate "This permanently deletes your account and removes you from all organizations. Content you created in organizations stays with those organizations." %}</p>
+  <form method="post" class="mt-6 max-w-md space-y-4">{% csrf_token %}
+    {% if error %}<div class="rounded-lg border border-danger/20 bg-danger-soft px-4 py-3 text-sm text-danger" role="alert">{{ error }}</div>{% endif %}
+    <div class="form-field"><label class="form-label" for="password">{% translate "Your password" %}</label><input id="password" name="password" type="password" required autocomplete="current-password"></div>
+    <label class="flex items-center gap-2.5 text-sm"><input type="checkbox" name="confirm" class="checkbox" required>{% translate "I understand that this cannot be undone." %}</label>
+    <button class="btn btn-danger">{% translate "Delete my account" %}</button>
+  </form>
+{% endif %}
+{% endblock %}

@@ -20,7 +20,9 @@ Edit `.env`:
 | `ANYMAIL` | provider settings, e.g. `POSTMARK_SERVER_TOKEN=...` |
 | `DEFAULT_FROM_EMAIL` | `Qrumy <no-reply@qrumy.com>` |
 | `CERTS_DIR` | `/etc/letsencrypt/live/qrumy.com` |
-| `SENTRY_DSN` | optional (requires `pip install sentry-sdk` in the image) |
+| `SENTRY_DSN` | optional, enables error monitoring (Sentry) |
+| `SECRET_KEY_FALLBACKS` | previous secret keys while rotating `SECRET_KEY` (comma-separated) |
+| `SECURE_HSTS_PRELOAD` | `True` only after HTTPS is permanent on all subdomains |
 | `QRUMY_QR_BASE_URL` | `https://qrumy.com/q/` — **printed into every dynamic QR code; never change it for existing codes** |
 | `QRUMY_GEOIP_CITY_DB` | path to MaxMind GeoLite2-City `.mmdb` (optional; without it, country/city stay empty) |
 | `QRUMY_COUNTRY_HEADER` | `HTTP_CF_IPCOUNTRY` if Qrumy runs behind Cloudflare (country only) |
@@ -47,17 +49,47 @@ Migrations run automatically when `web` starts (`RUN_MIGRATIONS=1`). Check:
 
 ## 4. Update
 ```bash
-git pull
-docker compose -f docker-compose.prod.yml up -d --build
+./docker/deploy.sh   # pull → backup → build → restart → wait until healthy
 ```
 
-## 5. Backups (set up before launch)
-Nightly database dump + media copy to off-site S3-compatible storage:
-```bash
-docker compose -f docker-compose.prod.yml exec -T db pg_dump -U qrumy -Fc qrumy > /backups/qrumy-$(date +%F).dump
+## 5. Backups and restore drill
+`docker/backup.sh` dumps PostgreSQL (verified with `pg_restore --list`), archives media files,
+writes checksums, deletes local copies older than `BACKUP_KEEP_DAYS` (14) and, when
+`BACKUP_RCLONE_REMOTE` is set (e.g. `b2:qrumy-backups`), copies them off-site with
+[rclone](https://rclone.org) (`apt install rclone`, then `rclone config`).
+
+Cron (as the deploy user, `crontab -e`):
+```cron
+15 3 * * * cd /srv/qrumy && ./docker/backup.sh >> /var/log/qrumy-backup.log 2>&1
+30 4 * * 1 cd /srv/qrumy && ./docker/restore.sh "$(ls -t backups/db-*.dump | head -1)" >> /var/log/qrumy-restore-drill.log 2>&1
 ```
-Keep 7 daily / 4 weekly / 3 monthly. Test a restore before launch:
-`pg_restore -U qrumy -d qrumy_restore --clean /backups/<file>.dump`.
+The weekly drill restores the newest dump into a **scratch database**, prints row counts next
+to the live ones and removes the scratch database — live data is never touched.
+
+Disaster recovery (destructive, asks you to type `REPLACE`):
+```bash
+./docker/restore.sh --replace-live backups/db-<stamp>.dump backups/media-<stamp>.tar.gz
+```
+
+## 6. Server hardening (once)
+```bash
+sudo apt install -y ufw unattended-upgrades fail2ban
+sudo ufw default deny incoming && sudo ufw allow OpenSSH && sudo ufw allow 80,443/tcp && sudo ufw enable
+sudo dpkg-reconfigure -plow unattended-upgrades
+```
+In `/etc/ssh/sshd_config`: `PasswordAuthentication no`, `PermitRootLogin no`, then
+`sudo systemctl reload ssh`. PostgreSQL and Redis are not published on host ports by
+`docker-compose.prod.yml`; keep it that way.
+
+## 7. Error monitoring
+Set `SENTRY_DSN` (and optionally `SENTRY_ENVIRONMENT`). Error reports exclude user details,
+request bodies, SQL parameters and local variables. Point an uptime monitor at
+`https://qrumy.com/healthz` (returns 200 when the app and database are up).
+
+## 8. Legal pages
+Publish the Terms of Service and Privacy Policy in the admin (**Accounts → Legal documents**,
+English and Azerbaijani, with a version and a publication time). Once Terms are published,
+sign-up requires accepting them and the accepted versions are stored per user.
 
 ## GeoIP (optional)
 Create a free MaxMind account, download **GeoLite2-City.mmdb** and mount it into the

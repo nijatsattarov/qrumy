@@ -9,4 +9,8 @@
   {{ form }}
   <button type="submit" class="btn btn-primary">{% translate "Save changes" %}</button>
 </form>
+<div class="mt-10 border-t border-line pt-6">
+  <h2>{% translate "Delete account" %}</h2>
+  <p class="mt-1 text-sm text-muted">{% translate "Permanently delete your Qrumy account." %} <a href="{% url 'account_delete' %}">{% translate "Continue" %}</a></p>
+</div>
 {% endblock %}

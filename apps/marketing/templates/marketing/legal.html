@@ -1,0 +1,11 @@
+{% extends "layouts/marketing.html" %}
+{% load i18n %}
+{% block title %}{{ doc.title }}{% endblock %}
+{% block content %}
+<article class="mx-auto max-w-3xl px-4 py-14 sm:px-6">
+  <p class="eyebrow">{{ doc.get_kind_display }}</p>
+  <h1 class="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">{{ doc.title }}</h1>
+  <p class="mt-2 text-sm text-muted">{% blocktranslate with v=doc.version d=doc.published_at|date:"j M Y" %}Version {{ v }} · published {{ d }}{% endblocktranslate %}</p>
+  <div class="mt-10 space-y-4 text-[15px] leading-relaxed text-ink [&_p]:mb-4">{{ doc.body|linebreaks }}</div>
+</article>
+{% endblock %}

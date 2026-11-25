@@ -79,7 +79,7 @@
   <div class="border-t border-line">
     <div class="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-6 text-xs text-muted sm:flex-row sm:justify-between sm:px-6">
       <p>© {% now "Y" %} Qrumy · qrumy.com</p>
-      <p>{% translate "Free beta — features are released step by step." %}</p>
+      <p class="flex flex-wrap gap-x-4 gap-y-1">{% if LEGAL.terms %}<a href="{% url 'terms' %}" class="text-muted no-underline hover:text-ink">{% translate "Terms of Service" %}</a>{% endif %}{% if LEGAL.privacy %}<a href="{% url 'privacy' %}" class="text-muted no-underline hover:text-ink">{% translate "Privacy Policy" %}</a>{% endif %}<span>{% translate "Free beta — features are released step by step." %}</span></p>
     </div>
   </div>
 </footer>

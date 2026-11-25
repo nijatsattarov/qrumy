@@ -12,6 +12,7 @@ ALL = {OWN, ADM, MGR, MEM, VIEW}
 CAPABILITIES: dict[str, set[Role]] = {
     "org.view": ALL,
     "org.settings.edit": {OWN, ADM},
+    "org.delete": {OWN},
     "team.view": ALL,
     "team.invite": {OWN, ADM},
     "team.manage": {OWN, ADM},
