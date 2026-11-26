@@ -13,6 +13,12 @@
     <a href="{% url 'account_change_password' %}" class="menu-item">{% icon 'lock' 'size-4 text-muted' %}{% translate "Password" %}</a>
     <a href="{% url 'mfa_index' %}" class="menu-item">{% icon 'shield' 'size-4 text-muted' %}{% translate "Two-factor authentication" %}</a>
     <div class="divider my-1.5"></div>
+    {% get_current_language as LANGUAGE_CODE %}
+    <div class="flex items-center gap-1 px-3 py-1.5 text-xs text-muted">{% icon 'globe' 'size-4' %}
+      <a href="{% url 'switch_language' 'az' %}?next={{ request.get_full_path|urlencode }}" class="rounded px-2 py-1 no-underline {% if LANGUAGE_CODE == 'az' %}bg-canvas font-semibold text-ink{% else %}text-muted hover:text-ink{% endif %}">Azərbaycanca</a>
+      <a href="{% url 'switch_language' 'en' %}?next={{ request.get_full_path|urlencode }}" class="rounded px-2 py-1 no-underline {% if LANGUAGE_CODE == 'en' %}bg-canvas font-semibold text-ink{% else %}text-muted hover:text-ink{% endif %}">English</a>
+    </div>
+    <div class="divider my-1.5"></div>
     <form method="post" action="{% url 'account_logout' %}">{% csrf_token %}
       <button type="submit" class="menu-item">{% icon 'logout' 'size-4 text-muted' %}{% translate "Sign out" %}</button>
     </form>

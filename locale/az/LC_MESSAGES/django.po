@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Qrumy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-25 14:53+0000\n"
+"POT-Creation-Date: 2026-11-26 05:45+0000\n"
 "PO-Revision-Date: 2026-11-25 00:00+0000\n"
 "Last-Translator: Qrumy team\n"
 "Language-Team: Azerbaijani\n"
@@ -214,15 +214,15 @@ msgstr "Davam et"
 msgid "Your profile has been updated."
 msgstr "Profiliniz yeniləndi."
 
-#: apps/accounts/views.py:44
+#: apps/accounts/views.py:78
 msgid "The password is not correct."
 msgstr "Şifrə düzgün deyil."
 
-#: apps/accounts/views.py:46
+#: apps/accounts/views.py:80
 msgid "Please confirm that you understand this cannot be undone."
 msgstr "Bunun geri qaytarıla bilməyəcəyini başa düşdüyünüzü təsdiq edin."
 
-#: apps/accounts/views.py:56
+#: apps/accounts/views.py:90
 msgid "Your account was deleted."
 msgstr "Hesabınız silindi."
 
@@ -452,7 +452,7 @@ msgid "Scans"
 msgstr "Skanlar"
 
 #: apps/core/admin_dashboard.py:140 apps/organizations/forms.py:53
-#: apps/qr_management/types.py:82 apps/qr_management/types.py:288
+#: apps/qr_management/types.py:92 apps/qr_management/types.py:298
 #: apps/surveys/models.py:136 apps/surveys/qtypes.py:128
 #: apps/surveys/templates/surveys/share.html:41
 msgid "Email"
@@ -1861,7 +1861,7 @@ msgstr ""
 "olunan e-poçtla daxil olun."
 
 #: apps/organizations/templates/organizations/invitation_accept.html:17
-#: templates/components/user_menu.html:17
+#: templates/components/user_menu.html:23
 msgid "Sign out"
 msgstr "Çıxış"
 
@@ -2775,7 +2775,7 @@ msgstr ""
 "köhnə məzmunu saxlayacaq."
 
 #: apps/qr_management/templates/qr_management/form.html:30
-#: apps/qr_management/types.py:186
+#: apps/qr_management/types.py:196
 msgid "File"
 msgstr "Fayl"
 
@@ -3055,289 +3055,289 @@ msgstr "Skanlar, 30 gün"
 msgid "Enter a valid phone number."
 msgstr "Düzgün telefon nömrəsi daxil edin."
 
-#: apps/qr_management/types.py:54
+#: apps/qr_management/types.py:64
 msgid "Website URL"
 msgstr "Veb saytın ünvanı"
 
-#: apps/qr_management/types.py:58 apps/qr_management/types.py:280
+#: apps/qr_management/types.py:68 apps/qr_management/types.py:290
 msgid "Text"
 msgstr "Mətn"
 
-#: apps/qr_management/types.py:63
+#: apps/qr_management/types.py:73
 msgid "Network name (SSID)"
 msgstr "Şəbəkənin adı (SSID)"
 
-#: apps/qr_management/types.py:64
+#: apps/qr_management/types.py:74
 msgid "Security"
 msgstr "Təhlükəsizlik"
 
-#: apps/qr_management/types.py:65
+#: apps/qr_management/types.py:75
 msgid "No password"
 msgstr "Şifrəsiz"
 
-#: apps/qr_management/types.py:66 templates/components/user_menu.html:13
+#: apps/qr_management/types.py:76 templates/components/user_menu.html:13
 #: templates/layouts/account.html:18
 msgid "Password"
 msgstr "Şifrə"
 
-#: apps/qr_management/types.py:67
+#: apps/qr_management/types.py:77
 msgid "Hidden network"
 msgstr "Gizli şəbəkə"
 
-#: apps/qr_management/types.py:72
+#: apps/qr_management/types.py:82
 msgid "Enter the network password."
 msgstr "Şəbəkənin şifrəsini daxil edin."
 
-#: apps/qr_management/types.py:77
+#: apps/qr_management/types.py:87
 msgid "First name"
 msgstr "Ad"
 
-#: apps/qr_management/types.py:78
+#: apps/qr_management/types.py:88
 msgid "Last name"
 msgstr "Soyad"
 
-#: apps/qr_management/types.py:79
+#: apps/qr_management/types.py:89
 msgid "Company"
 msgstr "Şirkət"
 
-#: apps/qr_management/types.py:80
+#: apps/qr_management/types.py:90
 msgid "Job title"
 msgstr "Vəzifə"
 
-#: apps/qr_management/types.py:81 apps/surveys/qtypes.py:129
+#: apps/qr_management/types.py:91 apps/surveys/qtypes.py:129
 msgid "Phone"
 msgstr "Telefon"
 
-#: apps/qr_management/types.py:83 apps/qr_management/types.py:259
+#: apps/qr_management/types.py:93 apps/qr_management/types.py:269
 msgid "Website"
 msgstr "Veb sayt"
 
-#: apps/qr_management/types.py:84
+#: apps/qr_management/types.py:94
 msgid "Address"
 msgstr "Ünvan"
 
-#: apps/qr_management/types.py:85
+#: apps/qr_management/types.py:95
 msgid "Note"
 msgstr "Qeyd"
 
-#: apps/qr_management/types.py:90 apps/qr_management/types.py:94
+#: apps/qr_management/types.py:100 apps/qr_management/types.py:104
 msgid "Phone number"
 msgstr "Telefon nömrəsi"
 
-#: apps/qr_management/types.py:95 apps/qr_management/types.py:102
+#: apps/qr_management/types.py:105 apps/qr_management/types.py:112
 msgid "Message"
 msgstr "Mesaj"
 
-#: apps/qr_management/types.py:100
+#: apps/qr_management/types.py:110
 msgid "Email address"
 msgstr "E-poçt ünvanı"
 
-#: apps/qr_management/types.py:101
+#: apps/qr_management/types.py:111
 msgid "Subject"
 msgstr "Mövzu"
 
-#: apps/qr_management/types.py:107
+#: apps/qr_management/types.py:117
 msgid "WhatsApp number (with country code)"
 msgstr "WhatsApp nömrəsi (ölkə kodu ilə)"
 
-#: apps/qr_management/types.py:108
+#: apps/qr_management/types.py:118
 msgid "Pre-filled message"
 msgstr "Hazır mesaj"
 
-#: apps/qr_management/types.py:113
+#: apps/qr_management/types.py:123
 msgid "Latitude"
 msgstr "En dairəsi"
 
-#: apps/qr_management/types.py:115
+#: apps/qr_management/types.py:125
 msgid "Longitude"
 msgstr "Uzunluq dairəsi"
 
-#: apps/qr_management/types.py:117
+#: apps/qr_management/types.py:127
 msgid "Place name"
 msgstr "Məkanın adı"
 
-#: apps/qr_management/types.py:121
+#: apps/qr_management/types.py:131
 msgid "Page title"
 msgstr "Səhifənin başlığı"
 
-#: apps/qr_management/types.py:122 apps/qr_management/types.py:173
+#: apps/qr_management/types.py:132 apps/qr_management/types.py:183
 msgid "Description"
 msgstr "Təsvir"
 
-#: apps/qr_management/types.py:125
+#: apps/qr_management/types.py:135
 msgid "Links"
 msgstr "Linklər"
 
-#: apps/qr_management/types.py:126
+#: apps/qr_management/types.py:136
 msgid "One per line: Label | https://example.com (up to 12 links)."
 msgstr "Hər sətirdə bir: Ad | https://example.com (ən çox 12 link)."
 
-#: apps/qr_management/types.py:142
+#: apps/qr_management/types.py:152
 #, python-format
 msgid "Line %(n)s: %(error)s"
 msgstr "Sətir %(n)s: %(error)s"
 
-#: apps/qr_management/types.py:145
+#: apps/qr_management/types.py:155
 msgid "Add at least one link."
 msgstr "Ən azı bir link əlavə edin."
 
-#: apps/qr_management/types.py:147
+#: apps/qr_management/types.py:157
 msgid "You can add up to 12 links."
 msgstr "Ən çox 12 link əlavə edə bilərsiniz."
 
-#: apps/qr_management/types.py:159
+#: apps/qr_management/types.py:169
 msgid "App name"
 msgstr "Tətbiqin adı"
 
-#: apps/qr_management/types.py:160
+#: apps/qr_management/types.py:170
 msgid "App Store link"
 msgstr "App Store linki"
 
-#: apps/qr_management/types.py:161
+#: apps/qr_management/types.py:171
 msgid "Google Play link"
 msgstr "Google Play linki"
 
-#: apps/qr_management/types.py:162
+#: apps/qr_management/types.py:172
 msgid "Link for other devices"
 msgstr "Digər cihazlar üçün link"
 
-#: apps/qr_management/types.py:167
+#: apps/qr_management/types.py:177
 msgid "Add at least one store link."
 msgstr "Ən azı bir mağaza linki əlavə edin."
 
-#: apps/qr_management/types.py:172
+#: apps/qr_management/types.py:182
 msgid "Offer title"
 msgstr "Təklifin başlığı"
 
-#: apps/qr_management/types.py:175
+#: apps/qr_management/types.py:185
 msgid "Coupon code"
 msgstr "Kupon kodu"
 
-#: apps/qr_management/types.py:176
+#: apps/qr_management/types.py:186
 msgid "Valid until"
 msgstr "Etibarlılıq tarixi"
 
-#: apps/qr_management/types.py:178
+#: apps/qr_management/types.py:188
 msgid "Terms"
 msgstr "Şərtlər"
 
-#: apps/qr_management/types.py:180
+#: apps/qr_management/types.py:190
 msgid "Button label"
 msgstr "Düymənin mətni"
 
-#: apps/qr_management/types.py:181
+#: apps/qr_management/types.py:191
 msgid "Button link"
 msgstr "Düymənin linki"
 
-#: apps/qr_management/types.py:185
+#: apps/qr_management/types.py:195
 msgid "Title"
 msgstr "Başlıq"
 
-#: apps/qr_management/types.py:259
+#: apps/qr_management/types.py:269
 msgid "Open any web page"
 msgstr "İstənilən veb səhifəni açın"
 
-#: apps/qr_management/types.py:261
+#: apps/qr_management/types.py:271
 msgid "Multi-link & social"
 msgstr "Çoxlu link və sosial şəbəkələr"
 
-#: apps/qr_management/types.py:262
+#: apps/qr_management/types.py:272
 msgid "A mobile page with several links"
 msgstr "Bir neçə linkdən ibarət mobil səhifə"
 
-#: apps/qr_management/types.py:263
+#: apps/qr_management/types.py:273
 msgid "PDF"
 msgstr "PDF"
 
-#: apps/qr_management/types.py:263
+#: apps/qr_management/types.py:273
 msgid "Share a PDF document"
 msgstr "PDF sənəd paylaşın"
 
-#: apps/qr_management/types.py:265 templates/layouts/marketing.html:41
+#: apps/qr_management/types.py:275 templates/layouts/marketing.html:41
 msgid "Menu"
 msgstr "Menyu"
 
-#: apps/qr_management/types.py:265
+#: apps/qr_management/types.py:275
 msgid "Restaurant menu as PDF or image"
 msgstr "PDF və ya şəkil şəklində restoran menyusu"
 
-#: apps/qr_management/types.py:268
+#: apps/qr_management/types.py:278
 msgid "Image"
 msgstr "Şəkil"
 
-#: apps/qr_management/types.py:268
+#: apps/qr_management/types.py:278
 msgid "Show an image"
 msgstr "Şəkil göstərin"
 
-#: apps/qr_management/types.py:270
+#: apps/qr_management/types.py:280
 msgid "Contact card"
 msgstr "Vizit kartı"
 
-#: apps/qr_management/types.py:270
+#: apps/qr_management/types.py:280
 msgid "Save contact details (vCard)"
 msgstr "Əlaqə məlumatlarını saxlayın (vCard)"
 
-#: apps/qr_management/types.py:272
+#: apps/qr_management/types.py:282
 msgid "WhatsApp"
 msgstr "WhatsApp"
 
-#: apps/qr_management/types.py:272
+#: apps/qr_management/types.py:282
 msgid "Start a WhatsApp chat"
 msgstr "WhatsApp söhbəti başladın"
 
-#: apps/qr_management/types.py:274
+#: apps/qr_management/types.py:284
 msgid "Location"
 msgstr "Məkan"
 
-#: apps/qr_management/types.py:274
+#: apps/qr_management/types.py:284
 msgid "Open a place on the map"
 msgstr "Xəritədə məkanı açın"
 
-#: apps/qr_management/types.py:276
+#: apps/qr_management/types.py:286
 msgid "App download"
 msgstr "Tətbiq yükləmə"
 
-#: apps/qr_management/types.py:276
+#: apps/qr_management/types.py:286
 msgid "Send people to the right app store"
 msgstr "İnsanları düzgün tətbiq mağazasına yönləndirin"
 
-#: apps/qr_management/types.py:278
+#: apps/qr_management/types.py:288
 msgid "Coupon"
 msgstr "Kupon"
 
-#: apps/qr_management/types.py:278
+#: apps/qr_management/types.py:288
 msgid "Show a discount or offer"
 msgstr "Endirim və ya təklif göstərin"
 
-#: apps/qr_management/types.py:280
+#: apps/qr_management/types.py:290
 msgid "Show a short text"
 msgstr "Qısa mətn göstərin"
 
-#: apps/qr_management/types.py:282
+#: apps/qr_management/types.py:292
 msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
-#: apps/qr_management/types.py:282
+#: apps/qr_management/types.py:292
 msgid "Join a Wi-Fi network"
 msgstr "Wi-Fi şəbəkəsinə qoşulun"
 
-#: apps/qr_management/types.py:284
+#: apps/qr_management/types.py:294
 msgid "Phone call"
 msgstr "Zəng"
 
-#: apps/qr_management/types.py:284
+#: apps/qr_management/types.py:294
 msgid "Call a number"
 msgstr "Nömrəyə zəng edin"
 
-#: apps/qr_management/types.py:286
+#: apps/qr_management/types.py:296
 msgid "SMS"
 msgstr "SMS"
 
-#: apps/qr_management/types.py:286
+#: apps/qr_management/types.py:296
 msgid "Send a text message"
 msgstr "SMS göndərin"
 
-#: apps/qr_management/types.py:288
+#: apps/qr_management/types.py:298
 msgid "Write an email"
 msgstr "E-poçt yazın"
 
@@ -4811,13 +4811,9 @@ msgstr ""
 "müştəri rəyləri, aktiv izləmə və tədbirlərdə müştəri toplama bir "
 "platformada."
 
-#: templates/components/language_switcher.html:6
+#: templates/components/language_switcher.html:5
 msgid "Language"
 msgstr "Dil"
-
-#: templates/components/language_switcher.html:14
-msgid "Change"
-msgstr "Dəyiş"
 
 #: templates/components/user_menu.html:3
 msgid "Account menu"

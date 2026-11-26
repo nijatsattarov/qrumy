@@ -28,4 +28,20 @@ class UserLanguageMiddleware:
             if lang in self.supported:
                 translation.activate(lang)
                 request.LANGUAGE_CODE = lang
-        return self.get_response(request)
+        response = self.get_response(request)
+        self._remember_marketing_language(request, response)
+        return response
+
+    def _remember_marketing_language(self, request, response) -> None:
+        """Marketing pages show their language in the URL (/ or /az/). Remember it, so
+        that sign-up, emails and the app that follow continue in the same language."""
+        match = getattr(request, "resolver_match", None)
+        if (response.status_code != 200 or match is None
+                or not match.func.__module__.startswith("apps.marketing")
+                or request.headers.get("HX-Request")):
+            return
+        lang = getattr(request, "LANGUAGE_CODE", None)
+        name = settings.LANGUAGE_COOKIE_NAME
+        if lang in self.supported and request.COOKIES.get(name) != lang:
+            response.set_cookie(name, lang, max_age=365 * 24 * 3600, samesite="Lax",
+                                secure=request.is_secure())

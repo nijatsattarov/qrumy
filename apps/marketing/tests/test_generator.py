@@ -83,3 +83,15 @@ def test_generator_is_rate_limited(client, settings):
     data = {"type": "text", "c-text": "hi", **STYLE}
     codes = [client.post("/qr-generator/download/svg/", data).status_code for _ in range(32)]
     assert codes[0] == 200 and codes[-1] in (403, 429)
+
+
+def test_bare_domain_is_accepted(client):
+    data = {"type": "url", "c-url": "example.com", **STYLE}
+    assert "Test scan passed" in client.post("/qr-generator/preview/", data).content.decode()
+    png = client.post("/qr-generator/download/png/", data)
+    assert _decode(png.content) == "https://example.com"
+
+
+def test_url_input_is_not_type_url(client):
+    body = client.get("/").content.decode()
+    assert 'name="c-url"' in body and 'type="url"' not in body and 'inputmode="url"' in body

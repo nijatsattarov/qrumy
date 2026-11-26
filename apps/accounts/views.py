@@ -23,6 +23,40 @@ def profile(request):
     return render(request, "accounts/profile.html", {"form": form})
 
 
+def switch_language(request, code):
+    """GET /lang/<code>/?next=… — plain link, so it works without JavaScript or a CSRF token.
+
+    Remembers the choice (cookie + signed-in user) and returns to the same page in the
+    new language.
+    """
+    from django.urls import translate_url
+    from django.utils.http import url_has_allowed_host_and_scheme
+
+    languages = dict(settings.LANGUAGES)
+    if code not in languages:
+        code = settings.LANGUAGE_CODE
+    nxt = request.GET.get("next") or "/"
+    if not url_has_allowed_host_and_scheme(nxt, allowed_hosts={request.get_host()},
+                                           require_https=request.is_secure()):
+        nxt = "/"
+    # translate_url only resolves paths in the active language, so activate the language
+    # the "next" page is in (from its /az/ prefix; no prefix means the default language).
+    from urllib.parse import urlsplit
+
+    from django.utils import translation
+
+    current = translation.get_language_from_path(urlsplit(nxt).path) or settings.LANGUAGE_CODE
+    with translation.override(current):
+        target = translate_url(nxt, code)
+    response = redirect(target)
+    response.set_cookie(settings.LANGUAGE_COOKIE_NAME, code, max_age=365 * 24 * 3600,
+                        samesite="Lax", secure=request.is_secure())
+    if request.user.is_authenticated and request.user.language != code:
+        request.user.language = code
+        request.user.save(update_fields=["language"])
+    return response
+
+
 @require_POST
 def set_language(request):
     """Django's set_language + persist the choice on the signed-in user."""

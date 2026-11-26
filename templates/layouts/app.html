@@ -8,8 +8,8 @@
        class="fixed inset-0 z-40 bg-navy-950/50 lg:hidden"></div>
 
   {# ---------- Sidebar ---------- #}
-  <aside :class="sidebarClass"
-         class="fixed inset-y-0 left-0 z-50 flex w-64 -translate-x-full flex-col bg-navy-900 transition-transform duration-200 lg:translate-x-0">
+  <aside :data-open="sidebarOpen" data-open="false"
+         class="app-sidebar fixed inset-y-0 left-0 z-50 flex w-64 flex-col bg-navy-900 transition-transform duration-200">
     <div class="flex h-16 items-center justify-between px-5">
       <a href="{% url 'app_home' %}" class="no-underline">{% include "components/logo.html" with tone="light" size="h-7" %}</a>
       <button type="button" @click="closeSidebar" class="text-white/70 lg:hidden" aria-label="{% translate 'Close menu' %}">{% icon 'x' %}</button>

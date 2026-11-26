@@ -5,7 +5,7 @@ from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path
 
-from apps.accounts.views import set_language
+from apps.accounts.views import set_language, switch_language
 from apps.assets import urls as asset_urls
 from apps.core import views as core_views
 from apps.marketing.sitemaps import BlogSitemap, StaticViewSitemap
@@ -19,6 +19,7 @@ urlpatterns = [
     path("accounts/", include("apps.accounts.urls")),
     path("accounts/", include("allauth.urls")),
     path("i18n/setlang/", set_language, name="set_language"),
+    path("lang/<str:code>/", switch_language, name="switch_language"),
     path("app/<slug:org_slug>/billing/", include("apps.billing.urls")),
     path("app/<slug:org_slug>/", include(qr_urls.app_urlpatterns)),
     path("q/", include(qr_urls.public_urlpatterns)),
@@ -41,3 +42,8 @@ urlpatterns += i18n_patterns(
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+else:
+    # Fallback for public images when no web server serves /media/public/ (see view).
+    from apps.core.views import public_media
+
+    urlpatterns += [path("media/public/<path:path>", public_media, name="public_media")]

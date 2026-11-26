@@ -136,6 +136,11 @@
   .seg a.is-active { @apply bg-navy-900 text-white; }
   .meter { @apply relative h-1.5 overflow-hidden rounded-full bg-canvas; }
   .qr-frame svg { @apply h-auto w-full; }
+  .lang-menu > summary::-webkit-details-marker { display: none; }
+  .lang-menu:not([open]) > .menu { display: none; }
+  /* Mobile drawer: hidden off-canvas below lg, opened by Alpine via data-open. */
+  .app-sidebar { @apply max-lg:-translate-x-full; }
+  .app-sidebar[data-open="true"] { @apply max-lg:translate-x-0; }
   .shape-tile { @apply flex min-w-16 cursor-pointer flex-col items-center gap-1 rounded-lg border border-line bg-surface px-2 py-2 text-muted hover:text-ink; }
   .shape-tile:has(> input:checked) { @apply border-navy-900 bg-accent-50 text-navy-900 ring-1 ring-navy-900; }
   .shape-tile:has(> input:focus-visible) { @apply ring-2 ring-accent-500; }

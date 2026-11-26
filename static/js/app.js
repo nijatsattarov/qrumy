@@ -11,7 +11,6 @@ document.addEventListener("alpine:init", () => {
 
   Alpine.data("shell", () => ({
     sidebarOpen: false,
-    get sidebarClass() { return this.sidebarOpen ? "translate-x-0" : "-translate-x-full"; },
     openSidebar() { this.sidebarOpen = true; },
     closeSidebar() { this.sidebarOpen = false; },
   }));
@@ -27,11 +26,17 @@ document.addEventListener("alpine:init", () => {
     copied: false,
     get notCopied() { return !this.copied; },
     copy() {
-      const text = this.$el.dataset.copy || "";
-      navigator.clipboard?.writeText(text).then(() => {
+      // data-copy sits on the component root, not on the clicked button.
+      const text = this.$root.dataset.copy || "";
+      const done = () => {
         this.copied = true;
         setTimeout(() => { this.copied = false; }, 1600);
-      });
+      };
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(done, () => { if (legacyCopy(text)) done(); });
+      } else if (legacyCopy(text)) {
+        done(); // plain-HTTP pages have no Clipboard API
+      }
     },
   }));
 
@@ -51,6 +56,28 @@ document.addEventListener("alpine:init", () => {
     open: false,
     toggle() { this.open = !this.open; },
   }));
+});
+
+// Fallback copy for pages without the Clipboard API (e.g. served over plain HTTP).
+function legacyCopy(text) {
+  const area = document.createElement("textarea");
+  area.value = text;
+  area.setAttribute("readonly", "");
+  area.style.position = "fixed";
+  area.style.opacity = "0";
+  document.body.appendChild(area);
+  area.select();
+  let ok = false;
+  try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+  area.remove();
+  return ok;
+}
+
+// Close an open language menu when clicking elsewhere.
+document.addEventListener("click", (event) => {
+  document.querySelectorAll("details.lang-menu[open]").forEach((el) => {
+    if (!el.contains(event.target)) el.removeAttribute("open");
+  });
 });
 
 // Confirm destructive actions: <form data-confirm="Are you sure?">

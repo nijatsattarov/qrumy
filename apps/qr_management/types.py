@@ -33,6 +33,16 @@ def _clean_phone(value: str) -> str:
 
 
 class SafeURLField(forms.URLField):
+    """Accepts "example.com" as well as full links (https:// is added).
+
+    A text input instead of type="url": browsers (and htmx's form validation) reject
+    addresses without a scheme, which blocked the live preview and the download.
+    """
+
+    widget = forms.TextInput(attrs={"inputmode": "url", "autocomplete": "url",
+                                    "autocapitalize": "off", "spellcheck": "false",
+                                    "placeholder": "example.com"})
+
     def __init__(self, **kwargs):
         kwargs.setdefault("assume_scheme", "https")
         kwargs.setdefault("max_length", 2000)

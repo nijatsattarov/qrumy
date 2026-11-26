@@ -1,15 +1,14 @@
 {% load i18n qrumy %}
 {% get_current_language as LANGUAGE_CODE %}{% get_available_languages as LANGUAGES %}
-<form action="{% url 'set_language' %}" method="post" class="inline-flex items-center gap-1.5 {{ css }}">
-  {% csrf_token %}
-  <input type="hidden" name="next" value="{{ request.get_full_path }}">
-  <label for="lang-{{ id|default:'main' }}" class="sr-only">{% translate "Language" %}</label>
-  {% icon 'globe' 'size-4 opacity-70' %}
-  <select id="lang-{{ id|default:'main' }}" name="language" data-autosubmit
-          class="cursor-pointer appearance-none bg-transparent pr-1 text-sm font-medium focus:outline-none">
+{# Plain links in a native <details> menu: no JavaScript or CSRF token needed. #}
+<details class="lang-menu relative {{ css }}">
+  <summary class="inline-flex cursor-pointer list-none items-center gap-1.5 text-sm font-medium" aria-label="{% translate 'Language' %}">
+    {% icon 'globe' 'size-4 opacity-70' %}{% if LANGUAGE_CODE == 'az' %}Azərbaycanca{% else %}English{% endif %}{% icon 'chevron-down' 'size-3.5 opacity-60' %}
+  </summary>
+  <div class="menu {% if align == 'left' %}left-0{% else %}right-0{% endif %} min-w-40">
     {% for code, name in LANGUAGES %}
-      <option value="{{ code }}" {% if code == LANGUAGE_CODE %}selected{% endif %} class="text-ink">{% if code == 'az' %}Azərbaycanca{% else %}English{% endif %}</option>
+      <a href="{% url 'switch_language' code %}?next={{ request.get_full_path|urlencode }}" hreflang="{{ code }}" lang="{{ code }}"
+         class="menu-item {% if code == LANGUAGE_CODE %}font-semibold{% endif %}">{% if code == 'az' %}Azərbaycanca{% else %}English{% endif %}{% if code == LANGUAGE_CODE %}{% icon 'check' 'size-4 ml-auto text-accent-500' %}{% endif %}</a>
     {% endfor %}
-  </select>
-  <noscript><button type="submit" class="btn btn-sm btn-secondary">{% translate "Change" %}</button></noscript>
-</form>
+  </div>
+</details>
