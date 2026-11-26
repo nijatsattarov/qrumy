@@ -1,10 +1,37 @@
 {% extends "qr_management/public/base.html" %}
-{% load i18n qrumy %}
+{% load i18n qrumy social %}
 {% block title %}{{ p.title }}{% endblock %}
+{% block brand_header %}{% endblock %}
 {% block page %}
-<h1 class="text-center text-2xl font-semibold">{{ p.title }}</h1>
-{% if p.description %}<p class="mt-2 text-center text-sm text-muted">{{ p.description|linebreaksbr }}</p>{% endif %}
-<ul class="mt-6 space-y-3">
-  {% for l in p.links %}<li><a href="{{ l.url }}" rel="noopener noreferrer nofollow" class="card flex items-center justify-between gap-3 px-5 py-4 font-medium text-ink no-underline hover:border-navy-900"><span class="truncate">{{ l.label }}</span>{% icon 'chevron-right' 'size-4 text-muted' %}</a></li>{% endfor %}
-</ul>
+<div class="accent-{{ p.accent|default:'navy' }}">
+  <div class="text-center">
+    {% if info.org_logo %}<img src="{{ info.org_logo }}" alt="" class="mx-auto size-20 rounded-2xl border border-line bg-white object-contain p-1.5">{% endif %}
+    <h1 class="mt-4 text-2xl font-semibold">{{ p.title }}</h1>
+    {% if p.description %}<p class="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-muted">{{ p.description|linebreaksbr }}</p>{% endif %}
+  </div>
+
+  {# Quick social icons row #}
+  {% with socials=p.links %}
+  <div class="mt-5 flex flex-wrap justify-center gap-2.5">
+    {% for l in socials %}{% if l.platform and l.platform != "website" and l.platform != "link" %}
+      <a href="{{ l.url }}" rel="noopener noreferrer nofollow" class="rounded-xl no-underline transition-transform hover:-translate-y-0.5" aria-label="{{ l.platform|social_name }}" title="{{ l.platform|social_name }}">{% social_tile l.platform "size-11" 8 %}</a>
+    {% endif %}{% endfor %}
+  </div>
+  {% endwith %}
+
+  <ul class="mt-6 space-y-3">
+    {% for l in p.links %}
+    <li>
+      <a href="{{ l.url }}" rel="noopener noreferrer nofollow" class="link-btn card flex items-center gap-3 px-3 py-3 font-medium text-ink no-underline">
+        {% social_tile l.platform|default:"link" "size-10" 8 %}
+        <span class="min-w-0 flex-1">
+          <span class="block truncate">{% if l.label %}{{ l.label }}{% else %}{{ l.platform|default:"link"|social_name }}{% endif %}</span>
+          {% if l.label %}<span class="block truncate text-xs font-normal text-muted">{{ l.platform|default:"link"|social_name }}</span>{% endif %}
+        </span>
+        {% icon 'chevron-right' 'size-4 text-muted' %}
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
 {% endblock %}

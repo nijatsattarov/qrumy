@@ -51,14 +51,49 @@ def test_type_modes():
 
 
 def test_links_form_parsing():
-    form = LinksForm(data={"title": "Hi", "links": "Instagram | https://instagram.com/x\n\n"
-                                                    "https://example.com"})
+    form = LinksForm(data={
+        "title": "Hi", "accent": "green",
+        "link_1_platform": "website", "link_1_value": "https://instagram.com/x",
+        "link_2_platform": "telegram", "link_2_value": "@mychannel",
+        "link_3_platform": "whatsapp", "link_3_value": "+994 50 123 45 67",
+        "link_4_platform": "email", "link_4_value": "hi@example.com",
+        "link_5_platform": "website", "link_5_value": "example.com", "link_5_label": "Site",
+    })
     assert form.is_valid(), form.errors
     assert form.cleaned_data["links"] == [
-        {"label": "Instagram", "url": "https://instagram.com/x"},
-        {"label": "https://example.com", "url": "https://example.com"}]
-    bad = LinksForm(data={"title": "Hi", "links": "Bad | javascript:alert(1)"})
-    assert not bad.is_valid() and "Line 1" in str(bad.errors)
+        {"platform": "instagram", "url": "https://instagram.com/x", "label": ""},
+        {"platform": "telegram", "url": "https://t.me/mychannel", "label": ""},
+        {"platform": "whatsapp", "url": "https://wa.me/994501234567", "label": ""},
+        {"platform": "email", "url": "mailto:hi@example.com", "label": ""},
+        {"platform": "website", "url": "https://example.com", "label": "Site"}]
+    assert form.cleaned_data["accent"] == "green"
+    assert not any(k.startswith("link_") for k in form.cleaned_data)
+    bad = LinksForm(data={"title": "Hi", "link_1_platform": "website",
+                          "link_1_value": "javascript:alert(1)"})
+    assert not bad.is_valid() and "link_1_value" in bad.errors
+    assert not LinksForm(data={"title": "Hi"}).is_valid()
+
+
+def test_links_initial_from_old_and_new_payloads():
+    old = LinksForm.initial_from({"title": "Hi", "links": [
+        {"label": "https://youtube.com/@x", "url": "https://youtube.com/@x"}]})
+    assert old["link_1_platform"] == "youtube" and old["link_1_label"] == ""
+    new = LinksForm.initial_from({"title": "Hi", "links": [
+        {"platform": "email", "url": "mailto:a@b.co", "label": "Write"}]})
+    assert new["link_1_value"] == "a@b.co" and new["link_1_label"] == "Write"
+
+
+def test_social_detect_and_build():
+    from apps.qr_management import social
+
+    assert social.detect("https://www.instagram.com/x") == "instagram"
+    assert social.detect("youtu.be/abc") == "youtube"
+    assert social.detect("https://example.com") == "website"
+    assert social.build_url("tiktok", "@cafe") == "https://www.tiktok.com/@cafe"
+    assert social.build_url("instagram", "instagram.com/cafe") == "instagram.com/cafe"
+    assert social.build_url("phone", "+994 (50) 1") == "tel:+994501"
+    assert 'fill="#E1306C"' in social.icon_tile("instagram")
+    assert social.text_color("snapchat") == "#111111"
 
 
 def test_phone_validation():

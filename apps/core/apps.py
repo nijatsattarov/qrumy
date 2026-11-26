@@ -6,3 +6,8 @@ class CoreConfig(AppConfig):
     name = "apps.core"
     label = "core"
     verbose_name = _("Core")
+
+    def ready(self):
+        from . import admin_labels
+
+        admin_labels.apply()

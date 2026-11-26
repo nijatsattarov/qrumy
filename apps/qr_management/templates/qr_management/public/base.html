@@ -5,12 +5,14 @@
 {% block body_class %}min-h-full bg-canvas{% endblock %}
 {% block body %}
 <main class="mx-auto flex min-h-screen max-w-md flex-col px-4 py-8">
+{% block brand_header %}
   {% if info %}
   <header class="mb-6 flex items-center justify-center gap-3">
     {% if info.org_logo %}<img src="{{ info.org_logo }}" alt="" class="size-10 rounded-lg bg-white object-contain">{% endif %}
     <p class="text-sm font-semibold text-ink">{{ info.org_name }}</p>
   </header>
   {% endif %}
+  {% endblock %}
   {% if preview %}<p class="mb-4 rounded-lg bg-warning-soft px-3 py-2 text-center text-xs text-[#92400E]">{% translate "Preview — this visit is not counted as a scan." %}</p>{% endif %}
   <div class="flex-1">{% block page %}{% endblock %}</div>
   {% if not info or info.branding %}

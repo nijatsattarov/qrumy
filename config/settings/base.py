@@ -180,7 +180,11 @@ SOCIALACCOUNT_EMAIL_AUTHENTICATION_AUTO_CONNECT = True
 # ---------------------------------------------------------------------------
 LANGUAGE_CODE = "en"
 LANGUAGES = [("en", _("English")), ("az", _("Azerbaijani"))]
-LOCALE_PATHS = [BASE_DIR / "locale"]
+# locale/ is ours (makemessages writes there); locale_vendor/ holds Azerbaijani
+# translations for third-party packages that ship none (django-unfold).
+LOCALE_PATHS = [BASE_DIR / "locale", BASE_DIR / "locale_vendor"]
+# The super-admin is always shown in Azerbaijani.
+QRUMY_ADMIN_LANGUAGE = env("QRUMY_ADMIN_LANGUAGE", default="az")
 USE_I18N = True
 USE_TZ = True
 TIME_ZONE = "UTC"

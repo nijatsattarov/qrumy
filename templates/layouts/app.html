@@ -82,6 +82,7 @@
       {% include "components/messages.html" %}
       <div class="{% if messages %}mt-4{% endif %}">{% block content %}{% endblock %}</div>
     </main>
+    {% load promo %}{% promo_popup "app" %}
   </div>
 </div>
 {% endblock %}

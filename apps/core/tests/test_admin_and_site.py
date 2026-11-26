@@ -99,3 +99,15 @@ def test_healthz_bypasses_host_validation(client, settings):
 
 def test_permissions_policy_header(client):
     assert "camera=()" in client.get("/")["Permissions-Policy"]
+
+
+def test_admin_is_in_azerbaijani(client, make_user):
+    staff = make_user(email="az@example.com", is_staff=True, is_superuser=True)
+    Authenticator.objects.create(user=staff, type=Authenticator.Type.TOTP, data={})
+    client.force_login(staff)
+    body = client.get(ADMIN, HTTP_ACCEPT_LANGUAGE="en").content.decode()
+    assert 'lang="az"' in body
+    for text in ("Qeydiyyatdan keçən istifadəçilər", "Nasazlıq bildirişləri",
+                 "Planlaşdırılmış tapşırıqlar", "Şərtlərin qəbulları"):
+        assert text in body, text
+    assert "Axtarmaq üçün yazın" in client.get(ADMIN + "accounts/user/").content.decode()

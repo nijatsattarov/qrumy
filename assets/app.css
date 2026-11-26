@@ -138,6 +138,15 @@
   .qr-frame svg { @apply h-auto w-full; }
   .lang-menu > summary::-webkit-details-marker { display: none; }
   .lang-menu:not([open]) > .menu { display: none; }
+  /* Accent colours for link pages and cards (no inline styles under the CSP). */
+  .accent-swatch { @apply relative size-9 cursor-pointer rounded-full ring-2 ring-offset-2 ring-transparent; background: var(--acc); }
+  .accent-swatch:has(> input:checked) { box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--acc); }
+  .accent-navy { --acc: #101B3A; } .accent-blue { --acc: #2F6BFF; } .accent-green { --acc: #12805C; }
+  .accent-red { --acc: #D92D20; } .accent-purple { --acc: #6941C6; } .accent-orange { --acc: #E8590C; }
+  .accent-pink { --acc: #DD2590; } .accent-black { --acc: #111111; }
+  .bg-acc { background: var(--acc); } .text-acc { color: var(--acc); } .border-acc { border-color: var(--acc); }
+  .ring-acc { --tw-ring-color: var(--acc); }
+  .link-btn { @apply transition-colors; } .link-btn:hover { border-color: var(--acc); }
   /* Mobile drawer: hidden off-canvas below lg, opened by Alpine via data-open. */
   .app-sidebar { @apply max-lg:-translate-x-full; }
   .app-sidebar[data-open="true"] { @apply max-lg:translate-x-0; }

@@ -58,6 +58,7 @@
 </header>
 
 <main>{% block content %}{% endblock %}</main>
+{% load promo %}{% if request.resolver_match.url_name == "home" %}{% promo_popup "home" %}{% else %}{% promo_popup "public" %}{% endif %}
 
 <footer class="border-t border-line bg-canvas">
   <div class="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-4">

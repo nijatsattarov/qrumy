@@ -52,6 +52,33 @@ document.addEventListener("alpine:init", () => {
     },
   }));
 
+  // Pop-up offer managed in the admin. Remembers per visitor when it was closed.
+  Alpine.data("promo", () => ({
+    visible: false,
+    init() {
+      const { key, frequency } = this.$el.dataset;
+      const delay = Math.max(0, parseInt(this.$el.dataset.delay || "0", 10)) * 1000;
+      if (!this.allowed(key, frequency)) return;
+      setTimeout(() => { this.visible = true; }, delay);
+    },
+    store(frequency) { return frequency === "session" ? window.sessionStorage : window.localStorage; },
+    allowed(key, frequency) {
+      try {
+        const seen = this.store(frequency).getItem(key);
+        if (!seen) return true;
+        if (frequency === "daily") return Date.now() - parseInt(seen, 10) > 24 * 3600 * 1000;
+        return false;
+      } catch (e) { return true; }
+    },
+    remember() {
+      // $root: the buttons calling this are inside the component.
+      const { key, frequency } = this.$root.dataset;
+      try { this.store(frequency).setItem(key, String(Date.now())); } catch (e) { /* private mode */ }
+    },
+    close() { this.visible = false; this.remember(); },
+    accept() { this.remember(); },
+  }));
+
   Alpine.data("disclosure", () => ({
     open: false,
     toggle() { this.open = !this.open; },
@@ -94,3 +121,58 @@ document.addEventListener("change", (event) => {
   const el = event.target;
   if (el instanceof HTMLSelectElement && el.dataset.autosubmit !== undefined) el.form?.submit();
 });
+
+// Multi-link editor: add/remove rows, platform icon, recognise pasted links.
+(function () {
+  const templates = () => document.getElementById("social-icon-templates");
+  function setIcon(row, key) {
+    const tpl = templates();
+    const slot = row.querySelector("[data-link-icon]");
+    const icon = tpl && tpl.content.querySelector(`[data-platform="${key}"]`);
+    if (slot && icon) slot.replaceChildren(icon.firstElementChild.cloneNode(true));
+  }
+  function detect(value) {
+    const tpl = templates();
+    if (!tpl) return null;
+    let host = "";
+    try { host = new URL(value.includes("//") ? value : "https://" + value).hostname.toLowerCase(); } catch (e) { return null; }
+    host = host.replace(/^(www|m)\./, "");
+    for (const el of tpl.content.querySelectorAll("[data-platform]")) {
+      const domains = (el.dataset.domains || "").split(",").filter(Boolean);
+      if (domains.some((d) => host === d || host.endsWith("." + d))) return el.dataset.platform;
+    }
+    return null;
+  }
+  document.addEventListener("change", (event) => {
+    const select = event.target.closest && event.target.closest("[data-link-platform]");
+    if (select) setIcon(select.closest("[data-link-row]"), select.value);
+  });
+  document.addEventListener("input", (event) => {
+    const input = event.target.closest && event.target.closest("[data-link-value]");
+    if (!input) return;
+    const row = input.closest("[data-link-row]");
+    const select = row.querySelector("[data-link-platform]");
+    const found = detect(input.value.trim());
+    if (found && (select.value === "website" || select.value === "link")) {
+      select.value = found;
+      setIcon(row, found);
+    }
+  });
+  document.addEventListener("click", (event) => {
+    const add = event.target.closest && event.target.closest("[data-link-add]");
+    if (add) {
+      const next = add.parentElement.querySelector("[data-link-row][hidden]");
+      if (next) { next.hidden = false; next.querySelector("[data-link-value]").focus(); }
+      if (!add.parentElement.querySelector("[data-link-row][hidden]")) add.hidden = true;
+      return;
+    }
+    const clear = event.target.closest && event.target.closest("[data-link-clear]");
+    if (clear) {
+      const row = clear.closest("[data-link-row]");
+      row.querySelectorAll("input").forEach((el) => { el.value = ""; });
+      row.querySelector("[data-link-platform]").value = "website";
+      setIcon(row, "website");
+      row.dispatchEvent(new Event("change", { bubbles: true }));
+    }
+  });
+})();

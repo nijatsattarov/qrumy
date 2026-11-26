@@ -52,6 +52,8 @@ class TermsAcceptance(models.Model):
     class Meta:
         app_label = "accounts"
         ordering = ["-accepted_at"]
+        verbose_name = _("terms acceptance")
+        verbose_name_plural = _("terms acceptances")
 
     def __str__(self) -> str:
         return f"{self.user_id} accepted terms v{self.terms_version}"

@@ -14,3 +14,7 @@ class AccountsConfig(AppConfig):
         # sidebar does not show two sections with the same name.
         if apps.is_installed("allauth.account"):
             apps.get_app_config("account").verbose_name = _("Sign-in emails")
+
+        from . import signals
+
+        signals.connect()

@@ -103,3 +103,90 @@ class PostImage(models.Model):
 
     def __str__(self) -> str:
         return self.image.name
+
+
+class PromoQuerySet(models.QuerySet):
+    def live(self):
+        now = timezone.now()
+        return (self.filter(is_active=True)
+                .filter(models.Q(starts_at__isnull=True) | models.Q(starts_at__lte=now))
+                .filter(models.Q(ends_at__isnull=True) | models.Q(ends_at__gt=now)))
+
+
+class Promo(models.Model):
+    """A pop-up offer (e.g. a discount) shown on the website, managed in the admin."""
+
+    class Placement(models.TextChoices):
+        HOME = "home", _("Home page only")
+        PUBLIC = "public", _("All public pages (home, pricing, blog)")
+        APP = "app", _("Customer dashboard")
+        EVERYWHERE = "everywhere", _("Public pages and dashboard")
+
+    class Audience(models.TextChoices):
+        ALL = "all", _("Everyone")
+        GUESTS = "guests", _("Visitors who are not signed in")
+        USERS = "users", _("Signed-in customers")
+
+    class Frequency(models.TextChoices):
+        ONCE = "once", _("Once (until the visitor closes it)")
+        DAILY = "daily", _("At most once a day")
+        SESSION = "session", _("Once per visit")
+
+    name = models.CharField(_("internal name"), max_length=80,
+                            help_text=_("Only visible in the admin."))
+    is_active = models.BooleanField(_("active"), default=True)
+    language = models.CharField(_("language"), max_length=8, blank=True,
+                                choices=[("", _("All languages")), *settings.LANGUAGES])
+    title = models.CharField(_("title"), max_length=90)
+    message = models.TextField(_("text"), max_length=400)
+    image = models.ImageField(_("image"), upload_to=blog_upload_to, blank=True,
+                              validators=[validate_blog_image],
+                              help_text=_("Optional. Shown above the title."))
+    badge = models.CharField(_("badge"), max_length=24, blank=True,
+                             help_text=_("Small label, e.g. “-30%” or “New”."))
+    coupon_code = models.CharField(_("discount code"), max_length=40, blank=True,
+                                   help_text=_("Optional. Shown with a copy button."))
+    button_label = models.CharField(_("button text"), max_length=40, blank=True)
+    button_url = models.CharField(
+        _("button link"), max_length=500, blank=True,
+        help_text=_("A page of this site (e.g. /pricing/) or a full https:// link. "
+                    "Empty: the button goes to sign-up."))
+    placement = models.CharField(_("where to show"), max_length=12, choices=Placement.choices,
+                                 default=Placement.PUBLIC)
+    audience = models.CharField(_("who sees it"), max_length=8, choices=Audience.choices,
+                                default=Audience.ALL)
+    frequency = models.CharField(_("how often"), max_length=8, choices=Frequency.choices,
+                                 default=Frequency.ONCE)
+    delay_seconds = models.PositiveSmallIntegerField(_("delay (seconds)"), default=4,
+                                                     help_text=_("0 shows it immediately."))
+    starts_at = models.DateTimeField(_("starts"), null=True, blank=True)
+    ends_at = models.DateTimeField(_("ends"), null=True, blank=True,
+                                   help_text=_("Empty = no end date."))
+    priority = models.PositiveSmallIntegerField(
+        _("priority"), default=0, help_text=_("If several offers apply, the highest wins."))
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    objects = PromoQuerySet.as_manager()
+
+    class Meta:
+        ordering = ["-priority", "-updated_at"]
+        verbose_name = _("pop-up offer")
+        verbose_name_plural = _("pop-up offers")
+
+    def __str__(self) -> str:
+        return self.name
+
+    def clean(self):
+        url = (self.button_url or "").strip()
+        if url and not (url.startswith("/") and not url.startswith("//")) \
+                and not url.startswith("https://"):
+            raise ValidationError({"button_url": _("Use a site page like /pricing/ or a "
+                                                   "https:// link.")})
+        if self.starts_at and self.ends_at and self.ends_at <= self.starts_at:
+            raise ValidationError({"ends_at": _("The end must be after the start.")})
+
+    @property
+    def storage_key(self) -> str:
+        # Changes when the offer is edited, so an updated offer is shown again.
+        return f"qrumy-promo-{self.pk}-{int(self.updated_at.timestamp())}"

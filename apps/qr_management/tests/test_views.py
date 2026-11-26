@@ -238,7 +238,7 @@ def test_admin_can_suspend_qr(client, make_org, make_qr, make_user):
     client.force_login(staff)
     url = "/qadmin/qr_management/qrcode/"
     form = client.post(url, {"action": "suspend", "_selected_action": [qr.pk]})
-    assert b"Reason" in form.content
+    assert "Səbəb" in form.content.decode()  # admin is in Azerbaijani
     client.post(url, {"action": "suspend", "_selected_action": [qr.pk], "apply": "1",
                       "reason": "Phishing"})
     qr.refresh_from_db()

@@ -1,0 +1,491 @@
+#
+msgid ""
+msgstr ""
+"Language: az\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Select record"
+msgstr "Qeyd seçin"
+
+msgid "Select action"
+msgstr "Əməliyyat seçin"
+
+msgid "Collapse"
+msgstr "Yığ"
+
+msgid "Value"
+msgstr "Dəyər"
+
+msgid "Default"
+msgstr "Standart"
+
+msgid "Code"
+msgstr "Kod"
+
+msgid "Current file"
+msgstr "Cari fayl"
+
+msgid "Reset to default"
+msgstr "Standarta qaytar"
+
+msgid "From"
+msgstr "Başlanğıc"
+
+msgid "To"
+msgstr "Son"
+
+msgid "Date from"
+msgstr "Tarixdən"
+
+msgid "Date to"
+msgstr "Tarixədək"
+
+msgid "Not enough data."
+msgstr "Kifayət qədər məlumat yoxdur."
+
+msgid "Add new item"
+msgstr "Yeni element əlavə et"
+
+msgid "Paragraph"
+msgstr "Abzas"
+
+msgid "Underlined"
+msgstr "Altdan xətli"
+
+msgid "Bold"
+msgstr "Qalın"
+
+msgid "Italic"
+msgstr "Kursiv"
+
+msgid "Strike"
+msgstr "Üstündən xətli"
+
+msgid "Link"
+msgstr "Keçid"
+
+msgid "Heading"
+msgstr "Başlıq"
+
+msgid "Quote"
+msgstr "Sitat"
+
+msgid "Unordered list"
+msgstr "Nişanlı siyahı"
+
+msgid "Ordered list"
+msgstr "Nömrəli siyahı"
+
+msgid "Indent increase"
+msgstr "Abzası artır"
+
+msgid "Indent decrease"
+msgstr "Abzası azalt"
+
+msgid "Undo"
+msgstr "Geri al"
+
+msgid "Redo"
+msgstr "Təkrarla"
+
+msgid "Enter an URL"
+msgstr "URL daxil edin"
+
+msgid "Unlink"
+msgstr "Keçidi sil"
+
+msgid "Object permissions"
+msgstr "Obyekt icazələri"
+
+msgid "Object"
+msgstr "Obyekt"
+
+msgid "Group"
+msgstr "Qrup"
+
+msgid "Group permissions"
+msgstr "Qrup icazələri"
+
+msgid "Manage group"
+msgstr "Qrupu idarə et"
+
+msgid "User permissions"
+msgstr "İstifadəçi icazələri"
+
+msgid "Manage user"
+msgstr "İstifadəçini idarə et"
+
+msgid "impersonate"
+msgstr "onun adından daxil ol"
+
+msgid "impersonate %(username)s"
+msgstr "%(username)s adından daxil ol"
+
+msgid "You are currently working on behalf of <em>%(user)s</em>."
+msgstr "Hazırda <em>%(user)s</em> adından işləyirsiniz."
+
+msgid "stop impersonating"
+msgstr "onun adından çıx"
+
+msgid "hide warning"
+msgstr "xəbərdarlığı gizlət"
+
+msgid "Select format"
+msgstr "Format seçin"
+
+msgid "Export"
+msgstr "İxrac"
+
+msgid "Import"
+msgstr "İdxal"
+
+msgid ""
+"\n"
+"                    Export %(len)s selected item.\n"
+"                "
+msgid_plural ""
+"\n"
+"                    Export %(len)s selected items.\n"
+"                "
+msgstr[0] ""
+"\n"
+"                    Seçilmiş %(len)s elementi ixrac et.\n"
+"                "
+msgstr[1] ""
+"\n"
+"                    Seçilmiş %(len)s elementi ixrac et.\n"
+"                "
+
+msgid "This exporter will export the following fields"
+msgstr "Bu ixrac aşağıdakı sahələri ixrac edəcək"
+
+msgid ""
+"Below is a preview of data to be imported. If you are satisfied with the "
+"results, click 'Confirm import'"
+msgstr ""
+"Aşağıda idxal ediləcək məlumatların önizləməsi var. Nəticə uyğundursa, "
+"'İdxalı təsdiqlə' düyməsini basın"
+
+msgid "Confirm import"
+msgstr "İdxalı təsdiqlə"
+
+msgid "Line number"
+msgstr "Sətir nömrəsi"
+
+msgid "View traceback"
+msgstr "Xəta izinə bax"
+
+msgid "Skipped"
+msgstr "Ötürüldü"
+
+msgid "Update"
+msgstr "Yenilə"
+
+msgid "Some rows failed to validate"
+msgstr "Bəzi sətirlər yoxlamadan keçmədi"
+
+msgid ""
+"Please correct these errors in your data where possible, then reupload it "
+"using the form above."
+msgstr ""
+"Mümkün olduqda məlumatlarınızdakı bu xətaları düzəldin, sonra yuxarıdakı "
+"forma ilə yenidən yükləyin."
+
+msgid "Row"
+msgstr "Sətir"
+
+msgid "Non field specific"
+msgstr "Sahəyə aid olmayan"
+
+msgid "This exporter will export the following fields: "
+msgstr "Bu ixrac aşağıdakı sahələri ixrac edəcək: "
+
+msgid "This importer will import the following fields: "
+msgstr "Bu idxal aşağıdakı sahələri idxal edəcək: "
+
+msgid "Recover deleted %(name)s"
+msgstr "Silinmiş %(name)s bərpa et"
+
+msgid ""
+"Choose a date from the list below to revert to a previous version of this "
+"object."
+msgstr ""
+"Bu obyektin əvvəlki versiyasına qayıtmaq üçün aşağıdakı siyahıdan tarix "
+"seçin."
+
+msgid ""
+"This object doesn't have a change history. It probably wasn't added via this"
+" admin site."
+msgstr ""
+"Bu obyektin dəyişiklik tarixçəsi yoxdur. Yəqin ki, bu admin panel vasitəsilə"
+" əlavə edilməyib."
+
+msgid "Press the save button below to recover this version of the object."
+msgstr ""
+"Obyektin bu versiyasını bərpa etmək üçün aşağıdakı yadda saxla düyməsini "
+"basın."
+
+msgid ""
+"Choose a date from the list below to recover a deleted version of an object."
+msgstr ""
+"Obyektin silinmiş versiyasını bərpa etmək üçün aşağıdakı siyahıdan tarix "
+"seçin."
+
+msgid "There are no deleted objects to recover"
+msgstr "Bərpa ediləcək silinmiş obyekt yoxdur"
+
+msgid "Press the save button below to revert to this version of the object."
+msgstr ""
+"Obyektin bu versiyasına qayıtmaq üçün aşağıdakı yadda saxla düyməsini basın."
+
+msgid "compare"
+msgstr "müqayisə et"
+
+msgid "Comment"
+msgstr "Şərh"
+
+msgid "Go back to history list"
+msgstr "Tarixçə siyahısına qayıt"
+
+msgid "Revert to this version"
+msgstr "Bu versiyaya qayıt"
+
+msgid "previous"
+msgstr "əvvəlki"
+
+msgid "next"
+msgstr "növbəti"
+
+msgid "There are no differences."
+msgstr "Fərq yoxdur."
+
+msgid "Edit comment:"
+msgstr "Şərhi redaktə et:"
+
+msgid "(no comment exists)"
+msgstr "(şərh yoxdur)"
+
+msgid ""
+"Choose a date from the list below to revert to a previous version of this "
+"object"
+msgstr ""
+"Bu obyektin əvvəlki versiyasına qayıtmaq üçün aşağıdakı siyahıdan tarix "
+"seçin"
+
+msgid "This object doesn't have a change history."
+msgstr "Bu obyektin dəyişiklik tarixçəsi yoxdur."
+
+msgid ""
+"Press the 'Revert' button below to revert to this version of the object."
+msgstr ""
+"Obyektin bu versiyasına qayıtmaq üçün aşağıdakı 'Geri qaytar' düyməsini "
+"basın."
+
+msgid "Press the 'Change History' button below to edit the history."
+msgstr ""
+"Tarixçəni redaktə etmək üçün aşağıdakı 'Dəyişiklik tarixçəsi' düyməsini "
+"basın."
+
+msgid "Changed by"
+msgstr "Dəyişdirən"
+
+msgid "Change reason"
+msgstr "Dəyişiklik səbəbi"
+
+msgid "Changes"
+msgstr "Dəyişikliklər"
+
+msgid "Old value"
+msgstr "Köhnə dəyər"
+
+msgid "New value"
+msgstr "Yeni dəyər"
+
+msgid "Revert"
+msgstr "Geri qaytar"
+
+msgid "Change History"
+msgstr "Dəyişiklik tarixçəsi"
+
+msgid "Select action to run"
+msgstr "İcra ediləcək əməliyyatı seçin"
+
+msgid ""
+"Raw passwords are not stored, so there is no way to see this user’s "
+"password, but you can change the password using <a href=\"{}\" class=\"text-"
+"primary-600 dark:text-primary-500\">this form</a>."
+msgstr ""
+"Şifrələr açıq şəkildə saxlanılmır, ona görə də bu istifadəçinin şifrəsini "
+"görmək mümkün deyil, lakin <a href=\"{}\" class=\"text-primary-600 "
+"dark:text-primary-500\">bu forma</a> ilə şifrəni dəyişə bilərsiniz."
+
+msgid "Dataset not found. No action performed."
+msgstr "Məlumat dəsti tapılmadı. Heç bir əməliyyat icra olunmadı."
+
+msgid "Select value"
+msgstr "Dəyər seçin"
+
+msgid ""
+"Field <strong class=\"font-semibold\">{field_name}</strong> is not an "
+"autocomplete field. Please add it to the `autocomplete_fields` list."
+msgstr ""
+"<strong class=\"font-semibold\">{field_name}</strong> sahəsi avtomatik "
+"tamamlama sahəsi deyil. Onu `autocomplete_fields` siyahısına əlavə edin."
+
+msgid "You can not create nested object without parent"
+msgstr "Valideyn olmadan daxili obyekt yaratmaq olmaz"
+
+msgid "Run"
+msgstr "İcra et"
+
+msgid "After you've created a user, you’ll be able to edit more user options."
+msgstr ""
+"İstifadəçini yaratdıqdan sonra digər istifadəçi seçimlərini redaktə edə "
+"biləcəksiniz."
+
+msgid "Welcome back to"
+msgstr "Xoş gəlmisiniz:"
+
+msgid "Forgotten your password or username?"
+msgstr "Şifrənizi və ya istifadəçi adınızı unutmusunuz?"
+
+msgid "Type to search"
+msgstr "Axtarmaq üçün yazın"
+
+msgid "You have been successfully logged out from the administration"
+msgstr "Admin paneldən uğurla çıxış etdiniz"
+
+msgid "No data"
+msgstr "Məlumat yoxdur"
+
+msgid "All applications"
+msgstr "Bütün bölmələr"
+
+msgid "True"
+msgstr "Bəli"
+
+msgid "False"
+msgstr "Xeyr"
+
+msgid "Apply Filters"
+msgstr "Filtrləri tətbiq et"
+
+msgid "Navigate"
+msgstr "Keçid"
+
+msgid "Select"
+msgstr "Seç"
+
+msgid "Recent searches"
+msgstr "Son axtarışlar"
+
+msgid "Nothing matched your search"
+msgstr "Axtarışınıza uyğun heç nə tapılmadı"
+
+msgid ""
+"\n"
+"            Found <span class=\"font-medium text-important\">%(counter)s</span> result in %(time)s seconds\n"
+"        "
+msgid_plural ""
+"\n"
+"            Found <span class=\"font-medium text-important\">%(counter)s</span> results in %(time)s seconds\n"
+"        "
+msgstr[0] ""
+"\n"
+"            %(time)s saniyədə <span class=\"font-medium text-important\">%(counter)s</span> nəticə tapıldı\n"
+"        "
+msgstr[1] ""
+"\n"
+"            %(time)s saniyədə <span class=\"font-medium text-important\">%(counter)s</span> nəticə tapıldı\n"
+"        "
+
+msgid "Record picture"
+msgstr "Qeydin şəkli"
+
+msgid "This item will be deleted."
+msgstr "Bu element silinəcək."
+
+msgid "Click to cancel"
+msgstr "Ləğv etmək üçün klikləyin"
+
+msgid "No results found"
+msgstr "Nəticə tapılmadı"
+
+msgid "This page yielded into no results."
+msgstr "Bu səhifədə nəticə yoxdur."
+
+msgid "Reset filters"
+msgstr "Filtrləri sıfırla"
+
+msgid "Image preview"
+msgstr "Şəklin önizləməsi"
+
+msgid "Click to download"
+msgstr "Yükləmək üçün klikləyin"
+
+msgid "Go back"
+msgstr "Geri qayıt"
+
+msgid "Search apps and models..."
+msgstr "Bölmə və modelləri axtarın..."
+
+msgid "Available shortcuts"
+msgstr "Mövcud qısayollar"
+
+msgid "Global shortcuts"
+msgstr "Ümumi qısayollar"
+
+msgid "Open command tool"
+msgstr "Əmr alətini aç"
+
+msgid "Open shortcuts list"
+msgstr "Qısayollar siyahısını aç"
+
+msgid "Toggle sidebar"
+msgstr "Yan paneli aç/bağla"
+
+msgid "Toggle dark/light mode"
+msgstr "Qaranlıq/işıqlı rejimi dəyiş"
+
+msgid "Changelist shortcuts"
+msgstr "Siyahı qısayolları"
+
+msgid "Toggle filter"
+msgstr "Filtri aç/bağla"
+
+msgid "Create new record"
+msgstr "Yeni qeyd yarat"
+
+msgid "Command tool shortcuts"
+msgstr "Əmr aləti qısayolları"
+
+msgid "Open selection"
+msgstr "Seçiləni aç"
+
+msgid "Open selection in new tab"
+msgstr "Seçiləni yeni tabda aç"
+
+msgid "General"
+msgstr "Ümumi"
+
+msgid "Light"
+msgstr "İşıqlı"
+
+msgid "Dark"
+msgstr "Qaranlıq"
+
+msgid "Return to site"
+msgstr "Sayta qayıt"
+
+msgid "Choose file to upload"
+msgstr "Yükləmək üçün fayl seçin"
+
+msgid "Toggle password visibility"
+msgstr "Şifrəni göstər/gizlət"
+
+msgid "Add row"
+msgstr "Sətir əlavə et"
+
+msgid "Select currency"
+msgstr "Valyuta seçin"

@@ -119,6 +119,25 @@ Write posts in the admin → **Marketing → Blog posts**. Each post is written 
 "published at" empty for a draft, set a future time to schedule. To put an image inside the
 text, upload it under "Images for the text", save, and paste the line shown into the text.
 
+## 10. Google sign-in
+1. Open https://console.cloud.google.com → create (or pick) a project.
+2. **APIs & Services → OAuth consent screen**: type *External*, app name *Qrumy*, support
+   email, logo (optional), authorised domain `qrumy.com`, links to `https://qrumy.com/privacy/`
+   and `https://qrumy.com/terms/`. Scopes: `email`, `profile`, `openid`. Publish the app.
+3. **APIs & Services → Credentials → Create credentials → OAuth client ID** →
+   *Web application*:
+   - Authorised JavaScript origins: `https://qrumy.com`
+   - Authorised redirect URIs: `https://qrumy.com/accounts/google/login/callback/`
+4. Put the client ID and secret in `.env` and restart (`docker compose -f
+   docker-compose.prod.yml up -d web`):
+   ```
+   GOOGLE_CLIENT_ID=….apps.googleusercontent.com
+   GOOGLE_CLIENT_SECRET=…
+   ```
+The "Continue with Google" button then appears on the sign-in and sign-up pages. Accounts
+with the same verified email are linked automatically; new Google users accept the Terms
+shown under the button (recorded like the sign-up checkbox).
+
 ## GeoIP (optional)
 Create a free MaxMind account, download **GeoLite2-City.mmdb** and mount it into the
 `web` container (e.g. `./var:/app/var:ro` and `QRUMY_GEOIP_CITY_DB=/app/var/GeoLite2-City.mmdb`).

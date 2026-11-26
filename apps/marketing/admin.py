@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from unfold.admin import ModelAdmin, TabularInline
 from unfold.decorators import display
 
-from .models import Post, PostImage
+from .models import Post, PostImage, Promo
 
 
 class PostImageInline(TabularInline):
@@ -51,3 +51,32 @@ class PostAdmin(ModelAdmin):
     @admin.action(description=_("Unpublish (back to draft)"))
     def unpublish(self, request, queryset):
         queryset.update(published_at=None)
+
+
+@admin.register(Promo)
+class PromoAdmin(ModelAdmin):
+    list_display = ("name", "title", "live_state", "placement", "audience", "language",
+                    "starts_at", "ends_at", "priority")
+    list_filter = ("is_active", "placement", "audience", "language")
+    search_fields = ("name", "title", "message", "coupon_code")
+    save_as = True
+    fieldsets = (
+        (None, {"fields": ("name", "is_active", "priority")}),
+        (_("Content"), {"fields": ("language", "badge", "title", "message", "image",
+                                   "coupon_code", "button_label", "button_url")}),
+        (_("Display"), {"fields": ("placement", "audience", "frequency", "delay_seconds",
+                                   "starts_at", "ends_at")}),
+    )
+
+    @display(description=_("Status"), label={_("Showing"): "success",
+                                              _("Scheduled"): "info", _("Ended"): "danger",
+                                              _("Off"): "warning"})
+    def live_state(self, obj):
+        now = timezone.now()
+        if not obj.is_active:
+            return _("Off")
+        if obj.ends_at and obj.ends_at <= now:
+            return _("Ended")
+        if obj.starts_at and obj.starts_at > now:
+            return _("Scheduled")
+        return _("Showing")

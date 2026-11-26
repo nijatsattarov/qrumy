@@ -74,8 +74,9 @@ def test_admin_dashboard(client, make_user):
     Authenticator.objects.create(user=admin, type=Authenticator.Type.TOTP, data={})
     client.force_login(admin)
     body = client.get("/qadmin/").content.decode()
-    assert "Registered users" in body and "QR codes created" in body
-    assert "No payments yet" in body and "Sign-in emails" in body
+    # The admin is always in Azerbaijani.
+    assert "Qeydiyyatdan keçən istifadəçilər" in body and "Yaradılmış QR kodlar" in body
+    assert "Hələ ödəniş yoxdur" in body and "Giriş e-poçtları" in body
     assert client.get("/qadmin/marketing/post/").status_code == 200
     assert client.get("/qadmin/marketing/post/add/").status_code == 200
 

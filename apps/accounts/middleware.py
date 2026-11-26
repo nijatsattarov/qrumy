@@ -17,9 +17,14 @@ class UserLanguageMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
         self.supported = dict(settings.LANGUAGES)
+        self.admin_prefix = "/" + settings.QRUMY_ADMIN_PATH
 
     def __call__(self, request):
-        if request.path.startswith(APP_PATH_PREFIXES):
+        if request.path.startswith(self.admin_prefix):
+            lang = settings.QRUMY_ADMIN_LANGUAGE
+            translation.activate(lang)
+            request.LANGUAGE_CODE = lang
+        elif request.path.startswith(APP_PATH_PREFIXES):
             user = getattr(request, "user", None)
             if user is not None and user.is_authenticated and user.language in self.supported:
                 lang = user.language

@@ -54,7 +54,8 @@ object-level route is added without an isolation test.
 
 ## Translations
 ```bash
-python manage.py makemessages -l az --ignore=.venv --ignore=node_modules
+python manage.py makemessages -l az --no-obsolete --ignore=.venv --ignore=node_modules --ignore=staticfiles --ignore=.pytest_media
+# Never use --ignore="assets/*": the pattern also matches apps/assets/.
 # translate locale/az/LC_MESSAGES/django.po, then:
 python manage.py compilemessages --ignore=.venv
 ```
