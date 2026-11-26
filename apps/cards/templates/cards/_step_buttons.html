@@ -1,0 +1,8 @@
+{% load i18n qrumy %}
+<div class="flex flex-wrap items-center justify-between gap-2 border-t border-line px-5 py-4">
+  {% if prev_step %}<a href="{% url 'card_step' org_slug=current_organization.slug pk=card.pk step=prev_step %}" class="btn btn-ghost">{% translate "Back" %}</a>{% else %}<span></span>{% endif %}
+  <div class="flex gap-2">
+    <button type="submit" name="next" value="{{ step }}" class="btn btn-secondary">{% translate "Save" %}</button>
+    {% if next_step %}<button type="submit" name="next" value="{{ next_step }}" class="btn btn-primary">{% translate "Save and continue" %}{% icon 'arrow-right' 'size-4' %}</button>{% endif %}
+  </div>
+</div>

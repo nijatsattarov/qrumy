@@ -133,7 +133,85 @@ ACCENTS = [("navy", _("Navy")), ("blue", _("Blue")), ("green", _("Green")),
 MAX_LINKS = 15
 
 
-class LinksForm(forms.Form):
+class SocialLinksMixin:
+    """Up to ``max_links`` rows of platform + link/username + optional button text.
+
+    Cleaned into ``cleaned_data["links"] = [{"platform", "url", "label"}, …]``. Used by the
+    multi-link page and by Qrumy Card.
+    """
+
+    max_links = MAX_LINKS
+    links_required = True
+
+    def add_link_fields(self):
+        from . import social
+
+        for i in range(1, self.max_links + 1):
+            self.fields[f"link_{i}_platform"] = forms.ChoiceField(
+                label=_("Platform"), choices=social.CHOICES, required=False, initial="website")
+            self.fields[f"link_{i}_value"] = forms.CharField(
+                label=_("Link or username"), max_length=500, required=False)
+            self.fields[f"link_{i}_label"] = forms.CharField(
+                label=_("Button text"), max_length=60, required=False)
+
+    def rows(self):
+        """Bound fields grouped per link row, for the editor template."""
+        return [{"n": i, "platform": self[f"link_{i}_platform"],
+                 "value": self[f"link_{i}_value"], "label": self[f"link_{i}_label"]}
+                for i in range(1, self.max_links + 1)]
+
+    def visible_rows(self) -> int:
+        filled = [r["n"] for r in self.rows() if (r["value"].value() or "").strip()]
+        return max(filled[-1] if filled else 0, 3)
+
+    def clean_links_rows(self, data: dict) -> list[dict]:
+        from . import social
+
+        items = []
+        for i in range(1, self.max_links + 1):
+            value = (data.get(f"link_{i}_value") or "").strip()
+            if not value:
+                continue
+            platform = data.get(f"link_{i}_platform") or "website"
+            if platform == "website" and ("." in value or "/" in value):
+                platform = social.detect(value)
+            url = social.build_url(platform, value)
+            if not url.startswith(("mailto:", "tel:")):
+                try:
+                    url = SafeURLField().clean(url)
+                except forms.ValidationError as exc:
+                    self.add_error(f"link_{i}_value", exc)
+                    continue
+            elif len(url) < 6:
+                self.add_error(f"link_{i}_value", _("Enter a phone number or an email."))
+                continue
+            items.append({"platform": platform, "url": url,
+                          "label": (data.get(f"link_{i}_label") or "").strip()[:60]})
+        if self.links_required and not items and not self.errors:
+            raise forms.ValidationError(_("Add at least one link."))
+        for i in range(1, self.max_links + 1):
+            for part in ("platform", "value", "label"):
+                data.pop(f"link_{i}_{part}", None)
+        return items
+
+    @classmethod
+    def link_initial(cls, links) -> dict:
+        from . import social
+
+        data = {}
+        if not isinstance(links, list):  # very old payloads
+            links = []
+        for i, link in enumerate(links[:cls.max_links], start=1):
+            platform = link.get("platform") or social.detect(link.get("url", ""))
+            url = link.get("url", "")
+            data[f"link_{i}_platform"] = platform
+            data[f"link_{i}_value"] = url.removeprefix("mailto:").removeprefix("tel:")
+            label = link.get("label", "")
+            data[f"link_{i}_label"] = "" if label == url else label
+        return data
+
+
+class LinksForm(SocialLinksMixin, forms.Form):
     """Multi-link page: title, short bio, colour and up to 15 links with a platform each."""
 
     template_name = "qr_management/forms/links.html"
@@ -147,76 +225,18 @@ class LinksForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        from . import social
-
-        for i in range(1, MAX_LINKS + 1):
-            self.fields[f"link_{i}_platform"] = forms.ChoiceField(
-                label=_("Platform"), choices=social.CHOICES, required=False, initial="website")
-            self.fields[f"link_{i}_value"] = forms.CharField(
-                label=_("Link or username"), max_length=500, required=False)
-            self.fields[f"link_{i}_label"] = forms.CharField(
-                label=_("Button text"), max_length=60, required=False)
-
-    def rows(self):
-        """Bound fields grouped per link row, for the editor template."""
-        out = []
-        for i in range(1, MAX_LINKS + 1):
-            out.append({"n": i, "platform": self[f"link_{i}_platform"],
-                        "value": self[f"link_{i}_value"], "label": self[f"link_{i}_label"]})
-        return out
-
-    def visible_rows(self) -> int:
-        filled = [r["n"] for r in self.rows() if (r["value"].value() or "").strip()]
-        return max(filled[-1] if filled else 0, 3)
+        self.add_link_fields()
 
     def clean(self):
-        from . import social
-
         data = super().clean()
-        items = []
-        for i in range(1, MAX_LINKS + 1):
-            value = (data.get(f"link_{i}_value") or "").strip()
-            if not value:
-                continue
-            platform = data.get(f"link_{i}_platform") or "website"
-            if platform in ("website", "link") and ("." in value or "/" in value):
-                platform = social.detect(value) if platform == "website" else platform
-            url = social.build_url(platform, value)
-            if not url.startswith(("mailto:", "tel:")):
-                try:
-                    url = SafeURLField().clean(url)
-                except forms.ValidationError as exc:
-                    self.add_error(f"link_{i}_value", exc)
-                    continue
-            elif len(url) < 6:
-                self.add_error(f"link_{i}_value", _("Enter a phone number or an email."))
-                continue
-            items.append({"platform": platform, "url": url,
-                          "label": (data.get(f"link_{i}_label") or "").strip()[:60]})
-        if not items and not self.errors:
-            raise forms.ValidationError(_("Add at least one link."))
-        data["links"] = items
+        data["links"] = self.clean_links_rows(data)
         data["accent"] = data.get("accent") or "navy"
-        for i in range(1, MAX_LINKS + 1):
-            for part in ("platform", "value", "label"):
-                data.pop(f"link_{i}_{part}", None)
         return data
 
     @staticmethod
     def initial_from(payload):
-        from . import social
-
         data = {k: v for k, v in payload.items() if k != "links"}
-        links = payload.get("links") or []
-        if isinstance(links, str):  # very old payloads
-            links = []
-        for i, link in enumerate(links[:MAX_LINKS], start=1):
-            platform = link.get("platform") or social.detect(link.get("url", ""))
-            url = link.get("url", "")
-            data[f"link_{i}_platform"] = platform
-            data[f"link_{i}_value"] = url.removeprefix("mailto:").removeprefix("tel:")
-            label = link.get("label", "")
-            data[f"link_{i}_label"] = "" if label == url else label
+        data.update(LinksForm.link_initial(payload.get("links") or []))
         return data
 
 

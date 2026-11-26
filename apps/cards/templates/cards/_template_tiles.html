@@ -1,0 +1,14 @@
+{% load i18n %}
+{# Pictures of the four templates for the template picker. #}
+<fieldset>
+  <legend class="form-label">{% translate "Template" %}</legend>
+  <div class="mt-2 grid grid-cols-2 gap-3 sm:grid-cols-4">
+    {% for value, label in field.field.choices %}
+    <label class="tpl-tile">
+      <input type="radio" name="{{ field.html_name }}" value="{{ value }}" class="sr-only" {% if field.value|default:"classic" == value %}checked{% endif %}>
+      <span class="tpl-mock tpl-mock-{{ value }}" aria-hidden="true"><span class="tpl-head"></span><span class="tpl-avatar"></span><span class="tpl-line"></span><span class="tpl-line short"></span><span class="tpl-btn"></span></span>
+      <span class="mt-2 block text-center text-sm font-medium">{{ label }}</span>
+    </label>
+    {% endfor %}
+  </div>
+</fieldset>

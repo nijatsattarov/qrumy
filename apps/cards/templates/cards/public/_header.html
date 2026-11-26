@@ -1,0 +1,37 @@
+{% load qrumy %}
+{% if template_name == "modern" %}
+  <header class="qcard-accent-bg rounded-b-[2rem] px-5 pb-8 pt-8">
+    <div class="flex items-center gap-4">
+      {% include "cards/public/_avatar.html" with size="size-24" rounded="rounded-3xl" ring="ring-4 ring-white/30" %}
+      <div class="min-w-0">
+        <h1 class="text-2xl font-semibold leading-tight">{{ card.name }}</h1>
+        {% if card.headline %}<p class="mt-1 text-sm opacity-85">{{ card.headline }}</p>{% endif %}
+        {% if card.company %}<p class="mt-0.5 text-sm font-medium opacity-85">{{ card.company }}</p>{% endif %}
+      </div>
+    </div>
+  </header>
+{% elif template_name == "bold" %}
+  <header class="qcard-accent-bg px-5 pb-10 pt-10 text-center">
+    {% include "cards/public/_avatar.html" with size="size-36" rounded="rounded-[2rem]" ring="ring-8 ring-white/15" center=True %}
+    <h1 class="mt-6 text-3xl font-bold uppercase leading-tight tracking-tight">{{ card.name }}</h1>
+    {% if card.headline %}<p class="mt-2 text-base opacity-90">{{ card.headline }}</p>{% endif %}
+    {% if card.company %}<p class="mt-1 text-sm font-semibold uppercase tracking-wider opacity-75">{{ card.company }}</p>{% endif %}
+  </header>
+{% elif template_name == "minimal" %}
+  <header class="border-b border-line px-5 pb-6 pt-10">
+    {% include "cards/public/_avatar.html" with size="size-20" rounded="rounded-full" ring="" %}
+    <h1 class="mt-5 text-2xl font-semibold leading-tight">{{ card.name }}</h1>
+    {% if card.headline %}<p class="mt-1 text-[15px] text-muted">{{ card.headline }}{% if card.company %} · <span class="qcard-accent-text font-medium">{{ card.company }}</span>{% endif %}</p>
+    {% elif card.company %}<p class="qcard-accent-text mt-1 font-medium">{{ card.company }}</p>{% endif %}
+  </header>
+{% else %}{# classic #}
+  <header class="text-center">
+    <div class="qcard-cover h-36 w-full overflow-hidden">{% if card.cover %}<img src="{{ card.cover.url }}" alt="" class="h-full w-full object-cover">{% endif %}</div>
+    <div class="-mt-14 px-5">
+      {% include "cards/public/_avatar.html" with size="size-28" rounded="rounded-full" ring="ring-4 ring-white" center=True %}
+      <h1 class="mt-4 text-2xl font-semibold leading-tight">{{ card.name }}</h1>
+      {% if card.headline %}<p class="mt-1 text-[15px] text-muted">{{ card.headline }}</p>{% endif %}
+      {% if card.company %}<p class="qcard-accent-text mt-0.5 text-sm font-semibold">{{ card.company }}</p>{% endif %}
+    </div>
+  </header>
+{% endif %}

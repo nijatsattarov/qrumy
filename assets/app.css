@@ -147,6 +147,45 @@
   .bg-acc { background: var(--acc); } .text-acc { color: var(--acc); } .border-acc { border-color: var(--acc); }
   .ring-acc { --tw-ring-color: var(--acc); }
   .link-btn { @apply transition-colors; } .link-btn:hover { border-color: var(--acc); }
+  /* Qrumy Card public page — colours come from /c/<token>/theme.css */
+  .qcard-page { @apply bg-canvas; }
+  /* Card editor */
+  .step-pill { @apply inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1.5 text-sm font-medium text-muted no-underline hover:text-ink; }
+  .step-pill .step-num { @apply inline-flex size-5 items-center justify-center rounded-full bg-canvas text-[11px] font-semibold; }
+  .step-pill.is-done { @apply text-ink; } .step-pill.is-done .step-num { @apply bg-success-soft text-success; }
+  .step-pill.is-active { @apply border-navy-900 bg-navy-900 text-white; } .step-pill.is-active .step-num { @apply bg-white text-navy-900; }
+  .phone-frame { @apply relative h-[640px] w-[320px] max-w-full rounded-[2.2rem] border-[10px] border-navy-900 bg-navy-900 shadow-[var(--shadow-pop)]; }
+  .kind-tile { @apply flex cursor-pointer items-center gap-3 rounded-xl border border-line bg-surface p-4 hover:border-line-strong; }
+  .kind-tile:has(> input:checked) { @apply border-navy-900 bg-accent-50 ring-1 ring-navy-900; }
+  .tpl-tile { @apply block cursor-pointer rounded-xl border border-line bg-surface p-2 hover:border-line-strong; }
+  .tpl-tile:has(> input:checked) { @apply border-navy-900 ring-1 ring-navy-900; }
+  .color-dot { @apply cursor-pointer rounded-full p-0.5 ring-2 ring-transparent; }
+  .color-dot:has(> input:checked) { @apply ring-navy-900; }
+  .tpl-mock { @apply relative block h-28 overflow-hidden rounded-lg bg-canvas; }
+  .tpl-mock > span { @apply absolute block; }
+  .tpl-mock .tpl-line { @apply left-1/2 h-1.5 w-16 -translate-x-1/2 rounded-full bg-line-strong; top: 66%; }
+  .tpl-mock .tpl-line.short { @apply w-10; top: 74%; }
+  .tpl-mock .tpl-btn { @apply bottom-2 left-1/2 h-3 w-20 -translate-x-1/2 rounded-full bg-navy-900; }
+  .tpl-mock-classic .tpl-head { @apply inset-x-0 top-0 h-9 bg-gradient-to-r from-navy-900 to-accent-500; }
+  .tpl-mock-classic .tpl-avatar { @apply left-1/2 top-5 size-9 -translate-x-1/2 rounded-full border-2 border-white bg-line-strong; }
+  .tpl-mock-modern .tpl-head { @apply inset-x-0 top-0 h-14 rounded-b-2xl bg-navy-900; }
+  .tpl-mock-modern .tpl-avatar { @apply left-3 top-3 size-8 rounded-lg bg-white/40; }
+  .tpl-mock-bold .tpl-head { @apply inset-x-0 top-0 h-[60%] bg-navy-900; }
+  .tpl-mock-bold .tpl-avatar { @apply left-1/2 top-3 size-10 -translate-x-1/2 rounded-xl bg-white/40; }
+  .tpl-mock-minimal .tpl-head { @apply inset-x-3 top-12 h-px bg-line-strong; }
+  .tpl-mock-minimal .tpl-avatar { @apply left-3 top-3 size-7 rounded-full bg-line-strong; }
+  .tpl-mock-minimal .tpl-line { left: 0.75rem; transform: none; }
+  .qcard-accent-bg { background: var(--card-accent, #101B3A); color: var(--card-on-accent, #fff); }
+  .qcard-accent-bg h1, .qcard-accent-bg h2 { color: inherit; }
+  .qcard-accent-text { color: var(--card-accent, #101B3A); }
+  .qcard-accent-soft { background: var(--card-accent-soft, #EEF2FF); color: var(--card-accent, #101B3A); }
+  .qcard-cover { background: linear-gradient(135deg, var(--card-accent, #101B3A), var(--card-accent-mid, #4F7CFF)); }
+  .qcard-title { @apply text-xs font-semibold uppercase tracking-[0.08em] text-muted; }
+  .qcard-action { @apply flex min-w-0 flex-1 flex-col items-center gap-1.5 rounded-2xl px-1 py-3 text-[11px] font-medium no-underline; background: var(--card-accent-soft, #EEF2FF); color: var(--card-accent, #101B3A); }
+  .qcard-primary { @apply flex w-full items-center justify-center gap-2 rounded-2xl px-4 py-3.5 text-[15px] font-semibold no-underline shadow-[var(--shadow-card)]; background: var(--card-accent, #101B3A); color: var(--card-on-accent, #fff); }
+  .qcard-secondary { @apply flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl border border-line bg-surface px-4 py-3 text-sm font-medium text-ink; }
+  .qcard-row { @apply flex items-center gap-3 px-4 py-3 text-[15px] text-ink no-underline hover:bg-canvas; }
+  .qcard-row-icon { @apply inline-flex size-9 shrink-0 items-center justify-center rounded-xl; background: var(--card-accent-soft, #EEF2FF); color: var(--card-accent, #101B3A); }
   /* Mobile drawer: hidden off-canvas below lg, opened by Alpine via data-open. */
   .app-sidebar { @apply max-lg:-translate-x-full; }
   .app-sidebar[data-open="true"] { @apply max-lg:translate-x-0; }

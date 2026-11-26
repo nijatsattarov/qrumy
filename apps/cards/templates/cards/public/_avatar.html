@@ -1,0 +1,4 @@
+<div class="{% if center %}mx-auto {% endif %}{{ size }} {{ rounded }} {{ ring }} shrink-0 overflow-hidden bg-white shadow-[var(--shadow-card)]">
+  {% if card.photo %}<img src="{{ card.photo.url }}" alt="{{ card.name }}" class="h-full w-full {% if card.kind == 'company' %}object-contain p-2{% else %}object-cover{% endif %}">
+  {% else %}<span class="qcard-accent-soft flex h-full w-full items-center justify-center text-3xl font-semibold">{{ card.initials }}</span>{% endif %}
+</div>

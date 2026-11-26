@@ -1,0 +1,32 @@
+{% extends "cards/_editor.html" %}
+{% load i18n %}
+{% block step %}
+<form method="post" enctype="multipart/form-data" class="card">
+  {% csrf_token %}
+  <div class="card-header"><h2 class="section-title">{% if card.kind == "company" %}{% translate "Company profile" %}{% else %}{% translate "Your profile" %}{% endif %}</h2></div>
+  <div class="card-body space-y-5">
+    {% for e in form.non_field_errors %}<p class="form-error">{{ e }}</p>{% endfor %}
+    <div class="grid gap-5 sm:grid-cols-2">
+      <div class="space-y-2">
+        <div class="flex items-center gap-3">
+          <span class="size-16 shrink-0 overflow-hidden rounded-2xl bg-canvas">{% if card.photo %}<img src="{{ card.photo.url }}" alt="" class="h-full w-full object-cover">{% endif %}</span>
+          <div class="min-w-0 flex-1">{{ form.photo.as_field_group }}</div>
+        </div>
+        {% if card.photo %}{{ form.remove_photo.as_field_group }}{% endif %}
+      </div>
+      <div class="space-y-2">
+        {{ form.cover.as_field_group }}
+        {% if card.cover %}{{ form.remove_cover.as_field_group }}{% endif %}
+        <p class="form-help">{% translate "Used by the Classic template. Without it, a colour gradient is shown." %}</p>
+      </div>
+    </div>
+    <div class="grid gap-4 sm:grid-cols-2">
+      {{ form.name.as_field_group }}
+      {{ form.headline.as_field_group }}
+      {% if form.company %}<div class="sm:col-span-2">{{ form.company.as_field_group }}</div>{% endif %}
+    </div>
+    {{ form.about.as_field_group }}
+  </div>
+  {% include "cards/_step_buttons.html" %}
+</form>
+{% endblock %}

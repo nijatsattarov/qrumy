@@ -31,6 +31,9 @@ OBJECT_ROUTES_COVERED = {
     "asset_detail", "asset_edit", "asset_action", "asset_delete", "asset_document_file",
     "asset_fault", "asset_fault_update", "asset_fault_photo", "asset_location_update",
     "asset_location_delete", "asset_category_update", "asset_category_delete",
+    # Qrumy Card
+    "card_step", "card_photo_add", "card_photo_delete", "card_publish", "card_delete",
+    "card_preview",
 }
 
 
@@ -367,3 +370,58 @@ def test_cannot_link_foreign_location_or_document(client, two_orgs, victim_asset
     for body in lists:
         assert b"Victim asset" not in body and b"secret fault" not in body
         assert b"Secret room" not in body
+
+
+# ----------------------------------------------------------------------------- Qrumy Card
+@pytest.fixture
+def victim_card(two_orgs, jpeg_bytes):
+    from django.core.files.uploadedfile import SimpleUploadedFile
+
+    from apps.cards import services
+
+    victim, _, _ = two_orgs
+    card = services.create_card(organization=victim, actor=victim.owner,
+                                data={"name": "Victim card", "kind": "person"})
+    photo = services.add_photo(card=card, upload=SimpleUploadedFile("p.jpg", jpeg_bytes))
+    return {"card": card, "photo": photo}
+
+
+CARD_ROUTES = [
+    ("card_step", "get", {"step": "design"}, {}),
+    ("card_step", "post", {"step": "profile"}, {"name": "pwned", "next": "profile"}),
+    ("card_photo_add", "post", {}, {}),
+    ("card_photo_delete", "post", {"photo_id": "photo"}, {}),
+    ("card_publish", "post", {}, {"publish": "1"}),
+    ("card_delete", "post", {}, {"confirm": "Victim card"}),
+    ("card_preview", "get", {}, {}),
+]
+
+
+@pytest.mark.parametrize("name,method,extra,data", CARD_ROUTES)
+def test_cannot_touch_foreign_cards(client, two_orgs, victim_card, name, method, extra, data):
+    from apps.cards.models import Card, CardPhoto
+
+    _, attacker_org, attacker = two_orgs
+    client.force_login(attacker)
+    kwargs = {"org_slug": attacker_org.slug, "pk": victim_card["card"].pk}
+    for k, v in extra.items():
+        kwargs[k] = victim_card[v].pk if v == "photo" else v
+    url = reverse(name, kwargs=kwargs)
+    resp = client.post(url, data) if method == "post" else client.get(url)
+    assert resp.status_code == 404
+    card = Card.objects.get(pk=victim_card["card"].pk)
+    assert card.name == "Victim card" and not card.is_published
+    assert CardPhoto.objects.filter(pk=victim_card["photo"].pk).exists()
+
+
+def test_cannot_delete_foreign_photo_through_own_card(client, two_orgs, victim_card):
+    from apps.cards import services
+    from apps.cards.models import CardPhoto
+
+    _, attacker_org, attacker = two_orgs
+    own = services.create_card(organization=attacker_org, actor=attacker, data={"name": "Mine"})
+    client.force_login(attacker)
+    url = reverse("card_photo_delete", kwargs={"org_slug": attacker_org.slug, "pk": own.pk,
+                                               "photo_id": victim_card["photo"].pk})
+    assert client.post(url).status_code == 404
+    assert CardPhoto.objects.filter(pk=victim_card["photo"].pk).exists()

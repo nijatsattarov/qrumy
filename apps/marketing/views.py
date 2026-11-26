@@ -19,6 +19,11 @@ PRODUCTS = [
                   "CES over time."),
      "points": [_("Builder with 14 question types"), _("NPS, CSAT and CES scoring"),
                 _("Assign, tag and resolve responses")]},
+    {"key": "cards", "icon": "user", "name": _("Qrumy Card"),
+     "summary": _("Digital business cards for people and companies: photo, contacts, "
+                  "location, social media and a gallery, shared by QR code or link."),
+     "points": [_("Four templates in your colours"), _("“Save contact” with one tap"),
+                _("Views, saved contacts and link clicks")]},
     {"key": "events", "icon": "calendar", "name": _("Event Lead Capture"),
      "summary": _("Turn trade-show and event conversations into qualified leads, then follow "
                   "up before they go cold."),

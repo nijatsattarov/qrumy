@@ -1,0 +1,28 @@
+{% load i18n qrumy social %}
+<div>
+    <p class="form-label">{% translate "Links" %}</p>
+    <p class="form-help">{% translate "Pick the platform and paste a link — or just type the username or number." %}</p>
+    <div class="mt-3 space-y-2" data-link-rows data-visible="{{ form.visible_rows }}">
+      {% for row in form.rows %}
+      <div class="link-row rounded-xl border border-line bg-surface p-3{% if row.value.errors %} border-danger{% endif %}" data-link-row="{{ row.n }}"{% if row.n > form.visible_rows %} hidden{% endif %}>
+        <div class="grid items-start gap-2 sm:grid-cols-[180px_1fr_160px_auto]">
+          <div class="flex items-center gap-2">
+            <span class="link-icon" data-link-icon>{% social_tile row.platform.value|default:"website" "size-9" %}</span>
+            <select name="{{ row.platform.html_name }}" class="input min-w-0 flex-1" data-link-platform aria-label="{% translate 'Platform' %}">
+              {% for value, label in row.platform.field.choices %}<option value="{{ value }}" {% if row.platform.value|default:"website" == value %}selected{% endif %}>{{ label }}</option>{% endfor %}
+            </select>
+          </div>
+          <input type="text" name="{{ row.value.html_name }}" value="{{ row.value.value|default:'' }}" class="input" data-link-value
+                 placeholder="{% translate 'Link, @username or number' %}" aria-label="{% translate 'Link or username' %}" autocomplete="off" autocapitalize="off" spellcheck="false" inputmode="url">
+          <input type="text" name="{{ row.label.html_name }}" value="{{ row.label.value|default:'' }}" class="input"
+                 placeholder="{% translate 'Button text (optional)' %}" aria-label="{% translate 'Button text' %}" maxlength="60">
+          <button type="button" class="btn btn-ghost btn-sm" data-link-clear aria-label="{% translate 'Remove link' %}">{% icon 'trash' 'size-4' %}</button>
+        </div>
+        {% for e in row.value.errors %}<p class="form-error mt-1">{{ e }}</p>{% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+    <button type="button" class="btn btn-secondary btn-sm mt-3" data-link-add>{% icon 'plus' 'size-4' %}{% translate "Add link" %}</button>
+  </div>
+{# Icons for the platform picker (copied into a row when the platform changes). #}
+<template id="social-icon-templates">{% social_platforms as platforms %}{% for p in platforms %}<span data-platform="{{ p.key }}" data-domains="{{ p.domains|join:',' }}">{% social_tile p.key "size-9" %}</span>{% endfor %}</template>

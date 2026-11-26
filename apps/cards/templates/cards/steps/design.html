@@ -1,0 +1,29 @@
+{% extends "cards/_editor.html" %}
+{% load i18n %}
+{% block step %}
+<form method="post" class="card">
+  {% csrf_token %}
+  <div class="card-header"><h2 class="section-title">{% translate "Template and colour" %}</h2></div>
+  <div class="card-body space-y-6">
+    {% include "cards/_kind_tiles.html" with field=form.kind %}
+    {% include "cards/_template_tiles.html" with field=form.template %}
+    <fieldset>
+      <legend class="form-label">{% translate "Colour" %}</legend>
+      <div class="mt-2 flex flex-wrap items-center gap-2">
+        {% for c in preset_colors %}
+        <label class="color-dot" title="{{ c }}">
+          <input type="radio" name="preset_color" value="{{ c }}" class="sr-only" data-preset-color {% if form.accent_color.value|upper == c %}checked{% endif %}>
+          <svg viewBox="0 0 24 24" class="size-9" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="{{ c }}"/></svg>
+          <span class="sr-only">{{ c }}</span>
+        </label>
+        {% endfor %}
+        <label class="ml-2 flex items-center gap-2 text-sm text-muted">{% translate "Custom" %}
+          <input type="color" name="accent_color" value="{{ form.accent_color.value }}" class="h-9 w-14 cursor-pointer rounded-lg border border-line p-1" data-custom-color>
+        </label>
+      </div>
+      {% for e in form.accent_color.errors %}<p class="form-error">{{ e }}</p>{% endfor %}
+    </fieldset>
+  </div>
+  {% include "cards/_step_buttons.html" %}
+</form>
+{% endblock %}

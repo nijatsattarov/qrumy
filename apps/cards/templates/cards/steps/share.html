@@ -1,0 +1,74 @@
+{% extends "cards/_editor.html" %}
+{% load i18n qrumy %}
+{% block step %}
+<div class="space-y-6">
+  <section class="card">
+    <div class="card-header"><h2 class="section-title">{% translate "Publish" %}</h2></div>
+    <div class="card-body space-y-4">
+      <ul class="grid gap-2 sm:grid-cols-3">
+        {% for label, done in card.completeness %}
+        <li class="flex items-center gap-2 text-sm">{% if done %}<span class="text-success">{% icon 'check' 'size-4' %}</span>{% else %}<span class="size-4 rounded-full border border-line-strong"></span>{% endif %}<span class="{% if not done %}text-muted{% endif %}">{{ label }}</span></li>
+        {% endfor %}
+      </ul>
+      <form method="post" action="{% url 'card_publish' org_slug=current_organization.slug pk=card.pk %}">
+        {% csrf_token %}
+        {% if card.is_published %}
+          <input type="hidden" name="publish" value="0">
+          <p class="text-sm">{% translate "Your card is live." %}</p>
+          <button type="submit" class="btn btn-secondary mt-3">{% icon 'pause' 'size-4' %}{% translate "Unpublish" %}</button>
+        {% else %}
+          <input type="hidden" name="publish" value="1">
+          <p class="text-sm text-muted">{% translate "Publishing makes the card visible at its link and creates its QR code." %}</p>
+          <button type="submit" class="btn btn-primary btn-lg mt-3">{% icon 'play' 'size-4' %}{% translate "Publish card" %}</button>
+        {% endif %}
+      </form>
+    </div>
+  </section>
+
+  {% if card.is_published %}
+  <section class="card">
+    <div class="card-header"><h2 class="section-title">{% translate "Share" %}</h2></div>
+    <div class="card-body grid gap-5 sm:grid-cols-[1fr_180px]">
+      <div class="space-y-4">
+        <div>
+          <p class="text-xs text-muted">{% translate "Card link" %}</p>
+          <div class="mt-1 flex items-center gap-2 rounded-lg border border-line bg-canvas px-3 py-2" x-data="copy" data-copy="{{ card.public_url }}">
+            <code class="min-w-0 flex-1 truncate font-mono text-[13px]">{{ card.public_url }}</code>
+            <button type="button" @click="copy" class="btn btn-ghost btn-sm"><span x-show="notCopied" class="inline-flex items-center gap-1.5">{% icon 'copy' 'size-4' %}{% translate "Copy" %}</span><span x-show="copied" x-cloak class="inline-flex items-center gap-1.5 text-success">{% icon 'check' 'size-4' %}{% translate "Copied" %}</span></button>
+          </div>
+        </div>
+        <p class="text-sm text-muted">{% translate "Put the link in your email signature and social profiles, and print the QR code on business cards, flyers or your shop window." %}</p>
+        {% if card.qr_code %}
+        <div class="flex flex-wrap gap-2">
+          <a href="{% url 'qr_download' org_slug=current_organization.slug pk=card.qr_code.pk fmt='png' %}" class="btn btn-primary btn-sm">{% icon 'download' 'size-4' %}PNG</a>
+          <a href="{% url 'qr_download' org_slug=current_organization.slug pk=card.qr_code.pk fmt='svg' %}" class="btn btn-secondary btn-sm">{% icon 'download' 'size-4' %}SVG</a>
+          <a href="{% url 'qr_edit' org_slug=current_organization.slug pk=card.qr_code.pk %}" class="btn btn-ghost btn-sm">{% icon 'edit' 'size-4' %}{% translate "Change QR design" %}</a>
+        </div>
+        {% endif %}
+      </div>
+      {% if card.qr_code %}<img src="{% url 'qr_download' org_slug=current_organization.slug pk=card.qr_code.pk fmt='svg' %}" alt="{% translate 'QR code of the card' %}" class="w-full rounded-xl border border-line bg-white p-2">{% endif %}
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-header"><h2 class="section-title">{% translate "Statistics" %}</h2><span class="text-xs text-muted">{% translate "last 30 days" %}</span></div>
+    <div class="card-body grid grid-cols-3 gap-3 text-center">
+      <div class="rounded-xl bg-canvas p-3"><p class="text-2xl font-semibold">{{ stats.recent.views }}</p><p class="text-xs text-muted">{% translate "Views" %}</p></div>
+      <div class="rounded-xl bg-canvas p-3"><p class="text-2xl font-semibold">{{ stats.recent.saves }}</p><p class="text-xs text-muted">{% translate "Contacts saved" %}</p></div>
+      <div class="rounded-xl bg-canvas p-3"><p class="text-2xl font-semibold">{{ stats.recent.clicks }}</p><p class="text-xs text-muted">{% translate "Link clicks" %}</p></div>
+    </div>
+    {% if card.qr_code %}<p class="px-5 pb-4 text-xs text-muted">{% translate "QR scans of the card are in" %} <a href="{% url 'qr_detail' org_slug=current_organization.slug pk=card.qr_code.pk %}">{% translate "QR analytics" %}</a>.</p>{% endif %}
+  </section>
+  {% endif %}
+
+  <section class="card border-danger/30">
+    <div class="card-header"><h2 class="section-title text-danger">{% translate "Delete card" %}</h2></div>
+    <form method="post" action="{% url 'card_delete' org_slug=current_organization.slug pk=card.pk %}" class="card-body space-y-3">
+      {% csrf_token %}
+      <p class="text-sm text-muted">{% translate "This permanently deletes the card, its photos and statistics. Its QR code is paused." %}</p>
+      <div class="form-field"><label class="form-label" for="confirm-delete">{% blocktranslate with n=card.name %}Type “{{ n }}” to confirm{% endblocktranslate %}</label><input id="confirm-delete" name="confirm" autocomplete="off"></div>
+      <button type="submit" class="btn btn-danger">{% icon 'trash' 'size-4' %}{% translate "Delete card" %}</button>
+    </form>
+  </section>
+</div>
+{% endblock %}

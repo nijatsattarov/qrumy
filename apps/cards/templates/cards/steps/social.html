@@ -1,0 +1,13 @@
+{% extends "cards/_editor.html" %}
+{% load i18n %}
+{% block step %}
+<form method="post" class="card">
+  {% csrf_token %}
+  <div class="card-header"><h2 class="section-title">{% translate "Social media and links" %}</h2></div>
+  <div class="card-body">
+    {% for e in form.non_field_errors %}<p class="form-error">{{ e }}</p>{% endfor %}
+    {% include "qr_management/forms/_link_rows.html" %}
+  </div>
+  {% include "cards/_step_buttons.html" %}
+</form>
+{% endblock %}

@@ -7,6 +7,7 @@ from django.urls import include, path
 
 from apps.accounts.views import set_language, switch_language
 from apps.assets import urls as asset_urls
+from apps.cards import urls as card_urls
 from apps.core import views as core_views
 from apps.marketing.sitemaps import BlogSitemap, StaticViewSitemap
 from apps.qr_management import urls as qr_urls
@@ -27,6 +28,8 @@ urlpatterns = [
     path("s/", include(survey_urls.public_urlpatterns)),
     path("app/<slug:org_slug>/", include(asset_urls.app_urlpatterns)),
     path("a/", include(asset_urls.public_urlpatterns)),
+    path("app/<slug:org_slug>/", include(card_urls.app_urlpatterns)),
+    path("c/", include(card_urls.public_urlpatterns)),
     path("app/", include("apps.organizations.urls")),
     path("invitations/", include("apps.organizations.invitation_urls")),
     path("notifications/", include("apps.notifications.urls")),

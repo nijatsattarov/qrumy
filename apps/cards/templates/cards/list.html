@@ -1,0 +1,41 @@
+{% extends "layouts/app.html" %}
+{% load i18n qrumy %}
+{% block title %}{% translate "Qrumy Card" %}{% endblock %}
+{% block breadcrumb %}{% translate "Qrumy Card" %}{% endblock %}
+{% block content %}
+<div class="flex flex-wrap items-center justify-between gap-4">
+  <div>
+    <h1 class="page-title">{% translate "Qrumy Card" %}</h1>
+    <p class="page-subtitle">{% translate "Digital business cards for you, your team or your company — shared by QR code or link." %}</p>
+  </div>
+  {% if perms_create|default:True %}<a href="{% url 'card_create' org_slug=current_organization.slug %}" class="btn btn-primary">{% icon 'plus' 'size-4' %}{% translate "New card" %}</a>{% endif %}
+</div>
+
+{% if cards %}
+<div class="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+  {% for card in cards %}
+  <a href="{% url 'card_step' org_slug=current_organization.slug pk=card.pk step='design' %}" class="card flex items-center gap-4 p-4 text-ink no-underline hover:border-line-strong">
+    <span class="size-14 shrink-0 overflow-hidden rounded-2xl bg-canvas">
+      {% if card.photo %}<img src="{{ card.photo.url }}" alt="" class="h-full w-full object-cover">{% else %}<span class="flex h-full w-full items-center justify-center text-lg font-semibold text-navy-700">{{ card.initials }}</span>{% endif %}
+    </span>
+    <span class="min-w-0 flex-1">
+      <span class="block truncate font-semibold">{{ card.name }}</span>
+      <span class="block truncate text-sm text-muted">{{ card.headline|default:card.get_kind_display }}</span>
+      <span class="mt-1.5 flex items-center gap-2 text-xs">
+        {% if card.is_published %}<span class="badge badge-success">{% translate "Live" %}</span>{% else %}<span class="badge badge-neutral">{% translate "Draft" %}</span>{% endif %}
+        <span class="text-muted">{{ card.get_template_display }}</span>
+      </span>
+    </span>
+    {% icon 'chevron-right' 'size-4 text-muted' %}
+  </a>
+  {% endfor %}
+</div>
+{% else %}
+<div class="card mt-6 flex flex-col items-center px-6 py-14 text-center">
+  <span class="inline-flex size-12 items-center justify-center rounded-xl bg-navy-900 text-white">{% icon 'user' 'size-6' %}</span>
+  <h2 class="mt-4 text-lg font-semibold">{% translate "Create your first digital card" %}</h2>
+  <p class="mt-2 max-w-md text-sm text-muted">{% translate "Photo, contacts, location, social media and a gallery on one page. People save your contact with one tap — no app needed." %}</p>
+  <a href="{% url 'card_create' org_slug=current_organization.slug %}" class="btn btn-primary mt-6">{% icon 'plus' 'size-4' %}{% translate "New card" %}</a>
+</div>
+{% endif %}
+{% endblock %}

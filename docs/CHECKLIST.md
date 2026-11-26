@@ -141,3 +141,18 @@ Legend: `[ ]` not started · `[~]` in progress · `[x]` done and tested
 - [x] Account deletion (audit e-mail anonymised); ownership transfer; organization deletion
 - [x] Tests: 243 passing; Azerbaijani translations: 1,212 strings
 - [ ] Deployment to the VPS and go-live items — see docs/LAUNCH.md
+
+## Round of fixes and new products — 2026-11-26
+- [x] Language switching via plain links; returns to the same page in the other language;
+      remembered for sign-up / emails / app; also in the app's user menu
+- [x] "example.com" accepted in every link field; mobile app menu; copy buttons; blog covers
+- [x] Admin fully in Azerbaijani (Unfold translations in locale_vendor/)
+- [x] Google sign-in (button, terms recorded, setup in DEPLOYMENT.md §10)
+- [x] Pop-up offers managed in the admin
+- [x] Multi-link pages with platform icons and names
+- [x] Qrumy Card: person/company cards, 4 templates, any colour, photo/cover, about, contacts,
+      map, social links, gallery (12), 6-step editor with live phone preview, publish → QR,
+      vCard "Save contact", share button, views/saves/clicks stats, plan limit `cards.max`
+- [x] Production refuses to start with a localhost SITE_URL
+- [ ] Digital Menu
+- [ ] Event Lead Capture

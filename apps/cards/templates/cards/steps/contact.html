@@ -1,0 +1,15 @@
+{% extends "cards/_editor.html" %}
+{% load i18n %}
+{% block step %}
+<form method="post" class="card">
+  {% csrf_token %}
+  <div class="card-header"><h2 class="section-title">{% translate "How people reach you" %}</h2></div>
+  <div class="card-body space-y-4">
+    <div class="grid gap-4 sm:grid-cols-2">{{ form.phone.as_field_group }}{{ form.phone_2.as_field_group }}</div>
+    <div class="grid gap-4 sm:grid-cols-2">{{ form.email.as_field_group }}{{ form.website.as_field_group }}</div>
+    {{ form.address.as_field_group }}
+    {{ form.map_url.as_field_group }}
+  </div>
+  {% include "cards/_step_buttons.html" %}
+</form>
+{% endblock %}

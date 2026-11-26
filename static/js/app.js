@@ -176,3 +176,30 @@ document.addEventListener("change", (event) => {
     }
   });
 })();
+
+// Share buttons (Qrumy Card): native share sheet on phones, copy link elsewhere.
+document.addEventListener("click", (event) => {
+  const btn = event.target.closest && event.target.closest("[data-share]");
+  if (!btn) return;
+  const url = btn.dataset.shareUrl || window.location.href;
+  const title = btn.dataset.shareTitle || document.title;
+  if (navigator.share) {
+    navigator.share({ title, url }).catch(() => {});
+    return;
+  }
+  const label = btn.querySelector("span");
+  const show = () => { if (label) { const old = label.textContent; label.textContent = btn.dataset.copiedText || "Copied"; setTimeout(() => { label.textContent = old; }, 1600); } };
+  if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(url).then(show, () => { if (legacyCopy(url)) show(); });
+  else if (legacyCopy(url)) show();
+});
+
+// Card design step: preset colour dots fill the custom colour input (the one that is saved).
+document.addEventListener("change", (event) => {
+  const el = event.target;
+  if (!(el instanceof HTMLInputElement)) return;
+  const form = el.form;
+  if (!form) return;
+  const custom = form.querySelector("[data-custom-color]");
+  if (el.matches("[data-preset-color]") && custom) custom.value = el.value;
+  if (el.matches("[data-custom-color]")) form.querySelectorAll("[data-preset-color]").forEach((r) => { r.checked = r.value.toLowerCase() === el.value.toLowerCase(); });
+});

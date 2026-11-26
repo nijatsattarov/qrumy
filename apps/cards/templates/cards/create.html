@@ -1,0 +1,19 @@
+{% extends "layouts/app.html" %}
+{% load i18n qrumy %}
+{% block title %}{% translate "New card" %}{% endblock %}
+{% block breadcrumb %}<a href="{% url 'card_list' org_slug=current_organization.slug %}" class="text-muted no-underline hover:text-ink">{% translate "Qrumy Card" %}</a> / {% translate "New card" %}{% endblock %}
+{% block content %}
+<div class="mx-auto max-w-3xl">
+  <p class="eyebrow">{% translate "Step 1 of 6" %}</p>
+  <h1 class="page-title mt-2">{% translate "Let's create your digital card" %}</h1>
+  <p class="page-subtitle">{% translate "Choose who it's for and a look. You can change everything later." %}</p>
+  <form method="post" class="card mt-6 space-y-6 p-5 sm:p-7">
+    {% csrf_token %}
+    {% for e in form.non_field_errors %}<p class="form-error">{{ e }}</p>{% endfor %}
+    {% include "cards/_kind_tiles.html" with field=form.kind %}
+    {% include "cards/_template_tiles.html" with field=form.template %}
+    {{ form.name.as_field_group }}
+    <div class="flex justify-end"><button type="submit" class="btn btn-primary btn-lg">{% translate "Continue" %}{% icon 'arrow-right' 'size-4' %}</button></div>
+  </form>
+</div>
+{% endblock %}

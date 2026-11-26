@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load i18n static qrumy social %}
+{% block title %}{{ card.name }}{% if card.headline %} — {{ card.headline }}{% endif %}{% endblock %}
+{% block title_suffix %}{% endblock %}
+{% block meta_description %}{{ card.about|default:card.headline|truncatechars:150 }}{% endblock %}
+{% block seo %}<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="{{ card.name }}">
+<meta property="og:description" content="{{ card.headline|default:card.company }}">
+{% if card.photo %}<meta property="og:image" content="{{ SITE_URL }}{{ card.photo.url }}">{% endif %}{% endblock %}
+{% block extra_head %}<link rel="stylesheet" href="{% url 'card_theme' card.public_token %}?v={{ card.updated_at|date:'U' }}">{% endblock %}
+{% block body_class %}min-h-full qcard-page qcard-{{ template_name }}{% endblock %}
+{% block body %}
+<main class="mx-auto min-h-screen max-w-md bg-surface pb-10 shadow-[var(--shadow-card)] sm:my-6 sm:min-h-0 sm:overflow-hidden sm:rounded-3xl">
+  {% if preview %}<p class="bg-warning-soft px-3 py-2 text-center text-xs text-[#92400E]">{% translate "Preview — visits here are not counted." %}{% if not card.is_published %} {% translate "The card is not published yet." %}{% endif %}</p>{% endif %}
+
+  {% include "cards/public/_header.html" %}
+
+  <div class="px-5">
+    {# Quick actions #}
+    <div class="mt-6 flex gap-2 text-center">
+      {% if card.phone %}<a href="tel:{{ card.phone }}" class="qcard-action">{% icon 'phone' 'size-5' %}<span>{% translate "Call" %}</span></a>{% endif %}
+      {% for n, l in links %}{% if l.platform == "whatsapp" %}<a href="{% url 'card_link' card.public_token n %}" class="qcard-action" rel="noopener">{% social_icon 'whatsapp' 'size-5' %}<span>WhatsApp</span></a>{% endif %}{% endfor %}
+      {% if card.email %}<a href="mailto:{{ card.email }}" class="qcard-action">{% icon 'mail' 'size-5' %}<span>{% translate "Email" %}</span></a>{% endif %}
+      {% if card.maps_link %}<a href="{{ card.maps_link }}" class="qcard-action" rel="noopener noreferrer">{% icon 'pin' 'size-5' %}<span>{% translate "Directions" %}</span></a>{% endif %}
+      {% if card.website %}<a href="{{ card.website }}" class="qcard-action" rel="noopener noreferrer">{% icon 'globe' 'size-5' %}<span>{% translate "Website" %}</span></a>{% endif %}
+    </div>
+
+    <a href="{% url 'card_vcard' card.public_token %}" class="qcard-primary mt-5">{% icon 'user' 'size-5' %}{% translate "Save contact" %}</a>
+    <button type="button" class="qcard-secondary mt-2" data-share data-share-url="{{ card.public_url }}" data-share-title="{{ card.name }}" data-copied-text="{% translate 'Link copied' %}">{% icon 'share' 'size-4' %}<span>{% translate "Share this card" %}</span></button>
+
+    {% if card.about %}
+    <section class="mt-8">
+      <h2 class="qcard-title">{% if card.kind == "company" %}{% translate "About us" %}{% else %}{% translate "About me" %}{% endif %}</h2>
+      <p class="mt-2 text-[15px] leading-relaxed text-ink">{{ card.about|linebreaksbr }}</p>
+    </section>
+    {% endif %}
+
+    {% if card.phone or card.phone_2 or card.email or card.website or card.address %}
+    <section class="mt-8">
+      <h2 class="qcard-title">{% translate "Contact" %}</h2>
+      <ul class="mt-3 divide-y divide-line overflow-hidden rounded-2xl border border-line">
+        {% if card.phone %}<li><a href="tel:{{ card.phone }}" class="qcard-row"><span class="qcard-row-icon">{% icon 'phone' 'size-4' %}</span><span><span class="block text-xs text-muted">{% translate "Phone" %}</span>{{ card.phone }}</span></a></li>{% endif %}
+        {% if card.phone_2 %}<li><a href="tel:{{ card.phone_2 }}" class="qcard-row"><span class="qcard-row-icon">{% icon 'phone' 'size-4' %}</span><span><span class="block text-xs text-muted">{% translate "Phone" %}</span>{{ card.phone_2 }}</span></a></li>{% endif %}
+        {% if card.email %}<li><a href="mailto:{{ card.email }}" class="qcard-row"><span class="qcard-row-icon">{% icon 'mail' 'size-4' %}</span><span class="min-w-0"><span class="block text-xs text-muted">{% translate "Email" %}</span><span class="block truncate">{{ card.email }}</span></span></a></li>{% endif %}
+        {% if card.website %}<li><a href="{{ card.website }}" class="qcard-row" rel="noopener noreferrer"><span class="qcard-row-icon">{% icon 'globe' 'size-4' %}</span><span class="min-w-0"><span class="block text-xs text-muted">{% translate "Website" %}</span><span class="block truncate">{{ card.website|cut:"https://"|cut:"http://" }}</span></span></a></li>{% endif %}
+        {% if card.address %}<li><a href="{{ card.maps_link }}" class="qcard-row" rel="noopener noreferrer"><span class="qcard-row-icon">{% icon 'pin' 'size-4' %}</span><span><span class="block text-xs text-muted">{% translate "Address" %}</span>{{ card.address }}</span></a></li>{% endif %}
+      </ul>
+    </section>
+    {% endif %}
+
+    {% if links %}
+    <section class="mt-8">
+      <h2 class="qcard-title">{% translate "Find us online" %}</h2>
+      <div class="mt-3 grid grid-cols-2 gap-2">
+        {% for n, l in links %}
+        <a href="{% url 'card_link' card.public_token n %}" rel="noopener nofollow" class="flex items-center gap-2.5 rounded-2xl border border-line p-2.5 text-sm font-medium text-ink no-underline hover:border-line-strong">
+          {% social_tile l.platform|default:"link" "size-9" 8 %}
+          <span class="min-w-0 truncate">{% if l.label %}{{ l.label }}{% else %}{{ l.platform|default:"link"|social_name }}{% endif %}</span>
+        </a>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+    {% if photos %}
+    <section class="mt-8">
+      <h2 class="qcard-title">{% translate "Gallery" %}</h2>
+      <div class="mt-3 grid grid-cols-2 gap-2">
+        {% for ph in photos %}
+        <a href="{{ ph.image.url }}" class="group block overflow-hidden rounded-2xl bg-canvas no-underline" target="_blank" rel="noopener">
+          <img src="{{ ph.image.url }}" alt="{{ ph.caption }}" loading="lazy" class="aspect-square w-full object-cover transition-transform group-hover:scale-105">
+          {% if ph.caption %}<span class="block truncate px-2 py-1.5 text-xs text-muted">{{ ph.caption }}</span>{% endif %}
+        </a>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+  </div>
+
+  {% if branding %}
+  <footer class="mt-10 text-center"><a href="{% url 'home' %}" class="inline-flex items-center gap-1.5 text-xs text-muted no-underline">{% translate "Create your own card with" %} {% include "components/logo.html" with size="h-3.5" wordmark=False %}<span class="font-semibold text-navy-900">Qrumy</span></a></footer>
+  {% endif %}
+</main>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% load i18n qrumy %}
+<section class="card">
+  <div class="card-header"><h2 class="section-title">{% translate "Qrumy Card" %}</h2><a href="{% url 'card_list' org_slug=current_organization.slug %}" class="text-sm no-underline">{% translate "View all" %}</a></div>
+  <div class="card-body">
+    {% if cards_latest %}
+      <ul class="space-y-2">{% for c in cards_latest %}<li><a href="{% url 'card_step' org_slug=current_organization.slug pk=c.pk step='design' %}" class="flex items-center justify-between text-sm text-ink no-underline"><span class="truncate">{{ c.name }}</span>{% if c.is_published %}<span class="badge badge-success">{% translate "Live" %}</span>{% else %}<span class="badge badge-neutral">{% translate "Draft" %}</span>{% endif %}</a></li>{% endfor %}</ul>
+    {% else %}
+      <p class="text-sm text-muted">{% translate "Create a digital business card with your photo, contacts and social media." %}</p>
+      <a href="{% url 'card_create' org_slug=current_organization.slug %}" class="btn btn-primary btn-sm mt-4">{% icon 'plus' 'size-4' %}{% translate "New card" %}</a>
+    {% endif %}
+  </div>
+</section>

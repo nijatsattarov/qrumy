@@ -25,8 +25,8 @@ RUN pip install -r requirements.txt
 COPY . .
 COPY --from=assets /app/static/dist ./static/dist
 COPY --from=assets /app/static/vendor ./static/vendor
-RUN SECRET_KEY=build-only python manage.py compilemessages --ignore=.venv \
- && SECRET_KEY=build-only python manage.py collectstatic --noinput \
+RUN SECRET_KEY=build-only SITE_URL=https://build.invalid python manage.py compilemessages --ignore=.venv \
+ && SECRET_KEY=build-only SITE_URL=https://build.invalid python manage.py collectstatic --noinput \
  && mkdir -p /app/media && chown -R app:app /app/media
 USER app
 EXPOSE 8000

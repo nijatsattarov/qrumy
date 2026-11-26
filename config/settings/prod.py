@@ -16,6 +16,13 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = env.bool("SECURE_HSTS_PRELOAD", default=False)
 if not SECURE_HSTS_PRELOAD:
     SILENCED_SYSTEM_CHECKS = ["security.W021"]
+# Public links (QR codes, cards, emails) are built from SITE_URL: never ship localhost.
+if not SITE_URL.startswith("https://") or any(
+        h in SITE_URL for h in ("localhost", "127.0.0.1", "0.0.0.0")):  # noqa: S104
+    from django.core.exceptions import ImproperlyConfigured
+
+    raise ImproperlyConfigured("SITE_URL must be the public https:// address, e.g. "
+                               "https://qrumy.com")
 CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", default=[SITE_URL])
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
 

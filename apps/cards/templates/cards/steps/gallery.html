@@ -1,0 +1,37 @@
+{% extends "cards/_editor.html" %}
+{% load i18n qrumy %}
+{% block step %}
+<div class="card">
+  <div class="card-header"><h2 class="section-title">{% translate "Photo gallery" %}</h2><span class="text-xs text-muted">{{ photos|length }} / {{ max_gallery }}</span></div>
+  <div class="card-body space-y-5">
+    <p class="text-sm text-muted">{% translate "Show your products, work, office or team. Up to 12 photos, 5 MB each." %}</p>
+    {% if photos|length < max_gallery %}
+    <form method="post" enctype="multipart/form-data" action="{% url 'card_photo_add' org_slug=current_organization.slug pk=card.pk %}" class="grid items-end gap-3 rounded-xl border border-dashed border-line-strong bg-canvas p-4 sm:grid-cols-[1fr_1fr_auto]">
+      {% csrf_token %}
+      {{ photo_form.image.as_field_group }}
+      {{ photo_form.caption.as_field_group }}
+      <button type="submit" class="btn btn-primary">{% icon 'upload' 'size-4' %}{% translate "Add photo" %}</button>
+    </form>
+    {% endif %}
+    {% if photos %}
+    <div class="grid grid-cols-2 gap-3 sm:grid-cols-3">
+      {% for ph in photos %}
+      <figure class="overflow-hidden rounded-xl border border-line">
+        <img src="{{ ph.image.url }}" alt="{{ ph.caption }}" class="aspect-square w-full object-cover">
+        <figcaption class="flex items-center justify-between gap-2 px-2 py-1.5">
+          <span class="truncate text-xs text-muted">{{ ph.caption|default:"—" }}</span>
+          <form method="post" action="{% url 'card_photo_delete' org_slug=current_organization.slug pk=card.pk photo_id=ph.pk %}" data-confirm="{% translate 'Delete this photo?' %}">{% csrf_token %}<button type="submit" class="btn btn-ghost btn-sm" aria-label="{% translate 'Delete photo' %}">{% icon 'trash' 'size-4' %}</button></form>
+        </figcaption>
+      </figure>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p class="rounded-xl bg-canvas px-4 py-6 text-center text-sm text-muted">{% translate "No photos yet. The gallery section is hidden until you add one." %}</p>
+    {% endif %}
+  </div>
+  <div class="flex items-center justify-between border-t border-line px-5 py-4">
+    <a href="{% url 'card_step' org_slug=current_organization.slug pk=card.pk step='social' %}" class="btn btn-ghost">{% translate "Back" %}</a>
+    <a href="{% url 'card_step' org_slug=current_organization.slug pk=card.pk step='share' %}" class="btn btn-primary">{% translate "Continue" %}{% icon 'arrow-right' 'size-4' %}</a>
+  </div>
+</div>
+{% endblock %}
