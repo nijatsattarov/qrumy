@@ -1,0 +1,9 @@
+{% load i18n %}{% blocktranslate with event=event.name point=point.name %}A visitor left their contacts at {{ point }} — {{ event }}.{% endblocktranslate %}
+
+{{ lead.full_name }}{% if lead.company %} · {{ lead.company }}{% endif %}{% if lead.job_title %} · {{ lead.job_title }}{% endif %}
+{% if lead.email %}{{ lead.email }}
+{% endif %}{% if lead.phone %}{{ lead.phone }}
+{% endif %}{% if lead.interests %}{% translate "Interested in" %}: {{ lead.interests|join:", " }}
+{% endif %}{% if lead.message %}
+{{ lead.message }}
+{% endif %}

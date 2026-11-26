@@ -1,0 +1,4 @@
+{% extends "events/public/_base.html" %}
+{% load i18n %}
+{% block title %}{{ event.name }}{% endblock %}
+{% block page %}<div class="card p-6 text-center"><h1 class="text-lg font-semibold">{% translate "This form is closed" %}</h1><p class="mt-2 text-sm text-muted">{% translate "The event has ended or is not collecting contacts right now." %}</p></div>{% endblock %}

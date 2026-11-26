@@ -1,0 +1,13 @@
+{% load i18n qrumy %}
+<section class="card">
+  <div class="card-header"><h2 class="section-title">{% translate "Events & leads" %}</h2><a href="{% url 'event_list' org_slug=current_organization.slug %}" class="text-sm no-underline">{% translate "View all" %}</a></div>
+  <div class="card-body">
+    {% if events_latest %}
+      <p class="text-sm">{% blocktranslate count n=leads_new %}{{ n }} new lead waiting{% plural %}{{ n }} new leads waiting{% endblocktranslate %}</p>
+      <ul class="mt-3 space-y-2">{% for e in events_latest %}<li><a href="{% url 'event_detail' org_slug=current_organization.slug pk=e.pk %}" class="text-sm text-ink no-underline">{{ e.name }}</a></li>{% endfor %}</ul>
+    {% else %}
+      <p class="text-sm text-muted">{% translate "Collect visitor contacts at your next fair or conference with a QR code." %}</p>
+      <a href="{% url 'event_create' org_slug=current_organization.slug %}" class="btn btn-primary btn-sm mt-4">{% icon 'plus' 'size-4' %}{% translate "New event" %}</a>
+    {% endif %}
+  </div>
+</section>

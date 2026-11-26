@@ -1,0 +1,13 @@
+{% load i18n qrumy %}
+<ul class="divide-y divide-line">
+  {% for l in leads %}
+  <li><a href="{% url 'event_lead' org_slug=current_organization.slug pk=l.pk %}" class="flex items-center gap-3 px-5 py-3 text-ink no-underline hover:bg-canvas">
+    <span class="temp-dot temp-{{ l.temperature }}" title="{{ l.get_temperature_display }}"></span>
+    <span class="min-w-0 flex-1"><span class="block truncate font-medium">{{ l.full_name }}{% if l.company %} <span class="font-normal text-muted">· {{ l.company }}</span>{% endif %}</span><span class="block truncate text-sm text-muted">{{ l.email|default:l.phone }}{% if l.point %} · {{ l.point.name }}{% endif %}</span></span>
+    <span class="badge badge-neutral">{{ l.get_stage_display }}</span>
+    <span class="hidden whitespace-nowrap text-xs text-muted sm:block">{{ l.created_at|date:"j M, H:i" }}</span>
+  </a></li>
+  {% empty %}
+  <li class="px-5 py-8 text-center text-sm text-muted">{% translate "No leads yet. Print the QR code and put it on your stand." %}</li>
+  {% endfor %}
+</ul>

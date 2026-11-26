@@ -1,0 +1,27 @@
+{% extends "layouts/app.html" %}
+{% load i18n qrumy %}
+{% block title %}{% translate "Add lead" %}{% endblock %}
+{% block breadcrumb %}<a href="{% url 'event_detail' org_slug=current_organization.slug pk=event.pk %}" class="text-muted no-underline hover:text-ink">{{ event.name }}</a> / {% translate "Add lead" %}{% endblock %}
+{% block content %}
+<div class="mx-auto max-w-xl">
+  <h1 class="page-title">{% translate "Add a lead" %}</h1>
+  <p class="page-subtitle">{% translate "For visitors who prefer to talk — type in their details or copy them from a business card." %}</p>
+  <form method="post" class="card mt-5">
+    {% csrf_token %}
+    <div class="card-body space-y-4">
+      {% for e in form.non_field_errors %}<div class="rounded-lg border border-danger/20 bg-danger-soft px-3 py-2 text-sm text-danger">{{ e }}</div>{% endfor %}
+      {{ form.full_name.as_field_group }}
+      <div class="grid gap-4 sm:grid-cols-2">{{ form.email.as_field_group }}{{ form.phone.as_field_group }}</div>
+      <div class="grid gap-4 sm:grid-cols-2">{{ form.company.as_field_group }}{{ form.job_title.as_field_group }}</div>
+      <div class="grid gap-4 sm:grid-cols-2">{{ form.point.as_field_group }}{{ form.temperature.as_field_group }}</div>
+      {% if form.interests %}<fieldset><legend class="form-label">{{ form.interests.label }}</legend><div class="mt-2 flex flex-wrap gap-2">{% for cb in form.interests %}<label class="chip cursor-pointer has-[:checked]:border-navy-900 has-[:checked]:bg-navy-900 has-[:checked]:text-white">{{ cb.tag }}<span>{{ cb.choice_label }}</span></label>{% endfor %}</div></fieldset>{% endif %}
+      {{ form.message.as_field_group }}
+      {{ form.consent.as_field_group }}
+    </div>
+    <div class="flex flex-wrap justify-end gap-2 border-t border-line px-5 py-4">
+      <button type="submit" name="another" value="1" class="btn btn-secondary">{% translate "Save and add another" %}</button>
+      <button type="submit" class="btn btn-primary">{% translate "Save lead" %}</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

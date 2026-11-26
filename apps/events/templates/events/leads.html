@@ -1,0 +1,21 @@
+{% extends "layouts/app.html" %}
+{% load i18n qrumy %}
+{% block title %}{% translate "Leads" %} · {{ event.name }}{% endblock %}
+{% block breadcrumb %}<a href="{% url 'event_list' org_slug=current_organization.slug %}" class="text-muted no-underline hover:text-ink">{% translate "Events & leads" %}</a> / {{ event.name }}{% endblock %}
+{% block content %}
+{% include "events/_header.html" with tab="leads" %}
+<form method="get" class="mt-5 grid gap-2 sm:grid-cols-[1fr_auto_auto_auto_auto_auto]">
+  <input type="search" name="q" value="{{ filters.q }}" placeholder="{% translate 'Name, email, company or phone' %}" class="input">
+  <select name="temperature" class="input"><option value="">{% translate "Any interest" %}</option>{% for v, l in temperatures %}<option value="{{ v }}" {% if filters.temperature == v %}selected{% endif %}>{{ l }}</option>{% endfor %}</select>
+  <select name="stage" class="input"><option value="">{% translate "Any stage" %}</option>{% for v, l in stages %}<option value="{{ v }}" {% if filters.stage == v %}selected{% endif %}>{{ l }}</option>{% endfor %}</select>
+  <select name="point" class="input"><option value="">{% translate "All points" %}</option>{% for p in points %}<option value="{{ p.pk }}" {% if filters.point == p.pk|stringformat:"s" %}selected{% endif %}>{{ p.name }}</option>{% endfor %}</select>
+  <button class="btn btn-secondary">{% translate "Filter" %}</button>
+  <a href="{% url 'event_leads_export' org_slug=current_organization.slug pk=event.pk %}?{{ request.GET.urlencode }}" class="btn btn-primary">{% icon 'download' 'size-4' %}CSV</a>
+</form>
+<section class="card mt-4">
+  {% include "events/_lead_rows.html" with leads=page.object_list %}
+</section>
+{% if page.has_other_pages %}
+<nav class="mt-4 flex justify-between text-sm">{% if page.has_previous %}<a href="?{% for k, v in filters.items %}{% if k != 'page' %}{{ k }}={{ v|urlencode }}&{% endif %}{% endfor %}page={{ page.previous_page_number }}" class="btn btn-secondary btn-sm">←</a>{% else %}<span></span>{% endif %}<span class="text-muted">{{ page.number }} / {{ page.paginator.num_pages }}</span>{% if page.has_next %}<a href="?{% for k, v in filters.items %}{% if k != 'page' %}{{ k }}={{ v|urlencode }}&{% endif %}{% endfor %}page={{ page.next_page_number }}" class="btn btn-secondary btn-sm">→</a>{% else %}<span></span>{% endif %}</nav>
+{% endif %}
+{% endblock %}

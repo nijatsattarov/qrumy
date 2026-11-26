@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load i18n qrumy %}
+{% block title %}{% translate "Leads" %} · {{ point.name }}{% endblock %}
+{% block seo %}<meta name="robots" content="noindex, nofollow">{% endblock %}
+{% block body_class %}min-h-full bg-canvas{% endblock %}
+{% block body %}
+<main class="mx-auto max-w-5xl px-4 py-8">
+  <div class="flex flex-wrap items-end justify-between gap-4">
+    <div>
+      <p class="eyebrow">{{ event.name }}</p>
+      <h1 class="page-title mt-1">{{ point.company_name|default:point.name }}</h1>
+      <p class="page-subtitle">{% blocktranslate count n=leads|length %}{{ n }} lead collected at this stand.{% plural %}{{ n }} leads collected at this stand.{% endblocktranslate %} {% translate "This private page is shared by the organizer. Do not forward it." %}</p>
+    </div>
+    <a href="?format=csv" class="btn btn-primary">{% icon 'download' 'size-4' %}{% translate "Download CSV" %}</a>
+  </div>
+  <div class="card mt-6 overflow-x-auto">
+    <table class="table">
+      <thead><tr><th>{% translate "Name" %}</th><th>{% translate "Contact" %}</th><th>{% translate "Company" %}</th><th>{% translate "Interests" %}</th><th>{% translate "Date" %}</th></tr></thead>
+      <tbody>
+        {% for l in leads %}
+        <tr><td class="font-medium">{{ l.full_name }}</td><td class="text-sm">{% if l.email %}<a href="mailto:{{ l.email }}">{{ l.email }}</a><br>{% endif %}{{ l.phone }}</td><td class="text-sm">{{ l.company }}{% if l.job_title %}<br><span class="text-muted">{{ l.job_title }}</span>{% endif %}</td><td class="text-sm">{{ l.interests|join:", " }}</td><td class="whitespace-nowrap text-sm text-muted">{{ l.created_at|date:"j M, H:i" }}</td></tr>
+        {% empty %}
+        <tr><td colspan="5" class="text-center text-muted">{% translate "No leads yet." %}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</main>
+{% endblock %}

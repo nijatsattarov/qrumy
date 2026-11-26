@@ -71,9 +71,9 @@ FAQ = [
      _("Yes. During the beta every released feature is free, with fair-use limits. Paid plans "
        "will come later and existing users will be informed well in advance.")),
     (_("Which products are available today?"),
-     _("Qrumy is released step by step. QR Management, Surveys & Feedback and Asset "
-       "Management are available now; Event Lead Capture comes next. Each product is marked "
-       "as available on this page once it is released.")),
+     _("QR Management, Surveys & Feedback, Qrumy Card, Digital Menu, Event Lead Capture and "
+       "Asset Management are available now. Qrumy Intelligence (AI) and the Agency workspace "
+       "come later; each product is marked as available on this page once it is released.")),
     (_("What is a dynamic QR code?"),
      _("A dynamic QR code points to a short Qrumy link, so you can change where it leads after "
        "printing and see scan statistics. A static QR code stores the content directly and "

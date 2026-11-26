@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Qrumy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-26 06:21+0000\n"
+"POT-Creation-Date: 2026-11-26 06:30+0000\n"
 "PO-Revision-Date: 2026-11-25 00:00+0000\n"
 "Last-Translator: Qrumy team\n"
 "Language-Team: Azerbaijani\n"
@@ -29,7 +29,7 @@ msgstr "Profil"
 msgid "Access"
 msgstr "Giriş hüquqları"
 
-#: apps/accounts/admin.py:42
+#: apps/accounts/admin.py:42 apps/events/templates/events/list.html:16
 msgid "Dates"
 msgstr "Tarixlər"
 
@@ -146,7 +146,7 @@ msgstr "şərtlərin qəbulları"
 msgid "email address"
 msgstr "e-poçt ünvanı"
 
-#: apps/accounts/models.py:34
+#: apps/accounts/models.py:34 apps/events/models.py:115
 msgid "full name"
 msgstr "ad və soyad"
 
@@ -221,6 +221,7 @@ msgstr "Qrumy hesabınızı birdəfəlik silin."
 #: apps/accounts/templates/accounts/profile.html:14
 #: apps/cards/templates/cards/create.html:16
 #: apps/cards/templates/cards/steps/gallery.html:34
+#: apps/events/templates/events/public/thanks.html:9
 msgid "Continue"
 msgstr "Davam et"
 
@@ -289,6 +290,7 @@ msgid "No category"
 msgstr "Kateqoriyasız"
 
 #: apps/assets/forms.py:51 apps/assets/templates/assets/fault_detail.html:25
+#: apps/events/forms.py:132
 #: apps/surveys/templates/surveys/response_detail.html:60
 msgid "Nobody"
 msgstr "Heç kim"
@@ -303,6 +305,7 @@ msgstr "Bu ID artıq başqa aktivdə istifadə olunur."
 
 #: apps/assets/forms.py:91 apps/assets/templates/assets/setup.html:23
 #: apps/cards/models.py:119 apps/core/admin_dashboard.py:140
+#: apps/events/templates/events/public/portal.html:18
 #: apps/menus/templates/menus/_option_rows.html:5
 #: apps/menus/templates/menus/builder.html:21 apps/qr_management/forms.py:14
 #: apps/qr_management/forms.py:121
@@ -343,7 +346,7 @@ msgstr "Nə qədər təcilidir?"
 msgid "Photo"
 msgstr "Foto"
 
-#: apps/assets/forms.py:123 apps/surveys/forms.py:87
+#: apps/assets/forms.py:123 apps/events/forms.py:42 apps/surveys/forms.py:87
 msgid "Your name"
 msgstr "Adınız"
 
@@ -374,10 +377,11 @@ msgid "Photo or PDF"
 msgstr "Foto və ya PDF"
 
 #: apps/assets/models.py:27 apps/assets/models.py:52 apps/assets/models.py:79
-#: apps/cards/models.py:62 apps/menus/models.py:112 apps/menus/models.py:165
-#: apps/qr_management/models.py:35 apps/qr_management/models.py:49
-#: apps/qr_management/models.py:75 apps/subscriptions/models.py:10
-#: apps/surveys/models.py:116 apps/surveys/models.py:144
+#: apps/cards/models.py:62 apps/events/models.py:58 apps/menus/models.py:112
+#: apps/menus/models.py:165 apps/qr_management/models.py:35
+#: apps/qr_management/models.py:49 apps/qr_management/models.py:75
+#: apps/subscriptions/models.py:10 apps/surveys/models.py:116
+#: apps/surveys/models.py:144
 msgid "name"
 msgstr "ad"
 
@@ -456,7 +460,7 @@ msgstr "Texniki xidmətdə"
 msgid "Broken"
 msgstr "Xarab"
 
-#: apps/assets/models.py:70
+#: apps/assets/models.py:70 apps/events/models.py:106
 msgid "Lost"
 msgstr "İtib"
 
@@ -613,7 +617,7 @@ msgid "Urgent"
 msgstr "Təcili"
 
 #: apps/assets/models.py:172 apps/assets/templates/assets/form.html:4
-#: apps/menus/models.py:106
+#: apps/events/models.py:102 apps/menus/models.py:106
 #: apps/qr_management/templates/qr_management/choose_type.html:4
 #: apps/surveys/templates/surveys/create.html:4
 msgid "New"
@@ -656,7 +660,8 @@ msgstr "bildirən"
 msgid "contact"
 msgstr "əlaqə"
 
-#: apps/assets/models.py:197 apps/surveys/models.py:152
+#: apps/assets/models.py:197 apps/events/models.py:128
+#: apps/surveys/models.py:152
 msgid "assigned to"
 msgstr "təyin edilib"
 
@@ -848,6 +853,8 @@ msgstr "Status"
 #: apps/assets/templates/assets/setup.html:26
 #: apps/assets/templates/assets/setup.html:48
 #: apps/cards/templates/cards/_step_buttons.html:5
+#: apps/events/templates/events/form.html:27
+#: apps/events/templates/events/lead_detail.html:61
 #: apps/menus/templates/menus/builder.html:24
 #: apps/menus/templates/menus/settings.html:28
 #: apps/organizations/templates/organizations/team.html:37
@@ -978,6 +985,7 @@ msgstr "Bu fayl silinsin?"
 #: apps/assets/templates/assets/detail.html:116
 #: apps/assets/templates/assets/setup.html:28
 #: apps/assets/templates/assets/setup.html:51
+#: apps/events/templates/events/detail.html:55
 #: apps/menus/templates/menus/item_form.html:45
 #: apps/qr_management/templates/qr_management/detail.html:24
 #: apps/qr_management/templates/qr_management/list.html:99
@@ -1098,6 +1106,7 @@ msgid "Unassigned"
 msgstr "Təyin edilməyənlər"
 
 #: apps/assets/templates/assets/faults.html:16
+#: apps/events/templates/events/leads.html:12
 #: apps/qr_management/templates/qr_management/list.html:82
 msgid "Filter"
 msgstr "Filtr"
@@ -1302,6 +1311,7 @@ msgstr ""
 "saniyələr ərzində təlimata baxır və problemləri bildirir."
 
 #: apps/assets/templates/assets/public/base.html:13
+#: apps/events/templates/events/public/_base.html:15
 #: apps/qr_management/templates/qr_management/public/base.html:19
 #: apps/surveys/templates/surveys/public/base.html:17
 msgid "Powered by"
@@ -1326,6 +1336,7 @@ msgid "Open in Qrumy"
 msgstr "Qrumy-də aç"
 
 #: apps/assets/templates/assets/public/report.html:10
+#: apps/events/views/public.py:51
 msgid "This form expired. Please try again."
 msgstr "Formun müddəti bitib. Yenidən cəhd edin."
 
@@ -1334,6 +1345,7 @@ msgid "Send report"
 msgstr "Bildirişi göndər"
 
 #: apps/assets/templates/assets/public/thanks.html:3
+#: apps/events/templates/events/public/thanks.html:3
 #: apps/surveys/templates/surveys/public/thanks.html:3
 msgid "Thank you"
 msgstr "Təşəkkürlər"
@@ -1392,6 +1404,8 @@ msgstr "Bu kateqoriya silinsin?"
 
 #: apps/assets/templates/assets/widgets/overview.html:5
 #: apps/cards/templates/cards/widgets/overview.html:3
+#: apps/events/templates/events/detail.html:68
+#: apps/events/templates/events/widgets/overview.html:3
 #: apps/menus/templates/menus/widgets/overview.html:3
 #: apps/qr_management/templates/qr_management/widgets/overview.html:5
 #: apps/surveys/templates/surveys/widgets/overview.html:5
@@ -1651,7 +1665,8 @@ msgstr "Şirkətin adı"
 msgid "Slogan"
 msgstr "Şüar"
 
-#: apps/cards/forms.py:55 apps/qr_management/types.py:90
+#: apps/cards/forms.py:55 apps/events/forms.py:46
+#: apps/qr_management/types.py:90
 msgid "Job title"
 msgstr "Vəzifə"
 
@@ -1672,9 +1687,10 @@ msgid "e.g. Coffee & bakery since 2015"
 msgstr "məs. 2015-ci ildən qəhvə və şirniyyat"
 
 #: apps/cards/forms.py:75 apps/cards/templates/cards/public/card.html:42
-#: apps/cards/templates/cards/public/card.html:43 apps/menus/forms.py:24
-#: apps/qr_management/social.py:110 apps/qr_management/types.py:91
-#: apps/surveys/qtypes.py:129
+#: apps/cards/templates/cards/public/card.html:43 apps/events/forms.py:44
+#: apps/events/forms.py:90 apps/events/templates/events/lead_detail.html:18
+#: apps/menus/forms.py:24 apps/qr_management/social.py:110
+#: apps/qr_management/types.py:91 apps/surveys/qtypes.py:129
 msgid "Phone"
 msgstr "Telefon"
 
@@ -1724,7 +1740,9 @@ msgstr "Düzgün PNG, JPEG və ya WebP şəkli yükləyin."
 msgid "Person"
 msgstr "Şəxs"
 
-#: apps/cards/models.py:46 apps/qr_management/types.py:89
+#: apps/cards/models.py:46 apps/events/forms.py:45
+#: apps/events/templates/events/public/portal.html:18
+#: apps/qr_management/types.py:89
 msgid "Company"
 msgstr "Şirkət"
 
@@ -1760,7 +1778,7 @@ msgstr "rəng"
 msgid "job title or slogan"
 msgstr "vəzifə və ya şüar"
 
-#: apps/cards/models.py:64
+#: apps/cards/models.py:64 apps/events/models.py:118
 msgid "company"
 msgstr "şirkət"
 
@@ -1776,7 +1794,7 @@ msgstr "profil fotosu və ya loqo"
 msgid "cover image"
 msgstr "örtük şəkli"
 
-#: apps/cards/models.py:71 apps/menus/models.py:50
+#: apps/cards/models.py:71 apps/events/models.py:117 apps/menus/models.py:50
 msgid "phone"
 msgstr "telefon"
 
@@ -1784,8 +1802,8 @@ msgstr "telefon"
 msgid "second phone"
 msgstr "ikinci telefon"
 
-#: apps/cards/models.py:73 apps/organizations/models.py:105
-#: apps/surveys/models.py:145
+#: apps/cards/models.py:73 apps/events/models.py:116
+#: apps/organizations/models.py:105 apps/surveys/models.py:145
 msgid "email"
 msgstr "e-poçt"
 
@@ -1824,6 +1842,7 @@ msgstr "rəqəmsal kartlar"
 
 #: apps/cards/models.py:120 apps/cards/templates/cards/public/card.html:40
 #: apps/cards/views/manage.py:26
+#: apps/events/templates/events/public/portal.html:18
 #: apps/surveys/templates/surveys/response_detail.html:25
 msgid "Contact"
 msgstr "Əlaqə"
@@ -1857,7 +1876,7 @@ msgstr "qalereya fotosu"
 msgid "gallery photos"
 msgstr "qalereya fotoları"
 
-#: apps/cards/navigation.py:14
+#: apps/cards/navigation.py:15
 msgid "Digital business card with contacts and social media"
 msgstr "Əlaqə və sosial şəbəkələrlə rəqəmsal vizit kartı"
 
@@ -1995,10 +2014,12 @@ msgstr "Zəng et"
 
 #: apps/cards/templates/cards/public/card.html:23
 #: apps/cards/templates/cards/public/card.html:44
-#: apps/core/admin_dashboard.py:140 apps/organizations/forms.py:53
-#: apps/qr_management/social.py:112 apps/qr_management/types.py:92
-#: apps/qr_management/types.py:373 apps/surveys/models.py:136
-#: apps/surveys/qtypes.py:128 apps/surveys/templates/surveys/share.html:41
+#: apps/core/admin_dashboard.py:140 apps/events/forms.py:43
+#: apps/events/templates/events/lead_detail.html:17
+#: apps/organizations/forms.py:53 apps/qr_management/social.py:112
+#: apps/qr_management/types.py:92 apps/qr_management/types.py:373
+#: apps/surveys/models.py:136 apps/surveys/qtypes.py:128
+#: apps/surveys/templates/surveys/share.html:41
 msgid "Email"
 msgstr "E-poçt"
 
@@ -2131,6 +2152,7 @@ msgid "Card link"
 msgstr "Kartın linki"
 
 #: apps/cards/templates/cards/steps/share.html:37
+#: apps/events/templates/events/detail.html:30
 #: apps/marketing/templates/marketing/promo/_popup.html:17
 #: apps/menus/templates/menus/share.html:32
 #: apps/surveys/templates/surveys/share.html:38
@@ -2139,6 +2161,7 @@ msgid "Copy"
 msgstr "Kopyala"
 
 #: apps/cards/templates/cards/steps/share.html:37
+#: apps/events/templates/events/detail.html:30
 #: apps/marketing/templates/marketing/promo/_popup.html:17
 #: apps/menus/templates/menus/share.html:32
 #: apps/qr_management/templates/qr_management/public/coupon.html:15
@@ -2209,6 +2232,7 @@ msgstr ""
 "dayandırılır."
 
 #: apps/cards/templates/cards/steps/share.html:69
+#: apps/events/templates/events/form.html:35
 #: apps/menus/templates/menus/settings.html:36
 #: apps/organizations/templates/organizations/settings.html:39
 #, python-format
@@ -2232,7 +2256,8 @@ msgstr "Sosial şəbəkələr"
 msgid "Publish & share"
 msgstr "Dərc et və paylaş"
 
-#: apps/cards/views/manage.py:87 apps/menus/views/manage.py:190
+#: apps/cards/views/manage.py:87 apps/events/views/manage.py:227
+#: apps/menus/views/manage.py:190
 msgid "You don't have permission to do that."
 msgstr "Bunu etməyə icazəniz yoxdur."
 
@@ -2435,6 +2460,761 @@ msgstr "yaradılma vaxtı"
 #: apps/core/models.py:14
 msgid "updated at"
 msgstr "yenilənmə vaxtı"
+
+#: apps/events/apps.py:8 apps/marketing/views.py:27
+#: apps/subscriptions/features.py:23
+msgid "Event Lead Capture"
+msgstr "Tədbirlərdə Müştəri Toplama"
+
+#: apps/events/forms.py:9
+#, python-format
+msgid ""
+"I agree that %(org)s stores my contact details and contacts me about this "
+"enquiry."
+msgstr ""
+"%(org)s şirkətinin əlaqə məlumatlarımı saxlamasına və bu müraciətlə bağlı "
+"mənimlə əlaqə saxlamasına razıyam."
+
+#: apps/events/forms.py:14
+msgid "Link after submitting"
+msgstr "Göndərdikdən sonra link"
+
+#: apps/events/forms.py:15 apps/events/models.py:36
+msgid "Optional, e.g. your catalogue or website."
+msgstr "Könüllü, məs. kataloqunuz və ya saytınız."
+
+#: apps/events/forms.py:25
+msgid "e.g. Caspian Build Expo 2026"
+msgstr "məs. Caspian Build Expo 2026"
+
+#: apps/events/forms.py:30
+msgid "The last day must be after the first day."
+msgstr "Son gün ilk gündən sonra olmalıdır."
+
+#: apps/events/forms.py:38 apps/events/templates/events/form.html:16
+msgid "e.g. Stand A12"
+msgstr "məs. Stend A12"
+
+#: apps/events/forms.py:47
+msgid "I am interested in"
+msgstr "Məni maraqlandırır"
+
+#: apps/events/forms.py:49 apps/events/templates/events/lead_detail.html:22
+#: apps/qr_management/types.py:105 apps/qr_management/types.py:112
+msgid "Message"
+msgstr "Mesaj"
+
+#: apps/events/forms.py:52 apps/surveys/forms.py:77
+msgid "Leave this field empty"
+msgstr "Bu sahəni boş saxlayın"
+
+#: apps/events/forms.py:61
+msgid "Please confirm so we can store your details."
+msgstr "Məlumatlarınızı saxlaya bilməyimiz üçün təsdiqləyin."
+
+#: apps/events/forms.py:77
+msgid "Something went wrong. Please try again."
+msgstr "Xəta baş verdi. Yenidən cəhd edin."
+
+#: apps/events/forms.py:79
+msgid "Enter an email or a phone number so we can reach you."
+msgstr ""
+"Sizinlə əlaqə saxlaya bilməyimiz üçün e-poçt və ya telefon nömrəsi daxil "
+"edin."
+
+#: apps/events/forms.py:91 apps/events/templates/events/lead_detail.html:21
+#: apps/events/templates/events/public/portal.html:18
+msgid "Interests"
+msgstr "Maraqlar"
+
+#: apps/events/forms.py:93
+msgid "The person agreed to be contacted"
+msgstr "Şəxs onunla əlaqə saxlanılmasına razılıq verdi"
+
+#: apps/events/forms.py:115
+msgid "Enter an email or a phone number."
+msgstr "E-poçt və ya telefon nömrəsi daxil edin."
+
+#: apps/events/forms.py:136
+msgid "Task"
+msgstr "Tapşırıq"
+
+#: apps/events/forms.py:137
+msgid "e.g. Send price list"
+msgstr "məs. Qiymət siyahısını göndər"
+
+#: apps/events/forms.py:138
+msgid "Due"
+msgstr "Son tarix"
+
+#: apps/events/models.py:16
+msgid "event name"
+msgstr "tədbirin adı"
+
+#: apps/events/models.py:17
+msgid "first day"
+msgstr "ilk gün"
+
+#: apps/events/models.py:18
+msgid "last day"
+msgstr "son gün"
+
+#: apps/events/models.py:19
+msgid "venue"
+msgstr "məkan"
+
+#: apps/events/models.py:20
+msgid "form language"
+msgstr "formanın dili"
+
+#: apps/events/models.py:23
+msgid "text above the form"
+msgstr "formanın üstündəki mətn"
+
+#: apps/events/models.py:24
+msgid "e.g. Leave your contacts and we will send you our catalogue."
+msgstr "məs. Kontaktlarınızı qoyun, kataloqumuzu göndərək."
+
+#: apps/events/models.py:26
+msgid "interests to choose from"
+msgstr "seçmək üçün maraqlar"
+
+#: apps/events/models.py:27
+msgid "One per line, e.g. products or services visitors can tick. Optional."
+msgstr ""
+"Hər sətirdə bir, məs. ziyarətçilərin seçə biləcəyi məhsul və ya xidmətlər. "
+"Könüllü."
+
+#: apps/events/models.py:28
+msgid "ask for phone"
+msgstr "telefon soruşulsun"
+
+#: apps/events/models.py:29
+msgid "ask for company and job title"
+msgstr "şirkət və vəzifə soruşulsun"
+
+#: apps/events/models.py:30
+msgid "ask for a message"
+msgstr "mesaj soruşulsun"
+
+#: apps/events/models.py:32 apps/surveys/models.py:48
+msgid "consent text"
+msgstr "razılıq mətni"
+
+#: apps/events/models.py:33
+msgid "Shown next to the required consent checkbox. Empty: a standard text."
+msgstr "Məcburi razılıq qutusunun yanında göstərilir. Boş: standart mətn."
+
+#: apps/events/models.py:34 apps/surveys/models.py:44
+msgid "thank-you message"
+msgstr "təşəkkür mesajı"
+
+#: apps/events/models.py:35
+msgid "link after submitting"
+msgstr "göndərdikdən sonra link"
+
+#: apps/events/models.py:37
+msgid "collecting leads"
+msgstr "müraciətlər toplanır"
+
+#: apps/events/models.py:43
+msgid "event"
+msgstr "tədbir"
+
+#: apps/events/models.py:44
+msgid "events"
+msgstr "tədbirlər"
+
+#: apps/events/models.py:59
+msgid "e.g. Stand A12, exhibitor company or sales person"
+msgstr "məs. Stend A12, iştirakçı şirkət və ya satış nümayəndəsi"
+
+#: apps/events/models.py:61
+msgid "exhibitor company"
+msgstr "iştirakçı şirkət"
+
+#: apps/events/models.py:62
+msgid "Fill in when the stand belongs to another company (exhibitor)."
+msgstr "Stend başqa şirkətə (iştirakçıya) məxsusdursa doldurun."
+
+#: apps/events/models.py:63
+msgid "email for new leads"
+msgstr "yeni müraciətlər üçün e-poçt"
+
+#: apps/events/models.py:64
+msgid "Gets an email for every new lead."
+msgstr "Hər yeni müraciət üçün e-məktub alır."
+
+#: apps/events/models.py:73 apps/events/models.py:114
+msgid "collection point"
+msgstr "toplama nöqtəsi"
+
+#: apps/events/models.py:74
+msgid "collection points"
+msgstr "toplama nöqtələri"
+
+#: apps/events/models.py:97 apps/events/templates/events/detail.html:10
+msgid "Hot"
+msgstr "İsti"
+
+#: apps/events/models.py:98 apps/events/templates/events/detail.html:11
+msgid "Warm"
+msgstr "Ilıq"
+
+#: apps/events/models.py:99 apps/events/templates/events/detail.html:12
+msgid "Cold"
+msgstr "Soyuq"
+
+#: apps/events/models.py:103
+msgid "Contacted"
+msgstr "Əlaqə saxlanılıb"
+
+#: apps/events/models.py:104
+msgid "Qualified"
+msgstr "Uyğun"
+
+#: apps/events/models.py:105
+msgid "Won"
+msgstr "Qazanılıb"
+
+#: apps/events/models.py:109
+msgid "QR form"
+msgstr "QR forma"
+
+#: apps/events/models.py:110
+msgid "Added by staff"
+msgstr "İşçi əlavə edib"
+
+#: apps/events/models.py:119
+msgid "job title"
+msgstr "vəzifə"
+
+#: apps/events/models.py:120
+msgid "interests"
+msgstr "maraqlar"
+
+#: apps/events/models.py:121
+msgid "message"
+msgstr "mesaj"
+
+#: apps/events/models.py:122
+msgid "interest level"
+msgstr "maraq səviyyəsi"
+
+#: apps/events/models.py:124
+msgid "stage"
+msgstr "mərhələ"
+
+#: apps/events/models.py:129 apps/surveys/models.py:140
+msgid "source"
+msgstr "mənbə"
+
+#: apps/events/models.py:131 apps/surveys/models.py:146
+msgid "consent given"
+msgstr "razılıq verilib"
+
+#: apps/events/models.py:138
+msgid "lead"
+msgstr "müraciət"
+
+#: apps/events/models.py:139
+msgid "leads"
+msgstr "müraciətlər"
+
+#: apps/events/models.py:150 apps/surveys/models.py:200
+msgid "note"
+msgstr "qeyd"
+
+#: apps/events/models.py:154
+msgid "lead note"
+msgstr "müraciət qeydi"
+
+#: apps/events/models.py:155
+msgid "lead notes"
+msgstr "müraciət qeydləri"
+
+#: apps/events/models.py:163
+msgid "task"
+msgstr "tapşırıq"
+
+#: apps/events/models.py:164
+msgid "due"
+msgstr "son tarix"
+
+#: apps/events/models.py:171
+msgid "follow-up task"
+msgstr "izləmə tapşırığı"
+
+#: apps/events/models.py:172
+msgid "follow-up tasks"
+msgstr "izləmə tapşırıqları"
+
+#: apps/events/navigation.py:9 apps/events/templates/events/detail.html:4
+#: apps/events/templates/events/form.html:4
+#: apps/events/templates/events/leads.html:4
+#: apps/events/templates/events/list.html:3
+#: apps/events/templates/events/list.html:4
+#: apps/events/templates/events/list.html:8
+#: apps/events/templates/events/widgets/overview.html:3
+msgid "Events & leads"
+msgstr "Tədbirlər və müştərilər"
+
+#: apps/events/qr_type.py:21
+msgid "Event lead form"
+msgstr "Tədbir müraciət forması"
+
+#: apps/events/qr_type.py:22
+msgid "Collect visitor contacts at an event"
+msgstr "Tədbirdə ziyarətçi kontaktlarını toplayın"
+
+#: apps/events/services.py:32
+#, python-format
+msgid "Your plan allows up to %(limit)s events."
+msgstr "Planınız ən çox %(limit)s tədbirə icazə verir."
+
+#: apps/events/services.py:59
+#, python-format
+msgid "An event can have up to %(n)s collection points."
+msgstr "Tədbirdə ən çox %(n)s toplama nöqtəsi ola bilər."
+
+#: apps/events/services.py:77 apps/events/templates/events/public/form.html:7
+msgid "Leave your contacts"
+msgstr "Kontaktlarınızı qoyun"
+
+#: apps/events/services.py:114
+#, python-format
+msgid "New lead at %(point)s: %(name)s"
+msgstr "%(point)s nöqtəsində yeni müraciət: %(name)s"
+
+#: apps/events/templates/events/_header.html:5
+msgid "Form closed"
+msgstr "Forma bağlıdır"
+
+#: apps/events/templates/events/_header.html:8
+#: apps/events/templates/events/lead_form.html:3
+#: apps/events/templates/events/lead_form.html:4
+msgid "Add lead"
+msgstr "Müraciət əlavə et"
+
+#: apps/events/templates/events/_header.html:9
+#: apps/organizations/navigation.py:13
+#: apps/organizations/templates/organizations/settings.html:3
+#: apps/organizations/templates/organizations/settings.html:4
+#: apps/qr_management/templates/qr_management/form.html:42
+#: apps/surveys/templates/surveys/_header.html:31
+#: apps/surveys/templates/surveys/settings.html:3
+msgid "Settings"
+msgstr "Ayarlar"
+
+#: apps/events/templates/events/_header.html:13
+#: apps/organizations/navigation.py:10
+#: apps/organizations/templates/organizations/dashboard.html:3
+#: apps/organizations/templates/organizations/dashboard.html:4
+msgid "Overview"
+msgstr "Ümumi baxış"
+
+#: apps/events/templates/events/_header.html:14
+#: apps/events/templates/events/detail.html:9
+#: apps/events/templates/events/detail.html:48
+#: apps/events/templates/events/leads.html:3
+#: apps/events/templates/events/list.html:16
+#: apps/events/templates/events/public/portal.html:3
+msgid "Leads"
+msgstr "Müraciətlər"
+
+#: apps/events/templates/events/_lead_rows.html:11
+msgid "No leads yet. Print the QR code and put it on your stand."
+msgstr "Hələ müraciət yoxdur. QR kodu çap edin və stendinizə qoyun."
+
+#: apps/events/templates/events/detail.html:13
+msgid "Open follow-ups"
+msgstr "Açıq tapşırıqlar"
+
+#: apps/events/templates/events/detail.html:18
+msgid "Leads per day"
+msgstr "Günlük müraciətlər"
+
+#: apps/events/templates/events/detail.html:24
+#: apps/events/templates/events/list.html:16
+msgid "Collection points"
+msgstr "Toplama nöqtələri"
+
+#: apps/events/templates/events/detail.html:24
+msgid "Each has its own QR code and lead form"
+msgstr "Hər birinin öz QR kodu və forması var"
+
+#: apps/events/templates/events/detail.html:27
+msgid ""
+"Private lead link created. Copy it now — for security it is shown only once."
+msgstr ""
+"Məxfi müraciət linki yaradıldı. İndi kopyalayın — təhlükəsizlik üçün yalnız "
+"bir dəfə göstərilir."
+
+#: apps/events/templates/events/detail.html:41
+#, python-format
+msgid "%(n)s lead"
+msgid_plural "%(n)s leads"
+msgstr[0] "%(n)s müraciət"
+msgstr[1] "%(n)s müraciət"
+
+#: apps/events/templates/events/detail.html:41
+msgid "emails to"
+msgstr "e-məktub:"
+
+#: apps/events/templates/events/detail.html:47
+msgid "Open form"
+msgstr "Formanı aç"
+
+#: apps/events/templates/events/detail.html:53
+msgid "For an exhibitor without a Qrumy account"
+msgstr "Qrumy hesabı olmayan iştirakçı üçün"
+
+#: apps/events/templates/events/detail.html:53
+msgid "New exhibitor link"
+msgstr "Yeni iştirakçı linki"
+
+#: apps/events/templates/events/detail.html:53
+msgid "Exhibitor link"
+msgstr "İştirakçı linki"
+
+#: apps/events/templates/events/detail.html:54
+msgid "Turn off link"
+msgstr "Linki söndür"
+
+#: apps/events/templates/events/detail.html:55
+msgid "Delete this collection point? Its leads are kept."
+msgstr "Bu toplama nöqtəsi silinsin? Müraciətləri saxlanılır."
+
+#: apps/events/templates/events/detail.html:63
+msgid "Add point"
+msgstr "Nöqtə əlavə et"
+
+#: apps/events/templates/events/detail.html:68
+msgid "Latest leads"
+msgstr "Son müraciətlər"
+
+#: apps/events/templates/events/email/new_lead.html:12
+#: apps/events/templates/events/email/new_lead.txt:6
+msgid "Interested in"
+msgstr "Maraqlanır"
+
+#: apps/events/templates/events/email/new_lead.txt:1
+#, python-format
+msgid "A visitor left their contacts at %(point)s — %(event)s."
+msgstr "Ziyarətçi %(point)s nöqtəsində kontaktlarını qoydu — %(event)s."
+
+#: apps/events/templates/events/email/new_lead_subject.txt:1
+#, python-format
+msgid "New lead: %(name)s (%(point)s)"
+msgstr "Yeni müraciət: %(name)s (%(point)s)"
+
+#: apps/events/templates/events/form.html:3
+#: apps/events/templates/events/form.html:4
+#: apps/events/templates/events/form.html:7
+#: apps/events/templates/events/list.html:11
+#: apps/events/templates/events/list.html:35
+#: apps/events/templates/events/widgets/overview.html:10
+msgid "New event"
+msgstr "Yeni tədbir"
+
+#: apps/events/templates/events/form.html:7
+msgid "Event settings"
+msgstr "Tədbir ayarları"
+
+#: apps/events/templates/events/form.html:10
+#: apps/events/templates/events/list.html:16
+msgid "Event"
+msgstr "Tədbir"
+
+#: apps/events/templates/events/form.html:16
+msgid "Your stand or first collection point"
+msgstr "Stendiniz və ya ilk toplama nöqtəsi"
+
+#: apps/events/templates/events/form.html:16
+msgid ""
+"Each collection point gets its own QR code. Add more later (other stands, "
+"exhibitors, sales people)."
+msgstr ""
+"Hər toplama nöqtəsinin öz QR kodu olur. Sonra daha çox əlavə edin (digər "
+"stendlər, iştirakçılar, satış nümayəndələri)."
+
+#: apps/events/templates/events/form.html:18
+msgid "Lead form"
+msgstr "Müraciət forması"
+
+#: apps/events/templates/events/form.html:27
+msgid "Create event"
+msgstr "Tədbir yarat"
+
+#: apps/events/templates/events/form.html:31
+#: apps/events/templates/events/form.html:36
+msgid "Delete event"
+msgstr "Tədbiri sil"
+
+#: apps/events/templates/events/form.html:34
+msgid ""
+"This permanently deletes the event with all its leads, notes and tasks. Its "
+"QR codes are paused. Export the leads first if you need them."
+msgstr ""
+"Bu, tədbiri bütün müraciətləri, qeydləri və tapşırıqları ilə həmişəlik "
+"silir. QR kodları dayandırılır. Lazımdırsa, əvvəlcə müraciətləri ixrac edin."
+
+#: apps/events/templates/events/lead_detail.html:19
+msgid "Collection point"
+msgstr "Toplama nöqtəsi"
+
+#: apps/events/templates/events/lead_detail.html:20
+msgid "Received"
+msgstr "Daxil olub"
+
+#: apps/events/templates/events/lead_detail.html:23
+msgid "Consent"
+msgstr "Razılıq"
+
+#: apps/events/templates/events/lead_detail.html:23
+msgid "Agreed to be contacted"
+msgstr "Əlaqə saxlanılmasına razıdır"
+
+#: apps/events/templates/events/lead_detail.html:28
+msgid "Follow-up tasks"
+msgstr "İzləmə tapşırıqları"
+
+#: apps/events/templates/events/lead_detail.html:32
+msgid "Mark done"
+msgstr "Edildi kimi qeyd et"
+
+#: apps/events/templates/events/lead_detail.html:36
+msgid "No tasks yet."
+msgstr "Hələ tapşırıq yoxdur."
+
+#: apps/events/templates/events/lead_detail.html:39
+msgid "Add task"
+msgstr "Tapşırıq əlavə et"
+
+#: apps/events/templates/events/lead_detail.html:44
+msgid "Notes"
+msgstr "Qeydlər"
+
+#: apps/events/templates/events/lead_detail.html:46
+#: apps/surveys/templates/surveys/response_detail.html:32
+msgid "Deleted user"
+msgstr "Silinmiş istifadəçi"
+
+#: apps/events/templates/events/lead_detail.html:47
+#: apps/surveys/templates/surveys/response_detail.html:41
+msgid "No notes."
+msgstr "Qeyd yoxdur."
+
+#: apps/events/templates/events/lead_detail.html:50
+msgid "What did you talk about? Next steps?"
+msgstr "Nə haqqında danışdınız? Növbəti addımlar?"
+
+#: apps/events/templates/events/lead_detail.html:51
+#: apps/surveys/templates/surveys/response_detail.html:39
+msgid "Add note"
+msgstr "Qeyd əlavə et"
+
+#: apps/events/templates/events/lead_detail.html:59
+msgid "Qualification"
+msgstr "Qiymətləndirmə"
+
+#: apps/events/templates/events/lead_detail.html:63
+msgid "Delete this lead permanently?"
+msgstr "Bu müraciət həmişəlik silinsin?"
+
+#: apps/events/templates/events/lead_detail.html:63
+msgid "Delete lead"
+msgstr "Müraciəti sil"
+
+#: apps/events/templates/events/lead_form.html:7
+msgid "Add a lead"
+msgstr "Müraciət əlavə edin"
+
+#: apps/events/templates/events/lead_form.html:8
+msgid ""
+"For visitors who prefer to talk — type in their details or copy them from a "
+"business card."
+msgstr ""
+"Danışmağı üstün tutan ziyarətçilər üçün — məlumatlarını yazın və ya vizit "
+"kartından köçürün."
+
+#: apps/events/templates/events/lead_form.html:22
+#: apps/menus/templates/menus/item_form.html:47
+msgid "Save and add another"
+msgstr "Saxla və yenisini əlavə et"
+
+#: apps/events/templates/events/lead_form.html:23
+msgid "Save lead"
+msgstr "Müraciəti yadda saxla"
+
+#: apps/events/templates/events/leads.html:8
+msgid "Name, email, company or phone"
+msgstr "Ad, e-poçt, şirkət və ya telefon"
+
+#: apps/events/templates/events/leads.html:9
+msgid "Any interest"
+msgstr "İstənilən maraq"
+
+#: apps/events/templates/events/leads.html:10
+msgid "Any stage"
+msgstr "İstənilən mərhələ"
+
+#: apps/events/templates/events/leads.html:11
+msgid "All points"
+msgstr "Bütün nöqtələr"
+
+#: apps/events/templates/events/list.html:9
+msgid ""
+"Collect visitor contacts at fairs, conferences and stands with a QR code — "
+"and follow up after the event."
+msgstr ""
+"Sərgi, konfrans və stendlərdə ziyarətçi kontaktlarını QR kod ilə toplayın — "
+"tədbirdən sonra isə onları izləyin."
+
+#: apps/events/templates/events/list.html:24
+msgid "Collecting"
+msgstr "Toplanır"
+
+#: apps/events/templates/events/list.html:24 apps/surveys/models.py:23
+#: apps/surveys/templates/surveys/_status_badge.html:1
+msgid "Closed"
+msgstr "Bağlanıb"
+
+#: apps/events/templates/events/list.html:33
+msgid "Collect leads at your next event"
+msgstr "Növbəti tədbirinizdə müştəri toplayın"
+
+#: apps/events/templates/events/list.html:34
+msgid ""
+"Put a QR code on your stand. Visitors leave their contacts in seconds, your "
+"team sees every lead, qualifies it and follows up."
+msgstr ""
+"Stendinizə QR kod qoyun. Ziyarətçilər kontaktlarını saniyələr içində qoyur, "
+"komandanız hər müraciəti görür, qiymətləndirir və izləyir."
+
+#: apps/events/templates/events/public/closed.html:4
+msgid "This form is closed"
+msgstr "Bu forma bağlıdır"
+
+#: apps/events/templates/events/public/closed.html:4
+msgid "The event has ended or is not collecting contacts right now."
+msgstr "Tədbir bitib və ya hazırda kontakt toplanmır."
+
+#: apps/events/templates/events/public/form.html:28
+msgid "Send"
+msgstr "Göndər"
+
+#: apps/events/templates/events/public/portal.html:12
+#, python-format
+msgid "%(n)s lead collected at this stand."
+msgid_plural "%(n)s leads collected at this stand."
+msgstr[0] "Bu stenddə %(n)s müraciət toplanıb."
+msgstr[1] "Bu stenddə %(n)s müraciət toplanıb."
+
+#: apps/events/templates/events/public/portal.html:12
+msgid "This private page is shared by the organizer. Do not forward it."
+msgstr "Bu məxfi səhifəni təşkilatçı paylaşıb. Başqasına göndərməyin."
+
+#: apps/events/templates/events/public/portal.html:14
+msgid "Download CSV"
+msgstr "CSV yüklə"
+
+#: apps/events/templates/events/public/portal.html:18
+#: apps/qr_management/templates/qr_management/_chart.html:6
+#: apps/surveys/qtypes.py:130
+msgid "Date"
+msgstr "Tarix"
+
+#: apps/events/templates/events/public/portal.html:23
+msgid "No leads yet."
+msgstr "Hələ müraciət yoxdur."
+
+#: apps/events/templates/events/public/thanks.html:7
+#: apps/surveys/templates/surveys/public/thanks.html:7
+msgid "Thank you!"
+msgstr "Təşəkkür edirik!"
+
+#: apps/events/templates/events/public/thanks.html:8
+msgid "We received your details and will contact you soon."
+msgstr "Məlumatlarınızı aldıq, tezliklə sizinlə əlaqə saxlayacağıq."
+
+#: apps/events/templates/events/widgets/overview.html:6
+#, python-format
+msgid "%(n)s new lead waiting"
+msgid_plural "%(n)s new leads waiting"
+msgstr[0] "%(n)s yeni müraciət gözləyir"
+msgstr[1] "%(n)s yeni müraciət gözləyir"
+
+#: apps/events/templates/events/widgets/overview.html:9
+msgid ""
+"Collect visitor contacts at your next fair or conference with a QR code."
+msgstr ""
+"Növbəti sərgi və ya konfransınızda ziyarətçi kontaktlarını QR kod ilə "
+"toplayın."
+
+#: apps/events/views/manage.py:58
+msgid "Main stand"
+msgstr "Əsas stend"
+
+#: apps/events/views/manage.py:63
+msgid "Event created. Print the QR code of your stand."
+msgstr "Tədbir yaradıldı. Stendinizin QR kodunu çap edin."
+
+#: apps/events/views/manage.py:86
+msgid "Event saved."
+msgstr "Tədbir yadda saxlanıldı."
+
+#: apps/events/views/manage.py:97
+msgid "Type the event name exactly to confirm deletion."
+msgstr "Silməni təsdiqləmək üçün tədbirin adını dəqiq yazın."
+
+#: apps/events/views/manage.py:100
+msgid "Event and its leads deleted."
+msgstr "Tədbir və müraciətləri silindi."
+
+#: apps/events/views/manage.py:113
+msgid "Check the collection point details."
+msgstr "Toplama nöqtəsinin məlumatlarını yoxlayın."
+
+#: apps/events/views/manage.py:118
+msgid "Collection point added with its own QR code."
+msgstr "Toplama nöqtəsi öz QR kodu ilə əlavə edildi."
+
+#: apps/events/views/manage.py:123
+msgid "Collection point saved."
+msgstr "Toplama nöqtəsi yadda saxlanıldı."
+
+#: apps/events/views/manage.py:134
+msgid "Collection point deleted. Its leads are kept."
+msgstr "Toplama nöqtəsi silindi. Müraciətləri saxlanılır."
+
+#: apps/events/views/manage.py:148
+msgid "The exhibitor link was turned off."
+msgstr "İştirakçı linki söndürüldü."
+
+#: apps/events/views/manage.py:212
+msgid "Lead saved."
+msgstr "Müraciət yadda saxlanıldı."
+
+#: apps/events/views/manage.py:230
+msgid "Lead updated."
+msgstr "Müraciət yeniləndi."
+
+#: apps/events/views/manage.py:247 apps/surveys/views/responses.py:128
+msgid "Note added."
+msgstr "Qeyd əlavə edildi."
+
+#: apps/events/views/manage.py:264
+msgid "Follow-up task added."
+msgstr "İzləmə tapşırığı əlavə edildi."
+
+#: apps/events/views/manage.py:266
+msgid "Describe the follow-up task."
+msgstr "İzləmə tapşırığını təsvir edin."
+
+#: apps/events/views/manage.py:277
+msgid "Lead deleted."
+msgstr "Müraciət silindi."
 
 #: apps/marketing/admin.py:16
 msgid "Images for the text (upload, save, then paste the line shown)"
@@ -3207,10 +3987,6 @@ msgstr "Bir toxunuşla “Kontaktı saxla”"
 msgid "Views, saved contacts and link clicks"
 msgstr "Baxışlar, saxlanılan kontaktlar və link klikləri"
 
-#: apps/marketing/views.py:27 apps/subscriptions/features.py:23
-msgid "Event Lead Capture"
-msgstr "Tədbirlərdə Müştəri Toplama"
-
 #: apps/marketing/views.py:28
 msgid ""
 "Turn trade-show and event conversations into qualified leads, then follow up"
@@ -3330,14 +4106,15 @@ msgstr "Hazırda hansı məhsullar mövcuddur?"
 
 #: apps/marketing/views.py:74
 msgid ""
-"Qrumy is released step by step. QR Management, Surveys & Feedback and Asset "
-"Management are available now; Event Lead Capture comes next. Each product is"
-" marked as available on this page once it is released."
+"QR Management, Surveys & Feedback, Qrumy Card, Digital Menu, Event Lead "
+"Capture and Asset Management are available now. Qrumy Intelligence (AI) and "
+"the Agency workspace come later; each product is marked as available on this"
+" page once it is released."
 msgstr ""
-"Qrumy mərhələ-mərhələ buraxılır. QR İdarəetmə, Sorğular və Rəylər, həmçinin "
-"Aktivlərin İdarə Edilməsi artıq mövcuddur; növbəti Tədbirlərdə Müştəri "
-"Toplama gələcək. Hər məhsul buraxılan kimi bu səhifədə mövcud kimi qeyd "
-"olunur."
+"QR idarəetmə, Sorğular və rəylər, Qrumy Card, Rəqəmsal Menyu, Tədbirlərdə "
+"müştəri toplama və Aktivlərin idarə edilməsi artıq mövcuddur. Qrumy "
+"Intelligence (Süni intellekt) və Agentlik iş sahəsi sonra gələcək; hər "
+"məhsul buraxıldıqda bu səhifədə mövcud kimi qeyd olunur."
 
 #: apps/marketing/views.py:77
 msgid "What is a dynamic QR code?"
@@ -3605,7 +4382,7 @@ msgstr "Menyu baxışı"
 msgid "Item"
 msgstr "Məhsul"
 
-#: apps/menus/navigation.py:14
+#: apps/menus/navigation.py:15
 msgid "Interactive menu with photos, prices and categories"
 msgstr "Foto, qiymət və kateqoriyalı interaktiv menyu"
 
@@ -3808,10 +4585,6 @@ msgstr "məs. Əlavə pendir"
 #: apps/menus/templates/menus/item_form.html:40
 msgid "Add extra"
 msgstr "Əlavə et"
-
-#: apps/menus/templates/menus/item_form.html:47
-msgid "Save and add another"
-msgstr "Saxla və yenisini əlavə et"
 
 #: apps/menus/templates/menus/item_form.html:48
 msgid "Save item"
@@ -4219,27 +4992,12 @@ msgstr "dəvət"
 msgid "invitations"
 msgstr "dəvətlər"
 
-#: apps/organizations/navigation.py:10
-#: apps/organizations/templates/organizations/dashboard.html:3
-#: apps/organizations/templates/organizations/dashboard.html:4
-msgid "Overview"
-msgstr "Ümumi baxış"
-
 #: apps/organizations/navigation.py:11
 #: apps/organizations/templates/organizations/team.html:3
 #: apps/organizations/templates/organizations/team.html:4
 #: apps/organizations/templates/organizations/team.html:8
 msgid "Team"
 msgstr "Komanda"
-
-#: apps/organizations/navigation.py:13
-#: apps/organizations/templates/organizations/settings.html:3
-#: apps/organizations/templates/organizations/settings.html:4
-#: apps/qr_management/templates/qr_management/form.html:42
-#: apps/surveys/templates/surveys/_header.html:31
-#: apps/surveys/templates/surveys/settings.html:3
-msgid "Settings"
-msgstr "Ayarlar"
 
 #: apps/organizations/roles.py:6
 msgid "Owner"
@@ -4480,11 +5238,11 @@ msgstr "Məhsullar"
 
 #: apps/organizations/templates/organizations/dashboard.html:26
 msgid ""
-"QR Management, Surveys and Assets are available. Event Lead Capture is "
-"coming next and will appear in your menu when released."
+"QR Management, Surveys, Qrumy Card, Digital Menu, Event Lead Capture and "
+"Asset Management are available in your menu."
 msgstr ""
-"QR İdarəetmə, Sorğular və Aktivlər artıq mövcuddur. Növbəti Tədbirlərdə "
-"Müştəri Toplama gələcək və buraxılan kimi menyunuzda görünəcək."
+"QR idarəetmə, Sorğular, Qrumy Card, Rəqəmsal Menyu, Tədbirlərdə müştəri "
+"toplama və Aktivlərin idarə edilməsi menyunuzda mövcuddur."
 
 #: apps/organizations/templates/organizations/dashboard.html:35
 msgid "Get started"
@@ -5169,11 +5927,6 @@ msgstr "Gündəlik skanlar"
 msgid "Show as table"
 msgstr "Cədvəl kimi göstər"
 
-#: apps/qr_management/templates/qr_management/_chart.html:6
-#: apps/surveys/qtypes.py:130
-msgid "Date"
-msgstr "Tarix"
-
 #: apps/qr_management/templates/qr_management/_content_summary.html:5
 msgid "Network"
 msgstr "Şəbəkə"
@@ -5728,10 +6481,6 @@ msgstr "Qeyd"
 msgid "Phone number"
 msgstr "Telefon nömrəsi"
 
-#: apps/qr_management/types.py:105 apps/qr_management/types.py:112
-msgid "Message"
-msgstr "Mesaj"
-
 #: apps/qr_management/types.py:110
 msgid "Email address"
 msgstr "E-poçt ünvanı"
@@ -6138,6 +6887,10 @@ msgstr "Rəqəmsal kartlar"
 msgid "Digital menus"
 msgstr "Rəqəmsal menyular"
 
+#: apps/subscriptions/features.py:38
+msgid "Events"
+msgstr "Tədbirlər"
+
 #: apps/subscriptions/models.py:9
 msgid "key"
 msgstr "açar"
@@ -6349,10 +7102,6 @@ msgstr "Ən aşağı dəyərin adı"
 msgid "Label for the highest value"
 msgstr "Ən yüksək dəyərin adı"
 
-#: apps/surveys/forms.py:77
-msgid "Leave this field empty"
-msgstr "Bu sahəni boş saxlayın"
-
 #: apps/surveys/forms.py:89 apps/surveys/qtypes.py:145
 msgid "Your email"
 msgstr "E-poçtunuz"
@@ -6380,11 +7129,6 @@ msgstr "NPS tənqidçiləri (0–6)"
 #: apps/surveys/forms.py:116
 msgid "CSAT unsatisfied (1–2)"
 msgstr "CSAT narazı (1–2)"
-
-#: apps/surveys/models.py:23
-#: apps/surveys/templates/surveys/_status_badge.html:1
-msgid "Closed"
-msgstr "Bağlanıb"
 
 #: apps/surveys/models.py:26
 msgid "Don't ask (anonymous)"
@@ -6416,10 +7160,6 @@ msgstr ""
 msgid "thank-you title"
 msgstr "təşəkkür başlığı"
 
-#: apps/surveys/models.py:44
-msgid "thank-you message"
-msgstr "təşəkkür mesajı"
-
 #: apps/surveys/models.py:45
 msgid "redirect after submit"
 msgstr "göndərişdən sonra yönləndirmə"
@@ -6427,10 +7167,6 @@ msgstr "göndərişdən sonra yönləndirmə"
 #: apps/surveys/models.py:46
 msgid "ask for contact details"
 msgstr "əlaqə məlumatlarını soruş"
-
-#: apps/surveys/models.py:48
-msgid "consent text"
-msgstr "razılıq mətni"
 
 #: apps/surveys/models.py:49
 msgid "Shown next to the consent checkbox when contact details are collected."
@@ -6481,14 +7217,6 @@ msgstr "Birbaşa link"
 msgid "Website embed"
 msgstr "Sayta yerləşdirmə"
 
-#: apps/surveys/models.py:140
-msgid "source"
-msgstr "mənbə"
-
-#: apps/surveys/models.py:146
-msgid "consent given"
-msgstr "razılıq verilib"
-
 #: apps/surveys/models.py:161
 msgid "response"
 msgstr "cavab"
@@ -6496,10 +7224,6 @@ msgstr "cavab"
 #: apps/surveys/models.py:162 apps/surveys/templates/surveys/list.html:28
 msgid "responses"
 msgstr "cavablar"
-
-#: apps/surveys/models.py:200
-msgid "note"
-msgstr "qeyd"
 
 #: apps/surveys/public.py:77
 msgid "This form expired. Please reload the page and try again."
@@ -6859,10 +7583,6 @@ msgstr "Əlaqə məlumatlarınız"
 msgid "Submit"
 msgstr "Göndər"
 
-#: apps/surveys/templates/surveys/public/thanks.html:7
-msgid "Thank you!"
-msgstr "Təşəkkür edirik!"
-
 #: apps/surveys/templates/surveys/public/thanks.html:8
 msgid "Your feedback has been received. It helps us get better."
 msgstr "Rəyiniz qəbul edildi. Bu, bizə daha yaxşı olmağa kömək edir."
@@ -6893,10 +7613,6 @@ msgstr "Verilmiş razılıq:"
 msgid "Internal notes"
 msgstr "Daxili qeydlər"
 
-#: apps/surveys/templates/surveys/response_detail.html:32
-msgid "Deleted user"
-msgstr "Silinmiş istifadəçi"
-
 #: apps/surveys/templates/surveys/response_detail.html:37
 msgid "Add a note"
 msgstr "Qeyd əlavə et"
@@ -6904,14 +7620,6 @@ msgstr "Qeyd əlavə et"
 #: apps/surveys/templates/surveys/response_detail.html:38
 msgid "Add a note for your team (not visible to the customer)"
 msgstr "Komandanız üçün qeyd əlavə edin (müştəri görmür)"
-
-#: apps/surveys/templates/surveys/response_detail.html:39
-msgid "Add note"
-msgstr "Qeyd əlavə et"
-
-#: apps/surveys/templates/surveys/response_detail.html:41
-msgid "No notes."
-msgstr "Qeyd yoxdur."
 
 #: apps/surveys/templates/surveys/response_detail.html:52
 msgid "Mark resolved"
@@ -7158,10 +7866,6 @@ msgstr "Cavab həll edildi kimi qeyd olundu."
 msgid "Response reopened."
 msgstr "Cavab yenidən açıldı."
 
-#: apps/surveys/views/responses.py:128
-msgid "Note added."
-msgstr "Qeyd əlavə edildi."
-
 #: apps/surveys/views/responses.py:131
 msgid "Tags saved."
 msgstr "Etiketlər saxlanıldı."
@@ -7194,11 +7898,11 @@ msgstr "Sorğu və onun cavabları silindi."
 msgid "QR code created. You can change its design in QR Codes."
 msgstr "QR kod yaradıldı. Dizaynını QR kodlar bölməsində dəyişə bilərsiniz."
 
-#: config/settings/base.py:184
+#: config/settings/base.py:185
 msgid "English"
 msgstr "İngilis dili"
 
-#: config/settings/base.py:184
+#: config/settings/base.py:185
 msgid "Azerbaijani"
 msgstr "Azərbaycan dili"
 

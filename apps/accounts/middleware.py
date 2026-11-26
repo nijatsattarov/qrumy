@@ -2,7 +2,7 @@ from django.conf import settings
 from django.utils import translation
 
 APP_PATH_PREFIXES = ("/app/", "/accounts/", "/invitations/", "/notifications/",
-                     "/a/", "/q/", "/c/", "/m/")  # public pages follow the phone's language
+                     "/a/", "/q/", "/c/", "/m/", "/e/")  # public pages follow the phone's language
 
 
 class UserLanguageMiddleware:

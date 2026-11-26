@@ -160,4 +160,6 @@ def report(menu, days: int = 30) -> dict:
     peak = max(series, key=lambda s: s["views"]) if total_views else None
     return {"series": series, "views": total_views, "peak": peak,
             "top_items": top("item", MenuItem), "top_categories": top("category", MenuCategory),
-            "max_views": max([s["views"] for s in series] or [0])}
+            "max_views": max([s["views"] for s in series] or [0]),
+            "chart_values": [s["views"] for s in series],
+            "chart_labels": [s["day"].strftime("%d.%m") for s in series]}

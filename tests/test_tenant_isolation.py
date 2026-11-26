@@ -38,6 +38,11 @@ OBJECT_ROUTES_COVERED = {
     "menu_builder", "menu_settings", "menu_share", "menu_publish", "menu_delete",
     "menu_preview", "menu_category_create", "menu_category_update", "menu_category_move",
     "menu_category_delete", "menu_item_create", "menu_item_edit", "menu_item_action",
+    # Events
+    "event_detail", "event_edit", "event_delete", "event_point_create", "event_point_update",
+    "event_point_delete", "event_point_portal", "event_leads", "event_lead_create",
+    "event_leads_export", "event_lead", "event_lead_note", "event_lead_followup",
+    "event_followup_toggle", "event_lead_delete",
 }
 
 
@@ -498,3 +503,70 @@ def test_cannot_use_foreign_category_or_item_through_own_menu(client, two_orgs, 
         "availability": "available"})
     assert not MenuItem.objects.filter(name="Sneaky").exists()
     assert MenuCategory.objects.filter(pk=victim_menu["cat"].pk).exists()
+
+
+# ----------------------------------------------------------------------------- Events
+@pytest.fixture
+def victim_event(two_orgs):
+    from apps.events import services
+
+    victim, _, _ = two_orgs
+    event = services.create_event(organization=victim, actor=victim.owner,
+                                  data={"name": "Victim expo"})
+    point = services.add_point(event=event, actor=victim.owner, data={"name": "Secret stand"})
+    lead = services.add_lead(event=event, actor=victim.owner,
+                             data={"full_name": "Secret lead", "email": "s@example.com"})
+    followup = services.add_followup(lead=lead, actor=victim.owner, title="Secret task")
+    return {"event": event, "point": point, "lead": lead, "followup": followup}
+
+
+EVENT_ROUTES = [
+    ("event_detail", "get", "event", {}, {}), ("event_edit", "get", "event", {}, {}),
+    ("event_delete", "post", "event", {}, {"confirm": "Victim expo"}),
+    ("event_point_create", "post", "event", {}, {"name": "pwned"}),
+    ("event_point_update", "post", "event", {"point_id": "point"}, {"name": "pwned"}),
+    ("event_point_delete", "post", "event", {"point_id": "point"}, {}),
+    ("event_point_portal", "post", "event", {"point_id": "point"}, {}),
+    ("event_leads", "get", "event", {}, {}), ("event_lead_create", "get", "event", {}, {}),
+    ("event_leads_export", "get", "event", {}, {}),
+    ("event_lead", "post", "lead", {}, {"stage": "lost", "temperature": "cold"}),
+    ("event_lead_note", "post", "lead", {}, {"body": "pwned"}),
+    ("event_lead_followup", "post", "lead", {}, {"title": "pwned"}),
+    ("event_followup_toggle", "post", "lead", {"followup_id": "followup"}, {}),
+    ("event_lead_delete", "post", "lead", {}, {}),
+]
+
+
+@pytest.mark.parametrize("name,method,obj,extra,data", EVENT_ROUTES)
+def test_cannot_touch_foreign_events(client, two_orgs, victim_event, name, method, obj, extra,
+                                     data):
+    from apps.events.models import CapturePoint, Event, FollowUp, Lead
+
+    _, attacker_org, attacker = two_orgs
+    client.force_login(attacker)
+    kwargs = {"org_slug": attacker_org.slug, "pk": victim_event[obj].pk}
+    for k, v in extra.items():
+        kwargs[k] = victim_event[v].pk
+    resp = client.post(reverse(name, kwargs=kwargs), data) if method == "post" else \
+        client.get(reverse(name, kwargs=kwargs))
+    assert resp.status_code == 404
+    assert Event.objects.filter(pk=victim_event["event"].pk).exists()
+    point = CapturePoint.objects.get(pk=victim_event["point"].pk)
+    assert point.name == "Secret stand" and not point.portal_token_hash
+    lead = Lead.objects.get(pk=victim_event["lead"].pk)
+    assert lead.stage == "new" and not lead.notes.exists()
+    assert FollowUp.objects.get(pk=victim_event["followup"].pk).done_at is None
+
+
+def test_cannot_move_lead_to_foreign_point(client, two_orgs, victim_event):
+    from apps.events import services
+    from apps.events.models import Lead
+
+    _, attacker_org, attacker = two_orgs
+    own = services.create_event(organization=attacker_org, actor=attacker, data={"name": "Mine"})
+    client.force_login(attacker)
+    client.post(reverse("event_lead_create", kwargs={"org_slug": attacker_org.slug,
+                                                     "pk": own.pk}),
+                {"full_name": "Sneaky", "email": "x@example.com", "temperature": "warm",
+                 "point": victim_event["point"].pk, "consent": "on"})
+    assert not Lead.objects.filter(full_name="Sneaky", point=victim_event["point"]).exists()

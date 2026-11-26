@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load i18n qrumy %}
+{% block title_suffix %}{% endblock %}
+{% block seo %}<meta name="robots" content="noindex, nofollow">{% endblock %}
+{% block body_class %}min-h-full bg-canvas{% endblock %}
+{% block body %}
+<main class="mx-auto flex min-h-screen max-w-md flex-col px-4 py-8">
+  <header class="mb-6 text-center">
+    {% if point.organization.logo %}<img src="{{ point.organization.logo.url }}" alt="" class="mx-auto size-14 rounded-xl border border-line bg-white object-contain p-1">{% endif %}
+    <p class="mt-3 text-xs font-semibold uppercase tracking-wide text-accent-600">{{ event.name }}</p>
+    <p class="mt-1 text-lg font-semibold">{{ point.company_name|default:point.organization.name }}</p>
+    {% if point.company_name and point.name != point.company_name %}<p class="text-sm text-muted">{{ point.name }}</p>{% elif not point.company_name %}<p class="text-sm text-muted">{{ point.name }}</p>{% endif %}
+  </header>
+  <div class="flex-1">{% block page %}{% endblock %}</div>
+  <footer class="mt-10 text-center"><a href="{% url 'home' %}" class="inline-flex items-center gap-1.5 text-xs text-muted no-underline">{% translate "Powered by" %} {% include "components/logo.html" with size="h-3.5" wordmark=False %}<span class="font-semibold text-navy-900">Qrumy</span></a></footer>
+</main>
+{% endblock %}

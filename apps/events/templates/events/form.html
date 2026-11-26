@@ -1,0 +1,41 @@
+{% extends "layouts/app.html" %}
+{% load i18n qrumy %}
+{% block title %}{% if event %}{{ event.name }}{% else %}{% translate "New event" %}{% endif %}{% endblock %}
+{% block breadcrumb %}<a href="{% url 'event_list' org_slug=current_organization.slug %}" class="text-muted no-underline hover:text-ink">{% translate "Events & leads" %}</a> / {% if event %}{{ event.name }}{% else %}{% translate "New event" %}{% endif %}{% endblock %}
+{% block content %}
+<div class="mx-auto max-w-3xl space-y-6">
+  <h1 class="page-title">{% if event %}{% translate "Event settings" %}{% else %}{% translate "New event" %}{% endif %}</h1>
+  <form method="post" class="card">
+    {% csrf_token %}
+    <div class="card-header"><h2 class="section-title">{% translate "Event" %}</h2></div>
+    <div class="card-body space-y-4">
+      {% for e in form.non_field_errors %}<p class="form-error">{{ e }}</p>{% endfor %}
+      {{ form.name.as_field_group }}
+      <div class="grid gap-4 sm:grid-cols-3">{{ form.starts_on.as_field_group }}{{ form.ends_on.as_field_group }}{{ form.language.as_field_group }}</div>
+      {{ form.venue.as_field_group }}
+      {% if not event %}<div class="form-field"><label class="form-label" for="first-point">{% translate "Your stand or first collection point" %}</label><input id="first-point" name="first_point" placeholder="{% translate 'e.g. Stand A12' %}" maxlength="120"><p class="form-help">{% translate "Each collection point gets its own QR code. Add more later (other stands, exhibitors, sales people)." %}</p></div>{% endif %}
+    </div>
+    <div class="card-header border-t"><h2 class="section-title">{% translate "Lead form" %}</h2></div>
+    <div class="card-body space-y-4">
+      {{ form.welcome_text.as_field_group }}
+      <div class="grid gap-3 sm:grid-cols-3">{{ form.ask_phone.as_field_group }}{{ form.ask_company.as_field_group }}{{ form.ask_message.as_field_group }}</div>
+      {{ form.interests.as_field_group }}
+      {{ form.consent_text.as_field_group }}
+      <div class="grid gap-4 sm:grid-cols-2">{{ form.thank_you_text.as_field_group }}{{ form.thank_you_url.as_field_group }}</div>
+      {{ form.is_active.as_field_group }}
+    </div>
+    <div class="flex justify-end border-t border-line px-5 py-4"><button type="submit" class="btn btn-primary">{% if event %}{% translate "Save" %}{% else %}{% translate "Create event" %}{% endif %}</button></div>
+  </form>
+  {% if event %}
+  <section class="card border-danger/30">
+    <div class="card-header"><h2 class="section-title text-danger">{% translate "Delete event" %}</h2></div>
+    <form method="post" action="{% url 'event_delete' org_slug=current_organization.slug pk=event.pk %}" class="card-body space-y-3">
+      {% csrf_token %}
+      <p class="text-sm text-muted">{% translate "This permanently deletes the event with all its leads, notes and tasks. Its QR codes are paused. Export the leads first if you need them." %}</p>
+      <div class="form-field"><label class="form-label" for="confirm-delete">{% blocktranslate with n=event.name %}Type “{{ n }}” to confirm{% endblocktranslate %}</label><input id="confirm-delete" name="confirm" autocomplete="off"></div>
+      <button type="submit" class="btn btn-danger">{% icon 'trash' 'size-4' %}{% translate "Delete event" %}</button>
+    </form>
+  </section>
+  {% endif %}
+</div>
+{% endblock %}

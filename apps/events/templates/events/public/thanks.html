@@ -1,0 +1,11 @@
+{% extends "events/public/_base.html" %}
+{% load i18n qrumy %}
+{% block title %}{% translate "Thank you" %}{% endblock %}
+{% block page %}
+<div class="card p-6 text-center">
+  <span class="mx-auto inline-flex size-12 items-center justify-center rounded-full bg-success-soft text-success">{% icon 'check' 'size-6' %}</span>
+  <h1 class="mt-4 text-xl font-semibold">{% translate "Thank you!" %}</h1>
+  <p class="mt-2 text-sm text-muted">{% if event.thank_you_text %}{{ event.thank_you_text }}{% else %}{% translate "We received your details and will contact you soon." %}{% endif %}</p>
+  {% if event.thank_you_url %}<a href="{{ event.thank_you_url }}" class="btn btn-primary mt-6" rel="noopener">{% translate "Continue" %}{% icon 'arrow-right' 'size-4' %}</a>{% endif %}
+</div>
+{% endblock %}

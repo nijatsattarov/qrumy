@@ -1,0 +1,66 @@
+{% extends "layouts/app.html" %}
+{% load i18n qrumy %}
+{% block title %}{{ lead.full_name }}{% endblock %}
+{% block breadcrumb %}<a href="{% url 'event_leads' org_slug=current_organization.slug pk=event.pk %}" class="text-muted no-underline hover:text-ink">{{ event.name }}</a> / {{ lead.full_name }}{% endblock %}
+{% block content %}
+<div class="grid items-start gap-6 lg:grid-cols-[1fr_340px]">
+  <div class="space-y-6">
+    <section class="card p-5">
+      <div class="flex items-start justify-between gap-3">
+        <div>
+          <h1 class="page-title">{{ lead.full_name }}</h1>
+          <p class="page-subtitle">{{ lead.job_title }}{% if lead.job_title and lead.company %} · {% endif %}{{ lead.company }}</p>
+        </div>
+        <span class="badge {% if lead.temperature == 'hot' %}badge-danger{% elif lead.temperature == 'warm' %}badge-warning{% else %}badge-accent{% endif %}">{{ lead.get_temperature_display }}</span>
+      </div>
+      <dl class="mt-5 grid gap-4 text-sm sm:grid-cols-2">
+        {% if lead.email %}<div><dt class="text-xs text-muted">{% translate "Email" %}</dt><dd><a href="mailto:{{ lead.email }}">{{ lead.email }}</a></dd></div>{% endif %}
+        {% if lead.phone %}<div><dt class="text-xs text-muted">{% translate "Phone" %}</dt><dd><a href="tel:{{ lead.phone }}">{{ lead.phone }}</a>{% if lead.phone|length > 6 %} · <a href="https://wa.me/{{ lead.phone|cut:'+' }}" rel="noopener">WhatsApp</a>{% endif %}</dd></div>{% endif %}
+        <div><dt class="text-xs text-muted">{% translate "Collection point" %}</dt><dd>{{ lead.point.name|default:"—" }}</dd></div>
+        <div><dt class="text-xs text-muted">{% translate "Received" %}</dt><dd>{{ lead.created_at|date:"j M Y, H:i" }} · {{ lead.get_source_display }}</dd></div>
+        {% if lead.interests %}<div class="sm:col-span-2"><dt class="text-xs text-muted">{% translate "Interests" %}</dt><dd class="mt-1 flex flex-wrap gap-1.5">{% for i in lead.interests %}<span class="chip">{{ i }}</span>{% endfor %}</dd></div>{% endif %}
+        {% if lead.message %}<div class="sm:col-span-2"><dt class="text-xs text-muted">{% translate "Message" %}</dt><dd class="mt-1 whitespace-pre-line">{{ lead.message }}</dd></div>{% endif %}
+        <div class="sm:col-span-2"><dt class="text-xs text-muted">{% translate "Consent" %}</dt><dd class="text-muted">{% if lead.consent %}✓ {{ lead.consent_text|default:_("Agreed to be contacted") }}{% else %}—{% endif %}</dd></div>
+      </dl>
+    </section>
+
+    <section class="card">
+      <div class="card-header"><h2 class="section-title">{% translate "Follow-up tasks" %}</h2></div>
+      <ul class="divide-y divide-line">
+        {% for f in followups %}
+        <li class="flex items-center gap-3 px-5 py-3">
+          <form method="post" action="{% url 'event_followup_toggle' org_slug=current_organization.slug pk=lead.pk followup_id=f.pk %}">{% csrf_token %}<button class="inline-flex size-5 items-center justify-center rounded border {% if f.done_at %}border-success bg-success text-white{% else %}border-line-strong{% endif %}" aria-label="{% translate 'Mark done' %}">{% if f.done_at %}{% icon 'check' 'size-3.5' %}{% endif %}</button></form>
+          <span class="flex-1 text-sm {% if f.done_at %}text-muted line-through{% endif %}">{{ f.title }}</span>
+          {% if f.due_on %}<span class="text-xs {% if not f.done_at and f.due_on < today %}text-danger{% else %}text-muted{% endif %}">{{ f.due_on|date:"j M" }}</span>{% endif %}
+        </li>
+        {% empty %}<li class="px-5 py-3 text-sm text-muted">{% translate "No tasks yet." %}</li>{% endfor %}
+      </ul>
+      <form method="post" action="{% url 'event_lead_followup' org_slug=current_organization.slug pk=lead.pk %}" class="grid gap-2 border-t border-line p-4 sm:grid-cols-[1fr_160px_auto] sm:items-end">
+        {% csrf_token %}{{ followup_form.title.as_field_group }}{{ followup_form.due_on.as_field_group }}<button class="btn btn-secondary">{% translate "Add task" %}</button>
+      </form>
+    </section>
+
+    <section class="card">
+      <div class="card-header"><h2 class="section-title">{% translate "Notes" %}</h2></div>
+      <ul class="divide-y divide-line">
+        {% for n in notes %}<li class="px-5 py-3"><p class="text-sm whitespace-pre-line">{{ n.body }}</p><p class="mt-1 text-xs text-muted">{{ n.author.display_name|default:_("Deleted user") }} · {{ n.created_at|date:"j M, H:i" }}</p></li>
+        {% empty %}<li class="px-5 py-3 text-sm text-muted">{% translate "No notes." %}</li>{% endfor %}
+      </ul>
+      <form method="post" action="{% url 'event_lead_note' org_slug=current_organization.slug pk=lead.pk %}" class="border-t border-line p-4">
+        {% csrf_token %}<textarea name="body" rows="2" class="input w-full" placeholder="{% translate 'What did you talk about? Next steps?' %}" required></textarea>
+        <button class="btn btn-secondary mt-2">{% translate "Add note" %}</button>
+      </form>
+    </section>
+  </div>
+
+  <aside class="space-y-4 lg:sticky lg:top-20">
+    <form method="post" class="card p-5 space-y-4">
+      {% csrf_token %}
+      <h2 class="section-title">{% translate "Qualification" %}</h2>
+      {{ form.temperature.as_field_group }}{{ form.stage.as_field_group }}{{ form.assigned_to.as_field_group }}
+      <button type="submit" class="btn btn-primary w-full">{% translate "Save" %}</button>
+    </form>
+    <form method="post" action="{% url 'event_lead_delete' org_slug=current_organization.slug pk=lead.pk %}" data-confirm="{% translate 'Delete this lead permanently?' %}">{% csrf_token %}<button class="btn btn-ghost btn-sm w-full text-danger">{% icon 'trash' 'size-4' %}{% translate "Delete lead" %}</button></form>
+  </aside>
+</div>
+{% endblock %}

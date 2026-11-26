@@ -1,5 +1,5 @@
 from django import template
-from django.utils.html import format_html
+from django.utils.html import escape, format_html
 from django.utils.safestring import mark_safe
 
 register = template.Library()
@@ -78,3 +78,25 @@ def icon(name: str, css: str = "size-5") -> str:
 def initials(value: str) -> str:
     parts = [p for p in (value or "").replace("@", " ").split() if p]
     return "".join(p[0] for p in parts[:2]).upper() or "?"
+
+
+@register.simple_tag
+def bar_chart(values, labels=None, height=96, color="#4F7CFF"):
+    """Small CSP-safe SVG bar chart: sizes and colours are SVG attributes, not styles."""
+    values = [int(v or 0) for v in values]
+    labels = list(labels or [])
+    if not values:
+        return ""
+    peak = max(values) or 1
+    n, gap, width = len(values), 2, 10
+    total = n * (width + gap)
+    bars = []
+    for i, v in enumerate(values):
+        h = max(round(v / peak * (height - 4)), 2 if v else 1)
+        title = escape(f"{labels[i]}: {v}" if i < len(labels) else str(v))
+        fill = color if v else "#E3E8F0"
+        bars.append(f'<rect x="{i * (width + gap)}" y="{height - h}" width="{width}" '
+                    f'height="{h}" rx="2" fill="{fill}"><title>{title}</title></rect>')
+    return mark_safe(  # noqa: S308 — numbers and escaped titles only
+        f'<svg viewBox="0 0 {total} {height}" preserveAspectRatio="none" class="h-24 w-full" '
+        f'role="img" aria-hidden="true">{"".join(bars)}</svg>')

@@ -159,4 +159,8 @@ Legend: `[ ]` not started · `[~]` in progress · `[x]` done and tested
       info (hours, address, Wi-Fi); publish → QR (PNG/SVG); public page with category tabs,
       search and item sheet; views, top items and categories; plan limit `menus.max`;
       replaces the old PDF menu in the QR type picker (old codes keep working)
-- [ ] Event Lead Capture
+- [x] Event Lead Capture (Events A): events, collection points (stands / exhibitors / staff)
+      with their own QR codes, public mobile lead form (consent, honeypot, signed token, rate
+      limit), staff quick-add, hot/warm/cold, stages, assignee, notes, follow-up tasks, CSV,
+      stats, in-app + email notifications, private read-only exhibitor link (hashed, revocable)
+- [ ] Events B: registration, tickets, check-in; exhibitor accounts in their own organization

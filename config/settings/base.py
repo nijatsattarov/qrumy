@@ -32,6 +32,7 @@ QRUMY_APPS = [
     "apps.assets",
     "apps.cards",
     "apps.menus",
+    "apps.events",
     "apps.marketing",
 ]
 
@@ -290,7 +291,7 @@ QRUMY_DEFAULT_PLAN = env("QRUMY_DEFAULT_PLAN", default="beta")
 QRUMY_INVITATION_TTL_DAYS = 7
 # Product modules that are implemented and can be shown in navigation / marketing.
 # A module is listed here only once it actually works (see docs/CHECKLIST.md).
-QRUMY_AVAILABLE_MODULES: list[str] = ["qr", "surveys", "assets", "cards", "menus"]
+QRUMY_AVAILABLE_MODULES: list[str] = ["qr", "surveys", "assets", "cards", "menus", "events"]
 
 # --- QR Management / analytics ---
 # Base of dynamic QR links. Changing it later only affects codes created afterwards.

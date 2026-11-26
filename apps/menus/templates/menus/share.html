@@ -54,7 +54,7 @@
         </div>
         <div>
           <p class="text-xs font-medium uppercase tracking-wide text-muted">{% translate "Views per day" %}</p>
-          <div class="mt-2 flex h-24 items-end gap-1" aria-hidden="true">{% for d in report.series %}<progress class="bar-v" max="{{ report.max_views|default:1 }}" value="{{ d.views }}" title="{{ d.day|date:'j M' }}: {{ d.views }}"></progress>{% endfor %}</div>
+          <div class="mt-2">{% bar_chart report.chart_values report.chart_labels %}</div>
         </div>
         <div class="grid gap-6 sm:grid-cols-2">
           <div>

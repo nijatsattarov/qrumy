@@ -1,0 +1,71 @@
+{% extends "layouts/app.html" %}
+{% load i18n qrumy %}
+{% block title %}{{ event.name }}{% endblock %}
+{% block breadcrumb %}<a href="{% url 'event_list' org_slug=current_organization.slug %}" class="text-muted no-underline hover:text-ink">{% translate "Events & leads" %}</a> / {{ event.name }}{% endblock %}
+{% block content %}
+{% include "events/_header.html" with tab="overview" %}
+
+<div class="mt-6 grid grid-cols-2 gap-3 lg:grid-cols-5">
+  <div class="card p-4"><p class="text-xs text-muted">{% translate "Leads" %}</p><p class="mt-1 text-2xl font-semibold">{{ stats.total }}</p></div>
+  <div class="card p-4"><p class="text-xs text-muted">{% translate "Hot" %}</p><p class="mt-1 text-2xl font-semibold text-danger">{{ stats.hot }}</p></div>
+  <div class="card p-4"><p class="text-xs text-muted">{% translate "Warm" %}</p><p class="mt-1 text-2xl font-semibold text-[#B45309]">{{ stats.warm }}</p></div>
+  <div class="card p-4"><p class="text-xs text-muted">{% translate "Cold" %}</p><p class="mt-1 text-2xl font-semibold text-accent-600">{{ stats.cold }}</p></div>
+  <div class="card col-span-2 p-4 lg:col-span-1"><p class="text-xs text-muted">{% translate "Open follow-ups" %}</p><p class="mt-1 text-2xl font-semibold">{{ stats.open_followups }}</p></div>
+</div>
+
+{% if stats.total %}
+<section class="card mt-6 p-5">
+  <p class="text-xs font-medium uppercase tracking-wide text-muted">{% translate "Leads per day" %}</p>
+  <div class="mt-3">{% bar_chart stats.chart_values stats.chart_labels %}</div>
+</section>
+{% endif %}
+
+<section class="card mt-6">
+  <div class="card-header"><h2 class="section-title">{% translate "Collection points" %}</h2><span class="text-xs text-muted">{% translate "Each has its own QR code and lead form" %}</span></div>
+  {% if new_portal %}
+  <div class="border-b border-line bg-success-soft px-5 py-4 text-sm">
+    <p class="font-medium text-[#166534]">{% translate "Private lead link created. Copy it now — for security it is shown only once." %}</p>
+    <div class="mt-2 flex items-center gap-2 rounded-lg border border-line bg-surface px-3 py-2" x-data="copy" data-copy="{{ new_portal.url }}">
+      <code class="min-w-0 flex-1 truncate font-mono text-[13px]">{{ new_portal.url }}</code>
+      <button type="button" @click="copy" class="btn btn-ghost btn-sm"><span x-show="notCopied" class="inline-flex items-center gap-1.5">{% icon 'copy' 'size-4' %}{% translate "Copy" %}</span><span x-show="copied" x-cloak class="inline-flex items-center gap-1.5 text-success">{% icon 'check' 'size-4' %}{% translate "Copied" %}</span></button>
+    </div>
+  </div>
+  {% endif %}
+  <ul class="divide-y divide-line">
+    {% for p in points %}
+    <li class="grid gap-4 px-5 py-4 lg:grid-cols-[1fr_auto]">
+      <div class="flex items-start gap-4">
+        {% if p.qr_code %}<img src="{% url 'qr_download' org_slug=current_organization.slug pk=p.qr_code.pk fmt='svg' %}" alt="" class="size-20 shrink-0 rounded-lg border border-line bg-white p-1">{% endif %}
+        <div class="min-w-0">
+          <p class="font-semibold">{{ p.name }}{% if p.company_name %} <span class="font-normal text-muted">· {{ p.company_name }}</span>{% endif %}</p>
+          <p class="text-sm text-muted">{% blocktranslate count n=p.n %}{{ n }} lead{% plural %}{{ n }} leads{% endblocktranslate %}{% if p.contact_email %} · {% translate "emails to" %} {{ p.contact_email }}{% endif %}</p>
+          <div class="mt-2 flex flex-wrap gap-2">
+            {% if p.qr_code %}
+            <a href="{% url 'qr_download' org_slug=current_organization.slug pk=p.qr_code.pk fmt='png' %}" class="btn btn-secondary btn-sm">{% icon 'download' 'size-4' %}PNG</a>
+            <a href="{% url 'qr_download' org_slug=current_organization.slug pk=p.qr_code.pk fmt='svg' %}" class="btn btn-ghost btn-sm">SVG</a>
+            {% endif %}
+            <a href="{{ p.public_path }}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">{% icon 'external' 'size-4' %}{% translate "Open form" %}</a>
+            <a href="{% url 'event_leads' org_slug=current_organization.slug pk=event.pk %}?point={{ p.pk }}" class="btn btn-ghost btn-sm">{% translate "Leads" %}</a>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-wrap items-start gap-2 lg:justify-end">
+        <form method="post" action="{% url 'event_point_portal' org_slug=current_organization.slug pk=event.pk point_id=p.pk %}">{% csrf_token %}<button class="btn btn-secondary btn-sm" title="{% translate 'For an exhibitor without a Qrumy account' %}">{% icon 'share' 'size-4' %}{% if p.portal_token_hash %}{% translate "New exhibitor link" %}{% else %}{% translate "Exhibitor link" %}{% endif %}</button></form>
+        {% if p.portal_token_hash %}<form method="post" action="{% url 'event_point_portal' org_slug=current_organization.slug pk=event.pk point_id=p.pk %}">{% csrf_token %}<input type="hidden" name="revoke" value="1"><button class="btn btn-ghost btn-sm">{% translate "Turn off link" %}</button></form>{% endif %}
+        <form method="post" action="{% url 'event_point_delete' org_slug=current_organization.slug pk=event.pk point_id=p.pk %}" data-confirm="{% translate 'Delete this collection point? Its leads are kept.' %}">{% csrf_token %}<button class="btn btn-ghost btn-sm" aria-label="{% translate 'Delete' %}">{% icon 'trash' 'size-4' %}</button></form>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+  <form method="post" action="{% url 'event_point_create' org_slug=current_organization.slug pk=event.pk %}" class="grid gap-3 border-t border-line p-5 sm:grid-cols-[1fr_1fr_1fr_auto] sm:items-end">
+    {% csrf_token %}
+    {{ point_form.name.as_field_group }}{{ point_form.company_name.as_field_group }}{{ point_form.contact_email.as_field_group }}
+    <button type="submit" class="btn btn-primary">{% icon 'plus' 'size-4' %}{% translate "Add point" %}</button>
+  </form>
+</section>
+
+<section class="card mt-6">
+  <div class="card-header"><h2 class="section-title">{% translate "Latest leads" %}</h2><a href="{% url 'event_leads' org_slug=current_organization.slug pk=event.pk %}" class="text-sm no-underline">{% translate "View all" %}</a></div>
+  {% include "events/_lead_rows.html" with leads=recent %}
+</section>
+{% endblock %}

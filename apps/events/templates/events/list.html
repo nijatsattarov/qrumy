@@ -1,0 +1,38 @@
+{% extends "layouts/app.html" %}
+{% load i18n qrumy %}
+{% block title %}{% translate "Events & leads" %}{% endblock %}
+{% block breadcrumb %}{% translate "Events & leads" %}{% endblock %}
+{% block content %}
+<div class="flex flex-wrap items-center justify-between gap-4">
+  <div>
+    <h1 class="page-title">{% translate "Events & leads" %}</h1>
+    <p class="page-subtitle">{% translate "Collect visitor contacts at fairs, conferences and stands with a QR code — and follow up after the event." %}</p>
+  </div>
+  <a href="{% url 'event_create' org_slug=current_organization.slug %}" class="btn btn-primary">{% icon 'plus' 'size-4' %}{% translate "New event" %}</a>
+</div>
+{% if events %}
+<div class="card mt-6 overflow-x-auto">
+  <table class="table">
+    <thead><tr><th>{% translate "Event" %}</th><th>{% translate "Dates" %}</th><th>{% translate "Collection points" %}</th><th>{% translate "Leads" %}</th><th></th></tr></thead>
+    <tbody>
+      {% for e in events %}
+      <tr>
+        <td><a href="{% url 'event_detail' org_slug=current_organization.slug pk=e.pk %}" class="font-medium text-ink no-underline hover:underline">{{ e.name }}</a>{% if e.venue %}<p class="text-xs text-muted">{{ e.venue }}</p>{% endif %}</td>
+        <td class="whitespace-nowrap text-sm text-muted">{% if e.starts_on %}{{ e.starts_on|date:"j M Y" }}{% if e.ends_on and e.ends_on != e.starts_on %} – {{ e.ends_on|date:"j M" }}{% endif %}{% else %}—{% endif %}</td>
+        <td class="text-sm">{{ e.n_points }}</td>
+        <td class="text-sm font-semibold">{{ e.n_leads }}</td>
+        <td class="text-right">{% if e.is_active %}<span class="badge badge-success">{% translate "Collecting" %}</span>{% else %}<span class="badge badge-neutral">{% translate "Closed" %}</span>{% endif %}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<div class="card mt-6 flex flex-col items-center px-6 py-14 text-center">
+  <span class="inline-flex size-12 items-center justify-center rounded-xl bg-navy-900 text-white">{% icon 'calendar' 'size-6' %}</span>
+  <h2 class="mt-4 text-lg font-semibold">{% translate "Collect leads at your next event" %}</h2>
+  <p class="mt-2 max-w-md text-sm text-muted">{% translate "Put a QR code on your stand. Visitors leave their contacts in seconds, your team sees every lead, qualifies it and follows up." %}</p>
+  <a href="{% url 'event_create' org_slug=current_organization.slug %}" class="btn btn-primary mt-6">{% icon 'plus' 'size-4' %}{% translate "New event" %}</a>
+</div>
+{% endif %}
+{% endblock %}

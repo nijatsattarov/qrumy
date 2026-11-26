@@ -1,0 +1,14 @@
+{% load i18n %}<!DOCTYPE html>
+<html><body style="margin:0;background:#F7F9FC;font-family:Inter,Segoe UI,Arial,sans-serif;color:#172033">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="padding:32px 16px"><tr><td align="center">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;background:#fff;border:1px solid #E3E8F0;border-radius:12px">
+<tr><td style="padding:28px 32px 0"><span style="font-size:22px;font-weight:700;color:#101B3A">Qrumy</span></td></tr>
+<tr><td style="padding:20px 32px 28px">
+<p style="margin:0 0 6px;font-size:13px;font-weight:600;color:#4F7CFF">{{ event.name }} · {{ point.name }}</p>
+<h1 style="margin:0 0 12px;font-size:20px">{{ lead.full_name }}</h1>
+<p style="margin:0 0 4px;font-size:14px;color:#687386">{% if lead.company %}{{ lead.company }}{% endif %}{% if lead.job_title %} · {{ lead.job_title }}{% endif %}</p>
+{% if lead.email %}<p style="margin:10px 0 0;font-size:15px"><a href="mailto:{{ lead.email }}" style="color:#101B3A">{{ lead.email }}</a></p>{% endif %}
+{% if lead.phone %}<p style="margin:4px 0 0;font-size:15px"><a href="tel:{{ lead.phone }}" style="color:#101B3A">{{ lead.phone }}</a></p>{% endif %}
+{% if lead.interests %}<p style="margin:14px 0 0;font-size:14px"><strong>{% translate "Interested in" %}:</strong> {{ lead.interests|join:", " }}</p>{% endif %}
+{% if lead.message %}<p style="margin:12px 0 0;font-size:15px;line-height:1.6">{{ lead.message|linebreaksbr }}</p>{% endif %}
+</td></tr></table></td></tr></table></body></html>

@@ -1,0 +1,15 @@
+{% load i18n qrumy %}
+<div class="flex flex-wrap items-center justify-between gap-3">
+  <div>
+    <h1 class="page-title">{{ event.name }}</h1>
+    <p class="page-subtitle">{% if event.starts_on %}{{ event.starts_on|date:"j M Y" }}{% if event.ends_on and event.ends_on != event.starts_on %} – {{ event.ends_on|date:"j M Y" }}{% endif %}{% endif %}{% if event.venue %} · {{ event.venue }}{% endif %}{% if not event.is_active %} · <span class="text-danger">{% translate "Form closed" %}</span>{% endif %}</p>
+  </div>
+  <div class="flex gap-2">
+    <a href="{% url 'event_lead_create' org_slug=current_organization.slug pk=event.pk %}" class="btn btn-primary btn-sm">{% icon 'plus' 'size-4' %}{% translate "Add lead" %}</a>
+    <a href="{% url 'event_edit' org_slug=current_organization.slug pk=event.pk %}" class="btn btn-secondary btn-sm">{% icon 'settings' 'size-4' %}{% translate "Settings" %}</a>
+  </div>
+</div>
+<nav class="mt-4 flex gap-1 border-b border-line text-sm font-medium">
+  <a href="{% url 'event_detail' org_slug=current_organization.slug pk=event.pk %}" class="tab-link{% if tab == 'overview' %} is-active{% endif %}">{% icon 'chart' 'size-4' %}{% translate "Overview" %}</a>
+  <a href="{% url 'event_leads' org_slug=current_organization.slug pk=event.pk %}" class="tab-link{% if tab == 'leads' %} is-active{% endif %}">{% icon 'users' 'size-4' %}{% translate "Leads" %}</a>
+</nav>

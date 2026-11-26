@@ -35,4 +35,5 @@ FEATURES = {f.key: f for f in [
     Feature("assets.max", "limit", _("Assets")),
     Feature("cards.max", "limit", _("Digital cards")),
     Feature("menus.max", "limit", _("Digital menus")),
+    Feature("events.max", "limit", _("Events")),
 ]}
