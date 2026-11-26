@@ -1,0 +1,1 @@
+{% load l10n %}{% if item.has_discount %}<span class="menu-price">{{ item.discount_price|floatformat:"-2" }} {{ menu.symbol }}</span> <s class="text-xs text-muted">{{ item.price|floatformat:"-2" }} {{ menu.symbol }}</s>{% else %}<span class="menu-price">{{ item.price|floatformat:"-2" }} {{ menu.symbol }}</span>{% endif %}

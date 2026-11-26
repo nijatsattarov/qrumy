@@ -10,6 +10,7 @@ from apps.assets import urls as asset_urls
 from apps.cards import urls as card_urls
 from apps.core import views as core_views
 from apps.marketing.sitemaps import BlogSitemap, StaticViewSitemap
+from apps.menus import urls as menu_urls
 from apps.qr_management import urls as qr_urls
 from apps.surveys import urls as survey_urls
 
@@ -30,6 +31,8 @@ urlpatterns = [
     path("a/", include(asset_urls.public_urlpatterns)),
     path("app/<slug:org_slug>/", include(card_urls.app_urlpatterns)),
     path("c/", include(card_urls.public_urlpatterns)),
+    path("app/<slug:org_slug>/", include(menu_urls.app_urlpatterns)),
+    path("m/", include(menu_urls.public_urlpatterns)),
     path("app/", include("apps.organizations.urls")),
     path("invitations/", include("apps.organizations.invitation_urls")),
     path("notifications/", include("apps.notifications.urls")),

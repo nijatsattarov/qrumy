@@ -203,3 +203,72 @@ document.addEventListener("change", (event) => {
   if (el.matches("[data-preset-color]") && custom) custom.value = el.value;
   if (el.matches("[data-custom-color]")) form.querySelectorAll("[data-preset-color]").forEach((r) => { r.checked = r.value.toLowerCase() === el.value.toLowerCase(); });
 });
+
+// Digital Menu page: item sheet, search, active category tab, anonymous stats beacon.
+(function () {
+  const root = document.querySelector("[data-menu]");
+  if (!root) return;
+  const endpoint = root.dataset.menu;
+  const preview = root.hasAttribute("data-menu-preview");
+  const sent = new Set();
+  function beacon(t, id) {
+    const key = t + id;
+    if (preview || sent.has(key)) return;
+    sent.add(key);
+    const body = JSON.stringify({ t, id: Number(id) });
+    if (navigator.sendBeacon) navigator.sendBeacon(endpoint, new Blob([body], { type: "application/json" }));
+    else fetch(endpoint, { method: "POST", body, headers: { "Content-Type": "application/json" }, keepalive: true });
+  }
+  root.addEventListener("click", (event) => {
+    const open = event.target.closest("[data-item-open]");
+    if (open) {
+      const dialog = document.getElementById("item-" + open.dataset.itemOpen);
+      if (dialog && dialog.showModal) dialog.showModal();
+      beacon("item", open.dataset.itemOpen);
+      return;
+    }
+    const tab = event.target.closest("[data-menu-tab]");
+    if (tab) beacon("category", tab.dataset.menuTab);
+    if (event.target.matches("dialog.menu-sheet")) event.target.close(); // tap outside
+  });
+  const search = root.querySelector("[data-menu-search]");
+  if (search) search.addEventListener("input", () => {
+    const q = search.value.trim().toLowerCase();
+    let any = false;
+    root.querySelectorAll("[data-menu-section]").forEach((section) => {
+      let visible = 0;
+      section.querySelectorAll("[data-menu-item]").forEach((li) => {
+        const hit = !q || li.dataset.search.includes(q);
+        li.hidden = !hit;
+        if (hit) visible += 1;
+      });
+      section.hidden = visible === 0;
+      if (visible) any = true;
+    });
+    const empty = root.querySelector("[data-menu-empty]");
+    if (empty) empty.classList.toggle("hidden", any);
+  });
+  const tabs = [...root.querySelectorAll("[data-menu-tab]")];
+  if ("IntersectionObserver" in window && tabs.length) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const id = entry.target.dataset.menuSection;
+        tabs.forEach((t) => t.classList.toggle("is-active", t.dataset.menuTab === id));
+        const active = tabs.find((t) => t.dataset.menuTab === id);
+        if (active) active.scrollIntoView({ block: "nearest", inline: "center" });
+      });
+    }, { rootMargin: "-40% 0px -55% 0px" });
+    root.querySelectorAll("[data-menu-section]").forEach((s) => observer.observe(s));
+  }
+})();
+
+// Generic "add row" for hidden form rows: [data-reveal-group] > [data-reveal-row][hidden] + [data-reveal-add].
+document.addEventListener("click", (event) => {
+  const add = event.target.closest && event.target.closest("[data-reveal-add]");
+  if (!add) return;
+  const group = add.closest("[data-reveal-group]");
+  const next = group && group.querySelector("[data-reveal-row][hidden]");
+  if (next) { next.hidden = false; const input = next.querySelector("input"); if (input) input.focus(); }
+  if (group && !group.querySelector("[data-reveal-row][hidden]")) add.hidden = true;
+});

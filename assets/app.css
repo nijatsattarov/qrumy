@@ -149,6 +149,22 @@
   .link-btn { @apply transition-colors; } .link-btn:hover { border-color: var(--acc); }
   /* Qrumy Card public page — colours come from /c/<token>/theme.css */
   .qcard-page { @apply bg-canvas; }
+  /* Digital Menu public page — colours from /m/<token>/theme.css */
+  .menu-cover { background: linear-gradient(135deg, var(--menu-accent, #101B3A), var(--menu-accent-soft, #EEF2FF)); }
+  .menu-accent-soft { background: var(--menu-accent-soft, #EEF2FF); color: var(--menu-accent, #101B3A); }
+  .menu-tab { @apply shrink-0 rounded-full border border-line px-3.5 py-1.5 text-sm font-medium text-muted no-underline; }
+  .menu-tab.is-active { background: var(--menu-accent, #101B3A); color: var(--menu-on-accent, #fff); border-color: transparent; }
+  .menu-item { @apply flex w-full cursor-pointer items-start gap-3 py-4 text-ink; }
+  .menu-item.is-grid { @apply block py-0; }
+  .menu-item.is-sold-out { @apply opacity-55; }
+  .menu-price { @apply font-semibold; color: var(--menu-accent, #101B3A); }
+  .menu-discount { @apply absolute left-1.5 top-1.5 rounded-md bg-danger px-1.5 py-0.5 text-[11px] font-semibold text-white; }
+  .menu-tag { @apply rounded-md px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide; background: var(--menu-accent-soft, #EEF2FF); color: var(--menu-accent, #101B3A); }
+  .menu-tag-spicy { @apply bg-danger-soft text-danger; } .menu-tag-vegan, .menu-tag-vegetarian { @apply bg-success-soft text-success; }
+  .menu-sheet { @apply m-0 mt-auto max-h-[88vh] w-full max-w-2xl overflow-y-auto rounded-t-3xl border-0 bg-surface p-0 text-ink sm:m-auto sm:rounded-3xl; }
+  .menu-sheet::backdrop { background: rgb(10 17 38 / 0.55); }
+  .tab-link { @apply -mb-px inline-flex items-center gap-1.5 border-b-2 border-transparent px-3 py-2.5 text-muted no-underline hover:text-ink; }
+  .tab-link.is-active { @apply border-navy-900 text-ink; }
   /* Card editor */
   .step-pill { @apply inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1.5 text-sm font-medium text-muted no-underline hover:text-ink; }
   .step-pill .step-num { @apply inline-flex size-5 items-center justify-center rounded-full bg-canvas text-[11px] font-semibold; }

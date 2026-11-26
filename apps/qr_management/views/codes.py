@@ -89,7 +89,10 @@ def qr_list(request, org_slug):
 @require_module("qr")
 @require_capability("content.create")
 def qr_choose_type(request, org_slug):
-    return render(request, "qr_management/choose_type.html", {"types": listed_types()})
+    from apps.core.qr_products import tiles_for
+
+    return render(request, "qr_management/choose_type.html",
+                  {"types": listed_types(), "products": tiles_for(request)})
 
 
 def _forms(request, type_def, qr=None):

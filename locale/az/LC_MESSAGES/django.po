@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Qrumy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-26 06:11+0000\n"
+"POT-Creation-Date: 2026-11-26 06:21+0000\n"
 "PO-Revision-Date: 2026-11-25 00:00+0000\n"
 "Last-Translator: Qrumy team\n"
 "Language-Team: Azerbaijani\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: apps/accounts/admin.py:39 apps/accounts/templates/accounts/profile.html:3
 #: apps/accounts/templates/accounts/profile.html:5
-#: apps/cards/views/manage.py:26 templates/components/user_menu.html:12
+#: apps/cards/views/manage.py:25 templates/components/user_menu.html:12
 #: templates/layouts/account.html:16
 msgid "Profile"
 msgstr "Profil"
@@ -303,7 +303,9 @@ msgstr "Bu ID artıq başqa aktivdə istifadə olunur."
 
 #: apps/assets/forms.py:91 apps/assets/templates/assets/setup.html:23
 #: apps/cards/models.py:119 apps/core/admin_dashboard.py:140
-#: apps/qr_management/forms.py:14 apps/qr_management/forms.py:121
+#: apps/menus/templates/menus/_option_rows.html:5
+#: apps/menus/templates/menus/builder.html:21 apps/qr_management/forms.py:14
+#: apps/qr_management/forms.py:121
 msgid "Name"
 msgstr "Ad"
 
@@ -336,7 +338,7 @@ msgstr "Problemi təsvir edin"
 msgid "How urgent is it?"
 msgstr "Nə qədər təcilidir?"
 
-#: apps/assets/forms.py:121 apps/assets/models.py:136 apps/cards/forms.py:115
+#: apps/assets/forms.py:121 apps/assets/models.py:136 apps/cards/forms.py:116
 #: apps/cards/models.py:119
 msgid "Photo"
 msgstr "Foto"
@@ -359,7 +361,7 @@ msgid "Priority"
 msgstr "Prioritet"
 
 #: apps/assets/forms.py:138 apps/assets/templates/assets/detail.html:38
-#: apps/qr_management/types.py:258
+#: apps/menus/templates/menus/builder.html:22 apps/qr_management/types.py:258
 msgid "Description"
 msgstr "Təsvir"
 
@@ -372,10 +374,10 @@ msgid "Photo or PDF"
 msgstr "Foto və ya PDF"
 
 #: apps/assets/models.py:27 apps/assets/models.py:52 apps/assets/models.py:79
-#: apps/cards/models.py:62 apps/qr_management/models.py:35
-#: apps/qr_management/models.py:49 apps/qr_management/models.py:75
-#: apps/subscriptions/models.py:10 apps/surveys/models.py:116
-#: apps/surveys/models.py:144
+#: apps/cards/models.py:62 apps/menus/models.py:112 apps/menus/models.py:165
+#: apps/qr_management/models.py:35 apps/qr_management/models.py:49
+#: apps/qr_management/models.py:75 apps/subscriptions/models.py:10
+#: apps/surveys/models.py:116 apps/surveys/models.py:144
 msgid "name"
 msgstr "ad"
 
@@ -442,6 +444,7 @@ msgid "In use"
 msgstr "İstifadədə"
 
 #: apps/assets/models.py:67 apps/marketing/templates/marketing/home.html:35
+#: apps/menus/models.py:102 apps/menus/templates/menus/builder.html:43
 msgid "Available"
 msgstr "Mövcuddur"
 
@@ -494,8 +497,8 @@ msgid "serial number"
 msgstr "seriya nömrəsi"
 
 #: apps/assets/models.py:85 apps/assets/models.py:183
-#: apps/marketing/admin.py:22 apps/subscriptions/models.py:11
-#: apps/surveys/models.py:31
+#: apps/marketing/admin.py:22 apps/menus/models.py:87 apps/menus/models.py:113
+#: apps/subscriptions/models.py:11 apps/surveys/models.py:31
 msgid "description"
 msgstr "təsvir"
 
@@ -520,7 +523,8 @@ msgstr "zəmanət bitmə tarixi"
 msgid "purchase price"
 msgstr "alış qiyməti"
 
-#: apps/assets/models.py:93 apps/subscriptions/models.py:14
+#: apps/assets/models.py:93 apps/menus/models.py:41
+#: apps/subscriptions/models.py:14
 msgid "currency"
 msgstr "valyuta"
 
@@ -609,6 +613,7 @@ msgid "Urgent"
 msgstr "Təcili"
 
 #: apps/assets/models.py:172 apps/assets/templates/assets/form.html:4
+#: apps/menus/models.py:106
 #: apps/qr_management/templates/qr_management/choose_type.html:4
 #: apps/surveys/templates/surveys/create.html:4
 msgid "New"
@@ -724,7 +729,7 @@ msgstr "texniki xidmət qeydləri"
 #: apps/assets/templates/assets/setup.html:6
 #: apps/assets/templates/assets/widgets/overview.html:4
 #: apps/assets/templates/assets/widgets/overview.html:8
-#: apps/core/admin_dashboard.py:105 apps/subscriptions/features.py:34
+#: apps/core/admin_dashboard.py:105 apps/subscriptions/features.py:35
 msgid "Assets"
 msgstr "Aktivlər"
 
@@ -843,6 +848,8 @@ msgstr "Status"
 #: apps/assets/templates/assets/setup.html:26
 #: apps/assets/templates/assets/setup.html:48
 #: apps/cards/templates/cards/_step_buttons.html:5
+#: apps/menus/templates/menus/builder.html:24
+#: apps/menus/templates/menus/settings.html:28
 #: apps/organizations/templates/organizations/team.html:37
 #: apps/qr_management/templates/qr_management/list.html:45
 #: apps/surveys/templates/surveys/builder.html:37
@@ -971,6 +978,7 @@ msgstr "Bu fayl silinsin?"
 #: apps/assets/templates/assets/detail.html:116
 #: apps/assets/templates/assets/setup.html:28
 #: apps/assets/templates/assets/setup.html:51
+#: apps/menus/templates/menus/item_form.html:45
 #: apps/qr_management/templates/qr_management/detail.html:24
 #: apps/qr_management/templates/qr_management/list.html:99
 msgid "Delete"
@@ -1140,6 +1148,7 @@ msgid "Create a QR label for this asset"
 msgstr "Bu aktiv üçün QR etiket yarat"
 
 #: apps/assets/templates/assets/form.html:39
+#: apps/menus/templates/menus/item_form.html:45
 #: apps/organizations/templates/organizations/create.html:12
 #: apps/qr_management/templates/qr_management/form.html:78
 msgid "Cancel"
@@ -1214,6 +1223,7 @@ msgstr "Bütün statuslar"
 
 #: apps/assets/templates/assets/list.html:32
 #: apps/assets/templates/assets/public/profile.html:14
+#: apps/menus/models.py:183
 msgid "Category"
 msgstr "Kateqoriya"
 
@@ -1372,6 +1382,7 @@ msgid "Add"
 msgstr "Əlavə et"
 
 #: apps/assets/templates/assets/setup.html:43
+#: apps/menus/templates/menus/public/menu.html:35
 msgid "Categories"
 msgstr "Kateqoriyalar"
 
@@ -1381,6 +1392,7 @@ msgstr "Bu kateqoriya silinsin?"
 
 #: apps/assets/templates/assets/widgets/overview.html:5
 #: apps/cards/templates/cards/widgets/overview.html:3
+#: apps/menus/templates/menus/widgets/overview.html:3
 #: apps/qr_management/templates/qr_management/widgets/overview.html:5
 #: apps/surveys/templates/surveys/widgets/overview.html:5
 msgid "View all"
@@ -1390,7 +1402,7 @@ msgstr "Hamısına bax"
 msgid "Asset added."
 msgstr "Aktiv əlavə edildi."
 
-#: apps/assets/views/assets.py:103 apps/qr_management/views/codes.py:168
+#: apps/assets/views/assets.py:103 apps/qr_management/views/codes.py:171
 msgid "Changes saved."
 msgstr "Dəyişikliklər saxlanıldı."
 
@@ -1467,7 +1479,7 @@ msgstr "Məkan silindi. Onun aktivlərinin artıq məkanı yoxdur."
 msgid "A category with this name already exists."
 msgstr "Bu adda kateqoriya artıq mövcuddur."
 
-#: apps/assets/views/setup.py:93
+#: apps/assets/views/setup.py:93 apps/menus/views/manage.py:109
 msgid "Category saved."
 msgstr "Kateqoriya saxlanıldı."
 
@@ -1598,7 +1610,8 @@ msgstr "Ödəniş tarixçəsi"
 msgid "No invoices yet."
 msgstr "Hələ heç bir hesab-faktura yoxdur."
 
-#: apps/cards/apps.py:8 apps/cards/navigation.py:9 apps/cards/qr_type.py:21
+#: apps/cards/apps.py:8 apps/cards/navigation.py:11
+#: apps/cards/navigation.py:14 apps/cards/qr_type.py:21
 #: apps/cards/templates/cards/_editor.html:3
 #: apps/cards/templates/cards/_editor.html:4
 #: apps/cards/templates/cards/create.html:4
@@ -1614,15 +1627,15 @@ msgstr "Qrumy Card"
 msgid "Full name or company name"
 msgstr "Ad və soyad və ya şirkətin adı"
 
-#: apps/cards/forms.py:33 apps/surveys/forms.py:42
+#: apps/cards/forms.py:33 apps/menus/forms.py:41 apps/surveys/forms.py:42
 msgid "Choose a valid color."
 msgstr "Düzgün rəng seçin."
 
-#: apps/cards/forms.py:38
+#: apps/cards/forms.py:38 apps/menus/forms.py:65
 msgid "Remove photo"
 msgstr "Fotonu sil"
 
-#: apps/cards/forms.py:39
+#: apps/cards/forms.py:39 apps/menus/forms.py:26
 msgid "Remove cover"
 msgstr "Örtük şəklini sil"
 
@@ -1654,33 +1667,33 @@ msgstr "Haqqımda"
 msgid "Logo"
 msgstr "Loqo"
 
-#: apps/cards/forms.py:60
+#: apps/cards/forms.py:61
 msgid "e.g. Coffee & bakery since 2015"
 msgstr "məs. 2015-ci ildən qəhvə və şirniyyat"
 
-#: apps/cards/forms.py:74 apps/cards/templates/cards/public/card.html:42
-#: apps/cards/templates/cards/public/card.html:43
+#: apps/cards/forms.py:75 apps/cards/templates/cards/public/card.html:42
+#: apps/cards/templates/cards/public/card.html:43 apps/menus/forms.py:24
 #: apps/qr_management/social.py:110 apps/qr_management/types.py:91
 #: apps/surveys/qtypes.py:129
 msgid "Phone"
 msgstr "Telefon"
 
-#: apps/cards/forms.py:75
+#: apps/cards/forms.py:76
 msgid "Second phone"
 msgstr "İkinci telefon"
 
-#: apps/cards/forms.py:76 apps/cards/templates/cards/public/card.html:25
+#: apps/cards/forms.py:77 apps/cards/templates/cards/public/card.html:25
 #: apps/cards/templates/cards/public/card.html:45
 #: apps/qr_management/social.py:114 apps/qr_management/types.py:93
 #: apps/qr_management/types.py:344
 msgid "Website"
 msgstr "Veb sayt"
 
-#: apps/cards/forms.py:77
+#: apps/cards/forms.py:78
 msgid "Map link"
 msgstr "Xəritə linki"
 
-#: apps/cards/forms.py:78
+#: apps/cards/forms.py:79
 msgid ""
 "Optional. Paste a Google Maps link to your place; without it the address "
 "opens in Google Maps."
@@ -1688,19 +1701,20 @@ msgstr ""
 "Könüllü. Məkanınızın Google Maps linkini yapışdırın; link olmadan ünvan "
 "Google Maps-də açılır."
 
-#: apps/cards/forms.py:85
+#: apps/cards/forms.py:86
 msgid "e.g. Baku, Nizami st. 10"
 msgstr "məs. Bakı, Nizami küç. 10"
 
-#: apps/cards/forms.py:117
+#: apps/cards/forms.py:118
 msgid "Caption"
 msgstr "Başlıq"
 
-#: apps/cards/models.py:18 apps/marketing/models.py:19
+#: apps/cards/models.py:18 apps/core/images.py:15 apps/marketing/models.py:19
 msgid "The image must be 5 MB or smaller."
 msgstr "Şəkil 5 MB və ya daha kiçik olmalıdır."
 
-#: apps/cards/models.py:25 apps/cards/models.py:29 apps/marketing/models.py:26
+#: apps/cards/models.py:25 apps/cards/models.py:29 apps/core/images.py:22
+#: apps/core/images.py:26 apps/marketing/models.py:26
 #: apps/marketing/models.py:30 apps/organizations/forms.py:22
 #: apps/organizations/forms.py:26
 msgid "Upload a valid PNG, JPEG or WebP image."
@@ -1738,7 +1752,7 @@ msgstr "kart kimin üçün"
 msgid "template"
 msgstr "şablon"
 
-#: apps/cards/models.py:60
+#: apps/cards/models.py:60 apps/menus/models.py:42
 msgid "colour"
 msgstr "rəng"
 
@@ -1758,11 +1772,11 @@ msgstr "haqqında"
 msgid "profile photo or logo"
 msgstr "profil fotosu və ya loqo"
 
-#: apps/cards/models.py:68 apps/marketing/models.py:56
+#: apps/cards/models.py:68 apps/marketing/models.py:56 apps/menus/models.py:47
 msgid "cover image"
 msgstr "örtük şəkli"
 
-#: apps/cards/models.py:71
+#: apps/cards/models.py:71 apps/menus/models.py:50
 msgid "phone"
 msgstr "telefon"
 
@@ -1780,7 +1794,7 @@ msgstr "e-poçt"
 msgid "website"
 msgstr "veb sayt"
 
-#: apps/cards/models.py:75
+#: apps/cards/models.py:75 apps/menus/models.py:49
 msgid "address"
 msgstr "ünvan"
 
@@ -1796,7 +1810,7 @@ msgstr "Könüllü. Məkanınızın Google Maps linki."
 msgid "social links"
 msgstr "sosial linklər"
 
-#: apps/cards/models.py:80
+#: apps/cards/models.py:80 apps/menus/models.py:57
 msgid "published"
 msgstr "dərc edilib"
 
@@ -1809,7 +1823,7 @@ msgid "digital cards"
 msgstr "rəqəmsal kartlar"
 
 #: apps/cards/models.py:120 apps/cards/templates/cards/public/card.html:40
-#: apps/cards/views/manage.py:27
+#: apps/cards/views/manage.py:26
 #: apps/surveys/templates/surveys/response_detail.html:25
 msgid "Contact"
 msgstr "Əlaqə"
@@ -1827,7 +1841,7 @@ msgstr "Sosial linklər"
 msgid "Published"
 msgstr "Dərc edilib"
 
-#: apps/cards/models.py:127
+#: apps/cards/models.py:127 apps/menus/models.py:114
 msgid "photo"
 msgstr "foto"
 
@@ -1842,6 +1856,10 @@ msgstr "qalereya fotosu"
 #: apps/cards/models.py:134
 msgid "gallery photos"
 msgstr "qalereya fotoları"
+
+#: apps/cards/navigation.py:14
+msgid "Digital business card with contacts and social media"
+msgstr "Əlaqə və sosial şəbəkələrlə rəqəmsal vizit kartı"
 
 #: apps/cards/qr_type.py:21
 msgid "Open a digital business card"
@@ -1860,6 +1878,9 @@ msgstr "Kartda ən çox %(n)s qalereya fotosu ola bilər."
 #: apps/cards/templates/cards/_editor.html:9
 #: apps/cards/templates/cards/list.html:25
 #: apps/cards/templates/cards/widgets/overview.html:6
+#: apps/menus/templates/menus/_header.html:5
+#: apps/menus/templates/menus/list.html:21
+#: apps/menus/templates/menus/widgets/overview.html:6
 msgid "Live"
 msgstr "Aktiv"
 
@@ -1867,6 +1888,9 @@ msgstr "Aktiv"
 #: apps/cards/templates/cards/list.html:25
 #: apps/cards/templates/cards/widgets/overview.html:6
 #: apps/marketing/admin.py:41 apps/marketing/admin.py:45
+#: apps/menus/templates/menus/_header.html:5
+#: apps/menus/templates/menus/list.html:21
+#: apps/menus/templates/menus/widgets/overview.html:6
 #: apps/surveys/models.py:21
 #: apps/surveys/templates/surveys/_status_badge.html:1
 msgid "Draft"
@@ -1885,6 +1909,7 @@ msgid "Card preview"
 msgstr "Kartın önizləməsi"
 
 #: apps/cards/templates/cards/_editor.html:29
+#: apps/menus/templates/menus/_preview.html:4
 msgid "Preview updates when you save."
 msgstr "Önizləmə yadda saxladıqda yenilənir."
 
@@ -1910,7 +1935,7 @@ msgid "Save and continue"
 msgstr "Saxla və davam et"
 
 #: apps/cards/templates/cards/_template_tiles.html:4
-#: apps/cards/views/manage.py:25
+#: apps/cards/views/manage.py:24
 msgid "Template"
 msgstr "Şablon"
 
@@ -1956,6 +1981,7 @@ msgstr ""
 "kontaktınızı bir toxunuşla yadda saxlayır — tətbiq lazım deyil."
 
 #: apps/cards/templates/cards/public/card.html:14
+#: apps/menus/templates/menus/public/menu.html:10
 msgid "Preview — visits here are not counted."
 msgstr "Önizləmə — buradakı baxışlar sayılmır."
 
@@ -2007,7 +2033,7 @@ msgid "Find us online"
 msgstr "Bizi onlayn tapın"
 
 #: apps/cards/templates/cards/public/card.html:67
-#: apps/cards/views/manage.py:29
+#: apps/cards/views/manage.py:28
 msgid "Gallery"
 msgstr "Qalereya"
 
@@ -2071,6 +2097,7 @@ msgid "Used by the Classic template. Without it, a colour gradient is shown."
 msgstr "Klassik şablonda istifadə olunur. Olmasa, rəng keçidi göstərilir."
 
 #: apps/cards/templates/cards/steps/share.html:6
+#: apps/menus/templates/menus/share.html:10
 #: apps/surveys/templates/surveys/_header.html:18
 msgid "Publish"
 msgstr "Dərc et"
@@ -2080,6 +2107,7 @@ msgid "Your card is live."
 msgstr "Kartınız aktivdir."
 
 #: apps/cards/templates/cards/steps/share.html:18
+#: apps/menus/templates/menus/share.html:16
 msgid "Unpublish"
 msgstr "Dərcdən çıxar"
 
@@ -2104,6 +2132,7 @@ msgstr "Kartın linki"
 
 #: apps/cards/templates/cards/steps/share.html:37
 #: apps/marketing/templates/marketing/promo/_popup.html:17
+#: apps/menus/templates/menus/share.html:32
 #: apps/surveys/templates/surveys/share.html:38
 #: apps/surveys/templates/surveys/share.html:45
 msgid "Copy"
@@ -2111,6 +2140,7 @@ msgstr "Kopyala"
 
 #: apps/cards/templates/cards/steps/share.html:37
 #: apps/marketing/templates/marketing/promo/_popup.html:17
+#: apps/menus/templates/menus/share.html:32
 #: apps/qr_management/templates/qr_management/public/coupon.html:15
 #: apps/surveys/templates/surveys/share.html:38
 #: apps/surveys/templates/surveys/share.html:45
@@ -2127,6 +2157,7 @@ msgstr ""
 " kartlarına, bukletlərə və ya vitrinə çap edin."
 
 #: apps/cards/templates/cards/steps/share.html:45
+#: apps/menus/templates/menus/share.html:38
 msgid "Change QR design"
 msgstr "QR dizaynını dəyiş"
 
@@ -2135,10 +2166,12 @@ msgid "QR code of the card"
 msgstr "Kartın QR kodu"
 
 #: apps/cards/templates/cards/steps/share.html:54
+#: apps/menus/templates/menus/share.html:48
 msgid "Statistics"
 msgstr "Statistika"
 
 #: apps/cards/templates/cards/steps/share.html:54
+#: apps/menus/templates/menus/share.html:48
 msgid "last 30 days"
 msgstr "son 30 gün"
 
@@ -2176,6 +2209,7 @@ msgstr ""
 "dayandırılır."
 
 #: apps/cards/templates/cards/steps/share.html:69
+#: apps/menus/templates/menus/settings.html:36
 #: apps/organizations/templates/organizations/settings.html:39
 #, python-format
 msgid "Type “%(n)s” to confirm"
@@ -2190,43 +2224,43 @@ msgid ""
 "Create a digital business card with your photo, contacts and social media."
 msgstr "Foto, əlaqə və sosial şəbəkələrinizlə rəqəmsal vizit kartı yaradın."
 
-#: apps/cards/views/manage.py:28
+#: apps/cards/views/manage.py:27
 msgid "Social media"
 msgstr "Sosial şəbəkələr"
 
-#: apps/cards/views/manage.py:30
+#: apps/cards/views/manage.py:29
 msgid "Publish & share"
 msgstr "Dərc et və paylaş"
 
-#: apps/cards/views/manage.py:88
+#: apps/cards/views/manage.py:87 apps/menus/views/manage.py:190
 msgid "You don't have permission to do that."
 msgstr "Bunu etməyə icazəniz yoxdur."
 
-#: apps/cards/views/manage.py:92
+#: apps/cards/views/manage.py:91
 msgid "Saved."
 msgstr "Yadda saxlanıldı."
 
-#: apps/cards/views/manage.py:117
+#: apps/cards/views/manage.py:116
 msgid "Photo added."
 msgstr "Foto əlavə edildi."
 
-#: apps/cards/views/manage.py:133
+#: apps/cards/views/manage.py:132
 msgid "Photo deleted."
 msgstr "Foto silindi."
 
-#: apps/cards/views/manage.py:149
+#: apps/cards/views/manage.py:148
 msgid "Your card is live. Share the link or print the QR code."
 msgstr "Kartınız aktivdir. Linki paylaşın və ya QR kodu çap edin."
 
-#: apps/cards/views/manage.py:150
+#: apps/cards/views/manage.py:149
 msgid "The card is hidden. Its link shows nothing now."
 msgstr "Kart gizlədildi. Onun linki indi heç nə göstərmir."
 
-#: apps/cards/views/manage.py:160
+#: apps/cards/views/manage.py:159
 msgid "Type the card name exactly to confirm deletion."
 msgstr "Silməni təsdiqləmək üçün kartın adını dəqiq yazın."
 
-#: apps/cards/views/manage.py:163
+#: apps/cards/views/manage.py:162
 msgid "Card deleted."
 msgstr "Kart silindi."
 
@@ -2267,7 +2301,7 @@ msgstr "QR skanları"
 msgid "%(n)s in the last 30 days"
 msgstr "son 30 gündə %(n)s"
 
-#: apps/core/admin_dashboard.py:100 apps/subscriptions/features.py:32
+#: apps/core/admin_dashboard.py:100 apps/subscriptions/features.py:33
 #: apps/surveys/navigation.py:9 apps/surveys/templates/surveys/builder.html:4
 #: apps/surveys/templates/surveys/create.html:4
 #: apps/surveys/templates/surveys/list.html:3
@@ -3094,6 +3128,7 @@ msgstr ""
 "vergilər daxil edilmədən göstərilib."
 
 #: apps/marketing/templates/marketing/promo/_popup.html:8
+#: apps/menus/templates/menus/public/menu.html:71
 #: apps/surveys/templates/surveys/_header.html:16
 msgid "Close"
 msgstr "Bağla"
@@ -3216,7 +3251,7 @@ msgstr "Skanla nasazlıq bildirişi"
 msgid "Maintenance history and locations"
 msgstr "Texniki xidmət tarixçəsi və yerləşmə"
 
-#: apps/marketing/views.py:37 apps/subscriptions/features.py:26
+#: apps/marketing/views.py:37 apps/subscriptions/features.py:27
 msgid "Qrumy Intelligence"
 msgstr "Qrumy Intelligence"
 
@@ -3344,6 +3379,666 @@ msgstr ""
 "Bəli. Qrumy ingilis və azərbaycan dillərində mövcuddur. Dili istənilən vaxt "
 "dəyişə bilərsiniz."
 
+#: apps/menus/apps.py:8 apps/menus/navigation.py:11
+#: apps/menus/navigation.py:14 apps/menus/qr_type.py:21
+#: apps/menus/templates/menus/builder.html:4
+#: apps/menus/templates/menus/create.html:4
+#: apps/menus/templates/menus/item_form.html:4
+#: apps/menus/templates/menus/list.html:3
+#: apps/menus/templates/menus/list.html:4
+#: apps/menus/templates/menus/list.html:8
+#: apps/menus/templates/menus/settings.html:4
+#: apps/menus/templates/menus/share.html:4
+#: apps/menus/templates/menus/widgets/overview.html:3
+#: apps/subscriptions/features.py:26
+msgid "Digital Menu"
+msgstr "Rəqəmsal Menyu"
+
+#: apps/menus/forms.py:20
+msgid "e.g. Main menu"
+msgstr "məs. Əsas menyu"
+
+#: apps/menus/forms.py:25 apps/qr_management/forms.py:70
+msgid "Remove logo"
+msgstr "Loqonu sil"
+
+#: apps/menus/forms.py:59
+msgid "e.g. Breakfast"
+msgstr "məs. Səhər yeməyi"
+
+#: apps/menus/forms.py:63
+msgid "Labels"
+msgstr "Etiketlər"
+
+#: apps/menus/forms.py:77
+msgid "e.g. Cappuccino"
+msgstr "məs. Kapuçino"
+
+#: apps/menus/forms.py:113
+msgid "The discounted price must be lower than the price."
+msgstr "Endirimli qiymət əsas qiymətdən aşağı olmalıdır."
+
+#: apps/menus/forms.py:123
+msgid "Every option needs a name."
+msgstr "Hər seçimin adı olmalıdır."
+
+#: apps/menus/forms.py:130
+#, python-format
+msgid "“%(name)s”: enter a valid price."
+msgstr "“%(name)s”: düzgün qiymət daxil edin."
+
+#: apps/menus/models.py:31
+msgid "List with photos"
+msgstr "Fotolu siyahı"
+
+#: apps/menus/models.py:32
+msgid "Photo grid"
+msgstr "Foto şəbəkə"
+
+#: apps/menus/models.py:33
+msgid "Compact (no photos)"
+msgstr "Yığcam (fotosuz)"
+
+#: apps/menus/models.py:37
+msgid "menu name"
+msgstr "menyunun adı"
+
+#: apps/menus/models.py:38
+msgid "short description"
+msgstr "qısa təsvir"
+
+#: apps/menus/models.py:39
+msgid "menu language"
+msgstr "menyunun dili"
+
+#: apps/menus/models.py:40
+msgid "Language of buttons on the menu."
+msgstr "Menyudakı düymələrin dili."
+
+#: apps/menus/models.py:43
+msgid "layout"
+msgstr "görünüş"
+
+#: apps/menus/models.py:45 apps/organizations/models.py:48
+#: apps/qr_management/models.py:83 apps/surveys/models.py:40
+msgid "logo"
+msgstr "loqo"
+
+#: apps/menus/models.py:51
+msgid "opening hours"
+msgstr "iş saatları"
+
+#: apps/menus/models.py:52
+msgid "e.g. Every day 09:00–23:00"
+msgstr "məs. Hər gün 09:00–23:00"
+
+#: apps/menus/models.py:53
+msgid "Wi-Fi name"
+msgstr "Wi-Fi adı"
+
+#: apps/menus/models.py:54
+msgid "Wi-Fi password"
+msgstr "Wi-Fi şifrəsi"
+
+#: apps/menus/models.py:55
+msgid "note at the bottom"
+msgstr "aşağıdakı qeyd"
+
+#: apps/menus/models.py:56
+msgid "e.g. Service charge 10% · Prices include VAT"
+msgstr "məs. Xidmət haqqı 10% · Qiymətlərə ƏDV daxildir"
+
+#: apps/menus/models.py:65
+msgid "digital menu"
+msgstr "rəqəmsal menyu"
+
+#: apps/menus/models.py:66
+msgid "digital menus"
+msgstr "rəqəmsal menyular"
+
+#: apps/menus/models.py:86
+msgid "category name"
+msgstr "kateqoriyanın adı"
+
+#: apps/menus/models.py:89
+msgid "visible"
+msgstr "görünür"
+
+#: apps/menus/models.py:93
+msgid "menu category"
+msgstr "menyu kateqoriyası"
+
+#: apps/menus/models.py:94
+msgid "menu categories"
+msgstr "menyu kateqoriyaları"
+
+#: apps/menus/models.py:103 apps/menus/templates/menus/public/menu.html:77
+msgid "Sold out today"
+msgstr "Bu gün bitib"
+
+#: apps/menus/models.py:104 apps/menus/templates/menus/builder.html:15
+#: apps/menus/templates/menus/builder.html:45
+msgid "Hidden"
+msgstr "Gizli"
+
+#: apps/menus/models.py:106
+msgid "Popular"
+msgstr "Populyar"
+
+#: apps/menus/models.py:106
+msgid "Spicy"
+msgstr "Acılı"
+
+#: apps/menus/models.py:107
+msgid "Vegetarian"
+msgstr "Vegetarian"
+
+#: apps/menus/models.py:107
+msgid "Vegan"
+msgstr "Vegan"
+
+#: apps/menus/models.py:108
+msgid "Gluten-free"
+msgstr "Qlütensiz"
+
+#: apps/menus/models.py:108
+msgid "Chef's choice"
+msgstr "Aşpazın seçimi"
+
+#: apps/menus/models.py:116 apps/menus/models.py:166
+msgid "price"
+msgstr "qiymət"
+
+#: apps/menus/models.py:117
+msgid "discounted price"
+msgstr "endirimli qiymət"
+
+#: apps/menus/models.py:118
+msgid "Optional. Shown instead of the price, with the old price crossed out."
+msgstr "Könüllü. Qiymətin yerinə göstərilir, köhnə qiymət üstündən xətlə."
+
+#: apps/menus/models.py:121
+msgid "portion"
+msgstr "porsiya"
+
+#: apps/menus/models.py:122
+msgid "e.g. 250 g, 0.5 L, 1 piece"
+msgstr "məs. 250 q, 0.5 L, 1 ədəd"
+
+#: apps/menus/models.py:123
+msgid "availability"
+msgstr "mövcudluq"
+
+#: apps/menus/models.py:125
+msgid "labels"
+msgstr "etiketlər"
+
+#: apps/menus/models.py:130
+msgid "menu item"
+msgstr "menyu məhsulu"
+
+#: apps/menus/models.py:131
+msgid "menu items"
+msgstr "menyu məhsulları"
+
+#: apps/menus/models.py:160
+msgid "Size / variant"
+msgstr "Ölçü / variant"
+
+#: apps/menus/models.py:161
+msgid "Extra / add-on"
+msgstr "Əlavə"
+
+#: apps/menus/models.py:171
+msgid "menu item option"
+msgstr "məhsul seçimi"
+
+#: apps/menus/models.py:172
+msgid "menu item options"
+msgstr "məhsul seçimləri"
+
+#: apps/menus/models.py:182
+msgid "Menu view"
+msgstr "Menyu baxışı"
+
+#: apps/menus/models.py:184
+msgid "Item"
+msgstr "Məhsul"
+
+#: apps/menus/navigation.py:14
+msgid "Interactive menu with photos, prices and categories"
+msgstr "Foto, qiymət və kateqoriyalı interaktiv menyu"
+
+#: apps/menus/qr_type.py:22
+msgid "Open an interactive menu"
+msgstr "İnteraktiv menyunu açın"
+
+#: apps/menus/services.py:27
+#, python-format
+msgid "Your plan allows up to %(limit)s menus."
+msgstr "Planınız ən çox %(limit)s menyuya icazə verir."
+
+#: apps/menus/services.py:54
+msgid "Scan for menu"
+msgstr "Menyu üçün skan et"
+
+#: apps/menus/services.py:84
+#, python-format
+msgid "A menu can have up to %(n)s categories."
+msgstr "Menyuda ən çox %(n)s kateqoriya ola bilər."
+
+#: apps/menus/services.py:111
+#, python-format
+msgid "A menu can have up to %(n)s items."
+msgstr "Menyuda ən çox %(n)s məhsul ola bilər."
+
+#: apps/menus/templates/menus/_header.html:8 templates/layouts/app.html:72
+msgid "Open menu"
+msgstr "Menyunu aç"
+
+#: apps/menus/templates/menus/_header.html:11
+msgid "Menu sections"
+msgstr "Menyu bölmələri"
+
+#: apps/menus/templates/menus/_header.html:13
+msgid "Items"
+msgstr "Məhsullar"
+
+#: apps/menus/templates/menus/_header.html:14
+msgid "Design & info"
+msgstr "Dizayn və məlumat"
+
+#: apps/menus/templates/menus/_header.html:15
+msgid "QR & statistics"
+msgstr "QR və statistika"
+
+#: apps/menus/templates/menus/_option_rows.html:6
+msgid "Price"
+msgstr "Qiymət"
+
+#: apps/menus/templates/menus/_preview.html:3
+msgid "Menu preview"
+msgstr "Menyunun önizləməsi"
+
+#: apps/menus/templates/menus/builder.html:17
+msgid "Edit category"
+msgstr "Kateqoriyanı redaktə et"
+
+#: apps/menus/templates/menus/builder.html:23
+msgid "Visible"
+msgstr "Görünür"
+
+#: apps/menus/templates/menus/builder.html:28
+#: apps/menus/templates/menus/builder.html:46
+#: apps/surveys/templates/surveys/builder.html:20
+msgid "Move up"
+msgstr "Yuxarı"
+
+#: apps/menus/templates/menus/builder.html:29
+#: apps/menus/templates/menus/builder.html:47
+#: apps/surveys/templates/surveys/builder.html:21
+msgid "Move down"
+msgstr "Aşağı"
+
+#: apps/menus/templates/menus/builder.html:30
+msgid "Delete this category and all its items?"
+msgstr "Bu kateqoriya və bütün məhsulları silinsin?"
+
+#: apps/menus/templates/menus/builder.html:30
+msgid "Delete category"
+msgstr "Kateqoriyanı sil"
+
+#: apps/menus/templates/menus/builder.html:39
+#, python-format
+msgid "%(n)s option"
+msgid_plural "%(n)s options"
+msgstr[0] "%(n)s seçim"
+msgstr[1] "%(n)s seçim"
+
+#: apps/menus/templates/menus/builder.html:43
+msgid "Mark as sold out"
+msgstr "Bitib kimi qeyd et"
+
+#: apps/menus/templates/menus/builder.html:44
+msgid "Mark as available"
+msgstr "Mövcud kimi qeyd et"
+
+#: apps/menus/templates/menus/builder.html:44
+#: apps/menus/templates/menus/public/menu.html:65
+msgid "Sold out"
+msgstr "Bitib"
+
+#: apps/menus/templates/menus/builder.html:45
+msgid "Show on the menu"
+msgstr "Menyuda göstər"
+
+#: apps/menus/templates/menus/builder.html:51
+msgid "No items in this category yet."
+msgstr "Bu kateqoriyada hələ məhsul yoxdur."
+
+#: apps/menus/templates/menus/builder.html:54
+msgid "Add item"
+msgstr "Məhsul əlavə et"
+
+#: apps/menus/templates/menus/builder.html:63
+msgid "Add category"
+msgstr "Kateqoriya əlavə et"
+
+#: apps/menus/templates/menus/create.html:3
+#: apps/menus/templates/menus/create.html:4
+#: apps/menus/templates/menus/list.html:11
+#: apps/menus/templates/menus/list.html:32
+#: apps/menus/templates/menus/widgets/overview.html:9
+msgid "New menu"
+msgstr "Yeni menyu"
+
+#: apps/menus/templates/menus/create.html:7
+msgid "New digital menu"
+msgstr "Yeni rəqəmsal menyu"
+
+#: apps/menus/templates/menus/create.html:8
+msgid ""
+"Start with the basics. You add categories, items and the design in the next "
+"step."
+msgstr ""
+"Əsas məlumatlarla başlayın. Kateqoriya, məhsul və dizaynı növbəti addımda "
+"əlavə edəcəksiniz."
+
+#: apps/menus/templates/menus/create.html:13
+msgid "Add example categories"
+msgstr "Nümunə kateqoriyalar əlavə et"
+
+#: apps/menus/templates/menus/create.html:13
+msgid "Hot drinks, Main dishes and Desserts — rename or delete them any time."
+msgstr ""
+"İsti içkilər, Əsas yeməklər və Desertlər — istənilən vaxt adını dəyişin və "
+"ya silin."
+
+#: apps/menus/templates/menus/create.html:14
+msgid "Create menu"
+msgstr "Menyu yarat"
+
+#: apps/menus/templates/menus/item_form.html:3
+#: apps/menus/templates/menus/item_form.html:4
+#: apps/menus/templates/menus/item_form.html:7
+msgid "New item"
+msgstr "Yeni məhsul"
+
+#: apps/menus/templates/menus/item_form.html:7
+msgid "Edit item"
+msgstr "Məhsulu redaktə et"
+
+#: apps/menus/templates/menus/item_form.html:16
+#: apps/qr_management/templates/qr_management/bulk.html:28
+#: apps/surveys/templates/surveys/public/form.html:25
+#: templates/components/forms/field.html:6
+msgid "optional"
+msgstr "istəyə bağlı"
+
+#: apps/menus/templates/menus/item_form.html:33
+#: apps/menus/templates/menus/public/menu.html:83
+msgid "Sizes and variants"
+msgstr "Ölçülər və variantlar"
+
+#: apps/menus/templates/menus/item_form.html:34
+msgid "Each has its own price, e.g. Small 3.50 · Large 4.50."
+msgstr "Hər birinin öz qiyməti var, məs. Kiçik 3.50 · Böyük 4.50."
+
+#: apps/menus/templates/menus/item_form.html:35
+msgid "e.g. Large"
+msgstr "məs. Böyük"
+
+#: apps/menus/templates/menus/item_form.html:35
+msgid "Add size"
+msgstr "Ölçü əlavə et"
+
+#: apps/menus/templates/menus/item_form.html:38
+#: apps/menus/templates/menus/public/menu.html:83
+msgid "Extras"
+msgstr "Əlavələr"
+
+#: apps/menus/templates/menus/item_form.html:39
+msgid "Added to the price, e.g. Extra shot +1.00."
+msgstr "Qiymətə əlavə olunur, məs. Əlavə şot +1.00."
+
+#: apps/menus/templates/menus/item_form.html:40
+msgid "e.g. Extra cheese"
+msgstr "məs. Əlavə pendir"
+
+#: apps/menus/templates/menus/item_form.html:40
+msgid "Add extra"
+msgstr "Əlavə et"
+
+#: apps/menus/templates/menus/item_form.html:47
+msgid "Save and add another"
+msgstr "Saxla və yenisini əlavə et"
+
+#: apps/menus/templates/menus/item_form.html:48
+msgid "Save item"
+msgstr "Məhsulu yadda saxla"
+
+#: apps/menus/templates/menus/item_form.html:52
+msgid "Delete this item?"
+msgstr "Bu məhsul silinsin?"
+
+#: apps/menus/templates/menus/list.html:9
+msgid ""
+"Interactive QR menus with photos, prices and categories — update them any "
+"time without reprinting."
+msgstr ""
+"Foto, qiymət və kateqoriyalı interaktiv QR menyular — yenidən çap etmədən "
+"istənilən vaxt yeniləyin."
+
+#: apps/menus/templates/menus/list.html:20
+#, python-format
+msgid "%(n)s item"
+msgid_plural "%(n)s items"
+msgstr[0] "%(n)s məhsul"
+msgstr[1] "%(n)s məhsul"
+
+#: apps/menus/templates/menus/list.html:20
+#, python-format
+msgid "%(n)s category"
+msgid_plural "%(n)s categories"
+msgstr[0] "%(n)s kateqoriya"
+msgstr[1] "%(n)s kateqoriya"
+
+#: apps/menus/templates/menus/list.html:30
+msgid "Create your digital menu"
+msgstr "Rəqəmsal menyunuzu yaradın"
+
+#: apps/menus/templates/menus/list.html:31
+msgid ""
+"Guests scan the QR code on the table and see your menu with photos and "
+"prices on their phone. Change prices or mark items as sold out in seconds."
+msgstr ""
+"Qonaqlar masadakı QR kodu skan edir və menyunuzu foto və qiymətlərlə "
+"telefonda görür. Qiymətləri dəyişin və ya məhsulları saniyələr içində bitib "
+"kimi qeyd edin."
+
+#: apps/menus/templates/menus/public/menu.html:10
+msgid "The menu is not published yet."
+msgstr "Menyu hələ dərc edilməyib."
+
+#: apps/menus/templates/menus/public/menu.html:39
+msgid "Search the menu"
+msgstr "Menyuda axtarın"
+
+#: apps/menus/templates/menus/public/menu.html:48
+msgid "Nothing matches your search."
+msgstr "Axtarışınıza uyğun heç nə tapılmadı."
+
+#: apps/menus/templates/menus/public/menu.html:100
+msgid "The menu is being prepared. Please check again soon."
+msgstr "Menyu hazırlanır. Tezliklə yenidən baxın."
+
+#: apps/menus/templates/menus/public/menu.html:104
+msgid "Digital menu by"
+msgstr "Rəqəmsal menyu:"
+
+#: apps/menus/templates/menus/settings.html:11
+#: apps/qr_management/templates/qr_management/form.html:53
+#: apps/surveys/templates/surveys/share.html:22
+msgid "Design"
+msgstr "Dizayn"
+
+#: apps/menus/templates/menus/settings.html:17
+msgid "Empty: your organization logo is used."
+msgstr "Boş: təşkilatınızın loqosu istifadə olunur."
+
+#: apps/menus/templates/menus/settings.html:21
+msgid "Information for guests"
+msgstr "Qonaqlar üçün məlumat"
+
+#: apps/menus/templates/menus/settings.html:32
+#: apps/menus/templates/menus/settings.html:37
+msgid "Delete menu"
+msgstr "Menyunu sil"
+
+#: apps/menus/templates/menus/settings.html:35
+msgid ""
+"This permanently deletes the menu with all categories, items, photos and "
+"statistics. Its QR code is paused."
+msgstr ""
+"Bu, menyunu bütün kateqoriyaları, məhsulları, fotoları və statistikası ilə "
+"həmişəlik silir. QR kodu dayandırılır."
+
+#: apps/menus/templates/menus/share.html:15
+msgid "Your menu is live. Changes to items and prices appear immediately."
+msgstr "Menyunuz aktivdir. Məhsul və qiymət dəyişiklikləri dərhal görünür."
+
+#: apps/menus/templates/menus/share.html:19
+msgid ""
+"Publishing makes the menu visible and creates its QR code for tables, the "
+"counter or the window."
+msgstr ""
+"Dərc etdikdə menyu görünür olur və masalar, kassa və ya vitrin üçün QR kodu "
+"yaradılır."
+
+#: apps/menus/templates/menus/share.html:20
+msgid "Publish menu"
+msgstr "Menyunu dərc et"
+
+#: apps/menus/templates/menus/share.html:27 apps/qr_management/models.py:102
+#: apps/surveys/models.py:134 apps/surveys/templates/surveys/share.html:12
+msgid "QR code"
+msgstr "QR kod"
+
+#: apps/menus/templates/menus/share.html:34
+msgid ""
+"The QR code never changes: update the menu as often as you like without "
+"reprinting."
+msgstr ""
+"QR kod heç vaxt dəyişmir: menyunu yenidən çap etmədən istədiyiniz qədər "
+"yeniləyin."
+
+#: apps/menus/templates/menus/share.html:39
+msgid "Scan analytics"
+msgstr "Skan analitikası"
+
+#: apps/menus/templates/menus/share.html:42
+msgid "QR code of the menu"
+msgstr "Menyunun QR kodu"
+
+#: apps/menus/templates/menus/share.html:51
+msgid "Menu views"
+msgstr "Menyu baxışları"
+
+#: apps/menus/templates/menus/share.html:52
+#, python-format
+msgid "Busiest day: %(d)s"
+msgstr "Ən sıx gün: %(d)s"
+
+#: apps/menus/templates/menus/share.html:52
+msgid "Busiest day"
+msgstr "Ən sıx gün"
+
+#: apps/menus/templates/menus/share.html:53
+msgid "Items opened"
+msgstr "Açılan məhsullar"
+
+#: apps/menus/templates/menus/share.html:56
+msgid "Views per day"
+msgstr "Günlük baxışlar"
+
+#: apps/menus/templates/menus/share.html:61
+msgid "Most viewed items"
+msgstr "Ən çox baxılan məhsullar"
+
+#: apps/menus/templates/menus/share.html:62
+#: apps/menus/templates/menus/share.html:66
+#: apps/qr_management/templates/qr_management/_breakdown.html:14
+msgid "No data yet."
+msgstr "Hələ məlumat yoxdur."
+
+#: apps/menus/templates/menus/share.html:65
+msgid "Most visited categories"
+msgstr "Ən çox açılan kateqoriyalar"
+
+#: apps/menus/templates/menus/widgets/overview.html:8
+msgid "Create an interactive QR menu with photos, prices and categories."
+msgstr "Foto, qiymət və kateqoriyalı interaktiv QR menyu yaradın."
+
+#: apps/menus/views/manage.py:65
+msgid "Hot drinks"
+msgstr "İsti içkilər"
+
+#: apps/menus/views/manage.py:65
+msgid "Main dishes"
+msgstr "Əsas yeməklər"
+
+#: apps/menus/views/manage.py:65
+msgid "Desserts"
+msgstr "Desertlər"
+
+#: apps/menus/views/manage.py:67
+msgid "Menu created. Add categories and items."
+msgstr "Menyu yaradıldı. Kateqoriya və məhsullar əlavə edin."
+
+#: apps/menus/views/manage.py:97
+msgid "Enter a category name."
+msgstr "Kateqoriyanın adını daxil edin."
+
+#: apps/menus/views/manage.py:106
+msgid "Category added."
+msgstr "Kateqoriya əlavə edildi."
+
+#: apps/menus/views/manage.py:132
+msgid "Category and its items deleted."
+msgstr "Kateqoriya və məhsulları silindi."
+
+#: apps/menus/views/manage.py:142
+msgid "Add a category first."
+msgstr "Əvvəlcə kateqoriya əlavə edin."
+
+#: apps/menus/views/manage.py:155
+msgid "Item saved."
+msgstr "Məhsul yadda saxlanıldı."
+
+#: apps/menus/views/manage.py:178
+msgid "Item deleted."
+msgstr "Məhsul silindi."
+
+#: apps/menus/views/manage.py:193
+msgid "Menu settings saved."
+msgstr "Menyu ayarları yadda saxlanıldı."
+
+#: apps/menus/views/manage.py:218
+msgid "Your menu is live. Print the QR code for tables."
+msgstr "Menyunuz aktivdir. QR kodu masalar üçün çap edin."
+
+#: apps/menus/views/manage.py:219
+msgid "The menu is hidden. Its QR code shows nothing now."
+msgstr "Menyu gizlədildi. Onun QR kodu indi heç nə göstərmir."
+
+#: apps/menus/views/manage.py:229
+msgid "Type the menu name exactly to confirm deletion."
+msgstr "Silməni təsdiqləmək üçün menyunun adını dəqiq yazın."
+
+#: apps/menus/views/manage.py:232
+msgid "Menu deleted."
+msgstr "Menyu silindi."
+
 #: apps/notifications/apps.py:8
 #: apps/notifications/templates/notifications/list.html:3
 #: apps/notifications/templates/notifications/list.html:6
@@ -3467,11 +4162,6 @@ msgstr "təşkilatın adı"
 #: apps/organizations/models.py:47
 msgid "URL name"
 msgstr "URL adı"
-
-#: apps/organizations/models.py:48 apps/qr_management/models.py:83
-#: apps/surveys/models.py:40
-msgid "logo"
-msgstr "loqo"
 
 #: apps/organizations/models.py:50
 msgid "industry"
@@ -4291,10 +4981,6 @@ msgstr "Çağırış mətni"
 msgid "Scan me"
 msgstr "Skan edin"
 
-#: apps/qr_management/forms.py:70
-msgid "Remove logo"
-msgstr "Loqonu sil"
-
 #: apps/qr_management/forms.py:82
 msgid "The logo must be 1 MB or smaller."
 msgstr "Loqo 1 MB-dan böyük olmamalıdır."
@@ -4343,13 +5029,14 @@ msgid "folders"
 msgstr "qovluqlar"
 
 #: apps/qr_management/models.py:67
-#: apps/qr_management/templates/qr_management/choose_type.html:15
+#: apps/qr_management/templates/qr_management/choose_type.html:25
 #: apps/qr_management/templates/qr_management/list.html:77
 msgid "Static"
 msgstr "Statik"
 
 #: apps/qr_management/models.py:68
 #: apps/qr_management/templates/qr_management/choose_type.html:15
+#: apps/qr_management/templates/qr_management/choose_type.html:25
 #: apps/qr_management/templates/qr_management/list.html:76
 #: apps/qr_management/templates/qr_management/widgets/overview.html:9
 msgid "Dynamic"
@@ -4382,11 +5069,6 @@ msgstr "etiketlər"
 #: apps/qr_management/models.py:95
 msgid "last scan"
 msgstr "son skan"
-
-#: apps/qr_management/models.py:102 apps/surveys/models.py:134
-#: apps/surveys/templates/surveys/share.html:12
-msgid "QR code"
-msgstr "QR kod"
 
 #: apps/qr_management/models.py:174
 msgid "domain"
@@ -4477,10 +5159,6 @@ msgstr "Planşet"
 #: apps/qr_management/templates/qr_management/_breakdown.html:8
 msgid "Desktop"
 msgstr "Kompüter"
-
-#: apps/qr_management/templates/qr_management/_breakdown.html:14
-msgid "No data yet."
-msgstr "Hələ məlumat yoxdur."
 
 #: apps/qr_management/templates/qr_management/_chart.html:3
 #: apps/qr_management/templates/qr_management/analytics.html:26
@@ -4593,12 +5271,6 @@ msgstr "Faylın formatı"
 msgid "required, the destination"
 msgstr "məcburi, yönləndirmə ünvanı"
 
-#: apps/qr_management/templates/qr_management/bulk.html:28
-#: apps/surveys/templates/surveys/public/form.html:25
-#: templates/components/forms/field.html:6
-msgid "optional"
-msgstr "istəyə bağlı"
-
 #: apps/qr_management/templates/qr_management/bulk.html:29
 msgid "optional, comma-separated"
 msgstr "istəyə bağlı, vergüllə ayrılmış"
@@ -4632,6 +5304,10 @@ msgstr "QR kod nə etməlidir?"
 #: apps/qr_management/templates/qr_management/choose_type.html:7
 msgid "Choose a type. You can design the code in the next step."
 msgstr "Növü seçin. Kodun dizaynını növbəti addımda edəcəksiniz."
+
+#: apps/qr_management/templates/qr_management/choose_type.html:15
+msgid "Recommended"
+msgstr "Tövsiyə olunur"
 
 #: apps/qr_management/templates/qr_management/detail.html:10
 #, python-format
@@ -4761,11 +5437,6 @@ msgstr ""
 #: apps/qr_management/templates/qr_management/form.html:32
 msgid "PDF, PNG, JPEG or WebP, depending on the type."
 msgstr "Növdən asılı olaraq PDF, PNG, JPEG və ya WebP."
-
-#: apps/qr_management/templates/qr_management/form.html:53
-#: apps/surveys/templates/surveys/share.html:22
-msgid "Design"
-msgstr "Dizayn"
 
 #: apps/qr_management/templates/qr_management/form.html:60
 msgid ""
@@ -5326,98 +5997,98 @@ msgstr "Bu link təhlükəli kimi işarələnib və istifadə edilə bilməz."
 msgid "%(n)s QR codes created."
 msgstr "%(n)s QR kod yaradıldı."
 
-#: apps/qr_management/views/codes.py:139
+#: apps/qr_management/views/codes.py:142
 msgid "QR code created."
 msgstr "QR kod yaradıldı."
 
-#: apps/qr_management/views/codes.py:151
+#: apps/qr_management/views/codes.py:154
 msgid "This QR code was suspended by Qrumy and cannot be edited."
 msgstr "Bu QR kod Qrumy tərəfindən bloklanıb və redaktə edilə bilməz."
 
-#: apps/qr_management/views/codes.py:242 apps/surveys/forms.py:120
+#: apps/qr_management/views/codes.py:245 apps/surveys/forms.py:120
 #: apps/surveys/templates/surveys/results.html:10
 msgid "7 days"
 msgstr "7 gün"
 
-#: apps/qr_management/views/codes.py:242 apps/surveys/forms.py:120
+#: apps/qr_management/views/codes.py:245 apps/surveys/forms.py:120
 #: apps/surveys/templates/surveys/results.html:11
 msgid "30 days"
 msgstr "30 gün"
 
-#: apps/qr_management/views/codes.py:243 apps/surveys/forms.py:120
+#: apps/qr_management/views/codes.py:246 apps/surveys/forms.py:120
 #: apps/surveys/templates/surveys/results.html:12
 msgid "90 days"
 msgstr "90 gün"
 
-#: apps/qr_management/views/codes.py:243
+#: apps/qr_management/views/codes.py:246
 msgid "12 months"
 msgstr "12 ay"
 
-#: apps/qr_management/views/codes.py:245
+#: apps/qr_management/views/codes.py:248
 msgid "Devices"
 msgstr "Cihazlar"
 
-#: apps/qr_management/views/codes.py:245
+#: apps/qr_management/views/codes.py:248
 msgid "Operating systems"
 msgstr "Əməliyyat sistemləri"
 
-#: apps/qr_management/views/codes.py:246
+#: apps/qr_management/views/codes.py:249
 msgid "Browsers"
 msgstr "Brauzerlər"
 
-#: apps/qr_management/views/codes.py:246
+#: apps/qr_management/views/codes.py:249
 msgid "Countries"
 msgstr "Ölkələr"
 
-#: apps/qr_management/views/codes.py:247
+#: apps/qr_management/views/codes.py:250
 msgid "Cities"
 msgstr "Şəhərlər"
 
-#: apps/qr_management/views/codes.py:247
+#: apps/qr_management/views/codes.py:250
 msgid "Referrers"
 msgstr "Mənbə saytlar"
 
-#: apps/qr_management/views/codes.py:248
+#: apps/qr_management/views/codes.py:251
 msgid "UTM sources"
 msgstr "UTM mənbələri"
 
-#: apps/qr_management/views/codes.py:248
+#: apps/qr_management/views/codes.py:251
 msgid "Campaigns"
 msgstr "Kampaniyalar"
 
-#: apps/qr_management/views/codes.py:283
+#: apps/qr_management/views/codes.py:286
 msgid "QR code activated."
 msgstr "QR kod aktivləşdirildi."
 
-#: apps/qr_management/views/codes.py:284
+#: apps/qr_management/views/codes.py:287
 msgid "QR code paused. Scans now show an 'inactive' page."
 msgstr ""
 "QR kod dayandırıldı. Skan edənlər indi 'aktiv deyil' səhifəsini görəcək."
 
-#: apps/qr_management/views/codes.py:296
+#: apps/qr_management/views/codes.py:299
 msgid "QR code deleted."
 msgstr "QR kod silindi."
 
-#: apps/qr_management/views/codes.py:311
+#: apps/qr_management/views/codes.py:314
 msgid "Select at least one QR code."
 msgstr "Ən azı bir QR kod seçin."
 
-#: apps/qr_management/views/codes.py:315
+#: apps/qr_management/views/codes.py:318
 #, python-format
 msgid "Export up to %(n)s codes at a time."
 msgstr "Bir dəfəyə ən çox %(n)s kod ixrac edin."
 
-#: apps/qr_management/views/codes.py:326
+#: apps/qr_management/views/codes.py:329
 #, python-format
 msgid "%(n)s QR codes updated."
 msgstr "%(n)s QR kod yeniləndi."
 
-#: apps/qr_management/views/codes.py:334
+#: apps/qr_management/views/codes.py:337
 #, python-format
 msgid "%(n)s QR codes moved."
 msgstr "%(n)s QR kod köçürüldü."
 
-#: apps/qr_management/views/codes.py:340
+#: apps/qr_management/views/codes.py:343
 #, python-format
 msgid "%(n)s QR codes deleted."
 msgstr "%(n)s QR kod silindi."
@@ -5435,33 +6106,37 @@ msgstr "Qovluq silindi. İçindəki QR kodlar saxlanıldı."
 msgid "Subscriptions"
 msgstr "Abunəliklər"
 
-#: apps/subscriptions/features.py:27
+#: apps/subscriptions/features.py:28
 msgid "Agency workspace"
 msgstr "Agentlik iş sahəsi"
 
-#: apps/subscriptions/features.py:28
+#: apps/subscriptions/features.py:29
 msgid "Remove Qrumy branding"
 msgstr "Qrumy brendini gizlətmək"
 
-#: apps/subscriptions/features.py:29
+#: apps/subscriptions/features.py:30
 msgid "Dynamic QR codes"
 msgstr "Dinamik QR kodlar"
 
-#: apps/subscriptions/features.py:30
+#: apps/subscriptions/features.py:31
 msgid "Bulk QR creation"
 msgstr "Toplu QR yaratma"
 
-#: apps/subscriptions/features.py:31
+#: apps/subscriptions/features.py:32
 msgid "File size per QR (MB)"
 msgstr "QR başına fayl ölçüsü (MB)"
 
-#: apps/subscriptions/features.py:33
+#: apps/subscriptions/features.py:34
 msgid "Survey responses per month"
 msgstr "Ayda sorğu cavabları"
 
-#: apps/subscriptions/features.py:35
+#: apps/subscriptions/features.py:36
 msgid "Digital cards"
 msgstr "Rəqəmsal kartlar"
+
+#: apps/subscriptions/features.py:37
+msgid "Digital menus"
+msgstr "Rəqəmsal menyular"
 
 #: apps/subscriptions/models.py:9
 msgid "key"
@@ -6079,14 +6754,6 @@ msgid ""
 msgstr ""
 "Bu sorğunun artıq cavabları var. Sualı silmək onun cavablarını da silir."
 
-#: apps/surveys/templates/surveys/builder.html:20
-msgid "Move up"
-msgstr "Yuxarı"
-
-#: apps/surveys/templates/surveys/builder.html:21
-msgid "Move down"
-msgstr "Aşağı"
-
 #: apps/surveys/templates/surveys/builder.html:22
 msgid "Delete question"
 msgstr "Sualı sil"
@@ -6527,11 +7194,11 @@ msgstr "Sorğu və onun cavabları silindi."
 msgid "QR code created. You can change its design in QR Codes."
 msgstr "QR kod yaradıldı. Dizaynını QR kodlar bölməsində dəyişə bilərsiniz."
 
-#: config/settings/base.py:183
+#: config/settings/base.py:184
 msgid "English"
 msgstr "İngilis dili"
 
-#: config/settings/base.py:183
+#: config/settings/base.py:184
 msgid "Azerbaijani"
 msgstr "Azərbaycan dili"
 
@@ -6725,10 +7392,6 @@ msgstr "Pulsuz beta"
 #: templates/layouts/app.html:65
 msgid "New modules are released here as soon as they are ready."
 msgstr "Yeni modullar hazır olan kimi burada buraxılır."
-
-#: templates/layouts/app.html:72
-msgid "Open menu"
-msgstr "Menyunu aç"
 
 #: templates/layouts/auth.html:10 templates/layouts/marketing.html:67
 msgid "QR technology that powers smarter business operations."

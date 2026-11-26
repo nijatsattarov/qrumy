@@ -1,0 +1,54 @@
+{% extends "layouts/app.html" %}
+{% load i18n qrumy %}
+{% block title %}{% if item %}{{ item.name }}{% else %}{% translate "New item" %}{% endif %}{% endblock %}
+{% block breadcrumb %}<a href="{% url 'menu_list' org_slug=current_organization.slug %}" class="text-muted no-underline hover:text-ink">{% translate "Digital Menu" %}</a> / <a href="{% url 'menu_builder' org_slug=current_organization.slug pk=menu.pk %}" class="text-muted no-underline hover:text-ink">{{ menu.name }}</a> / {% if item %}{{ item.name }}{% else %}{% translate "New item" %}{% endif %}{% endblock %}
+{% block content %}
+<div class="mx-auto max-w-3xl">
+  <h1 class="page-title">{% if item %}{% translate "Edit item" %}{% else %}{% translate "New item" %}{% endif %}</h1>
+  <form method="post" enctype="multipart/form-data" class="card mt-5">
+    {% csrf_token %}
+    <div class="card-body space-y-5">
+      {% for e in form.non_field_errors %}<div class="rounded-lg border border-danger/20 bg-danger-soft px-4 py-3 text-sm text-danger" role="alert">{{ e }}</div>{% endfor %}
+      <div class="grid gap-4 sm:grid-cols-2">{{ form.name.as_field_group }}{{ form.category.as_field_group }}</div>
+      {{ form.description.as_field_group }}
+      <div class="grid gap-4 sm:grid-cols-3">
+        <div class="form-field{% if form.price.errors %} has-error{% endif %}"><label class="form-label" for="{{ form.price.auto_id }}">{{ form.price.label }} ({{ menu.symbol }})</label>{{ form.price }}{% for e in form.price.errors %}<p class="form-error">{{ e }}</p>{% endfor %}</div>
+        <div class="form-field{% if form.discount_price.errors %} has-error{% endif %}"><label class="form-label" for="{{ form.discount_price.auto_id }}">{{ form.discount_price.label }} <span class="font-normal text-muted">({% translate "optional" %})</span></label>{{ form.discount_price }}{% for e in form.discount_price.errors %}<p class="form-error">{{ e }}</p>{% endfor %}</div>
+        {{ form.unit.as_field_group }}
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div class="space-y-2">
+          {% if item.image %}<img src="{{ item.image.url }}" alt="" class="h-28 w-28 rounded-xl object-cover">{% endif %}
+          {{ form.image.as_field_group }}
+          {% if item.image %}{{ form.remove_image.as_field_group }}{% endif %}
+        </div>
+        {{ form.availability.as_field_group }}
+      </div>
+      <fieldset>
+        <legend class="form-label">{{ form.tags.label }}</legend>
+        <div class="mt-2 flex flex-wrap gap-2">{% for cb in form.tags %}<label class="chip cursor-pointer has-[:checked]:border-navy-900 has-[:checked]:bg-navy-900 has-[:checked]:text-white">{{ cb.tag }}<span>{{ cb.choice_label }}</span></label>{% endfor %}</div>
+      </fieldset>
+      <div class="grid gap-6 sm:grid-cols-2">
+        <div>
+          <p class="form-label">{% translate "Sizes and variants" %}</p>
+          <p class="form-help mb-2">{% translate "Each has its own price, e.g. Small 3.50 · Large 4.50." %}</p>
+          {% with rv=form.variant_rows %}{% include "menus/_option_rows.html" with rows=rv.0 visible=rv.1 name_placeholder=_("e.g. Large") add_label=_("Add size") %}{% endwith %}
+        </div>
+        <div>
+          <p class="form-label">{% translate "Extras" %}</p>
+          <p class="form-help mb-2">{% translate "Added to the price, e.g. Extra shot +1.00." %}</p>
+          {% with ra=form.addon_rows %}{% include "menus/_option_rows.html" with rows=ra.0 visible=ra.1 name_placeholder=_("e.g. Extra cheese") add_label=_("Add extra") %}{% endwith %}
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-wrap items-center justify-between gap-2 border-t border-line px-5 py-4">
+      {% if item %}<button type="submit" form="delete-item" class="btn btn-danger btn-sm">{% icon 'trash' 'size-4' %}{% translate "Delete" %}</button>{% else %}<a href="{% url 'menu_builder' org_slug=current_organization.slug pk=menu.pk %}" class="btn btn-ghost">{% translate "Cancel" %}</a>{% endif %}
+      <div class="flex gap-2">
+        {% if not item %}<button type="submit" name="another" value="1" class="btn btn-secondary">{% translate "Save and add another" %}</button>{% endif %}
+        <button type="submit" class="btn btn-primary">{% translate "Save item" %}</button>
+      </div>
+    </div>
+  </form>
+  {% if item %}<form id="delete-item" method="post" action="{% url 'menu_item_action' org_slug=current_organization.slug pk=menu.pk item_id=item.pk %}" data-confirm="{% translate 'Delete this item?' %}">{% csrf_token %}<input type="hidden" name="action" value="delete"></form>{% endif %}
+</div>
+{% endblock %}

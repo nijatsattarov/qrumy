@@ -1,0 +1,16 @@
+{% load i18n qrumy %}
+<div class="flex flex-wrap items-center justify-between gap-3">
+  <div class="flex items-center gap-3">
+    <h1 class="page-title">{{ menu.name }}</h1>
+    {% if menu.is_published %}<span class="badge badge-success">{% translate "Live" %}</span>{% else %}<span class="badge badge-neutral">{% translate "Draft" %}</span>{% endif %}
+  </div>
+  <div class="flex gap-2">
+    {% if menu.is_published %}<a href="{{ menu.public_path }}" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">{% icon 'external' 'size-4' %}{% translate "Open menu" %}</a>{% endif %}
+  </div>
+</div>
+<nav class="mt-4 flex gap-1 border-b border-line text-sm font-medium" aria-label="{% translate 'Menu sections' %}">
+  {% url 'menu_builder' org_slug=current_organization.slug pk=menu.pk as u1 %}{% url 'menu_settings' org_slug=current_organization.slug pk=menu.pk as u2 %}{% url 'menu_share' org_slug=current_organization.slug pk=menu.pk as u3 %}
+  <a href="{{ u1 }}" class="tab-link{% if tab == 'builder' %} is-active{% endif %}">{% icon 'menu-book' 'size-4' %}{% translate "Items" %}</a>
+  <a href="{{ u2 }}" class="tab-link{% if tab == 'settings' %} is-active{% endif %}">{% icon 'settings' 'size-4' %}{% translate "Design & info" %}</a>
+  <a href="{{ u3 }}" class="tab-link{% if tab == 'share' %} is-active{% endif %}">{% icon 'qr' 'size-4' %}{% translate "QR & statistics" %}</a>
+</nav>

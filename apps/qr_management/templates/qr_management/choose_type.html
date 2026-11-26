@@ -6,6 +6,16 @@
 <h1 class="page-title">{% translate "What should the QR code do?" %}</h1>
 <p class="page-subtitle">{% translate "Choose a type. You can design the code in the next step." %}</p>
 <div class="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+  {% for p in products %}
+  <a href="{{ p.url }}" class="card group flex items-start gap-4 border-navy-900/30 bg-accent-50/40 p-4 text-ink no-underline transition hover:border-navy-900">
+    <span class="inline-flex size-10 shrink-0 items-center justify-center rounded-lg bg-navy-900 text-white">{% icon p.icon 'size-5' %}</span>
+    <span class="min-w-0">
+      <span class="block text-sm font-semibold">{{ p.label }}</span>
+      <span class="mt-0.5 block text-xs text-muted">{{ p.description }}</span>
+      <span class="mt-2 flex gap-1"><span class="badge badge-accent">{% translate "Dynamic" %}</span><span class="badge badge-success">{% translate "Recommended" %}</span></span>
+    </span>
+  </a>
+  {% endfor %}
   {% for t in types %}
   <a href="{% url 'qr_create' org_slug=current_organization.slug type_key=t.key %}" class="card group flex items-start gap-4 p-4 text-ink no-underline transition hover:border-navy-900">
     <span class="inline-flex size-10 shrink-0 items-center justify-center rounded-lg bg-canvas text-navy-800 group-hover:bg-navy-900 group-hover:text-white">{% icon t.icon 'size-5' %}</span>

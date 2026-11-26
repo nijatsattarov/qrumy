@@ -154,5 +154,9 @@ Legend: `[ ]` not started · `[~]` in progress · `[x]` done and tested
       map, social links, gallery (12), 6-step editor with live phone preview, publish → QR,
       vCard "Save contact", share button, views/saves/clicks stats, plan limit `cards.max`
 - [x] Production refuses to start with a localhost SITE_URL
-- [ ] Digital Menu
+- [x] Digital Menu: menus → categories (order, hide) → items (photo, price, discount, portion,
+      availability, labels, sizes, extras); design (colour, logo, cover, 3 layouts) and guest
+      info (hours, address, Wi-Fi); publish → QR (PNG/SVG); public page with category tabs,
+      search and item sheet; views, top items and categories; plan limit `menus.max`;
+      replaces the old PDF menu in the QR type picker (old codes keep working)
 - [ ] Event Lead Capture

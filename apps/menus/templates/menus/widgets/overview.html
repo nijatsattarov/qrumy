@@ -1,0 +1,12 @@
+{% load i18n qrumy %}
+<section class="card">
+  <div class="card-header"><h2 class="section-title">{% translate "Digital Menu" %}</h2><a href="{% url 'menu_list' org_slug=current_organization.slug %}" class="text-sm no-underline">{% translate "View all" %}</a></div>
+  <div class="card-body">
+    {% if menus_latest %}
+      <ul class="space-y-2">{% for m in menus_latest %}<li><a href="{% url 'menu_builder' org_slug=current_organization.slug pk=m.pk %}" class="flex items-center justify-between text-sm text-ink no-underline"><span class="truncate">{{ m.name }}</span>{% if m.is_published %}<span class="badge badge-success">{% translate "Live" %}</span>{% else %}<span class="badge badge-neutral">{% translate "Draft" %}</span>{% endif %}</a></li>{% endfor %}</ul>
+    {% else %}
+      <p class="text-sm text-muted">{% translate "Create an interactive QR menu with photos, prices and categories." %}</p>
+      <a href="{% url 'menu_create' org_slug=current_organization.slug %}" class="btn btn-primary btn-sm mt-4">{% icon 'plus' 'size-4' %}{% translate "New menu" %}</a>
+    {% endif %}
+  </div>
+</section>

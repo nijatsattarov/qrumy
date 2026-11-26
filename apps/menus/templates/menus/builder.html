@@ -1,0 +1,68 @@
+{% extends "layouts/app.html" %}
+{% load i18n qrumy %}
+{% block title %}{{ menu.name }}{% endblock %}
+{% block breadcrumb %}<a href="{% url 'menu_list' org_slug=current_organization.slug %}" class="text-muted no-underline hover:text-ink">{% translate "Digital Menu" %}</a> / {{ menu.name }}{% endblock %}
+{% block content %}
+{% include "menus/_header.html" %}
+<div class="mt-6 grid items-start gap-6 lg:grid-cols-[1fr_340px]">
+  <div class="space-y-4">
+    {% for c in categories %}
+    <section id="cat-{{ c.pk }}" class="card scroll-mt-20">
+      <div class="card-header flex-wrap">
+        <div x-data="disclosure" class="min-w-0 flex-1">
+          <div class="flex items-center gap-2">
+            <h2 class="section-title truncate">{{ c.name }}</h2>
+            {% if not c.is_visible %}<span class="badge badge-neutral">{% translate "Hidden" %}</span>{% endif %}
+            <span class="text-xs text-muted">{{ c.items.all|length }}</span>
+            <button type="button" @click="toggle" class="btn btn-ghost btn-sm" aria-label="{% translate 'Edit category' %}">{% icon 'edit' 'size-4' %}</button>
+          </div>
+          <form x-show="open" x-cloak method="post" action="{% url 'menu_category_update' org_slug=current_organization.slug pk=menu.pk cat_id=c.pk %}" class="mt-3 grid gap-2 sm:grid-cols-[1fr_1fr_auto_auto] sm:items-end">
+            {% csrf_token %}
+            <div class="form-field"><label class="form-label" for="cn{{ c.pk }}">{% translate "Name" %}</label><input id="cn{{ c.pk }}" name="cat{{ c.pk }}-name" value="{{ c.name }}" maxlength="80" required></div>
+            <div class="form-field"><label class="form-label" for="cd{{ c.pk }}">{% translate "Description" %}</label><input id="cd{{ c.pk }}" name="cat{{ c.pk }}-description" value="{{ c.description }}" maxlength="200"></div>
+            <label class="flex items-center gap-2 pb-2.5 text-sm"><input type="checkbox" name="cat{{ c.pk }}-is_visible" {% if c.is_visible %}checked{% endif %} class="checkbox">{% translate "Visible" %}</label>
+            <button type="submit" class="btn btn-secondary btn-sm mb-1">{% translate "Save" %}</button>
+          </form>
+        </div>
+        <div class="flex items-center gap-1">
+          <form method="post" action="{% url 'menu_category_move' org_slug=current_organization.slug pk=menu.pk cat_id=c.pk %}">{% csrf_token %}<input type="hidden" name="direction" value="up"><button class="btn btn-ghost btn-sm" aria-label="{% translate 'Move up' %}"{% if forloop.first %} disabled{% endif %}><span class="rotate-180">{% icon 'chevron-down' 'size-4' %}</span></button></form>
+          <form method="post" action="{% url 'menu_category_move' org_slug=current_organization.slug pk=menu.pk cat_id=c.pk %}">{% csrf_token %}<input type="hidden" name="direction" value="down"><button class="btn btn-ghost btn-sm" aria-label="{% translate 'Move down' %}"{% if forloop.last %} disabled{% endif %}>{% icon 'chevron-down' 'size-4' %}</button></form>
+          <form method="post" action="{% url 'menu_category_delete' org_slug=current_organization.slug pk=menu.pk cat_id=c.pk %}" data-confirm="{% translate 'Delete this category and all its items?' %}">{% csrf_token %}<button class="btn btn-ghost btn-sm" aria-label="{% translate 'Delete category' %}">{% icon 'trash' 'size-4' %}</button></form>
+        </div>
+      </div>
+      <ul class="divide-y divide-line">
+        {% for item in c.items.all %}
+        <li id="item-{{ item.pk }}" class="flex items-center gap-3 px-5 py-3 {% if item.availability != 'available' %}bg-canvas/60{% endif %}">
+          <span class="size-12 shrink-0 overflow-hidden rounded-lg bg-canvas">{% if item.image %}<img src="{{ item.image.url }}" alt="" class="h-full w-full object-cover">{% endif %}</span>
+          <a href="{% url 'menu_item_edit' org_slug=current_organization.slug pk=menu.pk item_id=item.pk %}" class="min-w-0 flex-1 text-ink no-underline">
+            <span class="block truncate font-medium">{{ item.name }}</span>
+            <span class="block text-sm text-muted">{% if item.has_discount %}<s>{{ item.price|floatformat:"-2" }}</s> {{ item.discount_price|floatformat:"-2" }}{% else %}{{ item.price|floatformat:"-2" }}{% endif %} {{ menu.symbol }}{% with n=item.options.all|length %}{% if n %} · {% blocktranslate count n=n %}{{ n }} option{% plural %}{{ n }} options{% endblocktranslate %}{% endif %}{% endwith %}</span>
+          </a>
+          <form method="post" action="{% url 'menu_item_action' org_slug=current_organization.slug pk=menu.pk item_id=item.pk %}" class="flex items-center gap-1">
+            {% csrf_token %}
+            {% if item.availability == "available" %}<button name="action" value="sold_out" class="badge badge-success cursor-pointer" title="{% translate 'Mark as sold out' %}">{% translate "Available" %}</button>
+            {% elif item.availability == "sold_out" %}<button name="action" value="available" class="badge badge-warning cursor-pointer" title="{% translate 'Mark as available' %}">{% translate "Sold out" %}</button>
+            {% else %}<button name="action" value="available" class="badge badge-neutral cursor-pointer" title="{% translate 'Show on the menu' %}">{% translate "Hidden" %}</button>{% endif %}
+            <button name="action" value="up" class="btn btn-ghost btn-sm" aria-label="{% translate 'Move up' %}"{% if forloop.first %} disabled{% endif %}><span class="rotate-180">{% icon 'chevron-down' 'size-4' %}</span></button>
+            <button name="action" value="down" class="btn btn-ghost btn-sm" aria-label="{% translate 'Move down' %}"{% if forloop.last %} disabled{% endif %}>{% icon 'chevron-down' 'size-4' %}</button>
+          </form>
+        </li>
+        {% empty %}
+        <li class="px-5 py-4 text-sm text-muted">{% translate "No items in this category yet." %}</li>
+        {% endfor %}
+      </ul>
+      <div class="border-t border-line px-5 py-3"><a href="{% url 'menu_item_create' org_slug=current_organization.slug pk=menu.pk %}?category={{ c.pk }}" class="btn btn-secondary btn-sm">{% icon 'plus' 'size-4' %}{% translate "Add item" %}</a></div>
+    </section>
+    {% endfor %}
+
+    <form method="post" action="{% url 'menu_category_create' org_slug=current_organization.slug pk=menu.pk %}" class="card grid gap-3 p-5 sm:grid-cols-[1fr_1fr_auto] sm:items-end">
+      {% csrf_token %}
+      {{ category_form.name.as_field_group }}
+      {{ category_form.description.as_field_group }}
+      <input type="hidden" name="new-is_visible" value="on">
+      <button type="submit" class="btn btn-primary">{% icon 'plus' 'size-4' %}{% translate "Add category" %}</button>
+    </form>
+  </div>
+  {% include "menus/_preview.html" %}
+</div>
+{% endblock %}

@@ -23,6 +23,7 @@ FEATURES = {f.key: f for f in [
     Feature("module.events", "bool", _("Event Lead Capture")),
     Feature("module.assets", "bool", _("Asset Management")),
     Feature("module.cards", "bool", _("Qrumy Card")),
+    Feature("module.menus", "bool", _("Digital Menu")),
     Feature("module.ai", "bool", _("Qrumy Intelligence")),
     Feature("module.agency", "bool", _("Agency workspace")),
     Feature("branding.remove", "bool", _("Remove Qrumy branding")),
@@ -33,4 +34,5 @@ FEATURES = {f.key: f for f in [
     Feature("surveys.responses_month", "limit", _("Survey responses per month")),
     Feature("assets.max", "limit", _("Assets")),
     Feature("cards.max", "limit", _("Digital cards")),
+    Feature("menus.max", "limit", _("Digital menus")),
 ]}

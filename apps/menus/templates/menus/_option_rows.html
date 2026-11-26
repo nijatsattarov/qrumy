@@ -1,0 +1,10 @@
+{% load i18n qrumy %}
+<div data-reveal-group>
+  {% for row in rows %}
+  <div class="grid grid-cols-[1fr_120px] gap-2" data-reveal-row{% if row.n > visible %} hidden{% endif %}>
+    <input type="text" name="{{ row.name.html_name }}" value="{{ row.name.value|default:'' }}" class="input" placeholder="{{ name_placeholder }}" maxlength="80" aria-label="{% translate 'Name' %}">
+    <input type="text" name="{{ row.price.html_name }}" value="{{ row.price.value|default:'' }}" class="input" placeholder="0.00" inputmode="decimal" aria-label="{% translate 'Price' %}">
+  </div>
+  {% endfor %}
+  <button type="button" class="btn btn-ghost btn-sm mt-1" data-reveal-add>{% icon 'plus' 'size-4' %}{{ add_label }}</button>
+</div>

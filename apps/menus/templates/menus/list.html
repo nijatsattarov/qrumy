@@ -1,0 +1,35 @@
+{% extends "layouts/app.html" %}
+{% load i18n qrumy %}
+{% block title %}{% translate "Digital Menu" %}{% endblock %}
+{% block breadcrumb %}{% translate "Digital Menu" %}{% endblock %}
+{% block content %}
+<div class="flex flex-wrap items-center justify-between gap-4">
+  <div>
+    <h1 class="page-title">{% translate "Digital Menu" %}</h1>
+    <p class="page-subtitle">{% translate "Interactive QR menus with photos, prices and categories — update them any time without reprinting." %}</p>
+  </div>
+  <a href="{% url 'menu_create' org_slug=current_organization.slug %}" class="btn btn-primary">{% icon 'plus' 'size-4' %}{% translate "New menu" %}</a>
+</div>
+{% if menus %}
+<div class="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+  {% for m in menus %}
+  <a href="{% url 'menu_builder' org_slug=current_organization.slug pk=m.pk %}" class="card flex items-center gap-4 p-4 text-ink no-underline hover:border-line-strong">
+    <span class="inline-flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-canvas">{% if m.logo %}<img src="{{ m.logo.url }}" alt="" class="h-full w-full object-contain">{% else %}{% icon 'menu-book' 'size-5' %}{% endif %}</span>
+    <span class="min-w-0 flex-1">
+      <span class="block truncate font-semibold">{{ m.name }}</span>
+      <span class="block text-sm text-muted">{% blocktranslate count n=m.n_items %}{{ n }} item{% plural %}{{ n }} items{% endblocktranslate %} · {% blocktranslate count n=m.n_categories %}{{ n }} category{% plural %}{{ n }} categories{% endblocktranslate %}</span>
+      <span class="mt-1.5 block">{% if m.is_published %}<span class="badge badge-success">{% translate "Live" %}</span>{% else %}<span class="badge badge-neutral">{% translate "Draft" %}</span>{% endif %}</span>
+    </span>
+    {% icon 'chevron-right' 'size-4 text-muted' %}
+  </a>
+  {% endfor %}
+</div>
+{% else %}
+<div class="card mt-6 flex flex-col items-center px-6 py-14 text-center">
+  <span class="inline-flex size-12 items-center justify-center rounded-xl bg-navy-900 text-white">{% icon 'menu-book' 'size-6' %}</span>
+  <h2 class="mt-4 text-lg font-semibold">{% translate "Create your digital menu" %}</h2>
+  <p class="mt-2 max-w-md text-sm text-muted">{% translate "Guests scan the QR code on the table and see your menu with photos and prices on their phone. Change prices or mark items as sold out in seconds." %}</p>
+  <a href="{% url 'menu_create' org_slug=current_organization.slug %}" class="btn btn-primary mt-6">{% icon 'plus' 'size-4' %}{% translate "New menu" %}</a>
+</div>
+{% endif %}
+{% endblock %}

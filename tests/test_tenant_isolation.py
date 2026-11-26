@@ -34,6 +34,10 @@ OBJECT_ROUTES_COVERED = {
     # Qrumy Card
     "card_step", "card_photo_add", "card_photo_delete", "card_publish", "card_delete",
     "card_preview",
+    # Digital Menu
+    "menu_builder", "menu_settings", "menu_share", "menu_publish", "menu_delete",
+    "menu_preview", "menu_category_create", "menu_category_update", "menu_category_move",
+    "menu_category_delete", "menu_item_create", "menu_item_edit", "menu_item_action",
 }
 
 
@@ -425,3 +429,72 @@ def test_cannot_delete_foreign_photo_through_own_card(client, two_orgs, victim_c
                                                "photo_id": victim_card["photo"].pk})
     assert client.post(url).status_code == 404
     assert CardPhoto.objects.filter(pk=victim_card["photo"].pk).exists()
+
+
+# ----------------------------------------------------------------------------- Digital Menu
+@pytest.fixture
+def victim_menu(two_orgs):
+    from apps.menus import services
+    from apps.menus.models import MenuItem
+
+    victim, _, _ = two_orgs
+    menu = services.create_menu(organization=victim, actor=victim.owner,
+                                data={"name": "Victim menu"})
+    cat = services.add_category(menu=menu, name="Secret cat")
+    item = MenuItem.objects.create(organization=victim, menu=menu, category=cat,
+                                   name="Secret item", price=5)
+    return {"menu": menu, "cat": cat, "item": item}
+
+
+MENU_ROUTES = [
+    ("menu_builder", "get", {}, {}), ("menu_settings", "get", {}, {}),
+    ("menu_settings", "post", {}, {"name": "pwned", "currency": "AZN", "language": "az",
+                                   "layout": "list", "accent_color": "#000000"}),
+    ("menu_share", "get", {}, {}), ("menu_publish", "post", {}, {"publish": "1"}),
+    ("menu_delete", "post", {}, {"confirm": "Victim menu"}), ("menu_preview", "get", {}, {}),
+    ("menu_category_create", "post", {}, {"new-name": "pwned"}),
+    ("menu_category_update", "post", {"cat_id": "cat"}, {}),
+    ("menu_category_move", "post", {"cat_id": "cat"}, {"direction": "down"}),
+    ("menu_category_delete", "post", {"cat_id": "cat"}, {}),
+    ("menu_item_create", "get", {}, {}),
+    ("menu_item_edit", "post", {"item_id": "item"}, {"name": "pwned", "price": "1"}),
+    ("menu_item_action", "post", {"item_id": "item"}, {"action": "delete"}),
+]
+
+
+@pytest.mark.parametrize("name,method,extra,data", MENU_ROUTES)
+def test_cannot_touch_foreign_menus(client, two_orgs, victim_menu, name, method, extra, data):
+    from apps.menus.models import Menu, MenuCategory, MenuItem
+
+    _, attacker_org, attacker = two_orgs
+    client.force_login(attacker)
+    kwargs = {"org_slug": attacker_org.slug, "pk": victim_menu["menu"].pk}
+    for k, v in extra.items():
+        kwargs[k] = victim_menu[v].pk
+    url = reverse(name, kwargs=kwargs)
+    resp = client.post(url, data) if method == "post" else client.get(url)
+    assert resp.status_code == 404
+    menu = Menu.objects.get(pk=victim_menu["menu"].pk)
+    assert menu.name == "Victim menu" and not menu.is_published
+    assert MenuCategory.objects.filter(menu=menu).count() == 1
+    assert MenuItem.objects.get(pk=victim_menu["item"].pk).name == "Secret item"
+
+
+def test_cannot_use_foreign_category_or_item_through_own_menu(client, two_orgs, victim_menu):
+    from apps.menus import services
+    from apps.menus.models import MenuCategory, MenuItem
+
+    _, attacker_org, attacker = two_orgs
+    own = services.create_menu(organization=attacker_org, actor=attacker, data={"name": "Mine"})
+    services.add_category(menu=own, name="Mine")
+    client.force_login(attacker)
+    base = {"org_slug": attacker_org.slug, "pk": own.pk}
+    assert client.post(reverse("menu_category_delete",
+                               kwargs={**base, "cat_id": victim_menu["cat"].pk})).status_code == 404
+    assert client.post(reverse("menu_item_action", kwargs={**base, "item_id": victim_menu[
+        "item"].pk}), {"action": "delete"}).status_code == 404
+    client.post(reverse("menu_item_create", kwargs=base), {
+        "category": victim_menu["cat"].pk, "name": "Sneaky", "price": "1",
+        "availability": "available"})
+    assert not MenuItem.objects.filter(name="Sneaky").exists()
+    assert MenuCategory.objects.filter(pk=victim_menu["cat"].pk).exists()

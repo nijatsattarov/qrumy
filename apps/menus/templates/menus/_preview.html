@@ -1,0 +1,5 @@
+{% load i18n %}
+<aside class="hidden lg:sticky lg:top-20 lg:block">
+  <div class="phone-frame mx-auto"><iframe src="{% url 'menu_preview' org_slug=current_organization.slug pk=menu.pk %}" title="{% translate 'Menu preview' %}" class="h-full w-full rounded-[1.6rem] bg-white"></iframe></div>
+  <p class="mt-3 text-center text-xs text-muted">{% translate "Preview updates when you save." %}</p>
+</aside>

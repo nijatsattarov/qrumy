@@ -1,0 +1,17 @@
+{% extends "layouts/app.html" %}
+{% load i18n qrumy %}
+{% block title %}{% translate "New menu" %}{% endblock %}
+{% block breadcrumb %}<a href="{% url 'menu_list' org_slug=current_organization.slug %}" class="text-muted no-underline hover:text-ink">{% translate "Digital Menu" %}</a> / {% translate "New menu" %}{% endblock %}
+{% block content %}
+<div class="mx-auto max-w-xl">
+  <h1 class="page-title">{% translate "New digital menu" %}</h1>
+  <p class="page-subtitle">{% translate "Start with the basics. You add categories, items and the design in the next step." %}</p>
+  <form method="post" class="card mt-6 space-y-5 p-5 sm:p-7">
+    {% csrf_token %}
+    {{ form.name.as_field_group }}
+    <div class="grid gap-4 sm:grid-cols-2">{{ form.currency.as_field_group }}{{ form.language.as_field_group }}</div>
+    <label class="flex items-start gap-3 rounded-xl border border-line p-4"><input type="checkbox" name="starter" value="1" checked class="checkbox mt-0.5"><span><span class="block text-sm font-medium">{% translate "Add example categories" %}</span><span class="block text-xs text-muted">{% translate "Hot drinks, Main dishes and Desserts — rename or delete them any time." %}</span></span></label>
+    <div class="flex justify-end"><button type="submit" class="btn btn-primary btn-lg">{% translate "Create menu" %}{% icon 'arrow-right' 'size-4' %}</button></div>
+  </form>
+</div>
+{% endblock %}
