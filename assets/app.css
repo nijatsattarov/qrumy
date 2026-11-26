@@ -167,6 +167,8 @@
   .tab-link.is-active { @apply border-navy-900 text-ink; }
   .temp-dot { @apply inline-block size-2.5 shrink-0 rounded-full; }
   .temp-hot { @apply bg-danger; } .temp-warm { @apply bg-warning; } .temp-cold { @apply bg-accent-500; }
+  .contact-item { @apply flex items-center rounded-[var(--radius-card)] border border-line bg-surface shadow-[var(--shadow-card)] gap-4 p-4 text-ink no-underline transition-colors hover:border-line-strong; }
+  .contact-icon { @apply inline-flex size-11 shrink-0 items-center justify-center rounded-xl bg-navy-900 text-white; }
   /* Card editor */
   .step-pill { @apply inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1.5 text-sm font-medium text-muted no-underline hover:text-ink; }
   .step-pill .step-num { @apply inline-flex size-5 items-center justify-center rounded-full bg-canvas text-[11px] font-semibold; }

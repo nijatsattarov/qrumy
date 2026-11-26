@@ -164,3 +164,4 @@ Legend: `[ ]` not started · `[~]` in progress · `[x]` done and tested
       limit), staff quick-add, hot/warm/cold, stages, assignee, notes, follow-up tasks, CSV,
       stats, in-app + email notifications, private read-only exhibitor link (hashed, revocable)
 - [ ] Events B: registration, tickets, check-in; exhibitor accounts in their own organization
+- [x] Contact page (en/az) edited in the admin, contact form → admin + email, spam protection

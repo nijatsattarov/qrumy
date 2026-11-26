@@ -28,6 +28,7 @@
       <a href="{% url 'pricing' %}" class="text-muted no-underline hover:text-ink">{% translate "Pricing" %}</a>
       <a href="{% url 'blog' %}" class="text-muted no-underline hover:text-ink">{% translate "Blog" %}</a>
       <a href="{% url 'home' %}#faq" class="text-muted no-underline hover:text-ink">{% translate "FAQ" %}</a>
+      <a href="{% url 'contact' %}" class="text-muted no-underline hover:text-ink">{% translate "Contact" %}</a>
     </nav>
     <div class="ml-auto hidden items-center gap-2 md:flex">
       {% include "components/language_switcher.html" with id="hdr" css="mr-2 text-muted" %}
@@ -47,6 +48,7 @@
       <a href="{% url 'pricing' %}" class="py-2 text-ink no-underline">{% translate "Pricing" %}</a>
       <a href="{% url 'blog' %}" class="py-2 text-ink no-underline">{% translate "Blog" %}</a>
       <a href="{% url 'home' %}#faq" class="py-2 text-ink no-underline">{% translate "FAQ" %}</a>
+      <a href="{% url 'contact' %}" class="py-2 text-ink no-underline">{% translate "Contact" %}</a>
     </nav>
     {% include "components/language_switcher.html" with id="mob" css="py-2 text-muted" align="left" %}
     <div class="mt-2 grid grid-cols-2 gap-2">
@@ -73,6 +75,7 @@
         <li><a href="{% url 'pricing' %}" class="text-muted no-underline hover:text-ink">{% translate "Pricing" %}</a></li>
         <li><a href="{% url 'blog' %}" class="text-muted no-underline hover:text-ink">{% translate "Blog" %}</a></li>
         <li><a href="{% url 'home' %}#faq" class="text-muted no-underline hover:text-ink">{% translate "FAQ" %}</a></li>
+        <li><a href="{% url 'contact' %}" class="text-muted no-underline hover:text-ink">{% translate "Contact" %}</a></li>
       </ul>
     </div>
     <div>

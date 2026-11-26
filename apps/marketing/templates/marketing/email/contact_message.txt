@@ -1,0 +1,4 @@
+{{ msg.name }} <{{ msg.email }}>{% if msg.phone %} · {{ msg.phone }}{% endif %}{% if msg.company %} · {{ msg.company }}{% endif %}
+{{ msg.get_topic_display }} · {{ msg.created_at|date:"j M Y H:i" }}
+
+{{ msg.message }}

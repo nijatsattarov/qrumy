@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from unfold.admin import ModelAdmin, TabularInline
 from unfold.decorators import display
 
-from .models import Post, PostImage, Promo
+from .models import ContactMessage, ContactPage, Post, PostImage, Promo
 
 
 class PostImageInline(TabularInline):
@@ -80,3 +80,37 @@ class PromoAdmin(ModelAdmin):
         if obj.starts_at and obj.starts_at > now:
             return _("Scheduled")
         return _("Showing")
+
+
+@admin.register(ContactPage)
+class ContactPageAdmin(ModelAdmin):
+    list_display = ("title", "language", "email", "phone", "form_enabled", "updated_at")
+    fieldsets = (
+        (None, {"fields": ("language", "title", "intro")}),
+        (_("Contact details"), {"fields": ("email", "phone", "whatsapp", "address", "map_url",
+                                           "hours")}),
+        (_("Contact form"), {"fields": ("form_enabled", "notify_email", "success_message")}),
+    )
+
+
+@admin.register(ContactMessage)
+class ContactMessageAdmin(ModelAdmin):
+    list_display = ("name", "email", "topic", "handled_state", "created_at")
+    list_filter = ("is_handled", "topic", "language")
+    search_fields = ("name", "email", "company", "message")
+    readonly_fields = ("name", "email", "phone", "company", "topic", "message", "language",
+                       "created_at")
+    fields = ("name", "email", "phone", "company", "topic", "message", "language",
+              "created_at", "is_handled", "staff_notes")
+    actions = ["mark_handled"]
+
+    def has_add_permission(self, request):
+        return False
+
+    @display(description=_("Status"), label={_("New"): "warning", _("Handled"): "success"})
+    def handled_state(self, obj):
+        return _("Handled") if obj.is_handled else _("New")
+
+    @admin.action(description=_("Mark as handled"))
+    def mark_handled(self, request, queryset):
+        queryset.update(is_handled=True)

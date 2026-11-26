@@ -1,0 +1,47 @@
+{% extends "layouts/marketing.html" %}
+{% load i18n qrumy social %}
+{% block title %}{{ page.title }}{% endblock %}
+{% block meta_description %}{{ page.intro|truncatechars:150 }}{% endblock %}
+{% block og_title %}{{ page.title }} — Qrumy{% endblock %}
+{% block content %}
+<section class="py-14 sm:py-20">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6">
+    <div class="max-w-2xl">
+      <p class="eyebrow">{% translate "Contact" %}</p>
+      <h1 class="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">{{ page.title }}</h1>
+      {% if page.intro %}<p class="mt-4 text-lg leading-relaxed text-muted">{{ page.intro|linebreaksbr }}</p>{% endif %}
+    </div>
+
+    <div class="mt-10 grid items-start gap-8 lg:grid-cols-[380px_1fr]">
+      <ul class="space-y-3">
+        {% if page.email %}<li><a href="mailto:{{ page.email }}" class="contact-item"><span class="contact-icon">{% icon 'mail' 'size-5' %}</span><span><span class="block text-xs text-muted">{% translate "Email" %}</span><span class="font-medium">{{ page.email }}</span></span></a></li>{% endif %}
+        {% if page.phone %}<li><a href="tel:{{ page.phone }}" class="contact-item"><span class="contact-icon">{% icon 'phone' 'size-5' %}</span><span><span class="block text-xs text-muted">{% translate "Phone" %}</span><span class="font-medium">{{ page.phone }}</span></span></a></li>{% endif %}
+        {% if page.whatsapp_link %}<li><a href="{{ page.whatsapp_link }}" class="contact-item" rel="noopener">{% social_tile 'whatsapp' 'size-11' 8 %}<span><span class="block text-xs text-muted">WhatsApp</span><span class="font-medium">{{ page.whatsapp }}</span></span></a></li>{% endif %}
+        {% if page.address %}<li><a href="{{ page.maps_link }}" class="contact-item" rel="noopener noreferrer"><span class="contact-icon">{% icon 'pin' 'size-5' %}</span><span><span class="block text-xs text-muted">{% translate "Address" %}</span><span class="font-medium">{{ page.address }}</span></span></a></li>{% endif %}
+        {% if page.hours %}<li><div class="contact-item"><span class="contact-icon">{% icon 'calendar' 'size-5' %}</span><span><span class="block text-xs text-muted">{% translate "Working hours" %}</span><span class="font-medium">{{ page.hours }}</span></span></div></li>{% endif %}
+      </ul>
+
+      {% if form %}
+      <div>
+        <div class="mb-4">{% include "components/messages.html" %}</div>
+        <form method="post" class="card space-y-4 p-5 sm:p-7" novalidate>
+          {% csrf_token %}
+          <h2 class="text-xl font-semibold">{% translate "Send us a message" %}</h2>
+          {% for e in form.non_field_errors %}<div class="rounded-lg border border-danger/20 bg-danger-soft px-3 py-2 text-sm text-danger" role="alert">{{ e }}</div>{% endfor %}
+          <div class="grid gap-4 sm:grid-cols-2">{{ form.name.as_field_group }}{{ form.email.as_field_group }}</div>
+          <div class="grid gap-4 sm:grid-cols-2">{{ form.phone.as_field_group }}{{ form.company.as_field_group }}</div>
+          {{ form.topic.as_field_group }}
+          {{ form.message.as_field_group }}
+          <div class="hidden" aria-hidden="true">{{ form.website }}</div>
+          {{ form.started }}
+          <p class="text-xs text-muted">{% if LEGAL.privacy %}{% url 'privacy' as privacy_url %}{% blocktranslate %}We use your details only to answer you. See our <a href="{{ privacy_url }}">Privacy Policy</a>.{% endblocktranslate %}{% else %}{% translate "We use your details only to answer you." %}{% endif %}</p>
+          <button type="submit" class="btn btn-primary btn-lg w-full sm:w-auto">{% icon 'mail' 'size-4' %}{% translate "Send message" %}</button>
+        </form>
+      </div>
+      {% else %}
+      <div>{% include "components/messages.html" %}</div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -190,3 +190,83 @@ class Promo(models.Model):
     def storage_key(self) -> str:
         # Changes when the offer is edited, so an updated offer is shown again.
         return f"qrumy-promo-{self.pk}-{int(self.updated_at.timestamp())}"
+
+
+class ContactPage(models.Model):
+    """Content of the public contact page, one per language (edited in the admin)."""
+
+    language = models.CharField(_("language"), max_length=8, choices=settings.LANGUAGES,
+                                unique=True)
+    title = models.CharField(_("title"), max_length=120)
+    intro = models.TextField(_("intro text"), max_length=600, blank=True)
+    email = models.EmailField(_("email"), blank=True)
+    phone = models.CharField(_("phone"), max_length=32, blank=True)
+    whatsapp = models.CharField(_("WhatsApp number"), max_length=32, blank=True,
+                                help_text=_("With country code, e.g. +994501234567."))
+    address = models.CharField(_("address"), max_length=240, blank=True)
+    map_url = models.URLField(_("map link"), max_length=500, blank=True,
+                              help_text=_("Optional Google Maps link. Without it the address "
+                                          "opens in Google Maps."))
+    hours = models.CharField(_("working hours"), max_length=160, blank=True,
+                             help_text=_("e.g. Mon–Fri 09:00–18:00"))
+    form_enabled = models.BooleanField(_("show the contact form"), default=True)
+    notify_email = models.EmailField(
+        _("send messages to"), blank=True,
+        help_text=_("New form messages are emailed here. Empty: only saved in the admin."))
+    success_message = models.CharField(
+        _("message after sending"), max_length=300, blank=True,
+        help_text=_("Empty: a standard thank-you text."))
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["language"]
+        verbose_name = _("contact page")
+        verbose_name_plural = _("contact page")
+
+    def __str__(self) -> str:
+        return f"{self.title} ({self.language})"
+
+    @property
+    def maps_link(self) -> str:
+        if self.map_url:
+            return self.map_url
+        if self.address:
+            from urllib.parse import quote
+
+            return "https://www.google.com/maps/search/?api=1&query=" + quote(self.address)
+        return ""
+
+    @property
+    def whatsapp_link(self) -> str:
+        import re
+
+        digits = re.sub(r"\D", "", self.whatsapp or "")
+        return f"https://wa.me/{digits}" if digits else ""
+
+
+class ContactMessage(models.Model):
+    class Topic(models.TextChoices):
+        GENERAL = "general", _("General question")
+        SALES = "sales", _("Plans and pricing")
+        SUPPORT = "support", _("Help with my account")
+        PARTNERSHIP = "partnership", _("Partnership")
+
+    name = models.CharField(_("name"), max_length=120)
+    email = models.EmailField(_("email"))
+    phone = models.CharField(_("phone"), max_length=32, blank=True)
+    company = models.CharField(_("company"), max_length=160, blank=True)
+    topic = models.CharField(_("topic"), max_length=12, choices=Topic.choices,
+                             default=Topic.GENERAL)
+    message = models.TextField(_("message"), max_length=3000)
+    language = models.CharField(_("language"), max_length=8, blank=True)
+    is_handled = models.BooleanField(_("handled"), default=False)
+    staff_notes = models.TextField(_("internal notes"), blank=True)
+    created_at = models.DateTimeField(_("received"), auto_now_add=True)
+
+    class Meta:
+        ordering = ["is_handled", "-created_at"]
+        verbose_name = _("contact message")
+        verbose_name_plural = _("contact messages")
+
+    def __str__(self) -> str:
+        return f"{self.name} — {self.get_topic_display()}"

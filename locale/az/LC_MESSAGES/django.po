@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Qrumy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-26 06:30+0000\n"
+"POT-Creation-Date: 2026-11-26 06:36+0000\n"
 "PO-Revision-Date: 2026-11-25 00:00+0000\n"
 "Last-Translator: Qrumy team\n"
 "Language-Team: Azerbaijani\n"
@@ -73,11 +73,11 @@ msgstr ""
 msgid "Interface language"
 msgstr "İnterfeys dili"
 
-#: apps/accounts/legal.py:11 templates/layouts/marketing.html:89
+#: apps/accounts/legal.py:11 templates/layouts/marketing.html:92
 msgid "Terms of Service"
 msgstr "İstifadə Şərtləri"
 
-#: apps/accounts/legal.py:12 templates/layouts/marketing.html:89
+#: apps/accounts/legal.py:12 templates/layouts/marketing.html:92
 msgid "Privacy Policy"
 msgstr "Məxfilik Siyasəti"
 
@@ -87,6 +87,7 @@ msgstr "sənəd"
 
 #: apps/accounts/legal.py:15 apps/accounts/models.py:36
 #: apps/marketing/models.py:44 apps/marketing/models.py:138
+#: apps/marketing/models.py:198 apps/marketing/models.py:261
 msgid "language"
 msgstr "dil"
 
@@ -101,7 +102,8 @@ msgstr ""
 "dəyişiklikdə artırın."
 
 #: apps/accounts/legal.py:19 apps/marketing/models.py:46
-#: apps/marketing/models.py:140 apps/surveys/models.py:30
+#: apps/marketing/models.py:140 apps/marketing/models.py:200
+#: apps/surveys/models.py:30
 msgid "title"
 msgstr "ad"
 
@@ -290,7 +292,7 @@ msgid "No category"
 msgstr "Kateqoriyasız"
 
 #: apps/assets/forms.py:51 apps/assets/templates/assets/fault_detail.html:25
-#: apps/events/forms.py:132
+#: apps/events/forms.py:133
 #: apps/surveys/templates/surveys/response_detail.html:60
 msgid "Nobody"
 msgstr "Heç kim"
@@ -346,7 +348,8 @@ msgstr "Nə qədər təcilidir?"
 msgid "Photo"
 msgstr "Foto"
 
-#: apps/assets/forms.py:123 apps/events/forms.py:42 apps/surveys/forms.py:87
+#: apps/assets/forms.py:123 apps/events/forms.py:43
+#: apps/marketing/contact.py:33 apps/surveys/forms.py:87
 msgid "Your name"
 msgstr "Adınız"
 
@@ -377,7 +380,8 @@ msgid "Photo or PDF"
 msgstr "Foto və ya PDF"
 
 #: apps/assets/models.py:27 apps/assets/models.py:52 apps/assets/models.py:79
-#: apps/cards/models.py:62 apps/events/models.py:58 apps/menus/models.py:112
+#: apps/cards/models.py:62 apps/events/models.py:58
+#: apps/marketing/models.py:254 apps/menus/models.py:112
 #: apps/menus/models.py:165 apps/qr_management/models.py:35
 #: apps/qr_management/models.py:49 apps/qr_management/models.py:75
 #: apps/subscriptions/models.py:10 apps/surveys/models.py:116
@@ -617,7 +621,8 @@ msgid "Urgent"
 msgstr "Təcili"
 
 #: apps/assets/models.py:172 apps/assets/templates/assets/form.html:4
-#: apps/events/models.py:102 apps/menus/models.py:106
+#: apps/events/models.py:102 apps/marketing/admin.py:110
+#: apps/marketing/admin.py:112 apps/menus/models.py:106
 #: apps/qr_management/templates/qr_management/choose_type.html:4
 #: apps/surveys/templates/surveys/create.html:4
 msgid "New"
@@ -840,7 +845,7 @@ msgstr "Məkanlar və kateqoriyalar"
 #: apps/assets/templates/assets/fault_detail.html:26
 #: apps/assets/templates/assets/faults.html:9
 #: apps/assets/templates/assets/list.html:31 apps/marketing/admin.py:40
-#: apps/marketing/admin.py:71
+#: apps/marketing/admin.py:71 apps/marketing/admin.py:110
 #: apps/qr_management/templates/qr_management/list.html:71
 #: apps/surveys/templates/surveys/response_detail.html:47
 #: apps/surveys/templates/surveys/responses.html:13
@@ -1336,7 +1341,7 @@ msgid "Open in Qrumy"
 msgstr "Qrumy-də aç"
 
 #: apps/assets/templates/assets/public/report.html:10
-#: apps/events/views/public.py:51
+#: apps/events/views/public.py:51 apps/marketing/contact.py:42
 msgid "This form expired. Please try again."
 msgstr "Formun müddəti bitib. Yenidən cəhd edin."
 
@@ -1665,7 +1670,7 @@ msgstr "Şirkətin adı"
 msgid "Slogan"
 msgstr "Şüar"
 
-#: apps/cards/forms.py:55 apps/events/forms.py:46
+#: apps/cards/forms.py:55 apps/events/forms.py:47
 #: apps/qr_management/types.py:90
 msgid "Job title"
 msgstr "Vəzifə"
@@ -1687,10 +1692,12 @@ msgid "e.g. Coffee & bakery since 2015"
 msgstr "məs. 2015-ci ildən qəhvə və şirniyyat"
 
 #: apps/cards/forms.py:75 apps/cards/templates/cards/public/card.html:42
-#: apps/cards/templates/cards/public/card.html:43 apps/events/forms.py:44
-#: apps/events/forms.py:90 apps/events/templates/events/lead_detail.html:18
-#: apps/menus/forms.py:24 apps/qr_management/social.py:110
-#: apps/qr_management/types.py:91 apps/surveys/qtypes.py:129
+#: apps/cards/templates/cards/public/card.html:43 apps/events/forms.py:45
+#: apps/events/forms.py:91 apps/events/templates/events/lead_detail.html:18
+#: apps/marketing/contact.py:25
+#: apps/marketing/templates/marketing/contact.html:18 apps/menus/forms.py:24
+#: apps/qr_management/social.py:110 apps/qr_management/types.py:91
+#: apps/surveys/qtypes.py:129
 msgid "Phone"
 msgstr "Telefon"
 
@@ -1740,7 +1747,7 @@ msgstr "Düzgün PNG, JPEG və ya WebP şəkli yükləyin."
 msgid "Person"
 msgstr "Şəxs"
 
-#: apps/cards/models.py:46 apps/events/forms.py:45
+#: apps/cards/models.py:46 apps/events/forms.py:46
 #: apps/events/templates/events/public/portal.html:18
 #: apps/qr_management/types.py:89
 msgid "Company"
@@ -1779,6 +1786,7 @@ msgid "job title or slogan"
 msgstr "vəzifə və ya şüar"
 
 #: apps/cards/models.py:64 apps/events/models.py:118
+#: apps/marketing/models.py:257
 msgid "company"
 msgstr "şirkət"
 
@@ -1794,7 +1802,9 @@ msgstr "profil fotosu və ya loqo"
 msgid "cover image"
 msgstr "örtük şəkli"
 
-#: apps/cards/models.py:71 apps/events/models.py:117 apps/menus/models.py:50
+#: apps/cards/models.py:71 apps/events/models.py:117
+#: apps/marketing/models.py:203 apps/marketing/models.py:256
+#: apps/menus/models.py:50
 msgid "phone"
 msgstr "telefon"
 
@@ -1803,6 +1813,7 @@ msgid "second phone"
 msgstr "ikinci telefon"
 
 #: apps/cards/models.py:73 apps/events/models.py:116
+#: apps/marketing/models.py:202 apps/marketing/models.py:255
 #: apps/organizations/models.py:105 apps/surveys/models.py:145
 msgid "email"
 msgstr "e-poçt"
@@ -1812,11 +1823,12 @@ msgstr "e-poçt"
 msgid "website"
 msgstr "veb sayt"
 
-#: apps/cards/models.py:75 apps/menus/models.py:49
+#: apps/cards/models.py:75 apps/marketing/models.py:206
+#: apps/menus/models.py:49
 msgid "address"
 msgstr "ünvan"
 
-#: apps/cards/models.py:76
+#: apps/cards/models.py:76 apps/marketing/models.py:207
 msgid "map link"
 msgstr "xəritə linki"
 
@@ -1843,7 +1855,10 @@ msgstr "rəqəmsal kartlar"
 #: apps/cards/models.py:120 apps/cards/templates/cards/public/card.html:40
 #: apps/cards/views/manage.py:26
 #: apps/events/templates/events/public/portal.html:18
+#: apps/marketing/templates/marketing/contact.html:10
 #: apps/surveys/templates/surveys/response_detail.html:25
+#: templates/layouts/marketing.html:31 templates/layouts/marketing.html:51
+#: templates/layouts/marketing.html:78
 msgid "Contact"
 msgstr "Əlaqə"
 
@@ -2014,8 +2029,9 @@ msgstr "Zəng et"
 
 #: apps/cards/templates/cards/public/card.html:23
 #: apps/cards/templates/cards/public/card.html:44
-#: apps/core/admin_dashboard.py:140 apps/events/forms.py:43
+#: apps/core/admin_dashboard.py:140 apps/events/forms.py:44
 #: apps/events/templates/events/lead_detail.html:17
+#: apps/marketing/templates/marketing/contact.html:17
 #: apps/organizations/forms.py:53 apps/qr_management/social.py:112
 #: apps/qr_management/types.py:92 apps/qr_management/types.py:373
 #: apps/surveys/models.py:136 apps/surveys/qtypes.py:128
@@ -2045,6 +2061,7 @@ msgid "About us"
 msgstr "Haqqımızda"
 
 #: apps/cards/templates/cards/public/card.html:46
+#: apps/marketing/templates/marketing/contact.html:20
 #: apps/qr_management/types.py:94
 msgid "Address"
 msgstr "Ünvan"
@@ -2483,67 +2500,69 @@ msgstr "Göndərdikdən sonra link"
 msgid "Optional, e.g. your catalogue or website."
 msgstr "Könüllü, məs. kataloqunuz və ya saytınız."
 
-#: apps/events/forms.py:25
+#: apps/events/forms.py:26
 msgid "e.g. Caspian Build Expo 2026"
 msgstr "məs. Caspian Build Expo 2026"
 
-#: apps/events/forms.py:30
+#: apps/events/forms.py:31
 msgid "The last day must be after the first day."
 msgstr "Son gün ilk gündən sonra olmalıdır."
 
-#: apps/events/forms.py:38 apps/events/templates/events/form.html:16
+#: apps/events/forms.py:39 apps/events/templates/events/form.html:16
 msgid "e.g. Stand A12"
 msgstr "məs. Stend A12"
 
-#: apps/events/forms.py:47
+#: apps/events/forms.py:48
 msgid "I am interested in"
 msgstr "Məni maraqlandırır"
 
-#: apps/events/forms.py:49 apps/events/templates/events/lead_detail.html:22
+#: apps/events/forms.py:50 apps/events/templates/events/lead_detail.html:22
 #: apps/qr_management/types.py:105 apps/qr_management/types.py:112
 msgid "Message"
 msgstr "Mesaj"
 
-#: apps/events/forms.py:52 apps/surveys/forms.py:77
+#: apps/events/forms.py:53 apps/marketing/contact.py:26
+#: apps/surveys/forms.py:77
 msgid "Leave this field empty"
 msgstr "Bu sahəni boş saxlayın"
 
-#: apps/events/forms.py:61
+#: apps/events/forms.py:62
 msgid "Please confirm so we can store your details."
 msgstr "Məlumatlarınızı saxlaya bilməyimiz üçün təsdiqləyin."
 
-#: apps/events/forms.py:77
+#: apps/events/forms.py:78 apps/marketing/contact.py:38
+#: apps/marketing/contact.py:44
 msgid "Something went wrong. Please try again."
 msgstr "Xəta baş verdi. Yenidən cəhd edin."
 
-#: apps/events/forms.py:79
+#: apps/events/forms.py:80
 msgid "Enter an email or a phone number so we can reach you."
 msgstr ""
 "Sizinlə əlaqə saxlaya bilməyimiz üçün e-poçt və ya telefon nömrəsi daxil "
 "edin."
 
-#: apps/events/forms.py:91 apps/events/templates/events/lead_detail.html:21
+#: apps/events/forms.py:92 apps/events/templates/events/lead_detail.html:21
 #: apps/events/templates/events/public/portal.html:18
 msgid "Interests"
 msgstr "Maraqlar"
 
-#: apps/events/forms.py:93
+#: apps/events/forms.py:94
 msgid "The person agreed to be contacted"
 msgstr "Şəxs onunla əlaqə saxlanılmasına razılıq verdi"
 
-#: apps/events/forms.py:115
+#: apps/events/forms.py:116
 msgid "Enter an email or a phone number."
 msgstr "E-poçt və ya telefon nömrəsi daxil edin."
 
-#: apps/events/forms.py:136
+#: apps/events/forms.py:137
 msgid "Task"
 msgstr "Tapşırıq"
 
-#: apps/events/forms.py:137
+#: apps/events/forms.py:139
 msgid "e.g. Send price list"
 msgstr "məs. Qiymət siyahısını göndər"
 
-#: apps/events/forms.py:138
+#: apps/events/forms.py:140
 msgid "Due"
 msgstr "Son tarix"
 
@@ -2693,7 +2712,7 @@ msgstr "vəzifə"
 msgid "interests"
 msgstr "maraqlar"
 
-#: apps/events/models.py:121
+#: apps/events/models.py:121 apps/marketing/models.py:260
 msgid "message"
 msgstr "mesaj"
 
@@ -3269,9 +3288,34 @@ msgstr "Bitib"
 msgid "Off"
 msgstr "Söndürülüb"
 
+#: apps/marketing/admin.py:90
+msgid "Contact details"
+msgstr "Əlaqə məlumatları"
+
+#: apps/marketing/admin.py:92
+msgid "Contact form"
+msgstr "Əlaqə forması"
+
+#: apps/marketing/admin.py:110 apps/marketing/admin.py:112
+msgid "Handled"
+msgstr "Cavablandırılıb"
+
+#: apps/marketing/admin.py:114
+msgid "Mark as handled"
+msgstr "Cavablandırılıb kimi qeyd et"
+
 #: apps/marketing/apps.py:8
 msgid "Marketing"
 msgstr "Marketinq"
+
+#: apps/marketing/contact.py:33 apps/surveys/forms.py:89
+#: apps/surveys/qtypes.py:145
+msgid "Your email"
+msgstr "E-poçtunuz"
+
+#: apps/marketing/contact.py:74
+msgid "Thank you! Your message was sent. We will reply to you by email."
+msgstr "Təşəkkür edirik! Mesajınız göndərildi. Sizə e-poçtla cavab verəcəyik."
 
 #: apps/marketing/generator.py:28
 msgid "Dynamic QR code"
@@ -3532,6 +3576,97 @@ msgstr "/pricing/ kimi sayt səhifəsi və ya https:// link istifadə edin."
 msgid "The end must be after the start."
 msgstr "Bitmə vaxtı başlamadan sonra olmalıdır."
 
+#: apps/marketing/models.py:201
+msgid "intro text"
+msgstr "giriş mətni"
+
+#: apps/marketing/models.py:204
+msgid "WhatsApp number"
+msgstr "WhatsApp nömrəsi"
+
+#: apps/marketing/models.py:205
+msgid "With country code, e.g. +994501234567."
+msgstr "Ölkə kodu ilə, məs. +994501234567."
+
+#: apps/marketing/models.py:208
+msgid ""
+"Optional Google Maps link. Without it the address opens in Google Maps."
+msgstr "Könüllü Google Maps linki. Olmasa, ünvan Google Maps-də açılır."
+
+#: apps/marketing/models.py:210
+msgid "working hours"
+msgstr "iş saatları"
+
+#: apps/marketing/models.py:211
+msgid "e.g. Mon–Fri 09:00–18:00"
+msgstr "məs. B.e.–Cümə 09:00–18:00"
+
+#: apps/marketing/models.py:212
+msgid "show the contact form"
+msgstr "əlaqə formasını göstər"
+
+#: apps/marketing/models.py:214
+msgid "send messages to"
+msgstr "mesajları bu ünvana göndər"
+
+#: apps/marketing/models.py:215
+msgid "New form messages are emailed here. Empty: only saved in the admin."
+msgstr ""
+"Formadan gələn yeni mesajlar bu ünvana göndərilir. Boş: yalnız admin paneldə"
+" saxlanılır."
+
+#: apps/marketing/models.py:217
+msgid "message after sending"
+msgstr "göndərdikdən sonra mesaj"
+
+#: apps/marketing/models.py:218
+msgid "Empty: a standard thank-you text."
+msgstr "Boş: standart təşəkkür mətni."
+
+#: apps/marketing/models.py:223 apps/marketing/models.py:224
+msgid "contact page"
+msgstr "əlaqə səhifəsi"
+
+#: apps/marketing/models.py:249
+msgid "General question"
+msgstr "Ümumi sual"
+
+#: apps/marketing/models.py:250
+msgid "Plans and pricing"
+msgstr "Planlar və qiymətlər"
+
+#: apps/marketing/models.py:251
+msgid "Help with my account"
+msgstr "Hesabımla bağlı kömək"
+
+#: apps/marketing/models.py:252
+msgid "Partnership"
+msgstr "Əməkdaşlıq"
+
+#: apps/marketing/models.py:258
+msgid "topic"
+msgstr "mövzu"
+
+#: apps/marketing/models.py:262
+msgid "handled"
+msgstr "cavablandırılıb"
+
+#: apps/marketing/models.py:263
+msgid "internal notes"
+msgstr "daxili qeydlər"
+
+#: apps/marketing/models.py:264
+msgid "received"
+msgstr "daxil olub"
+
+#: apps/marketing/models.py:268
+msgid "contact message"
+msgstr "əlaqə mesajı"
+
+#: apps/marketing/models.py:269
+msgid "contact messages"
+msgstr "əlaqə mesajları"
+
 #: apps/marketing/templates/marketing/_plans.html:7
 msgid "Available now"
 msgstr "İndi mövcuddur"
@@ -3566,8 +3701,8 @@ msgstr "Ardını oxu"
 
 #: apps/marketing/templates/marketing/blog_index.html:3
 #: apps/marketing/templates/marketing/blog_index.html:10
-#: templates/layouts/marketing.html:29 templates/layouts/marketing.html:48
-#: templates/layouts/marketing.html:74
+#: templates/layouts/marketing.html:29 templates/layouts/marketing.html:49
+#: templates/layouts/marketing.html:76
 msgid "Blog"
 msgstr "Bloq"
 
@@ -3634,13 +3769,38 @@ msgstr ""
 
 #: apps/marketing/templates/marketing/blog_post.html:21
 #: apps/marketing/templates/marketing/home.html:118
-#: templates/layouts/marketing.html:38 templates/layouts/marketing.html:55
+#: templates/layouts/marketing.html:39 templates/layouts/marketing.html:57
 msgid "Get Started Free"
 msgstr "Pulsuz başlayın"
 
 #: apps/marketing/templates/marketing/blog_post.html:27
 msgid "More from the blog"
 msgstr "Bloqdan digər yazılar"
+
+#: apps/marketing/templates/marketing/contact.html:21
+msgid "Working hours"
+msgstr "İş saatları"
+
+#: apps/marketing/templates/marketing/contact.html:29
+msgid "Send us a message"
+msgstr "Bizə mesaj yazın"
+
+#: apps/marketing/templates/marketing/contact.html:37
+#, python-format
+msgid ""
+"We use your details only to answer you. See our <a "
+"href=\"%(privacy_url)s\">Privacy Policy</a>."
+msgstr ""
+"Məlumatlarınızdan yalnız sizə cavab vermək üçün istifadə edirik. <a "
+"href=\"%(privacy_url)s\">Məxfilik Siyasəti</a>nə baxın."
+
+#: apps/marketing/templates/marketing/contact.html:37
+msgid "We use your details only to answer you."
+msgstr "Məlumatlarınızdan yalnız sizə cavab vermək üçün istifadə edirik."
+
+#: apps/marketing/templates/marketing/contact.html:38
+msgid "Send message"
+msgstr "Mesaj göndər"
 
 #: apps/marketing/templates/marketing/generator/_content.html:4
 msgid "QR code type"
@@ -3684,7 +3844,7 @@ msgid "These need a free account — still free during the beta."
 msgstr "Bunlar üçün pulsuz hesab lazımdır — beta dövründə yenə də pulsuz."
 
 #: apps/marketing/templates/marketing/generator/_section.html:50
-#: templates/layouts/marketing.html:35 templates/layouts/marketing.html:53
+#: templates/layouts/marketing.html:36 templates/layouts/marketing.html:55
 msgid "Open app"
 msgstr "Tətbiqi aç"
 
@@ -3792,7 +3952,7 @@ msgstr ""
 "əlaqə saxlayın."
 
 #: apps/marketing/templates/marketing/home.html:69
-#: templates/layouts/marketing.html:27 templates/layouts/marketing.html:46
+#: templates/layouts/marketing.html:27 templates/layouts/marketing.html:47
 msgid "How it works"
 msgstr "Necə işləyir"
 
@@ -3835,8 +3995,8 @@ msgstr ""
 #: apps/marketing/templates/marketing/home.html:84
 #: apps/marketing/templates/marketing/pricing.html:3
 #: apps/marketing/templates/marketing/pricing.html:10
-#: templates/layouts/marketing.html:28 templates/layouts/marketing.html:47
-#: templates/layouts/marketing.html:73
+#: templates/layouts/marketing.html:28 templates/layouts/marketing.html:48
+#: templates/layouts/marketing.html:75
 msgid "Pricing"
 msgstr "Qiymətlər"
 
@@ -5231,8 +5391,8 @@ msgid "Plan"
 msgstr "Plan"
 
 #: apps/organizations/templates/organizations/dashboard.html:25
-#: templates/layouts/marketing.html:26 templates/layouts/marketing.html:45
-#: templates/layouts/marketing.html:72
+#: templates/layouts/marketing.html:26 templates/layouts/marketing.html:46
+#: templates/layouts/marketing.html:74
 msgid "Products"
 msgstr "Məhsullar"
 
@@ -6629,7 +6789,7 @@ msgstr "PDF"
 msgid "Share a PDF document"
 msgstr "PDF sənəd paylaşın"
 
-#: apps/qr_management/types.py:350 templates/layouts/marketing.html:41
+#: apps/qr_management/types.py:350 templates/layouts/marketing.html:42
 msgid "Menu"
 msgstr "Menyu"
 
@@ -7101,10 +7261,6 @@ msgstr "Ən aşağı dəyərin adı"
 #: apps/surveys/forms.py:69
 msgid "Label for the highest value"
 msgstr "Ən yüksək dəyərin adı"
-
-#: apps/surveys/forms.py:89 apps/surveys/qtypes.py:145
-msgid "Your email"
-msgstr "E-poçtunuz"
 
 #: apps/surveys/forms.py:102
 msgid "Please confirm before we store your contact details."
@@ -8069,7 +8225,7 @@ msgstr "Dil"
 msgid "Account menu"
 msgstr "Hesab menyusu"
 
-#: templates/layouts/account.html:14 templates/layouts/marketing.html:79
+#: templates/layouts/account.html:14 templates/layouts/marketing.html:82
 msgid "Account"
 msgstr "Hesab"
 
@@ -8097,7 +8253,7 @@ msgstr "Pulsuz beta"
 msgid "New modules are released here as soon as they are ready."
 msgstr "Yeni modullar hazır olan kimi burada buraxılır."
 
-#: templates/layouts/auth.html:10 templates/layouts/marketing.html:67
+#: templates/layouts/auth.html:10 templates/layouts/marketing.html:69
 msgid "QR technology that powers smarter business operations."
 msgstr "Daha ağıllı biznes əməliyyatlarını gücləndirən QR texnologiyası."
 
@@ -8122,25 +8278,25 @@ msgstr ""
 "QR kodları idarə edin, müştəri rəylərini toplayın, aktivləri izləyin və "
 "tədbirlərdəki əlaqələri biznes imkanlarına çevirin — hamısı bir platformada."
 
-#: templates/layouts/marketing.html:30 templates/layouts/marketing.html:49
-#: templates/layouts/marketing.html:75
+#: templates/layouts/marketing.html:30 templates/layouts/marketing.html:50
+#: templates/layouts/marketing.html:77
 msgid "FAQ"
 msgstr "Tez-tez verilən suallar"
 
-#: templates/layouts/marketing.html:37 templates/layouts/marketing.html:54
-#: templates/layouts/marketing.html:81
+#: templates/layouts/marketing.html:38 templates/layouts/marketing.html:56
+#: templates/layouts/marketing.html:84
 msgid "Sign in"
 msgstr "Daxil ol"
 
-#: templates/layouts/marketing.html:70
+#: templates/layouts/marketing.html:72
 msgid "Product"
 msgstr "Məhsul"
 
-#: templates/layouts/marketing.html:82
+#: templates/layouts/marketing.html:85
 msgid "Create account"
 msgstr "Hesab yarat"
 
-#: templates/layouts/marketing.html:89
+#: templates/layouts/marketing.html:92
 msgid "Free beta — features are released step by step."
 msgstr "Pulsuz beta — funksiyalar mərhələ-mərhələ buraxılır."
 

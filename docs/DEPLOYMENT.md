@@ -119,6 +119,12 @@ Write posts in the admin → **Marketing → Blog posts**. Each post is written 
 "published at" empty for a draft, set a future time to schedule. To put an image inside the
 text, upload it under "Images for the text", save, and paste the line shown into the text.
 
+## 9a. Contact page
+`/contact/` and `/az/contact/`. Edit the texts and details in the admin → **Marketinq →
+Əlaqə səhifəsi** (one entry per language). Form messages are saved under **Əlaqə
+mesajları** and emailed to "send messages to" (needs Resend). Create the `support@qrumy.com`
+mailbox or change the addresses there.
+
 ## 10. Google sign-in
 1. Open https://console.cloud.google.com → create (or pick) a project.
 2. **APIs & Services → OAuth consent screen**: type *External*, app name *Qrumy*, support

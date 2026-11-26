@@ -1,0 +1,11 @@
+{% load i18n %}<!DOCTYPE html>
+<html><body style="margin:0;background:#F7F9FC;font-family:Inter,Segoe UI,Arial,sans-serif;color:#172033">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="padding:32px 16px"><tr><td align="center">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;background:#fff;border:1px solid #E3E8F0;border-radius:12px">
+<tr><td style="padding:28px 32px 0"><span style="font-size:22px;font-weight:700;color:#101B3A">Qrumy</span></td></tr>
+<tr><td style="padding:20px 32px 28px">
+<p style="margin:0 0 6px;font-size:13px;font-weight:600;color:#4F7CFF">{{ msg.get_topic_display }}</p>
+<h1 style="margin:0 0 8px;font-size:20px">{{ msg.name }}</h1>
+<p style="margin:0;font-size:14px;color:#687386"><a href="mailto:{{ msg.email }}" style="color:#101B3A">{{ msg.email }}</a>{% if msg.phone %} · {{ msg.phone }}{% endif %}{% if msg.company %} · {{ msg.company }}{% endif %}</p>
+<p style="margin:16px 0 0;font-size:15px;line-height:1.6">{{ msg.message|linebreaksbr }}</p>
+</td></tr></table></td></tr></table></body></html>
