@@ -1,0 +1,9 @@
+{% load i18n qrumy %}
+<nav aria-label="{% translate 'Breadcrumb' %}" class="text-sm">
+  <ol class="flex flex-wrap items-center gap-1.5 text-muted">
+    {% for name, url in crumbs %}
+      {% if not forloop.last %}<li><a href="{{ url }}" class="text-muted no-underline hover:text-ink">{{ name }}</a></li><li aria-hidden="true">{% icon 'chevron-right' 'size-3.5' %}</li>
+      {% else %}<li aria-current="page" class="truncate text-ink">{{ name }}</li>{% endif %}
+    {% endfor %}
+  </ol>
+</nav>

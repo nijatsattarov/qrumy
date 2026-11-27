@@ -1,0 +1,89 @@
+{% extends "layouts/marketing.html" %}
+{% load i18n qrumy %}
+{% block title %}{{ seo.title }}{% endblock %}
+{% block title_suffix %}{% endblock %}
+{% block meta_description %}{{ seo.description }}{% endblock %}
+{% block extra_head %}<script type="application/ld+json">{{ ld_json }}</script>{% endblock %}
+{% block content %}
+<section class="relative overflow-hidden pb-12">
+  <div aria-hidden="true" class="pointer-events-none absolute inset-x-0 top-0 h-[460px] bg-[radial-gradient(ellipse_60%_60%_at_50%_0%,rgb(79_124_255/0.10),transparent)]"></div>
+  <div class="relative mx-auto max-w-6xl px-4 pt-6 sm:px-6">
+    {% include "marketing/_breadcrumbs.html" %}
+  </div>
+  <div class="relative mx-auto max-w-3xl px-4 pb-8 pt-6 text-center sm:px-6">
+    <p class="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1 text-xs font-medium text-muted"><span class="size-1.5 rounded-full bg-accent-500"></span>{% translate "Free · No signup · PNG & SVG" %}</p>
+    <h1 class="mt-4 text-4xl font-semibold leading-[1.1] tracking-[-0.03em] sm:text-5xl">{{ seo.h1 }}</h1>
+    <p class="mt-4 text-lg leading-relaxed text-muted">{{ c.intro }}</p>
+  </div>
+  <div class="relative">{% include "marketing/generator/_section.html" %}</div>
+</section>
+
+<section class="border-t border-line bg-canvas py-16">
+  <div class="mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-2">
+    <div>
+      <h2 class="text-2xl font-semibold tracking-tight">{% blocktranslate with t=c.link_label %}How to create a {{ t }} code{% endblocktranslate %}</h2>
+      <ol class="mt-6 space-y-4">
+        {% for step in c.steps %}
+        <li class="flex gap-4"><span class="inline-flex size-8 shrink-0 items-center justify-center rounded-full bg-navy-900 text-sm font-semibold text-white">{{ forloop.counter }}</span><p class="pt-1 leading-relaxed">{{ step }}</p></li>
+        {% endfor %}
+      </ol>
+    </div>
+    <div>
+      <h2 class="text-2xl font-semibold tracking-tight">{% translate "Where to use it" %}</h2>
+      <ul class="mt-6 grid gap-3 sm:grid-cols-2">
+        {% for use in c.uses %}<li class="flex items-start gap-2 rounded-xl border border-line bg-surface p-4 text-sm">{% icon 'check' 'size-4 mt-0.5 shrink-0 text-accent-500' %}{{ use }}</li>{% endfor %}
+      </ul>
+      <div class="mt-6 rounded-xl border border-line bg-surface p-5">
+        <h3 class="text-sm font-semibold uppercase tracking-wide text-muted">{% translate "Example" %}</h3>
+        <p class="mt-2 leading-relaxed">{{ c.example }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-16">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6">
+    <h2 class="text-2xl font-semibold tracking-tight">{% translate "Static or dynamic QR code?" %}</h2>
+    <div class="mt-6 grid gap-4 md:grid-cols-2">
+      <div class="card p-6">
+        <h3 class="font-semibold">{% translate "Static — free on this page" %}</h3>
+        <p class="mt-2 text-sm leading-relaxed text-muted">{% translate "The content is stored in the pattern. It works forever and needs no account, but it cannot be changed or tracked after printing." %}</p>
+      </div>
+      <div class="card border-navy-900/30 p-6">
+        <h3 class="font-semibold">{% translate "Dynamic — with a free Qrumy account" %}</h3>
+        <p class="mt-2 text-sm leading-relaxed text-muted">{% translate "The code opens a short link you can change at any time. See scans by day, device and country, pause the code or set an expiry date." %}</p>
+        <a href="{% if user.is_authenticated %}{% url 'app_home' %}{% else %}{% url 'account_signup' %}{% endif %}" class="btn btn-primary btn-sm mt-4" data-track="cta_dynamic_click">{% translate "Create a dynamic QR code" %}{% icon 'arrow-right' 'size-4' %}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="border-t border-line bg-canvas py-16">
+  <div class="mx-auto max-w-3xl px-4 sm:px-6">
+    <h2 class="text-2xl font-semibold tracking-tight">{% translate "Frequently asked questions" %}</h2>
+    <div class="mt-6 divide-y divide-line rounded-2xl border border-line bg-surface">
+      {% for q, a in c.faq %}
+      <details class="group p-5"{% if forloop.first %} open{% endif %}>
+        <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-medium"><h3 class="text-base">{{ q }}</h3>{% icon 'chevron-down' 'size-4 shrink-0 text-muted transition-transform group-open:rotate-180' %}</summary>
+        <p class="mt-3 leading-relaxed text-muted">{{ a }}</p>
+      </details>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="py-16">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6">
+    <h2 class="text-2xl font-semibold tracking-tight">{% translate "Related free QR generators" %}</h2>
+    <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {% for r in related %}
+      <a href="{% url r.url_name %}" class="card flex flex-col p-5 text-ink no-underline hover:border-line-strong">
+        <span class="flex items-center gap-3 font-semibold"><span class="inline-flex size-9 items-center justify-center rounded-lg bg-canvas">{% icon r.icon 'size-4' %}</span>{{ r.label }}</span>
+        <span class="mt-2 text-sm leading-relaxed text-muted">{{ r.text }}</span>
+      </a>
+      {% endfor %}
+    </div>
+    {% if guide %}<p class="mt-8 text-sm text-muted">{% url 'blog_post' guide.slug as guide_url %}{% url 'tool_qr_code_generator' as all_tools %}{% blocktranslate with title=guide.title %}New to QR codes? Read “<a href="{{ guide_url }}">{{ title }}</a>” or see <a href="{{ all_tools }}">all free QR code types</a>.{% endblocktranslate %}</p>{% endif %}
+  </div>
+</section>
+{% endblock %}

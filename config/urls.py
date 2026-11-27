@@ -10,7 +10,7 @@ from apps.assets import urls as asset_urls
 from apps.cards import urls as card_urls
 from apps.core import views as core_views
 from apps.events import urls as event_urls
-from apps.marketing.sitemaps import BlogSitemap, StaticViewSitemap
+from apps.marketing.sitemaps import BlogSitemap, StaticViewSitemap, ToolSitemap
 from apps.menus import urls as menu_urls
 from apps.qr_management import urls as qr_urls
 from apps.surveys import urls as survey_urls
@@ -40,7 +40,8 @@ urlpatterns = [
     path("invitations/", include("apps.organizations.invitation_urls")),
     path("notifications/", include("apps.notifications.urls")),
     path("robots.txt", core_views.robots_txt, name="robots_txt"),
-    path("sitemap.xml", sitemap, {"sitemaps": {"static": StaticViewSitemap, "blog": BlogSitemap}},
+    path("sitemap.xml", sitemap, {"sitemaps": {"static": StaticViewSitemap, "tools": ToolSitemap,
+                                        "blog": BlogSitemap}},
          name="django.contrib.sitemaps.views.sitemap"),
 ]
 

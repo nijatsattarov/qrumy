@@ -165,3 +165,9 @@ Legend: `[ ]` not started · `[~]` in progress · `[x]` done and tested
       stats, in-app + email notifications, private read-only exhibitor link (hashed, revocable)
 - [ ] Events B: registration, tickets, check-in; exhibitor accounts in their own organization
 - [x] Contact page (en/az) edited in the admin, contact form → admin + email, spam protection
+- [x] SEO: 10 free QR landing pages (en/az), homepage targeting "free QR code generator",
+      metadata + canonical + hreflang + OG/Twitter everywhere, JSON-LD (Organization,
+      WebSite, WebApplication, FAQPage, BreadcrumbList, BlogPosting), robots.txt + sitemap
+      on SITE_URL, X-Robots-Tag for private areas, helpful 404, SEO editable in the admin
+      (page SEO, settings, verification codes, blog SEO fields), anonymous funnel counters.
+      See docs/SEO.md.

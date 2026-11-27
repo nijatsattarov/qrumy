@@ -1,8 +1,8 @@
 {% extends "layouts/marketing.html" %}
 {% load i18n qrumy social %}
-{% block title %}{{ page.title }}{% endblock %}
-{% block meta_description %}{{ page.intro|truncatechars:150 }}{% endblock %}
-{% block og_title %}{{ page.title }} — Qrumy{% endblock %}
+{% block title %}{{ seo.title }}{% endblock %}
+{% block title_suffix %}{% endblock %}
+{% block meta_description %}{{ seo.description }}{% endblock %}
 {% block content %}
 <section class="py-14 sm:py-20">
   <div class="mx-auto max-w-6xl px-4 sm:px-6">

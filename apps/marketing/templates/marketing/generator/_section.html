@@ -1,11 +1,14 @@
 {% load i18n qrumy %}
-<section id="generator" class="scroll-mt-20">
+<section id="generator" class="scroll-mt-20" data-track-endpoint="{% url 'track_event' %}" data-track-page="{{ seo.page|default:'home' }}">
   <div class="mx-auto max-w-6xl px-4 sm:px-6">
     <div class="mb-4">{% include "components/messages.html" %}</div>
     <form id="gen-form" method="post" enctype="multipart/form-data" class="card grid overflow-hidden lg:grid-cols-[1fr_360px]"
           hx-post="{% url 'generator_preview' %}" hx-target="#gen-preview" hx-encoding="multipart/form-data"
           hx-trigger="change, input delay:500ms" hx-sync="this:queue last">
       {% csrf_token %}
+      <input type="hidden" name="next" value="{{ request.path }}">
+      <input type="hidden" name="page" value="{{ seo.page|default:'home' }}">
+      <input type="hidden" name="counted" value="0" data-gen-counted>
       <div class="space-y-8 p-5 sm:p-7">
         <div>
           <h2 class="flex items-center gap-2 text-lg font-semibold"><span class="inline-flex size-6 items-center justify-center rounded-full bg-navy-900 text-xs text-white">1</span>{% translate "Choose the content" %}</h2>
@@ -47,11 +50,11 @@
           <p class="text-lg font-semibold">{% translate "Need more than a static code?" %}</p>
           <p class="mt-1 text-sm text-white/70">{% translate "These need a free account — still free during the beta." %}</p>
         </div>
-        <a href="{% if user.is_authenticated %}{% url 'app_home' %}{% else %}{% url 'account_signup' %}{% endif %}" class="btn btn-on-dark shrink-0">{% if user.is_authenticated %}{% translate "Open app" %}{% else %}{% translate "Create a free account" %}{% endif %}{% icon 'arrow-right' 'size-4' %}</a>
+        <a href="{% if user.is_authenticated %}{% url 'app_home' %}{% else %}{% url 'account_signup' %}{% endif %}" class="btn btn-on-dark shrink-0" data-track="cta_upgrade_click">{% if user.is_authenticated %}{% translate "Open app" %}{% else %}{% translate "Create a free account" %}{% endif %}{% icon 'arrow-right' 'size-4' %}</a>
       </div>
       <div class="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {% for f in pro_features %}
-        <a href="{% if user.is_authenticated %}{% url 'app_home' %}{% else %}{% url 'account_signup' %}{% endif %}" class="flex gap-3 rounded-xl bg-white/[0.06] p-4 text-white no-underline ring-1 ring-white/10 hover:bg-white/[0.1]">
+        <a href="{% if user.is_authenticated %}{% url 'app_home' %}{% else %}{% url 'account_signup' %}{% endif %}" data-track="cta_dynamic_click" class="flex gap-3 rounded-xl bg-white/[0.06] p-4 text-white no-underline ring-1 ring-white/10 hover:bg-white/[0.1]">
           <span class="inline-flex size-9 shrink-0 items-center justify-center rounded-lg bg-white/10">{% icon f.icon 'size-4' %}</span>
           <span><span class="flex items-center gap-2 text-sm font-semibold">{{ f.title }}{% icon 'lock' 'size-3.5 text-white/50' %}</span><span class="mt-0.5 block text-xs text-white/65">{{ f.text }}</span></span>
         </a>

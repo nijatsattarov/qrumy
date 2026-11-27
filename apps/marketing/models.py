@@ -57,6 +57,13 @@ class Post(models.Model):
                               validators=[validate_blog_image],
                               help_text=_("Optional. 1200×630 works best for sharing."))
     cover_alt = models.CharField(_("cover description"), max_length=160, blank=True)
+    seo_title = models.CharField(_("SEO title"), max_length=90, blank=True,
+                                 help_text=_("Optional, 50–60 characters. Empty: the title."))
+    meta_description = models.CharField(
+        _("meta description"), max_length=200, blank=True,
+        help_text=_("Optional, 120–160 characters. Empty: the summary."))
+    keywords = models.CharField(_("keywords"), max_length=255, blank=True,
+                                help_text=_("Optional, comma-separated."))
     author_name = models.CharField(_("author"), max_length=80, default="Qrumy")
     published_at = models.DateTimeField(_("published at"), null=True, blank=True,
                                         help_text=_("Empty = draft (not shown to anyone). "
@@ -270,3 +277,130 @@ class ContactMessage(models.Model):
 
     def __str__(self) -> str:
         return f"{self.name} — {self.get_topic_display()}"
+
+
+# --------------------------------------------------------------------------------- SEO
+class SeoSettings(models.Model):
+    """Site-wide SEO settings (one row, edited in the admin)."""
+
+    title_suffix = models.CharField(_("title suffix"), max_length=40, default=" | Qrumy",
+                                    help_text=_("Added to page titles that do not already "
+                                                "contain the brand name."))
+    default_og_image = models.ImageField(
+        _("default social image"), upload_to=blog_upload_to, blank=True,
+        validators=[validate_blog_image],
+        help_text=_("1200×630. Used when a page has no image of its own. Empty: the built-in "
+                    "Qrumy image."))
+    google_site_verification = models.CharField(
+        _("Google Search Console verification code"), max_length=120, blank=True,
+        help_text=_("Only the content value of the HTML tag Google gives you, e.g. "
+                    "“abc123…”. Leave empty if you verify by DNS."))
+    bing_site_verification = models.CharField(_("Bing verification code"), max_length=120,
+                                              blank=True)
+    yandex_site_verification = models.CharField(_("Yandex verification code"),
+                                                max_length=120, blank=True)
+    same_as = models.TextField(
+        _("official social profiles"), blank=True,
+        help_text=_("One link per line (Instagram, LinkedIn, Facebook…). Used in the "
+                    "Organization structured data."))
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = _("SEO settings")
+        verbose_name_plural = _("SEO settings")
+
+    def __str__(self) -> str:
+        return str(_("SEO settings"))
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        from django.core.cache import cache
+
+        cache.delete("qrumy:seo-settings")
+
+    @classmethod
+    def load(cls) -> "SeoSettings":
+        from django.core.cache import cache
+
+        obj = cache.get("qrumy:seo-settings")
+        if obj is None:
+            obj = cls.objects.first() or cls()
+            cache.set("qrumy:seo-settings", obj, 300)
+        return obj
+
+    @property
+    def same_as_list(self) -> list[str]:
+        return [u.strip() for u in self.same_as.splitlines() if u.strip().startswith("https://")]
+
+
+class SeoPage(models.Model):
+    """Admin overrides for the SEO of one public page in one language.
+
+    Empty fields keep the built-in text. ``page`` is the page key, e.g. "home",
+    "pricing" or "tool:wifi-qr-code-generator".
+    """
+
+    page = models.CharField(_("page"), max_length=80)
+    language = models.CharField(_("language"), max_length=8, choices=settings.LANGUAGES)
+    title = models.CharField(_("SEO title"), max_length=90, blank=True,
+                             help_text=_("50–60 characters work best. Empty: built-in title."))
+    meta_description = models.CharField(
+        _("meta description"), max_length=200, blank=True,
+        help_text=_("120–160 characters. Shown under the title in Google. Empty: built-in."))
+    keywords = models.CharField(
+        _("keywords"), max_length=255, blank=True,
+        help_text=_("Comma-separated, e.g. “free qr code generator, wifi qr code”. Google "
+                    "ignores this tag for ranking; use the words in the title, H1 and text."))
+    focus_keyword = models.CharField(
+        _("focus keyword"), max_length=80, blank=True,
+        help_text=_("The main search phrase of this page. The admin checks whether it "
+                    "appears in the title and description."))
+    h1 = models.CharField(_("H1 heading"), max_length=120, blank=True,
+                          help_text=_("Optional. Empty: built-in heading."))
+    og_image = models.ImageField(_("social image"), upload_to=blog_upload_to, blank=True,
+                                 validators=[validate_blog_image],
+                                 help_text=_("1200×630. Empty: the default social image."))
+    noindex = models.BooleanField(_("hide from search engines (noindex)"), default=False)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["page", "language"]
+        verbose_name = _("page SEO")
+        verbose_name_plural = _("page SEO")
+        constraints = [models.UniqueConstraint(fields=["page", "language"],
+                                               name="marketing_seopage_unique")]
+
+    def __str__(self) -> str:
+        return f"{self.page} ({self.language})"
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        from django.core.cache import cache
+
+        cache.delete(f"qrumy:seo:{self.page}:{self.language}")
+
+
+class SiteEvent(models.Model):
+    """First-party, anonymous daily counters for the acquisition funnel.
+
+    No cookies, IPs or personal data: only the event name, page key, language,
+    traffic source (search / social / direct / other) and a count per day.
+    """
+
+    day = models.DateField()
+    name = models.CharField(max_length=40)
+    page = models.CharField(max_length=80, blank=True)
+    language = models.CharField(max_length=8, blank=True)
+    source = models.CharField(max_length=10, blank=True)
+    count = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        constraints = [models.UniqueConstraint(fields=["day", "name", "page", "language",
+                                                       "source"],
+                                               name="marketing_siteevent_unique")]
+        indexes = [models.Index(fields=["name", "day"])]
+        verbose_name = _("site event")
+        verbose_name_plural = _("site events")
+
+    def __str__(self) -> str:
+        return f"{self.day} {self.name} {self.page} = {self.count}"

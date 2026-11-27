@@ -74,9 +74,21 @@ def _build(request):
     return t, t.encode(payload_from_form(content_form)), style_form.style(), logo, None
 
 
+def _track(request, name, page=""):
+    from django.utils import translation
+
+    from . import seo
+
+    if not seo.is_bot(request):
+        seo.track(name, page=page or request.POST.get("page", "")[:80],
+                  language=translation.get_language() or "")
+
+
 @require_GET
 def generator_fields(request):
     """HTMX: tabs + content fields for another type (design fields stay as they are)."""
+    if request.GET.get("type") in FREE_TYPES:
+        _track(request, "qr_type_selected", page=f"type:{request.GET['type']}")
     return render(request, "marketing/generator/_content.html",
                   generator_context(request, request.GET.get("type")))
 
@@ -92,6 +104,8 @@ def generator_preview(request):
                       {"empty": True, "sample": sample, "gen_type": t})
     problems = contrast_problems(style)
     scannable = not problems and is_scannable(content, style, logo)
+    if scannable and request.POST.get("counted") != "1":
+        _track(request, "qr_generated")
     return render(request, "marketing/generator/_preview.html", {
         "svg": render_svg(content, style, logo), "problems": problems,
         "scannable": scannable, "gen_type": t})
@@ -101,7 +115,10 @@ def generator_preview(request):
 @ratelimit(key="ip", rate="30/m", block=True)
 def generator_download(request, fmt: str):
     t, content, style, logo, errors = _build(request)
-    back = reverse("home") + f"?type={t.key}#generator"
+    nxt = request.POST.get("next", "")
+    if not (nxt.startswith("/") and not nxt.startswith("//") and "\n" not in nxt):
+        nxt = reverse("home")
+    back = f"{nxt}?type={t.key}#generator"
     if content is None:
         messages.error(request, _("Fill in the fields to create your QR code."))
         return redirect(back)
@@ -110,6 +127,7 @@ def generator_download(request, fmt: str):
                                   "smaller logo."))
         return redirect(back)
     name = f"qrumy-{t.key}"
+    _track(request, "qr_download_svg" if fmt == "svg" else "qr_download_png")
     if fmt == "svg":
         resp = HttpResponse(render_svg(content, style, logo), content_type="image/svg+xml")
         resp["Content-Disposition"] = f'attachment; filename="{name}.svg"'

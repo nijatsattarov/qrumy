@@ -1,8 +1,8 @@
 {% extends "layouts/marketing.html" %}
 {% load i18n %}
-{% block title %}{% translate "Pricing" %}{% endblock %}
-{% block meta_description %}{% translate "Qrumy is free during the beta. See the planned plans for QR management, surveys, events and asset tracking." %}{% endblock %}
-{% block og_title %}{% translate "Qrumy pricing" %}{% endblock %}
+{% block title %}{{ seo.title }}{% endblock %}
+{% block title_suffix %}{% endblock %}
+{% block meta_description %}{{ seo.description }}{% endblock %}
 {% block content %}
 <section class="py-16 sm:py-20">
   <div class="mx-auto max-w-6xl px-4 sm:px-6">

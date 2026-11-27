@@ -1,6 +1,6 @@
 {% load i18n %}
 <article class="card flex flex-col overflow-hidden">
-  {% if post.cover %}<a href="{% url 'blog_post' post.slug %}" class="block aspect-[1200/630] overflow-hidden bg-canvas"><img src="{{ post.cover.url }}" alt="{{ post.cover_alt }}" loading="lazy" class="h-full w-full object-cover"></a>{% endif %}
+  {% if post.cover %}<a href="{% url 'blog_post' post.slug %}" class="block aspect-[1200/630] overflow-hidden bg-canvas"><img src="{{ post.cover.url }}" alt="{{ post.cover_alt|default:post.title }}" width="1200" height="630" loading="lazy" class="h-full w-full object-cover"></a>{% endif %}
   <div class="flex grow flex-col p-6">
     <p class="text-xs text-muted"><time datetime="{{ post.published_at|date:'c' }}">{{ post.published_at|date:"j E Y" }}</time> · {% blocktranslate count m=post.reading_minutes %}{{ m }} min read{% plural %}{{ m }} min read{% endblocktranslate %}</p>
     <h2 class="mt-2 text-lg font-semibold leading-snug"><a href="{% url 'blog_post' post.slug %}" class="text-ink no-underline hover:text-brand">{{ post.title }}</a></h2>

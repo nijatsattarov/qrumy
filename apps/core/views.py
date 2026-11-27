@@ -23,9 +23,16 @@ def ratelimited(request, exception=None):
 
 
 def robots_txt(request):
-    lines = ["User-agent: *", "Disallow: /app/", "Disallow: /accounts/",
-             "Disallow: /invitations/", "Disallow: /s/", "Disallow: /q/", "Disallow: /a/",
-             f"Sitemap: {request.build_absolute_uri('/sitemap.xml')}"]
+    """Crawl rules. The admin path is not listed on purpose (it would reveal it); it answers
+    404 to everyone but staff and sends X-Robots-Tag: noindex."""
+    from django.conf import settings
+
+    private = ["/app/", "/accounts/", "/invitations/", "/notifications/", "/lang/",
+               "/i18n/", "/qr-generator/", "/az/qr-generator/", "/t/", "/az/t/",
+               # customers' public QR pages, cards, menus, surveys, forms (noindex content)
+               "/q/", "/s/", "/a/", "/c/", "/m/", "/e/"]
+    lines = ["User-agent: *", "Allow: /", *[f"Disallow: {p}" for p in private], "",
+             f"Sitemap: {settings.SITE_URL}/sitemap.xml"]
     return HttpResponse("\n".join(lines) + "\n", content_type="text/plain")
 
 

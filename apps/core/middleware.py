@@ -64,10 +64,20 @@ class SecurityHeadersMiddleware:
     POLICY = ("camera=(), microphone=(), geolocation=(), payment=(), usb=(), "
               "interest-cohort=()")
 
+    PRIVATE = ("/app/", "/accounts/", "/invitations/", "/notifications/", "/lang/",
+               "/i18n/", "/qr-generator/", "/az/qr-generator/", "/t/", "/az/t/", "/e/x/")
+
     def __init__(self, get_response):
+        from django.conf import settings
+
         self.get_response = get_response
+        self.private = (*self.PRIVATE, "/" + settings.QRUMY_ADMIN_PATH)
 
     def __call__(self, request):
         response = self.get_response(request)
         response.setdefault("Permissions-Policy", self.POLICY)
+        if request.path.startswith(self.private):
+            # Keep the admin, the app and internal endpoints out of search results even if
+            # a link to them is found somewhere.
+            response.setdefault("X-Robots-Tag", "noindex, nofollow")
         return response

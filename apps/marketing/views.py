@@ -2,7 +2,7 @@ import json
 
 from django.conf import settings
 from django.shortcuts import render
-from django.utils.safestring import mark_safe
+from django.utils import translation
 from django.utils.translation import gettext_lazy as _
 
 from apps.subscriptions.features import FEATURES
@@ -90,15 +90,86 @@ FAQ = [
 def home(request):
     available = set(settings.QRUMY_AVAILABLE_MODULES)
     products = [{**p, "available": p["key"] in available} for p in PRODUCTS]
+    from . import seo
     from .generator import generator_context
+    from .seo_tools import TOOLS, content
 
+    meta = seo.page_meta(request, "home", **seo.defaults_for("home"))
+    lang = translation.get_language()
+    tools = [{"url_name": t.url_name, "icon": t.icon,
+              "label": content(t, lang)["link_label"]} for t in TOOLS]
+    app_ld = {"@type": "WebApplication", "@id": settings.SITE_URL + "/#app", "name": "Qrumy",
+              "url": settings.SITE_URL + "/", "applicationCategory": "BusinessApplication",
+              "operatingSystem": "Any (web browser)", "inLanguage": lang,
+              "description": str(meta["description"]),
+              "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD",
+                         "description": str(_("Free static QR code generator, no signup"))},
+              "publisher": {"@id": settings.SITE_URL + "/#organization"}}
+    website_ld = {"@type": "WebSite", "@id": settings.SITE_URL + "/#website", "name": "Qrumy",
+                  "url": settings.SITE_URL + "/", "inLanguage": lang,
+                  "publisher": {"@id": settings.SITE_URL + "/#organization"}}
+    with translation.override(lang):
+        faq = [(str(q), str(a)) for q, a in FAQ]
     return render(request, "marketing/home.html", {
-        "products": products, "plans": _plans(), "faq": FAQ,
+        "products": products, "plans": _plans(), "faq": FAQ, "seo": meta, "tools": tools,
+        "ld_json": seo.graph(seo.organization_ld(), website_ld, app_ld, seo.faq_ld(faq)),
         **generator_context(request, request.GET.get("type"))})
 
 
+def tool_page(request, slug):
+    """A free QR generator landing page for one QR type."""
+    from django.urls import reverse
+
+    from . import seo
+    from .generator import generator_context
+    from .seo_tools import TOOLS_BY_SLUG, content
+
+    tool = TOOLS_BY_SLUG[slug]
+    lang = translation.get_language()
+    c = content(tool, lang)
+    meta = seo.page_meta(request, f"tool:{slug}", title=c["title"],
+                         description=c["description"], h1=c["h1"])
+    related = []
+    for rel in tool.related:
+        t = TOOLS_BY_SLUG[rel]
+        rc = content(t, lang)
+        related.append({"url_name": t.url_name, "icon": t.icon, "label": rc["link_label"],
+                        "text": rc["description"]})
+    home_name = str(_("Home"))
+    crumbs = [(home_name, reverse("home"))]
+    if slug != "qr-code-generator":
+        crumbs.append((str(content(TOOLS_BY_SLUG["qr-code-generator"], lang)["link_label"]),
+                       reverse("tool_qr_code_generator")))
+    crumbs.append((c["h1"], request.path))
+    app_ld = {"@type": "WebApplication", "name": c["h1"], "url": meta["url"],
+              "applicationCategory": "UtilitiesApplication",
+              "operatingSystem": "Any (web browser)", "inLanguage": lang,
+              "description": c["description"], "isAccessibleForFree": True,
+              "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+              "publisher": {"@id": settings.SITE_URL + "/#organization"}}
+    if not seo.is_bot(request):
+        seo.track("tool_view", page=f"tool:{slug}", language=lang,
+                  source=seo.traffic_source(request))
+    from .models import Post
+
+    guide = (Post.objects.published().filter(
+        language=lang, slug__in=["static-vs-dynamic", "statik-ve-dinamik-qr-kod"]).first()
+        or Post.objects.published().filter(language=lang).first())
+    return render(request, "marketing/tool.html", {
+        "tool": tool, "c": c, "seo": meta, "related": related, "crumbs": crumbs, "guide": guide,
+        "ld_json": seo.graph(seo.organization_ld(), app_ld, seo.breadcrumbs_ld(crumbs),
+                             seo.faq_ld(c["faq"])),
+        **generator_context(request, request.GET.get("type") or tool.type_key)})
+
+
 def pricing(request):
-    return render(request, "marketing/pricing.html", {"plans": _plans()})
+    from . import seo
+
+    meta = seo.page_meta(request, "pricing", **seo.defaults_for("pricing"))
+    if not seo.is_bot(request):
+        seo.track("pricing_view", page="pricing", language=translation.get_language(),
+                  source=seo.traffic_source(request))
+    return render(request, "marketing/pricing.html", {"plans": _plans(), "seo": meta})
 
 
 def legal(request, kind):
@@ -106,29 +177,41 @@ def legal(request, kind):
 
     from apps.accounts.legal import current
 
+    from . import seo
+
     doc = current(kind)
     if doc is None:
         raise Http404
-    return render(request, "marketing/legal.html", {"doc": doc})
+    first = next((line.strip() for line in doc.body.splitlines()
+                  if line.strip() and not line.startswith("#")), "")
+    if len(first) > 155:
+        first = first[:152].rsplit(" ", 1)[0] + "…"
+    meta = seo.page_meta(request, kind, title=doc.title, description=first)
+    return render(request, "marketing/legal.html", {"doc": doc, "seo": meta})
 
 
 def blog_index(request):
     from django.core.paginator import Paginator
-    from django.utils import translation
 
+    from . import seo
     from .models import Post
 
     posts = Post.objects.published().filter(language=translation.get_language())
     page = Paginator(posts, 9).get_page(request.GET.get("page"))
-    return render(request, "marketing/blog_index.html", {"page": page})
+    meta = seo.page_meta(request, "blog", **seo.defaults_for("blog"))
+    if page.number > 1:
+        meta["noindex"] = True  # page 2+ of the list: crawl links, don't index the list
+    return render(request, "marketing/blog_index.html", {"page": page, "seo": meta})
 
 
 def blog_post(request, slug):
     from django.http import Http404
     from django.shortcuts import redirect
-    from django.utils import translation
+    from django.urls import reverse
 
+    from . import seo
     from .models import Post
+    from .seo_tools import TOOLS_BY_SLUG, content
 
     post = Post.objects.published().filter(slug=slug,
                                            language=translation.get_language()).first()
@@ -141,17 +224,48 @@ def blog_post(request, slug):
     more = (Post.objects.published().filter(language=post.language)
             .exclude(pk=post.pk)[:3])
     site = settings.SITE_URL
-    ld = {"@context": "https://schema.org", "@type": "BlogPosting", "headline": post.title,
-          "description": post.excerpt, "inLanguage": post.language,
-          "datePublished": post.published_at.isoformat(),
-          "dateModified": post.updated_at.isoformat(),
-          "author": {"@type": "Organization", "name": post.author_name},
-          "publisher": {"@type": "Organization", "name": "Qrumy"},
-          "mainEntityOfPage": site + request.path}
-    if post.cover:
-        ld["image"] = site + post.cover.url
-    # Same escaping as json_script: the JSON can never close the <script> element.
-    ld_json = mark_safe(json.dumps(ld).translate(  # noqa: S308
-        {ord(">"): "\\u003E", ord("<"): "\\u003C", ord("&"): "\\u0026"}))
-    return render(request, "marketing/blog_post.html",
-                  {"post": post, "more": more, "ld_json": ld_json})
+    meta = seo.page_meta(request, f"post:{post.pk}", title=post.seo_title or post.title,
+                         description=post.meta_description or post.excerpt,
+                         image=post.cover.url if post.cover else "", og_type="article")
+    if post.keywords and not meta["keywords"]:
+        meta["keywords"] = post.keywords
+    crumbs = [(str(_("Home")), reverse("home")), (str(_("Blog")), reverse("blog")),
+              (post.title, request.path)]
+    posting = {"@type": "BlogPosting", "headline": post.title[:110],
+               "description": meta["description"], "inLanguage": post.language,
+               "datePublished": post.published_at.isoformat(),
+               "dateModified": post.updated_at.isoformat(),
+               "author": {"@type": "Organization" if post.author_name == "Qrumy" else "Person",
+                          "name": post.author_name},
+               "publisher": {"@id": site + "/#organization"},
+               "mainEntityOfPage": {"@type": "WebPage", "@id": site + request.path},
+               "image": meta["image"]}
+    if post.keywords:
+        posting["keywords"] = post.keywords
+    tools = [TOOLS_BY_SLUG[s] for s in ("qr-code-generator", "wifi-qr-code-generator",
+                                        "whatsapp-qr-code-generator")]
+    lang = post.language
+    tool_links = [{"url_name": t.url_name, "icon": t.icon,
+                   "label": content(t, lang)["link_label"]} for t in tools]
+    return render(request, "marketing/blog_post.html", {
+        "post": post, "more": more, "seo": meta, "crumbs": crumbs, "tool_links": tool_links,
+        "ld_json": seo.graph(seo.organization_ld(), posting, seo.breadcrumbs_ld(crumbs))})
+
+
+def track_event(request):
+    """Beacon for anonymous CTA click counters from public pages."""
+    from django.http import HttpResponse, HttpResponseNotAllowed
+
+    from . import seo
+
+    if request.method != "POST":
+        return HttpResponseNotAllowed(["POST"])
+    try:
+        data = json.loads(request.body or b"{}")
+    except ValueError:
+        return HttpResponse(status=400)
+    name = str(data.get("e", ""))
+    if name in ("cta_dynamic_click", "cta_upgrade_click") and not seo.is_bot(request):
+        seo.track(name, page=str(data.get("p", ""))[:80],
+                  language=translation.get_language() or "")
+    return HttpResponse(status=204)

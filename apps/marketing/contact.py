@@ -76,4 +76,8 @@ def contact(request):
         form.initial["started"] = signing.dumps({"t": time.time()}, salt=SALT)
         if not form.is_bound:
             form.initial.setdefault("topic", request.GET.get("topic", "general"))
-    return render(request, "marketing/contact.html", {"page": page, "form": form})
+    from . import seo
+
+    meta = seo.page_meta(request, "contact", title=page.title,
+                         description=page.intro[:160] or _("Contact the Qrumy team."))
+    return render(request, "marketing/contact.html", {"page": page, "form": form, "seo": meta})

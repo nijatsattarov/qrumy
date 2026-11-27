@@ -132,7 +132,9 @@ def dashboard_callback(request, context):
            QR.objects.filter(deleted_at__isnull=True).values("organization__name")
            .annotate(n=Count("pk")).order_by("-n")[:8]]
 
+    funnel = _funnel()
     context.update({
+        "funnel": funnel,
         "kpis": kpis,
         "revenue": revenue,
         "signup_chart": _chart(labels, signups, _("Sign-ups")),
@@ -141,3 +143,40 @@ def dashboard_callback(request, context):
         "top_orgs": {"headers": [_("Organization"), _("QR codes")], "rows": top},
     })
     return context
+
+
+def _funnel() -> dict | None:
+    """SEO → free tool → download → signup → paid, from anonymous daily counters."""
+    Event = _model("marketing.SiteEvent")  # noqa: N806
+    if Event is None:
+        return None
+    since = timezone.localdate() - timedelta(days=29)
+    rows = Event.objects.filter(day__gte=since)
+    totals = dict(rows.values_list("name").annotate(n=Sum("count")))
+    search_views = rows.filter(name="tool_view", source="search").aggregate(
+        n=Sum("count"))["n"] or 0
+    steps = [
+        (_("Free tool page views"), totals.get("tool_view", 0)),
+        (_("QR codes generated"), totals.get("qr_generated", 0)),
+        (_("QR downloads (PNG + SVG)"),
+         totals.get("qr_download_png", 0) + totals.get("qr_download_svg", 0)),
+        (_("Sign-ups"), totals.get("signup_completed", 0)),
+        (_("Paid subscriptions started"), totals.get("subscription_started", 0)),
+    ]
+    first = steps[0][1] or 1
+    top_pages = list(rows.filter(name="tool_view").values("page").annotate(n=Sum("count"))
+                     .order_by("-n")[:6])
+    return {
+        "steps": [{"label": label, "value": _fmt(v),
+                   "pct": f"{v / first * 100:.1f}%" if steps[0][1] else "—"}
+                  for label, v in steps],
+        "search_views": _fmt(search_views),
+        "google_signups": _fmt(totals.get("signup_google", 0)),
+        "png": _fmt(totals.get("qr_download_png", 0)),
+        "svg": _fmt(totals.get("qr_download_svg", 0)),
+        "cta": _fmt(totals.get("cta_dynamic_click", 0) + totals.get("cta_upgrade_click", 0)),
+        "pricing": _fmt(totals.get("pricing_view", 0)),
+        "top_pages": {"headers": [_("Page"), _("Views")],
+                      "rows": [[r["page"].removeprefix("tool:") or "—", _fmt(r["n"])]
+                               for r in top_pages]},
+    }

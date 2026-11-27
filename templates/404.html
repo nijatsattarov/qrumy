@@ -1,15 +1,27 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n qrumy %}
 {% block title %}{% translate "Page not found" %}{% endblock %}
 {% block body_class %}min-h-full bg-canvas{% endblock %}
 {% block body %}
-<main class="grid min-h-screen place-items-center px-4 text-center">
-  <div>
+<main class="grid min-h-screen place-items-center px-4 py-16 text-center">
+  <div class="max-w-xl">
     <a href="{% url 'home' %}" class="no-underline">{% include "components/logo.html" with size="h-8" %}</a>
     <p class="eyebrow mt-10">404</p>
     <h1 class="mt-2 text-2xl font-semibold">{% translate "Page not found" %}</h1>
     <p class="mx-auto mt-2 max-w-sm text-sm text-muted">{% translate "The page you're looking for doesn't exist or you don't have access to it." %}</p>
-    <a href="{% if user.is_authenticated %}{% url 'app_home' %}{% else %}{% url 'home' %}{% endif %}" class="btn btn-primary mt-6">{% if user.is_authenticated %}{% translate "Back to app" %}{% else %}{% translate "Go to homepage" %}{% endif %}</a>
+    <div class="mt-6 flex flex-wrap justify-center gap-2">
+      {% if user.is_authenticated %}<a href="{% url 'app_home' %}" class="btn btn-primary">{% translate "Back to app" %}</a>{% endif %}
+      <a href="{% url 'home' %}#generator" class="btn {% if user.is_authenticated %}btn-secondary{% else %}btn-primary{% endif %}">{% icon 'qr' 'size-4' %}{% translate "Create a free QR code" %}</a>
+      <a href="{% url 'home' %}" class="btn btn-secondary">{% translate "Go to homepage" %}</a>
+    </div>
+    <p class="mt-8 text-sm font-medium">{% translate "Popular free tools" %}</p>
+    <ul class="mt-3 flex flex-wrap justify-center gap-2 text-sm">
+      <li><a href="{% url 'tool_url_qr_code_generator' %}" class="chip">{% icon 'globe' 'size-3.5' %}URL QR</a></li>
+      <li><a href="{% url 'tool_wifi_qr_code_generator' %}" class="chip">{% icon 'wifi' 'size-3.5' %}Wi-Fi QR</a></li>
+      <li><a href="{% url 'tool_whatsapp_qr_code_generator' %}" class="chip">{% icon 'message' 'size-3.5' %}WhatsApp QR</a></li>
+      <li><a href="{% url 'tool_vcard_qr_code_generator' %}" class="chip">{% icon 'user' 'size-3.5' %}vCard QR</a></li>
+      <li><a href="{% url 'blog' %}" class="chip">{% translate "Blog" %}</a></li>
+    </ul>
   </div>
 </main>
 {% endblock %}

@@ -272,3 +272,25 @@ document.addEventListener("click", (event) => {
   if (next) { next.hidden = false; const input = next.querySelector("input"); if (input) input.focus(); }
   if (group && !group.querySelector("[data-reveal-row][hidden]")) add.hidden = true;
 });
+
+// Anonymous funnel counters (no cookies, no personal data): CTA clicks on public pages,
+// and "QR generated" counted once per page view.
+(function () {
+  const root = document.querySelector("[data-track-endpoint]");
+  const endpoint = root && root.dataset.trackEndpoint;
+  function send(name) {
+    if (!endpoint) return;
+    const body = JSON.stringify({ e: name, p: root.dataset.trackPage || "" });
+    if (navigator.sendBeacon) navigator.sendBeacon(endpoint, new Blob([body], { type: "application/json" }));
+  }
+  document.addEventListener("click", (event) => {
+    const el = event.target.closest && event.target.closest("[data-track]");
+    if (el) send(el.dataset.track);
+  });
+  document.addEventListener("htmx:afterSwap", (event) => {
+    if (event.target && event.target.id === "gen-preview" && event.target.querySelector(".qr-frame svg")) {
+      const flag = document.querySelector("[data-gen-counted]");
+      if (flag) flag.value = "1";
+    }
+  });
+})();

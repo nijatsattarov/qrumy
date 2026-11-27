@@ -43,6 +43,23 @@
     <p class="mt-6 text-sm text-subtle">{{ revenue.payments }}</p>
   {% endcomponent %}
 
+  {% if funnel %}
+  {% component "unfold/components/card.html" with title=_("Acquisition funnel, last 30 days") title_icon="filter_alt" %}
+    <div class="grid gap-3 sm:grid-cols-5">
+      {% for s in funnel.steps %}
+      <div class="rounded-default border border-base-200 p-3 dark:border-base-800">
+        {% component "unfold/components/text.html" %}{{ s.label }}{% endcomponent %}
+        <div class="mt-1 text-2xl font-semibold text-important">{{ s.value }}</div>
+        <p class="text-xs text-subtle">{{ s.pct }}</p>
+      </div>
+      {% endfor %}
+    </div>
+    <p class="mt-4 text-sm text-subtle">{% blocktranslate with s=funnel.search_views g=funnel.google_signups p=funnel.png v=funnel.svg c=funnel.cta pr=funnel.pricing %}From search engines: {{ s }} tool page views · Google sign-ups: {{ g }} · PNG {{ p }} / SVG {{ v }} downloads · Upgrade and dynamic QR clicks: {{ c }} · Pricing views: {{ pr }}{% endblocktranslate %}</p>
+    <p class="mt-1 text-xs text-subtle">{% translate "Anonymous counters without cookies or personal data. Bots are not counted." %}</p>
+    {% if funnel.top_pages.rows %}<div class="mt-4">{% component "unfold/components/table.html" with table=funnel.top_pages card_included=1 striped=1 %}{% endcomponent %}</div>{% endif %}
+  {% endcomponent %}
+  {% endif %}
+
   <div class="grid gap-6 lg:grid-cols-2">
     {% component "unfold/components/card.html" with title=_("Sign-ups, last 30 days") %}
       {% component "unfold/components/chart/bar.html" with data=signup_chart height=260 %}{% endcomponent %}

@@ -345,8 +345,6 @@ LOGGING = {
 }
 
 FORM_RENDERER = "apps.core.forms.QrumyFormRenderer"
-# Admin and model forms treat "example.com" as https://example.com (Django 6 default).
-FORMS_URLFIELD_ASSUME_HTTPS = True
 # Number of trusted reverse proxies in front of the app (Nginx = 1 in production).
 QRUMY_TRUSTED_PROXY_COUNT = env.int("QRUMY_TRUSTED_PROXY_COUNT", default=0)
 # django-ratelimit: use the real client IP (Nginx sets X-Forwarded-For).
